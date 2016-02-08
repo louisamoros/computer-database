@@ -13,6 +13,15 @@ public class Computer {
 	public Computer(String name) {
 		this.name = name;
 	}
+	
+	public Computer(int computerId, int companyId, String name, Timestamp introducedDate, Timestamp discontinuedDate) {
+		super();
+		this.computerId = computerId;
+		this.companyId = companyId;
+		this.name = name;
+		this.introducedDate = introducedDate;
+		this.discontinuedDate = discontinuedDate;
+	}
 
 	public int getComputerId() {
 		return computerId;

@@ -9,7 +9,7 @@ public class DaoFactory {
 	private static Connection conn = null;
 	private static final String MYSQL_DRIVER = "com.mysql.jdbc.Driver";
 	private static final String URL = "jdbc:mysql://127.0.0.1:3306/";
-	private static final String DB_NAME = "computer-database-db";
+	private static final String DB_NAME = "computer-database-db?zeroDateTimeBehavior=convertToNull";
 	private static final String USER_NAME = "root";
 	private static final String USER_PWD = "root";
 	

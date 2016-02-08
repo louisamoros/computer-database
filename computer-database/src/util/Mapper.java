@@ -7,6 +7,7 @@ import java.util.List;
 import com.mysql.jdbc.ResultSet;
 
 import model.Company;
+import model.Computer;
 
 public class Mapper {
 
@@ -21,5 +22,24 @@ public class Mapper {
 			e.printStackTrace();
 		}
 		return companies;
-	}	
+	}
+	
+	public static List<Computer> toComputerArrayList(ResultSet rs) {
+		List<Computer> computers = new ArrayList<>();
+		try {
+			while(rs.next()) {
+				Computer computer = new Computer(
+						rs.getInt("id"),
+						rs.getInt("company_id"),
+						rs.getString("name"),
+						rs.getTimestamp("introduced"),
+						rs.getTimestamp("discontinued")
+				);
+				computers.add(computer);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return computers;
+	}
 }

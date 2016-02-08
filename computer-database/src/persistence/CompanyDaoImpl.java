@@ -32,6 +32,7 @@ public class CompanyDaoImpl implements CompanyDao {
 		}
 
 		return companies;
+	
 	}
 
 }
