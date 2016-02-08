@@ -18,4 +18,8 @@ public class ComputerService {
 		return computerDao.getComputers();
 	}
 	
+	public Computer getComputer(int computerId) {
+		return computerDao.getComputer(computerId);
+	}
+	
 }

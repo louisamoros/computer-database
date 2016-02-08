@@ -18,11 +18,17 @@ public class LauncherCDB {
 //		}
 		
 		/*GET COMPUTERS*/
+//		ComputerService computerService = new ComputerService();
+//		List<Computer> computers = computerService.getComputers();
+//		for(Computer computer:computers) {
+//			System.out.println(computer);
+//		}
+		
+		/*GET COMPUTER*/
 		ComputerService computerService = new ComputerService();
-		List<Computer> computers = computerService.getComputers();
-		for(Computer computer:computers) {
-			System.out.println(computer);
-		}
+		Computer computer = computerService.getComputer(35);
+		System.out.println(computer);
+		
 	}
 
 }
