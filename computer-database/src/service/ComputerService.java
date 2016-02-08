@@ -22,4 +22,15 @@ public class ComputerService {
 		return computerDao.getComputer(computerId);
 	}
 	
+	public Computer createComputer(Computer computer) {
+		return computerDao.createComputer(computer);
+	}
+	
+	public Computer updateComputer(int computerId, Computer computer) {
+		return computerDao.updateComputer(computerId, computer);
+	}
+	
+	public void deleteComputer(int computerId) {
+		computerDao.deleteComputer(computerId);
+	}
 }

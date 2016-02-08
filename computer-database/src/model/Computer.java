@@ -23,6 +23,14 @@ public class Computer {
 		this.discontinuedDate = discontinuedDate;
 	}
 
+	public Computer(int companyId, String name, Timestamp introducedDate, Timestamp discontinuedDate) {
+		super();
+		this.companyId = companyId;
+		this.name = name;
+		this.introducedDate = introducedDate;
+		this.discontinuedDate = discontinuedDate;
+	}
+	
 	public int getComputerId() {
 		return computerId;
 	}

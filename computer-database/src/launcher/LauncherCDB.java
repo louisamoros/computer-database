@@ -1,8 +1,8 @@
 package launcher;
 
-import java.util.List;
+import java.sql.Timestamp;
+import java.util.Date;
 
-import model.Company;
 import model.Computer;
 import service.ComputerService;
 
@@ -25,9 +25,30 @@ public class LauncherCDB {
 //		}
 		
 		/*GET COMPUTER*/
-		ComputerService computerService = new ComputerService();
-		Computer computer = computerService.getComputer(35);
-		System.out.println(computer);
+//		ComputerService computerService = new ComputerService();
+//		Computer computer = computerService.getComputer(35);
+//		System.out.println(computer);
+		
+		/*CREATE COMPUTER*/
+//		ComputerService computerService = new ComputerService();
+//		Long time = new Date().getTime();
+//		Timestamp ts = new Timestamp(time);
+//		Computer computer = new Computer(35, "Loul computer", ts, ts);
+//		Computer computerCreated = computerService.createComputer(computer);
+//		System.out.println(computerCreated);
+
+		/*UPDATE COMPUTER*/
+//		ComputerService computerService = new ComputerService();
+//		Long time = new Date().getTime();
+//		Timestamp ts = new Timestamp(time);
+//		Computer computer = new Computer(35, "coucou computer", ts, ts);
+//		computer.setComputerId(585);
+//		Computer computerUpdated = computerService.updateComputer(computer.getComputerId(), computer);
+//		System.out.println(computerUpdated);
+
+		/*UPDATE COMPUTER*/
+//		ComputerService computerService = new ComputerService();
+//		computerService.deleteComputer(585);
 		
 	}
 

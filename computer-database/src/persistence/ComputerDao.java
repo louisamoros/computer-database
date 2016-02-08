@@ -10,9 +10,9 @@ public interface ComputerDao {
 
 	public List<Computer> getComputers();
 
-	public Computer createComputer();
+	public Computer createComputer(Computer computer);
 
-	public Computer updateComputer(int computerId);
+	public Computer updateComputer(int computerId, Computer computer);
 
 	public void deleteComputer(int computerId);
 
