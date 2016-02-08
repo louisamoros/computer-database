@@ -1,44 +1,63 @@
 package model;
 
-import java.sql.Date;
+import java.sql.Timestamp;
 
 public class Computer {
-	
+
 	private int computerId;
 	private int companyId;
 	private String name;
-	private Date introducedDate;
-	
+	private Timestamp introducedDate;
+	private Timestamp discontinuedDate;
+
+	public Computer(String name) {
+		this.name = name;
+	}
+
 	public int getComputerId() {
 		return computerId;
 	}
+
 	public void setComputerId(int computerId) {
 		this.computerId = computerId;
 	}
+
 	public int getCompanyId() {
 		return companyId;
 	}
+
 	public void setCompanyId(int companyId) {
 		this.companyId = companyId;
 	}
+
 	public String getName() {
 		return name;
 	}
+
 	public void setName(String name) {
 		this.name = name;
 	}
-	public Date getIntroducedDate() {
+
+	public Timestamp getIntroducedDate() {
 		return introducedDate;
 	}
-	public void setIntroducedDate(Date introducedDate) {
+
+	public void setIntroducedDate(Timestamp introducedDate) {
 		this.introducedDate = introducedDate;
 	}
-	public Date getDiscontinuedDate() {
+
+	public Timestamp getDiscontinuedDate() {
 		return discontinuedDate;
 	}
-	public void setDiscontinuedDate(Date discontinuedDate) {
+
+	public void setDiscontinuedDate(Timestamp discontinuedDate) {
 		this.discontinuedDate = discontinuedDate;
 	}
-	private Date discontinuedDate;
-	
+		
+	@Override
+	public String toString() {
+		return "Computer [computerId=" + computerId + ", companyId=" + companyId + ", name=" + name
+				+ ", introducedDate=" + introducedDate + ", discontinuedDate=" + discontinuedDate + "]";
+	}
+
 }
