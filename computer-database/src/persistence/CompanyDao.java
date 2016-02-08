@@ -4,11 +4,8 @@ import java.util.List;
 
 import model.Company;
 
-public class CompanyDao {
+public interface CompanyDao {
 
-	public List<Company> getCompanies() {
-		//TODO
-		return null;
-	}
-	
+	public List<Company> getCompanies();
+
 }

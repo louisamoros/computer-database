@@ -4,30 +4,16 @@ import java.util.List;
 
 import model.Computer;
 
-public class ComputerDao {
+public interface ComputerDao {
 
-	public Computer getComputer(int id) {
-		//TODO
-		return null;
-	}
-	
-	public List<Computer> getComputers() {
-		//TODO
-		return null;
-	}
-	
-	public Computer createComputer() {
-		//TODO
-		return null;
-	}
-	
-	public Computer updateComputer(int id) {
-		//TODO
-		return null;
-	}
-	
-	public void deleteComputer(int id) {
-		//TODO
-	}
-	
+	public Computer getComputer(int computerId);
+
+	public List<Computer> getComputers();
+
+	public Computer createComputer();
+
+	public Computer updateComputer(int computerId);
+
+	public void deleteComputer(int computerId);
+
 }
