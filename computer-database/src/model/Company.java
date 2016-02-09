@@ -1,10 +1,10 @@
 package model;
 
 public class Company {
-	
+
 	private int companyId;
 	private String name;
-	
+
 	public Company(String name) {
 		this.name = name;
 	}
@@ -14,16 +14,19 @@ public class Company {
 		this.companyId = companyId;
 		this.name = name;
 	}
-	
+
 	public int getCompanyId() {
 		return companyId;
 	}
+
 	public void setCompanyId(int companyId) {
 		this.companyId = companyId;
 	}
+
 	public String getName() {
 		return name;
 	}
+
 	public void setName(String name) {
 		this.name = name;
 	}

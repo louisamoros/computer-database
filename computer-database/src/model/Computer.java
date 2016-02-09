@@ -27,8 +27,12 @@ public class Computer {
 		super();
 		this.companyId = companyId;
 		this.name = name;
-		this.introducedDate = introducedDate;
-		this.discontinuedDate = discontinuedDate;
+		if(this.isIntroducedDateGreaterThanDiscontinuedDate(introducedDate, discontinuedDate)) {
+			this.introducedDate = introducedDate;
+			this.discontinuedDate = discontinuedDate;
+		} else {
+			throw new IllegalArgumentException();
+		}
 	}
 	
 	public int getComputerId() {
@@ -60,7 +64,11 @@ public class Computer {
 	}
 
 	public void setIntroducedDate(Timestamp introducedDate) {
-		this.introducedDate = introducedDate;
+		if(this.isIntroducedDateGreaterThanDiscontinuedDate(introducedDate, this.discontinuedDate)) {
+			this.introducedDate = introducedDate;
+		} else {
+			throw new IllegalArgumentException();
+		}
 	}
 
 	public Timestamp getDiscontinuedDate() {
@@ -68,7 +76,11 @@ public class Computer {
 	}
 
 	public void setDiscontinuedDate(Timestamp discontinuedDate) {
-		this.discontinuedDate = discontinuedDate;
+		if(this.isIntroducedDateGreaterThanDiscontinuedDate(this.introducedDate, discontinuedDate)) {
+			this.discontinuedDate = discontinuedDate;
+		} else {
+			throw new IllegalArgumentException();
+		}
 	}
 		
 	@Override
@@ -76,5 +88,13 @@ public class Computer {
 		return "Computer [computerId=" + computerId + ", companyId=" + companyId + ", name=" + name
 				+ ", introducedDate=" + introducedDate + ", discontinuedDate=" + discontinuedDate + "]";
 	}
-
+	
+	public boolean isIntroducedDateGreaterThanDiscontinuedDate(Timestamp introducedDate, Timestamp discontinuedDate) {
+		boolean ret = false;
+		if(introducedDate.getTime() > discontinuedDate.getTime()) {
+			ret = true;
+		} 
+		return ret;
+	}
+	
 }
