@@ -21,7 +21,7 @@ public class Mapper {
 	 * @return companies list
 	 */
 	public static List<Company> toCompanyArrayList(ResultSet rs) {
-		List<Company> companies = new ArrayList<>();
+		List<Company> companies = new ArrayList<Company>();
 		try {
 			while (rs.next()) {
 				Company company = new Company(rs.getInt("id"), rs.getString("name"));
@@ -39,7 +39,7 @@ public class Mapper {
 	 * @return computers list
 	 */
 	public static List<Computer> toComputerArrayList(ResultSet rs) {
-		List<Computer> computers = new ArrayList<>();
+		List<Computer> computers = new ArrayList<Computer>();
 		try {
 			while (rs.next()) {
 				Computer computer = new Computer(rs.getInt("id"), rs.getInt("company_id"), rs.getString("name"),
