@@ -8,8 +8,18 @@ import java.util.List;
 import model.Company;
 import model.Computer;
 
+/**
+ * Class with static method use to convert SetResult (JDBC object) to ArrayList.
+ * @author excilys
+ *
+ */
 public class Mapper {
 
+	/**
+	 * Convert resultSet to arrayList based on company model.
+	 * @param resultSet<Company>
+	 * @return companies list
+	 */
 	public static List<Company> toCompanyArrayList(ResultSet rs) {
 		List<Company> companies = new ArrayList<>();
 		try {
@@ -23,6 +33,11 @@ public class Mapper {
 		return companies;
 	}
 
+	/**
+	 * Convert resultSet to arrayList based on computer model.
+	 * @param resultSet<Computer>
+	 * @return computers list
+	 */
 	public static List<Computer> toComputerArrayList(ResultSet rs) {
 		List<Computer> computers = new ArrayList<>();
 		try {

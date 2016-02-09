@@ -2,6 +2,11 @@ package model;
 
 import java.sql.Timestamp;
 
+/**
+ * Computer model.
+ * @author excilys
+ *
+ */
 public class Computer {
 
 	private int computerId;
@@ -89,6 +94,12 @@ public class Computer {
 				+ ", introducedDate=" + introducedDate + ", discontinuedDate=" + discontinuedDate + "]";
 	}
 	
+	/**
+	 * Compare introduced date and discontinued date.
+	 * @param introducedDate
+	 * @param discontinuedDate
+	 * @return true if introducedDate greater than discontinuedDate
+	 */
 	public boolean isIntroducedDateGreaterThanDiscontinuedDate(Timestamp introducedDate, Timestamp discontinuedDate) {
 		boolean ret = false;
 		if(introducedDate.getTime() > discontinuedDate.getTime()) {

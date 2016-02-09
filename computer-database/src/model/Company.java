@@ -1,5 +1,10 @@
 package model;
 
+/**
+ * Company model.
+ * @author excilys
+ *
+ */
 public class Company {
 
 	private int companyId;

@@ -54,7 +54,7 @@ public class CDBcli {
 					ComputerCli.read();
 					break;
 				case 7:
-					exit = true;
+					System.exit(1);
 					break;
 				default:
 					System.out.println("Invalid command.");

@@ -9,6 +9,11 @@ import java.util.List;
 import model.Computer;
 import util.Mapper;
 
+/**
+ * ComputerDaoImpl implements methods of ComputerDao interface.
+ * @author excilys
+ *
+ */
 public class ComputerDaoImpl implements ComputerDao {
 
 	ComputerDaoImpl() {

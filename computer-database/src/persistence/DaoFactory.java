@@ -4,6 +4,11 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 
+/**
+ * Dao factory singleton
+ * @author excilys
+ *
+ */
 public class DaoFactory {
 
 	private static Connection conn = null;
@@ -31,6 +36,10 @@ public class DaoFactory {
 		}
 	}
 	
+	/**
+	 * Create static connection to the database using attributes.
+	 * @return connection
+	 */
 	public static Connection connect() {
 
 		try {
@@ -50,6 +59,9 @@ public class DaoFactory {
 		return conn;
 	}
 
+	/**
+	 * Close static connection to the database.
+	 */
 	public static void close() {
 		try {
 			conn.close();
@@ -59,10 +71,17 @@ public class DaoFactory {
 		}
 	}
 
+	/**
+	 * Create a new computer dao object.
+	 * @return created the computer dao implementation
+	 */
 	public static ComputerDaoImpl getComputerDao() {
 		return new ComputerDaoImpl();
 	}
-
+	/**
+	 * Create a new company dao object.
+	 * @return created the company dao implementation
+	 */
 	public static CompanyDaoImpl getCompanyDao() {
 		return new CompanyDaoImpl();
 	}

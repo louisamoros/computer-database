@@ -8,6 +8,11 @@ import java.util.List;
 import model.Company;
 import util.Mapper;
 
+/**
+ * CompanyDaoImpl implements methods of CompanyDao interface.
+ * @author excilys
+ *
+ */
 public class CompanyDaoImpl implements CompanyDao {
 
 	CompanyDaoImpl() {
