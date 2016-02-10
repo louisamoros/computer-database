@@ -15,6 +15,6 @@ public interface CompanyDao {
 	 * Fetch all the companies of the database.
 	 * @return companies list
 	 */
-	public List<Company> getCompanies();
+	List<Company> getCompanies();
 
 }

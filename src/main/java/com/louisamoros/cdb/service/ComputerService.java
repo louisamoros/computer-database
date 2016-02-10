@@ -2,50 +2,29 @@ package com.louisamoros.cdb.service;
 
 import java.util.List;
 
-import com.louisamoros.cdb.dao.ComputerDao;
-import com.louisamoros.cdb.dao.impl.ComputerDaoImpl;
 import com.louisamoros.cdb.model.Computer;
 
-/**
- * Computer Service used to CRUD computers
- * @author excilys
- *
- */
-public enum ComputerService {
+public interface ComputerService {
 
-	INSTANCE;
-	
-	private ComputerDao computerDao;
-	
-	private ComputerService() {
-		computerDao = ComputerDaoImpl.INSTANCE;
-	}
-	
 	/**
-	 * Fetch all computers from the database.
+	 * Fetch all computers from computer dao.
 	 * @return computers list
 	 */
-	public List<Computer> getComputers() {
-		return computerDao.getComputers();
-	}
+	List<Computer> getComputers();
 	
 	/**
-	 * Fetch the computer from the database based on its Id.
+	 * Fetch the computer from dao based on its Id.
 	 * @param computerId
 	 * @return computer based on its Id
 	 */
-	public Computer getComputer(int computerId) {
-		return computerDao.getComputer(computerId);
-	}
+	Computer getComputer(int computerId);
 	
 	/**
-	 * Create a new computer in the database.
+	 * Create a new computer with dao method.
 	 * @param computer
 	 * @return created computer
 	 */
-	public Computer createComputer(Computer computer) {
-		return computerDao.createComputer(computer);
-	}
+	Computer createComputer(Computer computer);
 	
 	/**
 	 * Update an existing computer based on its Id.
@@ -53,15 +32,12 @@ public enum ComputerService {
 	 * @param computer
 	 * @return updated computer
 	 */
-	public Computer updateComputer(int computerId, Computer computer) {
-		return computerDao.updateComputer(computerId, computer);
-	}
+	Computer updateComputer(int computerId, Computer computer);
 	
 	/**
 	 * Delete a specific computer based on its id.
 	 * @param computerId
 	 */
-	public void deleteComputer(int computerId) {
-		computerDao.deleteComputer(computerId);
-	}
+	void deleteComputer(int computerId);
+	
 }

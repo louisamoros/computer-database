@@ -16,20 +16,20 @@ public interface ComputerDao {
 	 * @param computerId
 	 * @return
 	 */
-	public Computer getComputer(int computerId);
+	Computer getComputer(int computerId);
 
 	/**
 	 * Fetch all computers from the database.
 	 * @return
 	 */
-	public List<Computer> getComputers();
+	List<Computer> getComputers();
 
 	/**
 	 * Create a new computer in the database.
 	 * @param computer
 	 * @return created computer
 	 */
-	public Computer createComputer(Computer computer);
+	Computer createComputer(Computer computer);
 
 	/**
 	 * Update an existing computer based on its Id
@@ -37,7 +37,7 @@ public interface ComputerDao {
 	 * @param computer
 	 * @return updated computer
 	 */
-	public Computer updateComputer(int computerId, Computer computer);
+	Computer updateComputer(int computerId, Computer computer);
 
 	/**
 	 * Delete a specific computer based on its id.
