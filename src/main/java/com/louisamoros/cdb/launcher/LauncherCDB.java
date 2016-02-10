@@ -4,6 +4,8 @@ import java.util.List;
 
 import com.louisamoros.cdb.model.Company;
 import com.louisamoros.cdb.model.Computer;
+import com.louisamoros.cdb.service.CompanyService;
+import com.louisamoros.cdb.service.ComputerService;
 import com.louisamoros.cdb.service.impl.CompanyServiceImpl;
 import com.louisamoros.cdb.service.impl.ComputerServiceImpl;
 
@@ -12,14 +14,14 @@ public class LauncherCDB {
 	public static void main(String[] args) {
 		
 		/*GET COMPANIES*/
-		CompanyServiceImpl companyService = CompanyServiceImpl.INSTANCE;
+		CompanyService companyService = CompanyServiceImpl.INSTANCE;
 		List<Company> companies = companyService.getCompanies();
 		for(Company company:companies) {
 			System.out.println(company);
 		}
 		
 		/*GET COMPUTERS*/
-		ComputerServiceImpl computerService = ComputerServiceImpl.INSTANCE;
+		ComputerService computerService = ComputerServiceImpl.INSTANCE;
 		List<Computer> computers = computerService.getComputers();
 		for(Computer computer:computers) {
 			System.out.println(computer);

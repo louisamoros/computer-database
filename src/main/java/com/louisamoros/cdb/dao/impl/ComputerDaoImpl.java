@@ -24,21 +24,25 @@ public enum ComputerDaoImpl implements ComputerDao {
 	INSTANCE;
 
 	private JDBCConnection connectionUtilInstance;
-
+	private static final String GET_COMPUTER_QUERY = "SELECT * FROM computer LEFT JOIN company ON computer.company_id = company.id WHERE computer.id=?;";
+	private static final String GET_COMPUTERS_QUERY = "SELECT * FROM computer LEFT JOIN company ON computer.company_id = company.id;";
+	private static final String UPDATE_COMPUTER_QUERY = "UPDATE computer SET name=?, introduced=?, discontinued=?, company_id=? WHERE id=?";
+	private static final String DELETE_COMPUTER_QUERY = "DELETE FROM computer WHERE id=?";
+	private static final String CREATE_COMPUTER_QUERY = "INSERT INTO computer VALUES (default, ?, ?, ?, ?);";
+	
 	private ComputerDaoImpl() {
 		connectionUtilInstance = JDBCConnection.INSTANCE;
 	}
 
 	public Computer getComputer(int id) {
 
-		String query = "SELECT * FROM computer LEFT JOIN company ON computer.company_id = company.id WHERE computer.id=?;";
 		ResultSet rs;
 		PreparedStatement ps;
 		Computer computer = null;
 		Connection conn = connectionUtilInstance.getConnection();
 
 		try {
-			ps = conn.prepareStatement(query);
+			ps = conn.prepareStatement(GET_COMPUTER_QUERY);
 			ps.setInt(1, id);
 			rs = ps.executeQuery();
 			computer = Mapper.toComputerModel(rs);
@@ -59,14 +63,13 @@ public enum ComputerDaoImpl implements ComputerDao {
 	public List<Computer> getComputers() {
 
 		List<Computer> computers = null;
-		String query = "SELECT * FROM computer LEFT JOIN company ON computer.company_id = company.id;";
 		ResultSet rs;
 		Statement s;
 		Connection conn = connectionUtilInstance.getConnection();
 
 		try {
 			s = conn.createStatement();
-			rs = s.executeQuery(query);
+			rs = s.executeQuery(GET_COMPUTERS_QUERY);
 			computers = Mapper.toComputerArrayList(rs);
 		} catch (SQLException e) {
 			System.out.println("Error during resquest...");
@@ -84,12 +87,11 @@ public enum ComputerDaoImpl implements ComputerDao {
 
 	public Computer createComputer(Computer computer) {
 
-		String query = "INSERT INTO computer VALUES (default, ?, ?, ?, ?);";
 		PreparedStatement ps = null;
 		Connection conn = connectionUtilInstance.getConnection();
 
 		try {
-			ps = conn.prepareStatement(query, Statement.RETURN_GENERATED_KEYS);
+			ps = conn.prepareStatement(CREATE_COMPUTER_QUERY, Statement.RETURN_GENERATED_KEYS);
 			ps.setString(1, computer.getName());
 			ps.setTimestamp(2, Timestamp.valueOf(computer.getIntroducedDate().atStartOfDay()));
 			ps.setTimestamp(3, Timestamp.valueOf(computer.getDiscontinuedDate().atStartOfDay()));
@@ -115,12 +117,11 @@ public enum ComputerDaoImpl implements ComputerDao {
 
 	public Computer updateComputer(int id, Computer computer) {
 
-		String query = "UPDATE computer SET name=?, introduced=?, discontinued=?, company_id=? WHERE id=?";
 		PreparedStatement ps = null;
 		Connection conn = connectionUtilInstance.getConnection();
 
 		try {
-			ps = conn.prepareStatement(query);
+			ps = conn.prepareStatement(UPDATE_COMPUTER_QUERY);
 			ps.setString(1, computer.getName());
 			ps.setTimestamp(2, Timestamp.valueOf(computer.getIntroducedDate().atStartOfDay()));
 			ps.setTimestamp(3, Timestamp.valueOf(computer.getDiscontinuedDate().atStartOfDay()));
@@ -144,12 +145,11 @@ public enum ComputerDaoImpl implements ComputerDao {
 
 	public void deleteComputer(int id) {
 
-		String query = "DELETE FROM computer WHERE id=?";
 		PreparedStatement ps = null;
 		Connection conn = connectionUtilInstance.getConnection();
 
 		try {
-			ps = conn.prepareStatement(query);
+			ps = conn.prepareStatement(DELETE_COMPUTER_QUERY);
 			ps.setInt(1, id);
 			ps.executeUpdate();
 		} catch (SQLException e) {

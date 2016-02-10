@@ -21,6 +21,7 @@ public enum CompanyDaoImpl implements CompanyDao {
 	INSTANCE;
 
 	private JDBCConnection connectionUtilInstance;
+	private static final String GET_COMPANIES_QUERY = "SELECT * FROM company;";
 	
 	private CompanyDaoImpl() {
 		connectionUtilInstance = JDBCConnection.INSTANCE;
@@ -29,14 +30,13 @@ public enum CompanyDaoImpl implements CompanyDao {
 	public List<Company> getCompanies() {
 
 		List<Company> companies = null;
-		String query = "SELECT * FROM company;";
 		ResultSet rs;
 		Statement s;
 		Connection conn = connectionUtilInstance.getConnection();
 
 		try {
 			s = conn.createStatement();
-			rs = s.executeQuery(query);
+			rs = s.executeQuery(GET_COMPANIES_QUERY);
 			return Mapper.toCompanyArrayList(rs);
 		} catch (SQLException e) {
 			System.out.println("Error during resquest...");
