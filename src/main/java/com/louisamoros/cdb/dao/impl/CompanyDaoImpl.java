@@ -7,6 +7,7 @@ import java.sql.Statement;
 import java.util.List;
 
 import com.louisamoros.cdb.dao.CompanyDao;
+import com.louisamoros.cdb.dao.DAOException;
 import com.louisamoros.cdb.model.Company;
 import com.louisamoros.cdb.util.JDBCConnection;
 import com.louisamoros.cdb.util.Mapper;
@@ -26,8 +27,8 @@ public enum CompanyDaoImpl implements CompanyDao {
 	private CompanyDaoImpl() {
 		connectionUtilInstance = JDBCConnection.INSTANCE;
 	}
-		
-	public List<Company> getCompanies() {
+	
+	public List<Company> getCompanies() throws DAOException {
 
 		List<Company> companies = null;
 		ResultSet rs;
@@ -37,15 +38,16 @@ public enum CompanyDaoImpl implements CompanyDao {
 		try {
 			s = conn.createStatement();
 			rs = s.executeQuery(GET_COMPANIES_QUERY);
-			return Mapper.toCompanyArrayList(rs);
+			companies = Mapper.toCompanyArrayList(rs);
 		} catch (SQLException e) {
-			System.out.println("Error during resquest...");
 			e.printStackTrace();
+			throw new DAOException("Fail during: " + GET_COMPANIES_QUERY);
 		} finally {
 			try {
 				conn.close();
 			} catch (SQLException e) {
 				e.printStackTrace();
+				throw new DAOException("Fail when closing after: " + GET_COMPANIES_QUERY);
 			}
 		}
 

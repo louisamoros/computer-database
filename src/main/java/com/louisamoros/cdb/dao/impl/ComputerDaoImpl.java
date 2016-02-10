@@ -9,6 +9,7 @@ import java.sql.Timestamp;
 import java.util.List;
 
 import com.louisamoros.cdb.dao.ComputerDao;
+import com.louisamoros.cdb.dao.DAOException;
 import com.louisamoros.cdb.model.Computer;
 import com.louisamoros.cdb.util.JDBCConnection;
 import com.louisamoros.cdb.util.Mapper;
@@ -34,7 +35,7 @@ public enum ComputerDaoImpl implements ComputerDao {
 		connectionUtilInstance = JDBCConnection.INSTANCE;
 	}
 
-	public Computer getComputer(int id) {
+	public Computer getComputer(int id) throws DAOException {
 
 		ResultSet rs;
 		PreparedStatement ps;
@@ -47,20 +48,21 @@ public enum ComputerDaoImpl implements ComputerDao {
 			rs = ps.executeQuery();
 			computer = Mapper.toComputerModel(rs);
 		} catch (SQLException e) {
-			System.out.println("Error during resquest...");
 			e.printStackTrace();
+			throw new DAOException("Fail during: " + GET_COMPUTER_QUERY);
 		} finally {
 			try {
 				conn.close();
 			} catch (SQLException e) {
 				e.printStackTrace();
+				throw new DAOException("Fail when closing after: " + GET_COMPUTER_QUERY);
 			}
 		}
 
 		return computer;
 	}
 
-	public List<Computer> getComputers() {
+	public List<Computer> getComputers() throws DAOException {
 
 		List<Computer> computers = null;
 		ResultSet rs;
@@ -72,20 +74,21 @@ public enum ComputerDaoImpl implements ComputerDao {
 			rs = s.executeQuery(GET_COMPUTERS_QUERY);
 			computers = Mapper.toComputerArrayList(rs);
 		} catch (SQLException e) {
-			System.out.println("Error during resquest...");
 			e.printStackTrace();
+			throw new DAOException("Fail during: " + GET_COMPUTERS_QUERY);
 		} finally {
 			try {
 				conn.close();
 			} catch (SQLException e) {
 				e.printStackTrace();
+				throw new DAOException("Fail when closing after: " + GET_COMPUTERS_QUERY);
 			}
 		}
 
 		return computers;
 	}
 
-	public Computer createComputer(Computer computer) {
+	public Computer createComputer(Computer computer) throws DAOException {
 
 		PreparedStatement ps = null;
 		Connection conn = connectionUtilInstance.getConnection();
@@ -101,13 +104,14 @@ public enum ComputerDaoImpl implements ComputerDao {
 			rs.next();
 			computer.setComputerId(rs.getInt(1));
 		} catch (SQLException e) {
-			System.out.println("Error during resquest...");
 			e.printStackTrace();
+			throw new DAOException("Fail during: " + CREATE_COMPUTER_QUERY);
 		} finally {
 			try {
 				conn.close();
 			} catch (SQLException e) {
 				e.printStackTrace();
+				throw new DAOException("Fail when closing after: " + CREATE_COMPUTER_QUERY);
 			}
 		}
 
@@ -115,7 +119,7 @@ public enum ComputerDaoImpl implements ComputerDao {
 
 	}
 
-	public Computer updateComputer(int id, Computer computer) {
+	public Computer updateComputer(int id, Computer computer) throws DAOException {
 
 		PreparedStatement ps = null;
 		Connection conn = connectionUtilInstance.getConnection();
@@ -129,13 +133,14 @@ public enum ComputerDaoImpl implements ComputerDao {
 			ps.setInt(5, computer.getComputerId());
 			ps.executeUpdate();
 		} catch (SQLException e) {
-			System.out.println("Error during resquest...");
 			e.printStackTrace();
+			throw new DAOException("Fail during: " + UPDATE_COMPUTER_QUERY);
 		} finally {
 			try {
 				conn.close();
 			} catch (SQLException e) {
 				e.printStackTrace();
+				throw new DAOException("Fail when closing after: " + UPDATE_COMPUTER_QUERY);
 			}
 		}
 
@@ -143,7 +148,7 @@ public enum ComputerDaoImpl implements ComputerDao {
 
 	}
 
-	public void deleteComputer(int id) {
+	public void deleteComputer(int id) throws DAOException {
 
 		PreparedStatement ps = null;
 		Connection conn = connectionUtilInstance.getConnection();
@@ -153,13 +158,14 @@ public enum ComputerDaoImpl implements ComputerDao {
 			ps.setInt(1, id);
 			ps.executeUpdate();
 		} catch (SQLException e) {
-			System.out.println("Error during resquest...");
 			e.printStackTrace();
+			throw new DAOException("Fail during: " + DELETE_COMPUTER_QUERY);
 		} finally {
 			try {
 				conn.close();
 			} catch (SQLException e) {
 				e.printStackTrace();
+				throw new DAOException("Fail when closing after: " + DELETE_COMPUTER_QUERY);
 			}
 		}
 

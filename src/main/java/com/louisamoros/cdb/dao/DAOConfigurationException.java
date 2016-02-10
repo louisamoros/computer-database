@@ -1,4 +1,4 @@
-package com.louisamoros.cdb.exception;
+package com.louisamoros.cdb.dao;
 
 public class DAOConfigurationException extends RuntimeException {
 

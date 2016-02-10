@@ -7,7 +7,7 @@ import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.util.Properties;
 
-import com.louisamoros.cdb.exception.DAOConfigurationException;
+import com.louisamoros.cdb.dao.DAOConfigurationException;
 
 /**
  * This class is an enum singleton which manage connections.

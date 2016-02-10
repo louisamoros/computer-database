@@ -16,20 +16,20 @@ public interface ComputerDao {
 	 * @param computerId
 	 * @return
 	 */
-	Computer getComputer(int computerId);
+	Computer getComputer(int computerId) throws DAOException;
 
 	/**
 	 * Fetch all computers from the database.
 	 * @return
 	 */
-	List<Computer> getComputers();
+	List<Computer> getComputers() throws DAOException;
 
 	/**
 	 * Create a new computer in the database.
 	 * @param computer
 	 * @return created computer
 	 */
-	Computer createComputer(Computer computer);
+	Computer createComputer(Computer computer) throws DAOException;
 
 	/**
 	 * Update an existing computer based on its Id
@@ -37,12 +37,12 @@ public interface ComputerDao {
 	 * @param computer
 	 * @return updated computer
 	 */
-	Computer updateComputer(int computerId, Computer computer);
+	Computer updateComputer(int computerId, Computer computer) throws DAOException;
 
 	/**
 	 * Delete a specific computer based on its id.
 	 * @param computerId
 	 */
-	public void deleteComputer(int computerId);
+	public void deleteComputer(int computerId) throws DAOException;
 
 }
