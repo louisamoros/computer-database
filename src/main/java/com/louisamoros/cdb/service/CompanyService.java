@@ -3,7 +3,7 @@ package com.louisamoros.cdb.service;
 import java.util.List;
 
 import com.louisamoros.cdb.dao.CompanyDao;
-import com.louisamoros.cdb.dao.CompanyDaoImpl;
+import com.louisamoros.cdb.dao.impl.CompanyDaoImpl;
 import com.louisamoros.cdb.model.Company;
 
 /**

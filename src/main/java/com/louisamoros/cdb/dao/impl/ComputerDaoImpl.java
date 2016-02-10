@@ -1,4 +1,4 @@
-package com.louisamoros.cdb.dao;
+package com.louisamoros.cdb.dao.impl;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -7,7 +7,9 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.List;
 
+import com.louisamoros.cdb.dao.ComputerDao;
 import com.louisamoros.cdb.model.Computer;
+import com.louisamoros.cdb.util.JDBCConnection;
 import com.louisamoros.cdb.util.Mapper;
 
 /**
@@ -19,10 +21,10 @@ public enum ComputerDaoImpl implements ComputerDao {
 
 	INSTANCE;
 	
-	private ConnectionUtil connectionUtilInstance;
+	private JDBCConnection connectionUtilInstance;
 	
 	private ComputerDaoImpl() {
-		connectionUtilInstance = ConnectionUtil.INSTANCE;
+		connectionUtilInstance = JDBCConnection.INSTANCE;
 	}
 
 	public Computer getComputer(int id) {

@@ -1,4 +1,4 @@
-package com.louisamoros.cdb.dao;
+package com.louisamoros.cdb.util;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -15,23 +15,23 @@ import com.louisamoros.cdb.exception.DAOConfigurationException;
  * @author excilys
  *
  */
-public enum ConnectionUtil {
+public enum JDBCConnection {
 
 	INSTANCE;
 
 	private Connection conn = null;
-	private static final String PROPERTIES_FILE = "dao.properties";
+	private static final String PROPERTIES_FILE = "/com/louisamoros/cdb/dao/dao.properties";
 	private static String url;
 	private static String driver;
 	private static String username;
 	private static String password;
 	
-	private ConnectionUtil() {
+	private JDBCConnection() {
 	}
 
 	static {
 		Properties properties = new Properties();
-		InputStream propertiesFile = ConnectionUtil.class.getResourceAsStream(PROPERTIES_FILE);
+		InputStream propertiesFile = JDBCConnection.class.getResourceAsStream(PROPERTIES_FILE);
 
 		if (propertiesFile == null) {
 			throw new DAOConfigurationException(PROPERTIES_FILE + " not found my godness.");

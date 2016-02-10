@@ -3,7 +3,7 @@ package com.louisamoros.cdb.service;
 import java.util.List;
 
 import com.louisamoros.cdb.dao.ComputerDao;
-import com.louisamoros.cdb.dao.ComputerDaoImpl;
+import com.louisamoros.cdb.dao.impl.ComputerDaoImpl;
 import com.louisamoros.cdb.model.Computer;
 
 /**
