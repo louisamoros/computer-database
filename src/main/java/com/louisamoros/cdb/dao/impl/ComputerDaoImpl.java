@@ -128,7 +128,7 @@ public enum ComputerDaoImpl implements ComputerDao {
 
 	}
 
-	public Computer updateComputer(int id, Computer computer) throws DAOException {
+	public Computer updateComputer(Computer computer) throws DAOException {
 
 		PreparedStatement ps = null;
 		Connection conn = connectionUtilInstance.getConnection();

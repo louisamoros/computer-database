@@ -24,7 +24,7 @@ public interface ComputerService {
 	 * @param computer
 	 * @return created computer
 	 */
-	Computer createComputer(Computer computer);
+	Computer createComputer(Computer computer) throws InvalidDateException;
 	
 	/**
 	 * Update an existing computer based on its Id.
@@ -32,7 +32,7 @@ public interface ComputerService {
 	 * @param computer
 	 * @return updated computer
 	 */
-	Computer updateComputer(int computerId, Computer computer);
+	Computer updateComputer(Computer computer) throws InvalidDateException;
 	
 	/**
 	 * Delete a specific computer based on its id.

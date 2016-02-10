@@ -37,7 +37,7 @@ public interface ComputerDao {
 	 * @param computer
 	 * @return updated computer
 	 */
-	Computer updateComputer(int computerId, Computer computer) throws DAOException;
+	Computer updateComputer(Computer computer) throws DAOException;
 
 	/**
 	 * Delete a specific computer based on its id.

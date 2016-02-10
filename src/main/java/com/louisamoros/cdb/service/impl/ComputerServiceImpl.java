@@ -6,6 +6,7 @@ import com.louisamoros.cdb.dao.ComputerDao;
 import com.louisamoros.cdb.dao.impl.ComputerDaoImpl;
 import com.louisamoros.cdb.model.Computer;
 import com.louisamoros.cdb.service.ComputerService;
+import com.louisamoros.cdb.service.InvalidDateException;
 
 /**
  * Computer Service used to CRUD computers
@@ -30,12 +31,20 @@ public enum ComputerServiceImpl implements ComputerService {
 		return computerDao.getComputer(computerId);
 	}
 	
-	public Computer createComputer(Computer computer) {
-		return computerDao.createComputer(computer);
+	public Computer createComputer(Computer computer) throws InvalidDateException {
+		if(computer.getIntroducedDate().isBefore(computer.getDiscontinuedDate())) {
+			return computerDao.createComputer(computer);			
+		} else {
+			throw new InvalidDateException("Can't create computer with dates in the wrong order.");
+		}
 	}
 	
-	public Computer updateComputer(int computerId, Computer computer) {
-		return computerDao.updateComputer(computerId, computer);
+	public Computer updateComputer(Computer computer) throws InvalidDateException {
+		if(computer.getIntroducedDate().isBefore(computer.getDiscontinuedDate())) {
+			return computerDao.updateComputer(computer);			
+		} else {
+			throw new InvalidDateException("Can't create computer with dates in the wrong order.");
+		}
 	}
 	
 	public void deleteComputer(int computerId) {

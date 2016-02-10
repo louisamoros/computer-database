@@ -40,7 +40,7 @@ public class LauncherCDB {
 		/*UPDATE COMPUTER*/
 		computer = new Computer(companies.get(3), "coucou computer", LocalDate.of(2015, 07, 16), LocalDate.of(2016, 07, 16));
 		computer.setComputerId(computerCreated.getComputerId());
-		Computer computerUpdated = computerService.updateComputer(computer.getComputerId(), computer);
+		Computer computerUpdated = computerService.updateComputer(computer);
 		System.out.println(computerUpdated);
 
 		/*DELETE COMPUTER*/
