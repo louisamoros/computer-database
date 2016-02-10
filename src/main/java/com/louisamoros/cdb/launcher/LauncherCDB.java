@@ -1,15 +1,20 @@
 package com.louisamoros.cdb.launcher;
 
+import java.util.List;
+
+import com.louisamoros.cdb.model.Company;
+import com.louisamoros.cdb.service.CompanyService;
+
 public class LauncherCDB {
 
 	public static void main(String[] args) {
 		
 		/*GET COMPANIES*/
-//		CompanyService companyService = new CompanyService();
-//		List<Company> companies = companyService.getCompanies();
-//		for(Company company:companies) {
-//			System.out.println(company);
-//		}
+		CompanyService companyService = CompanyService.INSTANCE;
+		List<Company> companies = companyService.getCompanies();
+		for(Company company:companies) {
+			System.out.println(company);
+		}
 		
 		/*GET COMPUTERS*/
 //		ComputerService computerService = new ComputerService();

@@ -2,22 +2,23 @@ package com.louisamoros.cdb.service;
 
 import java.util.List;
 
+import com.louisamoros.cdb.dao.CompanyDao;
 import com.louisamoros.cdb.dao.CompanyDaoImpl;
-import com.louisamoros.cdb.dao.DaoFactory;
 import com.louisamoros.cdb.model.Company;
 
 /**
- * Company Service used to CRUD companies
+ * Company Service used to CRUD companies and verify inputs.
  * @author excilys
  *
  */
-public class CompanyService {
+public enum CompanyService {
 
-	CompanyDaoImpl companyDao = null;
-
+	INSTANCE;
 	
-	public CompanyService() {
-		companyDao = DaoFactory.getCompanyDao();
+	private CompanyDao companyDao = null;
+
+	private CompanyService() {
+		companyDao = CompanyDaoImpl.INSTANCE;
 	}
 	
 	/**

@@ -2,8 +2,8 @@ package com.louisamoros.cdb.service;
 
 import java.util.List;
 
+import com.louisamoros.cdb.dao.ComputerDao;
 import com.louisamoros.cdb.dao.ComputerDaoImpl;
-import com.louisamoros.cdb.dao.DaoFactory;
 import com.louisamoros.cdb.model.Computer;
 
 /**
@@ -11,12 +11,14 @@ import com.louisamoros.cdb.model.Computer;
  * @author excilys
  *
  */
-public class ComputerService {
+public enum ComputerService {
 
-	ComputerDaoImpl computerDao = null;
+	INSTANCE;
 	
-	public ComputerService() {
-		computerDao = DaoFactory.getComputerDao();
+	private ComputerDao computerDao;
+	
+	private ComputerService() {
+		computerDao = ComputerDaoImpl.INSTANCE;
 	}
 	
 	/**

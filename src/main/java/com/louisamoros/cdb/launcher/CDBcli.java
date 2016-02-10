@@ -1,4 +1,4 @@
-package com.louisamoros.cdb.launcher;
+/*package com.louisamoros.cdb.launcher;
 
 import java.util.Scanner;
 
@@ -64,3 +64,4 @@ public class CDBcli {
 	}
 
 }
+*/

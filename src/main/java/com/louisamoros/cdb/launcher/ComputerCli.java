@@ -1,4 +1,4 @@
-package com.louisamoros.cdb.launcher;
+/*package com.louisamoros.cdb.launcher;
 
 import java.sql.Timestamp;
 import java.util.Date;
@@ -62,3 +62,4 @@ public class ComputerCli {
 	}
 	
 }
+*/

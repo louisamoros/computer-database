@@ -1,5 +1,6 @@
 package com.louisamoros.cdb.dao;
 
+import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -14,9 +15,14 @@ import com.louisamoros.cdb.util.Mapper;
  * @author excilys
  *
  */
-public class ComputerDaoImpl implements ComputerDao {
+public enum ComputerDaoImpl implements ComputerDao {
 
-	ComputerDaoImpl() {
+	INSTANCE;
+	
+	private ConnectionUtil connectionUtilInstance;
+	
+	private ComputerDaoImpl() {
+		connectionUtilInstance = ConnectionUtil.INSTANCE;
 	}
 
 	public Computer getComputer(int id) {
@@ -25,9 +31,10 @@ public class ComputerDaoImpl implements ComputerDao {
 		ResultSet rs;
 		PreparedStatement ps;
 		Computer computer = null;
+		Connection conn = connectionUtilInstance.getConnection();
 
 		try {
-			ps = DaoFactory.connect().prepareStatement(query);
+			ps = conn.prepareStatement(query);
 			ps.setInt(1, id);
 			rs = ps.executeQuery();
 			while (rs.next()) {
@@ -38,7 +45,11 @@ public class ComputerDaoImpl implements ComputerDao {
 			System.out.println("Error during resquest...");
 			e.printStackTrace();
 		} finally {
-			DaoFactory.close();
+			try {
+				conn.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
 		}
 
 		return computer;
@@ -50,16 +61,21 @@ public class ComputerDaoImpl implements ComputerDao {
 		String query = "SELECT * FROM computer;";
 		ResultSet rs;
 		Statement s;
+		Connection conn = connectionUtilInstance.getConnection();
 
 		try {
-			s = DaoFactory.connect().createStatement();
+			s = conn.createStatement();
 			rs = s.executeQuery(query);
 			return Mapper.toComputerArrayList(rs);
 		} catch (SQLException e) {
 			System.out.println("Error during resquest...");
 			e.printStackTrace();
 		} finally {
-			DaoFactory.close();
+			try {
+				conn.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
 		}
 
 		return computers;
@@ -69,29 +85,27 @@ public class ComputerDaoImpl implements ComputerDao {
 
 		String query = "INSERT INTO computer VALUES (default, ?, ?, ?, ?);";
 		PreparedStatement ps = null;
+		Connection conn = connectionUtilInstance.getConnection();
 
 		try {
-			ps = DaoFactory.connect().prepareStatement(query, Statement.RETURN_GENERATED_KEYS);
+			ps = conn.prepareStatement(query, Statement.RETURN_GENERATED_KEYS);
 			ps.setString(1, computer.getName());
 			ps.setTimestamp(2, computer.getIntroducedDate());
 			ps.setTimestamp(3, computer.getDiscontinuedDate());
 			ps.setInt(4, computer.getCompanyId());
 			ps.executeUpdate();
-			
-			// Use to return object with generated ID.
-			try (ResultSet generatedKeys = ps.getGeneratedKeys()) {
-	            if (generatedKeys.next()) {
-	                computer.setComputerId(generatedKeys.getInt(1));
-	            }
-	            else {
-	                throw new SQLException("Creating computer failed, no ID obtained.");
-	            }
-	        }
+			ResultSet rs = ps.getGeneratedKeys();
+			rs.next();
+			computer.setComputerId(rs.getInt(1));
 		} catch (SQLException e) {
 			System.out.println("Error during resquest...");
 			e.printStackTrace();
 		} finally {
-			DaoFactory.close();
+			try {
+				conn.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
 		}
 
 		return computer;
@@ -102,9 +116,10 @@ public class ComputerDaoImpl implements ComputerDao {
 		
 		String query = "UPDATE computer SET name=?, introduced=?, discontinued=?, company_id=? WHERE id=?";
 		PreparedStatement ps = null;
+		Connection conn = connectionUtilInstance.getConnection();
 
 		try {
-			ps = DaoFactory.connect().prepareStatement(query);
+			ps = conn.prepareStatement(query);
 			ps.setString(1, computer.getName());
 			ps.setTimestamp(2, computer.getIntroducedDate());
 			ps.setTimestamp(3, computer.getDiscontinuedDate());
@@ -115,7 +130,11 @@ public class ComputerDaoImpl implements ComputerDao {
 			System.out.println("Error during resquest...");
 			e.printStackTrace();
 		} finally {
-			DaoFactory.close();
+			try {
+				conn.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
 		}
 
 		return computer;
@@ -126,16 +145,21 @@ public class ComputerDaoImpl implements ComputerDao {
 
 		String query = "DELETE FROM computer WHERE id=?";
 		PreparedStatement ps = null;
+		Connection conn = connectionUtilInstance.getConnection();
 
 		try {
-			ps = DaoFactory.connect().prepareStatement(query);
+			ps = conn.prepareStatement(query);
 			ps.setInt(1, id);
 			ps.executeUpdate();
 		} catch (SQLException e) {
 			System.out.println("Error during resquest...");
 			e.printStackTrace();
 		} finally {
-			DaoFactory.close();
+			try {
+				conn.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
 		}
 
 	}

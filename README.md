@@ -1,14 +1,14 @@
-# computer-database
+# computerdatabase
 
 Specs are described here: https://github.com/loicortola/spec-cdb/
 
 
 TODO:
  - change timestamp to java date api
- - remove dao factory
- - convert entities dao to singleton with enum class
- - create connection util
- - change java 7 to 8
+ - X remove dao factory
+ - X convert entities dao to singleton with enum class
+ - X create connection util
+ - X change java 7 to 8
  - add javadoc via maven
- - create resources/sql connections
+ - X create resources/sql connections
  - add data verification in services

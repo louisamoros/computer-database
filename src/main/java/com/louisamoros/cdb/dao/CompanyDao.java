@@ -5,7 +5,7 @@ import java.util.List;
 import com.louisamoros.cdb.model.Company;
 
 /**
- * CompanyDao interface implemented by CompanyDaoImpl. Use to Map the database with java object.
+ * CompanyDao interface implemented by singleton enum CompanyDaoImpl. Use to Map the database with java object.
  * @author excilys
  *
  */
