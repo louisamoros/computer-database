@@ -82,7 +82,6 @@ public class Mapper {
 						rs.getString("computer.name"), dateIntroduced, dateDiscontinued);
 			}
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		return computer;
