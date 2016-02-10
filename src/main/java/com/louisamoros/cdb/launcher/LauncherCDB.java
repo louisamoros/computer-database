@@ -1,5 +1,6 @@
 package com.louisamoros.cdb.launcher;
 
+import java.time.LocalDate;
 import java.util.List;
 
 import com.louisamoros.cdb.model.Company;
@@ -28,31 +29,24 @@ public class LauncherCDB {
 		}
 		
 		/*GET COMPUTER*/
-//		ComputerService computerService = ComputerService.INSTANCE;
 		Computer computer = computerService.getComputer(35);
 		System.out.println(computer);
 		
 		/*CREATE COMPUTER*/
-//		ComputerService computerService = ComputerService.INSTANCE;
-//		Long time = new Date().getTime();
-//		Timestamp ts = new Timestamp(time);
-//		Computer computer = new Computer(35, "Loul computer", ts, ts);
-//		Computer computerCreated = computerService.createComputer(computer);
-//		System.out.println(computerCreated);
+		computer = new Computer(companies.get(2), "Loul amoros yoyoy", LocalDate.of(1994, 05, 24), LocalDate.of(1995, 05, 24));
+		Computer computerCreated = computerService.createComputer(computer);
+		System.out.println(computerCreated);
 
 		/*UPDATE COMPUTER*/
-//		ComputerService computerService = new ComputerService();
-//		Long time = new Date().getTime();
-//		Timestamp ts = new Timestamp(time);
-//		Computer computer = new Computer(35, "coucou computer", ts, ts);
-//		computer.setComputerId(585);
-//		Computer computerUpdated = computerService.updateComputer(computer.getComputerId(), computer);
-//		System.out.println(computerUpdated);
+		computer = new Computer(companies.get(3), "coucou computer", LocalDate.of(2015, 07, 16), LocalDate.of(2016, 07, 16));
+		computer.setComputerId(computerCreated.getComputerId());
+		Computer computerUpdated = computerService.updateComputer(computer.getComputerId(), computer);
+		System.out.println(computerUpdated);
 
-		/*UPDATE COMPUTER*/
-//		ComputerService computerService = new ComputerService();
-//		computerService.deleteComputer(585);
-		
+		/*DELETE COMPUTER*/
+		computerService.deleteComputer(computerCreated.getComputerId());
+		Computer deletedComputer = computerService.getComputer(computerCreated.getComputerId());
+		System.out.println(deletedComputer);
 	}
 
 }

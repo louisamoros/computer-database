@@ -92,12 +92,21 @@ public enum ComputerDaoImpl implements ComputerDao {
 
 		PreparedStatement ps = null;
 		Connection conn = connectionUtilInstance.getConnection();
-
+		Timestamp dateIntroduced = null;
+		Timestamp dateDiscontinued = null;
+		
+		if (computer.getIntroducedDate() != null) {
+			dateIntroduced = Timestamp.valueOf(computer.getIntroducedDate().atStartOfDay());
+		}
+		if (computer.getDiscontinuedDate() != null) {
+			dateDiscontinued = Timestamp.valueOf(computer.getDiscontinuedDate().atStartOfDay());
+		}
+		
 		try {
 			ps = conn.prepareStatement(CREATE_COMPUTER_QUERY, Statement.RETURN_GENERATED_KEYS);
 			ps.setString(1, computer.getName());
-			ps.setTimestamp(2, Timestamp.valueOf(computer.getIntroducedDate().atStartOfDay()));
-			ps.setTimestamp(3, Timestamp.valueOf(computer.getDiscontinuedDate().atStartOfDay()));
+			ps.setTimestamp(2, dateIntroduced);
+			ps.setTimestamp(3, dateDiscontinued);
 			ps.setInt(4, computer.getCompany().getCompanyId());
 			ps.executeUpdate();
 			ResultSet rs = ps.getGeneratedKeys();
@@ -123,12 +132,21 @@ public enum ComputerDaoImpl implements ComputerDao {
 
 		PreparedStatement ps = null;
 		Connection conn = connectionUtilInstance.getConnection();
-
+		Timestamp dateIntroduced = null;
+		Timestamp dateDiscontinued = null;
+		
+		if (computer.getIntroducedDate() != null) {
+			dateIntroduced = Timestamp.valueOf(computer.getIntroducedDate().atStartOfDay());
+		}
+		if (computer.getDiscontinuedDate() != null) {
+			dateDiscontinued = Timestamp.valueOf(computer.getDiscontinuedDate().atStartOfDay());
+		}
+		
 		try {
 			ps = conn.prepareStatement(UPDATE_COMPUTER_QUERY);
 			ps.setString(1, computer.getName());
-			ps.setTimestamp(2, Timestamp.valueOf(computer.getIntroducedDate().atStartOfDay()));
-			ps.setTimestamp(3, Timestamp.valueOf(computer.getDiscontinuedDate().atStartOfDay()));
+			ps.setTimestamp(2, dateIntroduced);
+			ps.setTimestamp(3, dateDiscontinued);
 			ps.setInt(4, computer.getCompany().getCompanyId());
 			ps.setInt(5, computer.getComputerId());
 			ps.executeUpdate();

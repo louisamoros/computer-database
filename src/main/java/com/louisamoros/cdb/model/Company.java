@@ -11,6 +11,7 @@ public class Company {
 	private String name;
 
 	public Company(String name) {
+		super();
 		this.name = name;
 	}
 

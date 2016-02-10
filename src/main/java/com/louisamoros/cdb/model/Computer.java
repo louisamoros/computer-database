@@ -15,10 +15,6 @@ public class Computer {
 	private LocalDate introducedDate;
 	private LocalDate discontinuedDate;
 
-	public Computer(String name) {
-		this.name = name;
-	}
-	
 	public Computer(int computerId, Company company, String name, LocalDate introducedDate, LocalDate discontinuedDate) {
 		super();
 		this.computerId = computerId;
@@ -32,6 +28,8 @@ public class Computer {
 		super();
 		this.company = company;
 		this.name = name;
+		this.introducedDate = introducedDate;
+		this.discontinuedDate = discontinuedDate;
 	}
 	
 	public int getComputerId() {
