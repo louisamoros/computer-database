@@ -1,0 +1,8 @@
+com.louisamoros.cdb.dao
+com.louisamoros.cdb.dao.impl
+com.louisamoros.cdb.exception
+com.louisamoros.cdb.launcher
+com.louisamoros.cdb.model
+com.louisamoros.cdb.service
+com.louisamoros.cdb.service.impl
+com.louisamoros.cdb.util
