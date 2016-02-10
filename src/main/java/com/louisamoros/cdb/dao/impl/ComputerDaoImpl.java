@@ -5,6 +5,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.sql.Timestamp;
 import java.util.List;
 
 import com.louisamoros.cdb.dao.ComputerDao;
@@ -14,22 +15,23 @@ import com.louisamoros.cdb.util.Mapper;
 
 /**
  * ComputerDaoImpl implements methods of ComputerDao interface.
+ * 
  * @author excilys
  *
  */
 public enum ComputerDaoImpl implements ComputerDao {
 
 	INSTANCE;
-	
+
 	private JDBCConnection connectionUtilInstance;
-	
+
 	private ComputerDaoImpl() {
 		connectionUtilInstance = JDBCConnection.INSTANCE;
 	}
 
 	public Computer getComputer(int id) {
 
-		String query = "SELECT * FROM computer WHERE id=?;";
+		String query = "SELECT * FROM computer LEFT JOIN company ON computer.company_id = company.id WHERE computer.id=?;";
 		ResultSet rs;
 		PreparedStatement ps;
 		Computer computer = null;
@@ -39,10 +41,7 @@ public enum ComputerDaoImpl implements ComputerDao {
 			ps = conn.prepareStatement(query);
 			ps.setInt(1, id);
 			rs = ps.executeQuery();
-			while (rs.next()) {
-				computer = new Computer(rs.getInt("id"), rs.getInt("company_id"), rs.getString("name"),
-						rs.getTimestamp("introduced"), rs.getTimestamp("discontinued"));
-			}
+			computer = Mapper.toComputerModel(rs);
 		} catch (SQLException e) {
 			System.out.println("Error during resquest...");
 			e.printStackTrace();
@@ -60,7 +59,7 @@ public enum ComputerDaoImpl implements ComputerDao {
 	public List<Computer> getComputers() {
 
 		List<Computer> computers = null;
-		String query = "SELECT * FROM computer;";
+		String query = "SELECT * FROM computer LEFT JOIN company ON computer.company_id = company.id;";
 		ResultSet rs;
 		Statement s;
 		Connection conn = connectionUtilInstance.getConnection();
@@ -68,7 +67,7 @@ public enum ComputerDaoImpl implements ComputerDao {
 		try {
 			s = conn.createStatement();
 			rs = s.executeQuery(query);
-			return Mapper.toComputerArrayList(rs);
+			computers = Mapper.toComputerArrayList(rs);
 		} catch (SQLException e) {
 			System.out.println("Error during resquest...");
 			e.printStackTrace();
@@ -92,9 +91,9 @@ public enum ComputerDaoImpl implements ComputerDao {
 		try {
 			ps = conn.prepareStatement(query, Statement.RETURN_GENERATED_KEYS);
 			ps.setString(1, computer.getName());
-			ps.setTimestamp(2, computer.getIntroducedDate());
-			ps.setTimestamp(3, computer.getDiscontinuedDate());
-			ps.setInt(4, computer.getCompanyId());
+			ps.setTimestamp(2, Timestamp.valueOf(computer.getIntroducedDate().atStartOfDay()));
+			ps.setTimestamp(3, Timestamp.valueOf(computer.getDiscontinuedDate().atStartOfDay()));
+			ps.setInt(4, computer.getCompany().getCompanyId());
 			ps.executeUpdate();
 			ResultSet rs = ps.getGeneratedKeys();
 			rs.next();
@@ -115,7 +114,7 @@ public enum ComputerDaoImpl implements ComputerDao {
 	}
 
 	public Computer updateComputer(int id, Computer computer) {
-		
+
 		String query = "UPDATE computer SET name=?, introduced=?, discontinued=?, company_id=? WHERE id=?";
 		PreparedStatement ps = null;
 		Connection conn = connectionUtilInstance.getConnection();
@@ -123,9 +122,9 @@ public enum ComputerDaoImpl implements ComputerDao {
 		try {
 			ps = conn.prepareStatement(query);
 			ps.setString(1, computer.getName());
-			ps.setTimestamp(2, computer.getIntroducedDate());
-			ps.setTimestamp(3, computer.getDiscontinuedDate());
-			ps.setInt(4, computer.getCompanyId());
+			ps.setTimestamp(2, Timestamp.valueOf(computer.getIntroducedDate().atStartOfDay()));
+			ps.setTimestamp(3, Timestamp.valueOf(computer.getDiscontinuedDate().atStartOfDay()));
+			ps.setInt(4, computer.getCompany().getCompanyId());
 			ps.setInt(5, computer.getComputerId());
 			ps.executeUpdate();
 		} catch (SQLException e) {

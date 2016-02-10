@@ -1,6 +1,6 @@
 package com.louisamoros.cdb.model;
 
-import java.sql.Timestamp;
+import java.time.LocalDate;
 
 /**
  * Computer model.
@@ -10,34 +10,28 @@ import java.sql.Timestamp;
 public class Computer {
 
 	private int computerId;
-	private int companyId;
+	private Company company;
 	private String name;
-	private Timestamp introducedDate;
-	private Timestamp discontinuedDate;
+	private LocalDate introducedDate;
+	private LocalDate discontinuedDate;
 
 	public Computer(String name) {
 		this.name = name;
 	}
 	
-	public Computer(int computerId, int companyId, String name, Timestamp introducedDate, Timestamp discontinuedDate) {
+	public Computer(int computerId, Company company, String name, LocalDate introducedDate, LocalDate discontinuedDate) {
 		super();
 		this.computerId = computerId;
-		this.companyId = companyId;
+		this.company = company;
 		this.name = name;
 		this.introducedDate = introducedDate;
 		this.discontinuedDate = discontinuedDate;
 	}
 
-	public Computer(int companyId, String name, Timestamp introducedDate, Timestamp discontinuedDate) {
+	public Computer(Company company, String name, LocalDate introducedDate, LocalDate discontinuedDate) {
 		super();
-		this.companyId = companyId;
+		this.company = company;
 		this.name = name;
-		if(this.isIntroducedDateGreaterThanDiscontinuedDate(introducedDate, discontinuedDate)) {
-			this.introducedDate = introducedDate;
-			this.discontinuedDate = discontinuedDate;
-		} else {
-			throw new IllegalArgumentException();
-		}
 	}
 	
 	public int getComputerId() {
@@ -48,12 +42,12 @@ public class Computer {
 		this.computerId = computerId;
 	}
 
-	public int getCompanyId() {
-		return companyId;
+	public Company getCompany() {
+		return company;
 	}
 
-	public void setCompanyId(int companyId) {
-		this.companyId = companyId;
+	public void setCompany(Company company) {
+		this.company = company;
 	}
 
 	public String getName() {
@@ -64,48 +58,26 @@ public class Computer {
 		this.name = name;
 	}
 
-	public Timestamp getIntroducedDate() {
+	public LocalDate getIntroducedDate() {
 		return introducedDate;
 	}
 
-	public void setIntroducedDate(Timestamp introducedDate) {
-		if(this.isIntroducedDateGreaterThanDiscontinuedDate(introducedDate, this.discontinuedDate)) {
-			this.introducedDate = introducedDate;
-		} else {
-			throw new IllegalArgumentException();
-		}
+	public void setIntroducedDate(LocalDate introducedDate) {
+		this.introducedDate = introducedDate;
 	}
 
-	public Timestamp getDiscontinuedDate() {
+	public LocalDate getDiscontinuedDate() {
 		return discontinuedDate;
 	}
 
-	public void setDiscontinuedDate(Timestamp discontinuedDate) {
-		if(this.isIntroducedDateGreaterThanDiscontinuedDate(this.introducedDate, discontinuedDate)) {
-			this.discontinuedDate = discontinuedDate;
-		} else {
-			throw new IllegalArgumentException();
-		}
+	public void setDiscontinuedDate(LocalDate discontinuedDate) {
+		this.discontinuedDate = discontinuedDate;
 	}
 		
 	@Override
 	public String toString() {
-		return "Computer [computerId=" + computerId + ", companyId=" + companyId + ", name=" + name
+		return "Computer [computerId=" + computerId + ", company=" + company + ", name=" + name
 				+ ", introducedDate=" + introducedDate + ", discontinuedDate=" + discontinuedDate + "]";
-	}
-	
-	/**
-	 * Compare introduced date and discontinued date.
-	 * @param introducedDate
-	 * @param discontinuedDate
-	 * @return true if introducedDate greater than discontinuedDate
-	 */
-	public boolean isIntroducedDateGreaterThanDiscontinuedDate(Timestamp introducedDate, Timestamp discontinuedDate) {
-		boolean ret = false;
-		if(introducedDate.getTime() > discontinuedDate.getTime()) {
-			ret = true;
-		} 
-		return ret;
 	}
 	
 }
