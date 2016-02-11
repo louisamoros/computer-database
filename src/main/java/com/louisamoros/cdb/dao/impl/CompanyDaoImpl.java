@@ -6,10 +6,13 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.List;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import com.louisamoros.cdb.dao.CompanyDao;
 import com.louisamoros.cdb.dao.DAOException;
 import com.louisamoros.cdb.model.Company;
-import com.louisamoros.cdb.util.JDBCConnection;
+import com.louisamoros.cdb.util.JDBCConnectionImpl;
 import com.louisamoros.cdb.util.Mapper;
 
 /**
@@ -21,15 +24,17 @@ public enum CompanyDaoImpl implements CompanyDao {
 	
 	INSTANCE;
 
-	private JDBCConnection connectionUtilInstance;
+	private JDBCConnectionImpl connectionUtilInstance;
 	private static final String GET_COMPANIES_QUERY = "SELECT * FROM company;";
+	private static Logger LOGGER = LoggerFactory.getLogger(CompanyDao.class);
 	
 	private CompanyDaoImpl() {
-		connectionUtilInstance = JDBCConnection.INSTANCE;
+		connectionUtilInstance = JDBCConnectionImpl.INSTANCE;
 	}
 	
 	public List<Company> getCompanies() throws DAOException {
 
+		LOGGER.debug(GET_COMPANIES_QUERY);
 		List<Company> companies = null;
 		ResultSet rs;
 		Statement s;

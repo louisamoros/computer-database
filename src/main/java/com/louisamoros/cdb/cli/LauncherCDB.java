@@ -10,8 +10,9 @@ import com.louisamoros.cdb.service.ComputerService;
 import com.louisamoros.cdb.service.impl.CompanyServiceImpl;
 import com.louisamoros.cdb.service.impl.ComputerServiceImpl;
 
-public class LauncherCDB {
 
+public class LauncherCDB {
+	
 	public static void main(String[] args) {
 		
 		/*GET COMPANIES*/

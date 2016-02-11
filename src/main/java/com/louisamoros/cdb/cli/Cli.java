@@ -1,21 +1,15 @@
 package com.louisamoros.cdb.cli;
 
 import java.util.ArrayList;
-import java.util.List;
 import java.util.Scanner;
-
-import com.louisamoros.cdb.service.CompanyService;
-import com.louisamoros.cdb.service.ComputerService;
-import com.louisamoros.cdb.service.impl.CompanyServiceImpl;
-import com.louisamoros.cdb.service.impl.ComputerServiceImpl;
 
 public class Cli {
 
 	public static void main(String[] args) {
 		
 		final Scanner scanner = new Scanner(System.in);
-		ComputerService computerService = ComputerServiceImpl.INSTANCE;
-		CompanyService companyService = CompanyServiceImpl.INSTANCE;
+//		ComputerService computerService = ComputerServiceImpl.INSTANCE;
+//		CompanyService companyService = CompanyServiceImpl.INSTANCE;
 		
 		while(!"exit".equals(scanner)) {
 			

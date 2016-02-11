@@ -1,4 +1,4 @@
-package com.louisamoros.cdb;
+package com.louisamoros.cdb.help;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

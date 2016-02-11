@@ -8,10 +8,13 @@ import java.sql.Statement;
 import java.sql.Timestamp;
 import java.util.List;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import com.louisamoros.cdb.dao.ComputerDao;
 import com.louisamoros.cdb.dao.DAOException;
 import com.louisamoros.cdb.model.Computer;
-import com.louisamoros.cdb.util.JDBCConnection;
+import com.louisamoros.cdb.util.JDBCConnectionImpl;
 import com.louisamoros.cdb.util.Mapper;
 
 /**
@@ -24,19 +27,21 @@ public enum ComputerDaoImpl implements ComputerDao {
 
 	INSTANCE;
 
-	private JDBCConnection connectionUtilInstance;
+	private JDBCConnectionImpl connectionUtilInstance;
 	private static final String GET_COMPUTER_QUERY = "SELECT * FROM computer LEFT JOIN company ON computer.company_id = company.id WHERE computer.id=?;";
 	private static final String GET_COMPUTERS_QUERY = "SELECT * FROM computer LEFT JOIN company ON computer.company_id = company.id;";
 	private static final String UPDATE_COMPUTER_QUERY = "UPDATE computer SET name=?, introduced=?, discontinued=?, company_id=? WHERE id=?";
 	private static final String DELETE_COMPUTER_QUERY = "DELETE FROM computer WHERE id=?";
 	private static final String CREATE_COMPUTER_QUERY = "INSERT INTO computer VALUES (default, ?, ?, ?, ?);";
+	private static Logger LOGGER = LoggerFactory.getLogger(ComputerDao.class);
 	
 	private ComputerDaoImpl() {
-		connectionUtilInstance = JDBCConnection.INSTANCE;
+		connectionUtilInstance = JDBCConnectionImpl.INSTANCE;
 	}
 
 	public Computer getComputer(int id) throws DAOException {
 
+		LOGGER.debug(GET_COMPUTER_QUERY);
 		ResultSet rs;
 		PreparedStatement ps;
 		Computer computer = null;
@@ -64,6 +69,7 @@ public enum ComputerDaoImpl implements ComputerDao {
 
 	public List<Computer> getComputers() throws DAOException {
 
+		LOGGER.debug(GET_COMPUTERS_QUERY);
 		List<Computer> computers = null;
 		ResultSet rs;
 		Statement s;
@@ -90,6 +96,7 @@ public enum ComputerDaoImpl implements ComputerDao {
 
 	public Computer createComputer(Computer computer) throws DAOException {
 
+		LOGGER.debug(CREATE_COMPUTER_QUERY);
 		PreparedStatement ps = null;
 		Connection conn = connectionUtilInstance.getConnection();
 		Timestamp dateIntroduced = null;
@@ -130,6 +137,7 @@ public enum ComputerDaoImpl implements ComputerDao {
 
 	public Computer updateComputer(Computer computer) throws DAOException {
 
+		LOGGER.debug(UPDATE_COMPUTER_QUERY);
 		PreparedStatement ps = null;
 		Connection conn = connectionUtilInstance.getConnection();
 		Timestamp dateIntroduced = null;
@@ -168,6 +176,7 @@ public enum ComputerDaoImpl implements ComputerDao {
 
 	public void deleteComputer(int id) throws DAOException {
 
+		LOGGER.debug(DELETE_COMPUTER_QUERY);
 		PreparedStatement ps = null;
 		Connection conn = connectionUtilInstance.getConnection();
 
