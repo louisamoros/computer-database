@@ -1,4 +1,4 @@
-package com.louisamoros.cdb.launcher;
+package com.louisamoros.cdb.cli;
 
 import java.time.LocalDate;
 import java.util.List;

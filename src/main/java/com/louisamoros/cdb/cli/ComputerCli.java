@@ -1,3 +1,4 @@
+package com.louisamoros.cdb.cli;
 /*package com.louisamoros.cdb.launcher;
 
 import java.sql.Timestamp;

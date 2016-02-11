@@ -1,5 +1,7 @@
-package com.louisamoros.cdb.launcher;
+package com.louisamoros.cdb.cli;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
 
 import com.louisamoros.cdb.service.CompanyService;
@@ -34,9 +36,24 @@ public class Cli {
 			System.out.println("#  $ exit");
 			System.out.println("##############################");
 			
-			parse(scanner);
-			scanner.useDelimiter(" ");
+		    ArrayList<Integer> list = new ArrayList<Integer>();
+		    System.out.print("Enter integers please ");
+		    System.out.println("(EOF or non-integer to terminate): ");
+
+		    while(scanner.hasNextInt()){
+		         list.add(scanner.nextInt());
+		    }
+
+		    Integer [] nums = list.toArray(new Integer[0]);
+		    for(int i = 0; i < nums.length; i++){
+		       System.out.println(nums[i]);
+		    }
 			
+			ArrayList<String> parseCommand = parse(scanner);
+			for(String yo:parseCommand) {
+				System.out.println("yoyo");
+				System.out.println(yo);
+			}
 			
 			switch(scanner.next()) {
 				case "create":
@@ -52,11 +69,21 @@ public class Cli {
 		}
 	}
 	
-	private static void parse(Scanner scanner) {
+	private static ArrayList<String> parse(Scanner scanner) {
+		ArrayList<String> parseCommand = new ArrayList<>();
 		scanner.useDelimiter(" ");
-		while(scanner.hasNext()) {
-			System.out.println(scanner.next());
+		boolean end = true;
+		while(end) {
+			parseCommand.add(scanner.next());
 		}
+		System.out.println("2ici");
+		System.out.println(parseCommand.size());
+		System.out.println("ici");
+		for(String yo:parseCommand) {
+			System.out.println(yo);
+		}
+		
+		return parseCommand;
 	}
 
 }
