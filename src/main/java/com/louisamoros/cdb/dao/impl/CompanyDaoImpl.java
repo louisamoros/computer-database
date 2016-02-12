@@ -24,12 +24,12 @@ public enum CompanyDaoImpl implements CompanyDao {
 	
 	INSTANCE;
 
-	private JDBCConnectionImpl connectionUtilInstance;
+	private JDBCConnectionImpl jdbcConnection;
 	private static final String GET_COMPANIES_QUERY = "SELECT * FROM company;";
 	private static Logger LOGGER = LoggerFactory.getLogger(CompanyDao.class);
 	
 	private CompanyDaoImpl() {
-		connectionUtilInstance = JDBCConnectionImpl.INSTANCE;
+		jdbcConnection = JDBCConnectionImpl.INSTANCE;
 	}
 	
 	public List<Company> getCompanies() throws DAOException {
@@ -38,7 +38,7 @@ public enum CompanyDaoImpl implements CompanyDao {
 		List<Company> companies = null;
 		ResultSet rs;
 		Statement s;
-		Connection conn = connectionUtilInstance.getConnection();
+		Connection conn = jdbcConnection.getConnection();
 
 		try {
 			s = conn.createStatement();

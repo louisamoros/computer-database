@@ -20,15 +20,14 @@ public enum JDBCConnectionImpl implements JDBCConnection {
 	INSTANCE;
 
 	private Connection conn = null;
-	private static final String PROPERTIES_FILE = "/com/louisamoros/cdb/dao/dao.properties";
-	private static String url;
-	private static String driver;
-	private static String username;
-	private static String password;
+	private static final String PROPERTIES_FILE = "dao.properties";
+	private static Properties properties;
 	
 	static {
-		Properties properties = new Properties();
-		InputStream propertiesFile = JDBCConnection.class.getResourceAsStream(PROPERTIES_FILE);
+		
+		properties = new Properties();
+		InputStream propertiesFile = JDBCConnection.class.getClassLoader().getResourceAsStream(PROPERTIES_FILE);
+//		InputStream propertiesFile = JDBCConnection.class.getResourceAsStream("/src/test/resources/dao.properties");
 
 		if (propertiesFile == null) {
 			throw new DAOConfigurationException(PROPERTIES_FILE + " not found my godness.");
@@ -36,20 +35,17 @@ public enum JDBCConnectionImpl implements JDBCConnection {
 
 		try {
 			properties.load(propertiesFile);
-			url = properties.getProperty("url");
-			driver = properties.getProperty("driver");
-			username = properties.getProperty("username");
-			password = properties.getProperty("password");
 		} catch (IOException e) {
 			throw new DAOConfigurationException("Cannot load properties file " + PROPERTIES_FILE, e);
 		}
 
 		try {
-			Class.forName(driver);
+			Class.forName(properties.getProperty("driver"));
 		} catch (ClassNotFoundException e) {
 			System.out.println("Error using mysql driver...");
 			e.printStackTrace();
 		}
+		
 	}
 
 	/**
@@ -58,10 +54,12 @@ public enum JDBCConnectionImpl implements JDBCConnection {
 	 * 
 	 * @return connection
 	 */
+	@Override
 	public Connection getConnection() {
 
 		try {
-			conn = DriverManager.getConnection(url, username, password);
+			conn = DriverManager.getConnection(properties.getProperty("url"), properties.getProperty("username"),
+					properties.getProperty("password"));
 		} catch (SQLException e) {
 			System.out.println("Error during connection...rollback and close");
 			try {
@@ -77,4 +75,9 @@ public enum JDBCConnectionImpl implements JDBCConnection {
 
 	}
 
+	@Override
+	public Properties getProperties() {
+		return properties;
+	}
+	
 }
