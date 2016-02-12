@@ -1,4 +1,4 @@
-package com.louisamoros.cdb.util;
+/*package com.louisamoros.cdb.util;
 
 import java.nio.charset.Charset;
 import java.sql.SQLException;
@@ -81,4 +81,4 @@ public class ConnectionConfigTest {
 		Assert.assertTrue(true);
 	}
 
-}
+}*/

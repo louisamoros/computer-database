@@ -27,7 +27,6 @@ public enum JDBCConnectionImpl implements JDBCConnection {
 		
 		properties = new Properties();
 		InputStream propertiesFile = JDBCConnection.class.getClassLoader().getResourceAsStream(PROPERTIES_FILE);
-//		InputStream propertiesFile = JDBCConnection.class.getResourceAsStream("/src/test/resources/dao.properties");
 
 		if (propertiesFile == null) {
 			throw new DAOConfigurationException(PROPERTIES_FILE + " not found my godness.");
