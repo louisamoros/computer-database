@@ -15,7 +15,7 @@ import com.louisamoros.cdb.model.Computer;
  * @author excilys
  *
  */
-public class Mapper {
+public class MapperResultSet {
 
 	/**
 	 * Convert resultSet to arrayList based on company model.
@@ -65,6 +65,11 @@ public class Mapper {
 		return computers;
 	}
 	
+	/**
+	 * This method transform a computer resultSet to a computer model
+	 * @param resultSet
+	 * @return computer
+	 */
 	public static Computer toComputerModel(ResultSet rs) {
 		Computer computer = null;
 		try {

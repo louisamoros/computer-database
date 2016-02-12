@@ -15,7 +15,7 @@ import com.louisamoros.cdb.dao.ComputerDao;
 import com.louisamoros.cdb.dao.DAOException;
 import com.louisamoros.cdb.model.Computer;
 import com.louisamoros.cdb.util.JDBCConnectionImpl;
-import com.louisamoros.cdb.util.Mapper;
+import com.louisamoros.cdb.util.MapperResultSet;
 
 /**
  * ComputerDaoImpl implements methods of ComputerDao interface.
@@ -51,7 +51,7 @@ public enum ComputerDaoImpl implements ComputerDao {
 			ps = conn.prepareStatement(GET_COMPUTER_QUERY);
 			ps.setInt(1, id);
 			rs = ps.executeQuery();
-			computer = Mapper.toComputerModel(rs);
+			computer = MapperResultSet.toComputerModel(rs);
 		} catch (SQLException e) {
 			e.printStackTrace();
 			throw new DAOException("Fail during: " + GET_COMPUTER_QUERY);
@@ -78,7 +78,7 @@ public enum ComputerDaoImpl implements ComputerDao {
 		try {
 			s = conn.createStatement();
 			rs = s.executeQuery(GET_COMPUTERS_QUERY);
-			computers = Mapper.toComputerArrayList(rs);
+			computers = MapperResultSet.toComputerArrayList(rs);
 		} catch (SQLException e) {
 			e.printStackTrace();
 			throw new DAOException("Fail during: " + GET_COMPUTERS_QUERY);

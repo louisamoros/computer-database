@@ -44,13 +44,6 @@
 			<version>${logback.version}</version>
 		</dependency>
 
-		<!-- slf4j -->
-		<dependency>
-			<groupId>org.slf4j</groupId>
-			<artifactId>slf4j-api</artifactId>
-			<version>1.7.15</version>
-		</dependency>
-
 		<!-- Junit for testing -->
 		<dependency>
 			<groupId>junit</groupId>
@@ -102,19 +95,8 @@
 	</dependencies>
 
 	<build>
-		<resources>
-			<resource>
-				<directory>/src/main/resources</directory>
-				<filtering>true</filtering>
-			</resource>
-		</resources>
-		<testResources>
-			<testResource>
-				<directory>/src/test/resources</directory>
-				<filtering>true</filtering>
-			</testResource>
-		</testResources>
 		<plugins>
+
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-compiler-plugin</artifactId>
@@ -124,6 +106,7 @@
 					<target>1.8</target>
 				</configuration>
 			</plugin>
+			
 		</plugins>
 	</build>
 

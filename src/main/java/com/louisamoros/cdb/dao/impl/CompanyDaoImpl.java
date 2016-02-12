@@ -13,7 +13,7 @@ import com.louisamoros.cdb.dao.CompanyDao;
 import com.louisamoros.cdb.dao.DAOException;
 import com.louisamoros.cdb.model.Company;
 import com.louisamoros.cdb.util.JDBCConnectionImpl;
-import com.louisamoros.cdb.util.Mapper;
+import com.louisamoros.cdb.util.MapperResultSet;
 
 /**
  * CompanyDaoImpl implements methods of CompanyDao interface.
@@ -43,7 +43,7 @@ public enum CompanyDaoImpl implements CompanyDao {
 		try {
 			s = conn.createStatement();
 			rs = s.executeQuery(GET_COMPANIES_QUERY);
-			companies = Mapper.toCompanyArrayList(rs);
+			companies = MapperResultSet.toCompanyArrayList(rs);
 		} catch (SQLException e) {
 			e.printStackTrace();
 			throw new DAOException("Fail during: " + GET_COMPANIES_QUERY);
