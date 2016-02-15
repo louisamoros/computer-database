@@ -72,8 +72,8 @@
 
 	<footer class="navbar-fixed-bottom">
 		<div class="container text-center">
-<%-- 			<cdb:paginate max="15" offset="${page}" count="${perPage}"
-				uri="/computers?" next="&raquo;" previous="&laquo;" /> --%>
+			<cdb:paginate max="15" offset="${page}" count="${numberOfComputers}"
+				uri="/computerdatabase/computers" next="&raquo;" previous="&laquo;" />
 			<div class="btn-group btn-group-sm pull-right" role="group">
 				<button type="button" class="btn btn-default">10</button>
 				<button type="button" class="btn btn-default">50</button>
