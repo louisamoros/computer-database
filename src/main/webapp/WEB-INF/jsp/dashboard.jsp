@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=EUC-KR"
 	pageEncoding="EUC-KR"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib prefix="cdb" uri="/WEB-INF/taglibs/pagination.tld"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -22,7 +23,10 @@
 
 	<section id="main">
 		<div class="container">
-			<h1 id="homeTitle">121 Computers found</h1>
+			<h1 id="homeTitle">
+				<c:out value="${numberOfComputers}" />
+				Computers found
+			</h1>
 			<div id="actions" class="form-horizontal">
 				<div class="pull-left">
 					<form id="searchForm" action="#" method="GET" class="form-inline">
@@ -40,31 +44,14 @@
 			</div>
 		</div>
 
-		<form id="deleteForm" action="#" method="POST">
-			<input type="hidden" name="selection" value="">
-		</form>
-
 		<div class="container" style="margin-top: 10px;">
 			<table class="table table-striped table-bordered">
 				<thead>
 					<tr>
-						<!-- Variable declarations for passing labels as parameters -->
-						<!-- Table header for Computer Name -->
-
-						<th class="editMode" style="width: 60px; height: 22px;"><input
-							type="checkbox" id="selectall" /> <span
-							style="vertical-align: top;"> - <a href="#"
-								id="deleteSelected" onclick="$.fn.deleteSelected();"> <i
-									class="fa fa-trash-o fa-lg"></i>
-							</a>
-						</span></th>
 						<th>Computer name</th>
 						<th>Introduced date</th>
-						<!-- Table header for Discontinued Date -->
 						<th>Discontinued date</th>
-						<!-- Table header for Company -->
 						<th>Company</th>
-
 					</tr>
 				</thead>
 				<!-- Browse attribute computers -->
@@ -75,41 +62,24 @@
 							<td><c:out value="${computer.introducedDate}" /></td>
 							<td><c:out value="${computer.discontinuedDate}" /></td>
 							<td><c:out value="${computer.company.name}" /></td>
-							<%-- 				
-					<td><fmt:formatDate pattern="yyyy-MMM-dd" value="${computer.}" /></td>
-					<td><fmt:formatDate pattern="yyyy-MMM-dd" value="${user.dob}" /></td>
- --%>
-							<%--  					<td><a
-						href="UserController?action=edit&userId=<c:out value="${user.userid}"/>">Update</a></td>
-					<td><a
-						href="UserController?action=delete&userId=<c:out value="${user.userid}"/>">Delete</a></td> --%>
 						</tr>
 					</c:forEach>
 				</tbody>
 			</table>
 		</div>
+
 	</section>
 
 	<footer class="navbar-fixed-bottom">
 		<div class="container text-center">
-			<ul class="pagination">
-				<li><a href="#" aria-label="Previous"> <span
-						aria-hidden="true">&laquo;</span>
-				</a></li>
-				<li><a href="#">1</a></li>
-				<li><a href="#">2</a></li>
-				<li><a href="#">3</a></li>
-				<li><a href="#">4</a></li>
-				<li><a href="#">5</a></li>
-				<li><a href="#" aria-label="Next"> <span aria-hidden="true">&raquo;</span>
-				</a></li>
-			</ul>
-
+<%-- 			<cdb:paginate max="15" offset="${page}" count="${perPage}"
+				uri="/computers?" next="&raquo;" previous="&laquo;" /> --%>
 			<div class="btn-group btn-group-sm pull-right" role="group">
 				<button type="button" class="btn btn-default">10</button>
 				<button type="button" class="btn btn-default">50</button>
 				<button type="button" class="btn btn-default">100</button>
 			</div>
+		</div>
 	</footer>
 	<script src="js/jquery.min.js"></script>
 	<script src="js/bootstrap.min.js"></script>

@@ -14,6 +14,7 @@ import org.slf4j.LoggerFactory;
 
 import com.louisamoros.cdb.service.ComputerService;
 import com.louisamoros.cdb.service.impl.ComputerServiceImpl;
+import com.louisamoros.cdb.util.Page;
 
 /**
  * Servlet implementation class ComputersServlet
@@ -40,11 +41,17 @@ public class ComputerController extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		
-		LOGGER.debug("GET computers...");
 		computerService = ComputerServiceImpl.INSTANCE;
-		request.setAttribute("computers", computerService.getComputers());
+		int perPage = Page.perPageVerification(request.getParameter("perPage"));
+		int page = Page.pageVerification(request.getParameter("page"));
+		request.setAttribute("computers", computerService.getComputers(page, perPage));
+		request.setAttribute("numberOfComputers", computerService.getNumberOfComputers());
+		request.setAttribute("perPage", perPage);
+		request.setAttribute("page", page);
+		LOGGER.debug("GET computers page=" + page + " and perPage=" + perPage);
 		RequestDispatcher rd = request.getRequestDispatcher(COMPUTERS_DASHBOARD);
 		rd.forward(request, response);
+		
 	}
 
 	/**

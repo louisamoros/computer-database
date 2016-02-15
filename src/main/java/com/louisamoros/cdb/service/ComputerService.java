@@ -7,10 +7,24 @@ import com.louisamoros.cdb.model.Computer;
 public interface ComputerService {
 
 	/**
+	 * This method return the numbers of records of computers in the database via the dao.
+	 * @return number of computers
+	 */
+	int getNumberOfComputers();
+	
+	/**
 	 * Fetch all computers from computer dao.
 	 * @return computers list
 	 */
-	List<Computer> getComputers();
+	List<Computer> getAllComputers();
+	
+	/**
+	 * Fetch computers from computer dao page function of page and perPage params.
+	 * @param page
+	 * @param perPage
+	 * @return computers list
+	 */
+	List<Computer> getComputers(int page, int perPage);
 	
 	/**
 	 * Fetch the computer from dao based on its Id.

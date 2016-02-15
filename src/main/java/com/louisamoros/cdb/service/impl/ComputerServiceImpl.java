@@ -24,14 +24,17 @@ public enum ComputerServiceImpl implements ComputerService {
 		computerDao = ComputerDaoImpl.INSTANCE;
 	}
 
-	public List<Computer> getComputers() {
-		return computerDao.getComputers();
+	@Override
+	public List<Computer> getAllComputers() {
+		return computerDao.getAllComputers();
 	}
 
+	@Override
 	public Computer getComputer(int computerId) {
 		return computerDao.getComputer(computerId);
 	}
 
+	@Override
 	public Computer createComputer(Computer computer) throws InvalidDateException {
 		if (computer.getIntroducedDate().isBefore(computer.getDiscontinuedDate())) {
 			return computerDao.createComputer(computer);
@@ -40,6 +43,7 @@ public enum ComputerServiceImpl implements ComputerService {
 		}
 	}
 
+	@Override
 	public Computer updateComputer(Computer computer) throws InvalidDateException {
 		if (computer.getIntroducedDate().isBefore(computer.getDiscontinuedDate())) {
 			return computerDao.updateComputer(computer);
@@ -48,7 +52,18 @@ public enum ComputerServiceImpl implements ComputerService {
 		}
 	}
 
+	@Override
 	public void deleteComputer(int computerId) {
 		computerDao.deleteComputer(computerId);
+	}
+
+	@Override
+	public List<Computer> getComputers(int page, int perPage) {
+		return computerDao.getComputers(page, perPage);
+	}
+
+	@Override
+	public int getNumberOfComputers() {
+		return computerDao.getNumberOfComputers();
 	}
 }
