@@ -7,127 +7,145 @@ import javax.servlet.jsp.JspWriter;
 import javax.servlet.jsp.tagext.SimpleTagSupport;
 
 public class Pagination extends SimpleTagSupport {
-	
-	// action to be hit when clicked
-	private String uri;
-	// offset of pagination
-	private int offset;
-	// total elements to be shown
-	private int count;
-	// maximum number of pages to be shown in the pagination bar
-	private int max = 10;
-	// maximum number of elements to be shown per page
-	private int steps = 10;
-	// text to be shown for previous page link
-	private String previous = "Previous";
-	// text to be shown for next page link
-	private String next = "Next";
 
-	private Writer getWriter() {
-		JspWriter out = getJspContext().getOut();
-		return out;
-	}
+    // action to be hit when clicked
+    private String uri;
+    // offset of pagination
+    private int currentPage = 1;
+    // total elements to be shown
+    private int totalCount;
+    // maximum number of pages to be shown in the pagination bar
+    private int maxToShow = 10;
+    // maximum number of elements to be shown per page
+    private int perPage = 10;
+    // text to be shown for previous page link
+    private String previous = "Previous";
+    // text to be shown for next page link
+    private String next = "Next";
 
-	@Override
-	public void doTag() throws JspException {
-		Writer out = getWriter();
+    private Writer getWriter() {
+        JspWriter out = getJspContext().getOut();
+        return out;
+    }
 
-		try {
-			out.write("<span class=\"text-muted\">" + (count % steps + steps / 10) + "</span>");
-			out.write("<nav>");
-			out.write("<ul class=\"pagination\">");
+    @Override
+    public void doTag() throws JspException {
+        Writer out = getWriter();
 
-			if (offset < steps)
-				out.write(constructLink(1, previous, "disabled", true));
-			else
-				out.write(constructLink(offset - steps, previous, null, false));
+        try {
+            out.write("<nav>");
+            out.write("<ul class=\"pagination\">");
 
-/*			for (int itr = 0; itr < count; itr += steps) {
-				if (offset == itr)
-					out.write(constructLink((itr / 10 + 1) - 1 * steps, String.valueOf(itr / 10 + 1), "active", true));
-				else
-					out.write(constructLink(itr / 10 * steps, String.valueOf(itr / 10 + 1), null, false));
-			}
-*/
-			if (offset + steps > count)
-				out.write(constructLink(offset + steps, next, "disabled", true));
-			else
-				out.write(constructLink(offset + steps, next, null, false));
+            int totalPages = Math.abs(totalCount / perPage);
+            int startingPage = Math.max(currentPage - maxToShow / 2, 1);
+            int endingPage = startingPage + maxToShow;
+            boolean isLastPage = currentPage == totalPages;
 
-			out.write("</ul>");
-			out.write("</nav>");
-		} catch (java.io.IOException ex) {
-			throw new JspException("Error in Paginator tag", ex);
-		}
-	}
+            if (endingPage > totalPages + 1) {
+                int diff = endingPage - totalPages;
+                startingPage -= diff - 1;
+                if (startingPage < 1) {
+                    startingPage = 1;
+                }
+                endingPage = totalPages + 1;
+            }
 
-	private String constructLink(int page, String text, String className, boolean disabled) {
-		StringBuilder link = new StringBuilder("<li");
-		if (className != null) {
-			link.append(" class=\"");
-			link.append(className);
-			link.append("\"");
-		}
-		if (disabled)
-			link.append(">").append("<a href=\"#\">" + text + "</a></li>");
-		else
-			link.append(">").append("<a href=\"" + uri + "?offset=" + page + "&steps=" + steps + "\">" + text + "</a></li>");
-		return link.toString();
-	}
+            if (currentPage > 1) {
+                out.write(constructLink(1, previous, null, false));
+            } else {
+                out.write(constructLink(1, previous, "disabled", true));
+            }
 
-	public String getUri() {
-		return uri;
-	}
+            for (int i = startingPage ; i < endingPage ; i++) {
+                if (i == currentPage) {
+                    out.write(constructLink(i, String.valueOf(i), "active", true));
+                } else {
+                    out.write(constructLink(i, String.valueOf(i), null, false));
+                }
+            }
 
-	public void setUri(String uri) {
-		this.uri = uri;
-	}
+            if (isLastPage) {
+                out.write(constructLink(endingPage, next, "disabled", true));
+            } else {
+                out.write(constructLink(endingPage, next, null, false));
+            }
 
-	public int getOffset() {
-		return offset;
-	}
+            out.write("</ul>");
+            out.write("</nav>");
 
-	public void setOffset(int offset) {
-		this.offset = offset;
-	}
+        } catch (java.io.IOException ex) {
+            throw new JspException("Error in Paginator tag", ex);
+        }
+    }
 
-	public int getCount() {
-		return count;
-	}
+    private String constructLink(int page, String text, String className, boolean disabled) {
+        StringBuilder link = new StringBuilder("<li");
+        if (className != null) {
+            link.append(" class=\"");
+            link.append(className);
+            link.append("\"");
+        }
+        if (disabled)
+            link.append(">").append("<a href=\"\">" + text + "</a></li>");
+        else
+            link.append(">").append("<a href=\"" + uri + "?page=" + page + "&perpage=" + perPage + "\">" + text + "</a></li>");
+        return link.toString();
+    }
 
-	public void setCount(int count) {
-		this.count = count;
-	}
+    public String getUri() {
+        return uri;
+    }
 
-	public int getMax() {
-		return max;
-	}
+    public void setUri(String uri) {
+        this.uri = uri;
+    }
 
-	public void setMax(int max) {
-		this.max = max;
-	}
+    public int getCurrentPage() {
+        return currentPage;
+    }
 
-	public String getPrevious() {
-		return previous;
-	}
+    public void setCurrentPage(int currentPage) {
+        this.currentPage = currentPage;
+    }
 
-	public void setPrevious(String previous) {
-		this.previous = previous;
-	}
+    public int getTotalCount() {
+        return totalCount;
+    }
 
-	public String getNext() {
-		return next;
-	}
+    public void setTotalCount(int totalCount) {
+        this.totalCount = totalCount;
+    }
 
-	public void setNext(String next) {
-		this.next = next;
-	}
+    public int getMaxToShow() {
+        return maxToShow;
+    }
 
-	public int getSteps() {
-		return steps;
-	}
+    public void setMaxToShow(int maxToShow) {
+        this.maxToShow = maxToShow;
+    }
 
-	public void setSteps(int steps) {
-		this.steps = steps;
-	}
+    public int getPerPage() {
+        return perPage;
+    }
+
+    public void setPerPage(int perPage) {
+        this.perPage = perPage;
+    }
+
+    public String getPrevious() {
+        return previous;
+    }
+
+    public void setPrevious(String previous) {
+        this.previous = previous;
+    }
+
+    public String getNext() {
+
+        return next;
+    }
+
+    public void setNext(String next) {
+        this.next = next;
+    }
 }

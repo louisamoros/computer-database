@@ -26,24 +26,24 @@
 			<type>java.lang.String</type>
 		</attribute>
 		<attribute>
-			<name>offset</name>
+			<name>currentPage</name>
 			<required>true</required>
 			<rtexprvalue>true</rtexprvalue>
 			<type>int</type>
 		</attribute>
 		<attribute>
-			<name>count</name>
+			<name>totalCount</name>
 			<required>true</required>
 			<rtexprvalue>true</rtexprvalue>
 			<type>int</type>
 		</attribute>
 		<attribute>
-			<name>max</name>
+			<name>maxToShow</name>
 			<rtexprvalue>true</rtexprvalue>
 			<type>int</type>
 		</attribute>
 		<attribute>
-			<name>steps</name>
+			<name>perPage</name>
 			<rtexprvalue>true</rtexprvalue>
 			<type>int</type>
 		</attribute>
