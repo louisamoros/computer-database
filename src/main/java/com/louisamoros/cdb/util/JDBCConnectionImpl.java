@@ -21,9 +21,9 @@ public enum JDBCConnectionImpl implements JDBCConnection {
 
 	private Connection conn = null;
 	private static final String PROPERTIES_FILE = "dao.properties";
-	private static Properties properties;
+	private Properties properties;
 	
-	static {
+	private JDBCConnectionImpl() {
 		
 		properties = new Properties();
 		InputStream propertiesFile = JDBCConnection.class.getClassLoader().getResourceAsStream(PROPERTIES_FILE);

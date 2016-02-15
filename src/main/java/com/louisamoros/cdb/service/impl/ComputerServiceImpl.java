@@ -10,43 +10,44 @@ import com.louisamoros.cdb.service.InvalidDateException;
 
 /**
  * Computer Service used to CRUD computers
+ * 
  * @author excilys
  *
  */
 public enum ComputerServiceImpl implements ComputerService {
 
 	INSTANCE;
-	
+
 	private ComputerDao computerDao;
-	
+
 	private ComputerServiceImpl() {
 		computerDao = ComputerDaoImpl.INSTANCE;
 	}
-	
+
 	public List<Computer> getComputers() {
 		return computerDao.getComputers();
 	}
-	
+
 	public Computer getComputer(int computerId) {
 		return computerDao.getComputer(computerId);
 	}
-	
+
 	public Computer createComputer(Computer computer) throws InvalidDateException {
-		if(computer.getIntroducedDate().isBefore(computer.getDiscontinuedDate())) {
-			return computerDao.createComputer(computer);			
+		if (computer.getIntroducedDate().isBefore(computer.getDiscontinuedDate())) {
+			return computerDao.createComputer(computer);
 		} else {
 			throw new InvalidDateException("Can't create computer with dates in the wrong order.");
 		}
 	}
-	
+
 	public Computer updateComputer(Computer computer) throws InvalidDateException {
-		if(computer.getIntroducedDate().isBefore(computer.getDiscontinuedDate())) {
-			return computerDao.updateComputer(computer);			
+		if (computer.getIntroducedDate().isBefore(computer.getDiscontinuedDate())) {
+			return computerDao.updateComputer(computer);
 		} else {
 			throw new InvalidDateException("Can't create computer with dates in the wrong order.");
 		}
 	}
-	
+
 	public void deleteComputer(int computerId) {
 		computerDao.deleteComputer(computerId);
 	}

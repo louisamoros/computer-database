@@ -9,6 +9,9 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import com.louisamoros.cdb.service.ComputerService;
 import com.louisamoros.cdb.service.impl.ComputerServiceImpl;
 
@@ -18,8 +21,10 @@ import com.louisamoros.cdb.service.impl.ComputerServiceImpl;
 @WebServlet("/computers")
 public class ComputerController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
+	private static final Logger LOGGER = LoggerFactory.getLogger(ComputerController.class);
 	private ComputerService computerService;
-	public static final String COMPUTERS_DASHBOARD = "/WEB-INF/jsp/dashboard.jsp";
+	private static final String COMPUTERS_DASHBOARD = "/WEB-INF/jsp/dashboard.jsp";
+	
 
 	/**
 	 * @see HttpServlet#HttpServlet()
@@ -34,6 +39,8 @@ public class ComputerController extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
+		
+		LOGGER.debug("GET computers...");
 		computerService = ComputerServiceImpl.INSTANCE;
 		request.setAttribute("computers", computerService.getComputers());
 		RequestDispatcher rd = request.getRequestDispatcher(COMPUTERS_DASHBOARD);

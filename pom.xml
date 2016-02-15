@@ -5,6 +5,7 @@
 	<artifactId>computerdb</artifactId>
 	<name>computerdb-webapp</name>
 	<version>0.0.1-SNAPSHOT</version>
+	<packaging>war</packaging>
 
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -36,12 +37,12 @@
 			<artifactId>javax.servlet-api</artifactId>
 			<version>3.1.0</version>
 		</dependency>
-
-		<!-- Logback using slf4j -->
+		
+		<!-- Logback for nice logging using slf4j -->
 		<dependency>
 			<groupId>ch.qos.logback</groupId>
 			<artifactId>logback-classic</artifactId>
-			<version>${logback.version}</version>
+			<version>1.1.5</version>
 		</dependency>
 
 		<!-- Junit for testing -->
@@ -106,7 +107,7 @@
 					<target>1.8</target>
 				</configuration>
 			</plugin>
-			
+
 		</plugins>
 	</build>
 

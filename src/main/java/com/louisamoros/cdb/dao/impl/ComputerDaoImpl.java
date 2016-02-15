@@ -132,7 +132,6 @@ public enum ComputerDaoImpl implements ComputerDao {
 		}
 
 		return computer;
-
 	}
 
 	public Computer updateComputer(Computer computer) throws DAOException {
@@ -171,7 +170,6 @@ public enum ComputerDaoImpl implements ComputerDao {
 		}
 
 		return computer;
-
 	}
 
 	public void deleteComputer(int id) throws DAOException {
