@@ -9,7 +9,6 @@
 		<name>paginate</name>
 		<tag-class>com.louisamoros.cdb.taglib.Pagination</tag-class>
 		<body-content>empty</body-content>
-
 		<attribute>
 			<name>next</name>
 			<rtexprvalue>true</rtexprvalue>
@@ -40,6 +39,11 @@
 		</attribute>
 		<attribute>
 			<name>max</name>
+			<rtexprvalue>true</rtexprvalue>
+			<type>int</type>
+		</attribute>
+		<attribute>
+			<name>steps</name>
 			<rtexprvalue>true</rtexprvalue>
 			<type>int</type>
 		</attribute>

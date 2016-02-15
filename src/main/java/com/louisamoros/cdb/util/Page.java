@@ -1,38 +1,30 @@
 package com.louisamoros.cdb.util;
 
-public enum Page {
+public class Page {
 	
-	INSTANCE;
-	
-	private static int perPage = 10;
-	private static int page = 0;
+	private static int offset = 0;
+	private static int steps = 10;
 
-	public static int perPageVerification(String pp) {
-		int ret;
-		int ppi = 0;
-		if(pp != null) {
-			ppi = Integer.parseInt(pp);
+	public static int stepsVerification(String stp) {
+		int stepInt = steps;
+		if(stp != null) {
+			stepInt = Integer.parseInt(stp);
 		}
-		if(ppi == 10 || ppi == 50 || ppi == 100) {
-			ret = ppi;
-		} else {
-			ret = perPage;
+		if(stepInt != 10 && stepInt != 50 && stepInt != 100) {
+			stepInt = steps;
 		}
-		return ret;
+		return stepInt;
 	}
 	
-	public static int pageVerification(String p) {
-		int ret = page;
-		int pi = 0;
-		if(p != null) {
-			pi = Integer.parseInt(p);
+	public static int offsetVerification(String ofst) {
+		int offsetInt = offset;
+		if(ofst != null) {
+			offsetInt = Integer.parseInt(ofst);
 		}
-		if(pi > 0) {
-			ret = pi;
-		} else {
-			ret = page;
+		if(offsetInt < 0) {
+			offsetInt = offset;
 		}
-		return ret;
+		return offsetInt;
 	}
 
 }

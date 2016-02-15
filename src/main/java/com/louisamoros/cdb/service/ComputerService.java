@@ -19,12 +19,12 @@ public interface ComputerService {
 	List<Computer> getAllComputers();
 	
 	/**
-	 * Fetch computers from computer dao page function of page and perPage params.
-	 * @param page
-	 * @param perPage
+	 * Fetch computers from computer dao page function of offset and steps params.
+	 * @param offset
+	 * @param steps
 	 * @return computers list
 	 */
-	List<Computer> getComputers(int page, int perPage);
+	List<Computer> getComputers(int offset, int steps);
 	
 	/**
 	 * Fetch the computer from dao based on its Id.

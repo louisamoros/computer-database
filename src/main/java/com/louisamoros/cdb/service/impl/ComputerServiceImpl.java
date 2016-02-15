@@ -58,8 +58,8 @@ public enum ComputerServiceImpl implements ComputerService {
 	}
 
 	@Override
-	public List<Computer> getComputers(int page, int perPage) {
-		return computerDao.getComputers(page, perPage);
+	public List<Computer> getComputers(int offset, int steps) {
+		return computerDao.getComputers(offset, steps);
 	}
 
 	@Override

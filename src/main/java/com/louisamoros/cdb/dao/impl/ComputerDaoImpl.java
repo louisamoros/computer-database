@@ -99,7 +99,7 @@ public enum ComputerDaoImpl implements ComputerDao {
 	}
 	
 	@Override
-	public List<Computer> getComputers(int page, int perPage) throws DAOException {
+	public List<Computer> getComputers(int offset, int steps) throws DAOException {
 
 		LOGGER.debug(GET_COMPUTER_QUERY);
 		List<Computer> computers = null;
@@ -109,7 +109,7 @@ public enum ComputerDaoImpl implements ComputerDao {
 
 		try {
 			s = conn.createStatement();
-			String query = String.format(GET_COMPUTERS_QUERY, perPage, page);
+			String query = String.format(GET_COMPUTERS_QUERY, steps, offset);
 			rs = s.executeQuery(query);
 			computers = MapperResultSet.toComputerArrayList(rs);
 		} catch (SQLException e) {

@@ -7,12 +7,20 @@ import javax.servlet.jsp.JspWriter;
 import javax.servlet.jsp.tagext.SimpleTagSupport;
 
 public class Pagination extends SimpleTagSupport {
+	
+	// action to be hit when clicked
 	private String uri;
+	// offset of pagination
 	private int offset;
+	// total elements to be shown
 	private int count;
+	// maximum number of pages to be shown in the pagination bar
 	private int max = 10;
+	// maximum number of elements to be shown per page
 	private int steps = 10;
+	// text to be shown for previous page link
 	private String previous = "Previous";
+	// text to be shown for next page link
 	private String next = "Next";
 
 	private Writer getWriter() {
@@ -25,6 +33,7 @@ public class Pagination extends SimpleTagSupport {
 		Writer out = getWriter();
 
 		try {
+			out.write("<span class=\"text-muted\">" + (count % steps + steps / 10) + "</span>");
 			out.write("<nav>");
 			out.write("<ul class=\"pagination\">");
 
@@ -33,13 +42,13 @@ public class Pagination extends SimpleTagSupport {
 			else
 				out.write(constructLink(offset - steps, previous, null, false));
 
-			for (int itr = 0; itr < count; itr += steps) {
+/*			for (int itr = 0; itr < count; itr += steps) {
 				if (offset == itr)
 					out.write(constructLink((itr / 10 + 1) - 1 * steps, String.valueOf(itr / 10 + 1), "active", true));
 				else
 					out.write(constructLink(itr / 10 * steps, String.valueOf(itr / 10 + 1), null, false));
 			}
-
+*/
 			if (offset + steps > count)
 				out.write(constructLink(offset + steps, next, "disabled", true));
 			else
@@ -62,7 +71,7 @@ public class Pagination extends SimpleTagSupport {
 		if (disabled)
 			link.append(">").append("<a href=\"#\">" + text + "</a></li>");
 		else
-			link.append(">").append("<a href=\"" + uri + "?offset=" + page + "\">" + text + "</a></li>");
+			link.append(">").append("<a href=\"" + uri + "?offset=" + page + "&steps=" + steps + "\">" + text + "</a></li>");
 		return link.toString();
 	}
 

@@ -34,13 +34,13 @@ public interface ComputerDao {
 	List<Computer> getAllComputers() throws DAOException;
 
 	/**
-	 * Fetch computers from the database function of page and perPage params.
-	 * @param page
-	 * @param perPage
-	 * @return 
+	 * Fetch computers from the database function of offset and steps params.
+	 * @param offset
+	 * @param steps
+	 * @return list of computers
 	 * @throws DAOException
 	 */
-	List<Computer> getComputers(int page, int perPage) throws DAOException;
+	List<Computer> getComputers(int offset, int steps) throws DAOException;
 	
 	/**
 	 * Create a new computer in the database.
