@@ -24,7 +24,7 @@ public class LauncherCDB {
 		
 		/*GET COMPUTERS*/
 		ComputerService computerService = ComputerServiceImpl.INSTANCE;
-		List<Computer> computers = computerService.getComputers();
+		List<Computer> computers = computerService.getAllComputers();
 		for(Computer computer:computers) {
 			System.out.println(computer);
 		}

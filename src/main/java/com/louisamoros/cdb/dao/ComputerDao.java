@@ -12,36 +12,56 @@ import com.louisamoros.cdb.model.Computer;
 public interface ComputerDao {
 
 	/**
+	 * This method return the number of records of computers in the database
+	 * @return number of computer in database
+	 * @throws DAOException
+	 */
+	int getNumberOfComputers() throws DAOException;
+	
+	/**
 	 * Fetch the computer from the database based on its Id.
 	 * @param computerId
-	 * @return
+	 * @return computer
+	 * @throws DAOException
 	 */
 	Computer getComputer(int computerId) throws DAOException;
 
 	/**
 	 * Fetch all computers from the database.
 	 * @return
+	 * @throws DAOException
 	 */
-	List<Computer> getComputers() throws DAOException;
+	List<Computer> getAllComputers() throws DAOException;
 
+	/**
+	 * Fetch computers from the database function of offset and steps params.
+	 * @param offset
+	 * @param steps
+	 * @return list of computers
+	 * @throws DAOException
+	 */
+	List<Computer> getComputers(int offset, int steps) throws DAOException;
+	
 	/**
 	 * Create a new computer in the database.
 	 * @param computer
 	 * @return created computer
+	 * @throws DAOException
 	 */
 	Computer createComputer(Computer computer) throws DAOException;
 
 	/**
 	 * Update an existing computer based on its Id
 	 * @param computerId
-	 * @param computer
 	 * @return updated computer
+	 * @throws DAOException
 	 */
 	Computer updateComputer(Computer computer) throws DAOException;
 
 	/**
 	 * Delete a specific computer based on its id.
 	 * @param computerId
+	 * @throws DAOException
 	 */
 	public void deleteComputer(int computerId) throws DAOException;
 

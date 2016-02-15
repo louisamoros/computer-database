@@ -10,44 +10,60 @@ import com.louisamoros.cdb.service.InvalidDateException;
 
 /**
  * Computer Service used to CRUD computers
+ * 
  * @author excilys
  *
  */
 public enum ComputerServiceImpl implements ComputerService {
 
 	INSTANCE;
-	
+
 	private ComputerDao computerDao;
-	
+
 	private ComputerServiceImpl() {
 		computerDao = ComputerDaoImpl.INSTANCE;
 	}
-	
-	public List<Computer> getComputers() {
-		return computerDao.getComputers();
+
+	@Override
+	public List<Computer> getAllComputers() {
+		return computerDao.getAllComputers();
 	}
-	
+
+	@Override
 	public Computer getComputer(int computerId) {
 		return computerDao.getComputer(computerId);
 	}
-	
+
+	@Override
 	public Computer createComputer(Computer computer) throws InvalidDateException {
-		if(computer.getIntroducedDate().isBefore(computer.getDiscontinuedDate())) {
-			return computerDao.createComputer(computer);			
+		if (computer.getIntroducedDate().isBefore(computer.getDiscontinuedDate())) {
+			return computerDao.createComputer(computer);
 		} else {
 			throw new InvalidDateException("Can't create computer with dates in the wrong order.");
 		}
 	}
-	
+
+	@Override
 	public Computer updateComputer(Computer computer) throws InvalidDateException {
-		if(computer.getIntroducedDate().isBefore(computer.getDiscontinuedDate())) {
-			return computerDao.updateComputer(computer);			
+		if (computer.getIntroducedDate().isBefore(computer.getDiscontinuedDate())) {
+			return computerDao.updateComputer(computer);
 		} else {
 			throw new InvalidDateException("Can't create computer with dates in the wrong order.");
 		}
 	}
-	
+
+	@Override
 	public void deleteComputer(int computerId) {
 		computerDao.deleteComputer(computerId);
+	}
+
+	@Override
+	public List<Computer> getComputers(int offset, int steps) {
+		return computerDao.getComputers(offset, steps);
+	}
+
+	@Override
+	public int getNumberOfComputers() {
+		return computerDao.getNumberOfComputers();
 	}
 }

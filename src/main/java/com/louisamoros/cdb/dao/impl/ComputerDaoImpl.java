@@ -29,9 +29,11 @@ public enum ComputerDaoImpl implements ComputerDao {
 
 	private JDBCConnectionImpl jdbcConnectionImpl;
 	private static final String GET_COMPUTER_QUERY = "SELECT * FROM computer LEFT JOIN company ON computer.company_id = company.id WHERE computer.id=?;";
-	private static final String GET_COMPUTERS_QUERY = "SELECT * FROM computer LEFT JOIN company ON computer.company_id = company.id;";
+	private static final String GET_ALL_COMPUTERS_QUERY = "SELECT * FROM computer LEFT JOIN company ON computer.company_id = company.id;";
+	private static final String GET_COMPUTERS_QUERY = "SELECT * FROM computer LEFT JOIN company ON computer.company_id = company.id LIMIT %d OFFSET %d;";
 	private static final String UPDATE_COMPUTER_QUERY = "UPDATE computer SET name=?, introduced=?, discontinued=?, company_id=? WHERE id=?";
 	private static final String DELETE_COMPUTER_QUERY = "DELETE FROM computer WHERE id=?";
+	private static final String COUNT_COMPUTERS_QUERY = "SELECT COUNT(*) FROM computer;";
 	private static final String CREATE_COMPUTER_QUERY = "INSERT INTO computer VALUES (default, ?, ?, ?, ?);";
 	private static Logger LOGGER = LoggerFactory.getLogger(ComputerDao.class);
 	
@@ -39,6 +41,7 @@ public enum ComputerDaoImpl implements ComputerDao {
 		jdbcConnectionImpl = JDBCConnectionImpl.INSTANCE;
 	}
 
+	@Override
 	public Computer getComputer(int id) throws DAOException {
 
 		LOGGER.debug(GET_COMPUTER_QUERY);
@@ -67,9 +70,10 @@ public enum ComputerDaoImpl implements ComputerDao {
 		return computer;
 	}
 
-	public List<Computer> getComputers() throws DAOException {
+	@Override
+	public List<Computer> getAllComputers() throws DAOException {
 
-		LOGGER.debug(GET_COMPUTERS_QUERY);
+		LOGGER.debug(GET_ALL_COMPUTERS_QUERY);
 		List<Computer> computers = null;
 		ResultSet rs;
 		Statement s;
@@ -77,23 +81,53 @@ public enum ComputerDaoImpl implements ComputerDao {
 
 		try {
 			s = conn.createStatement();
-			rs = s.executeQuery(GET_COMPUTERS_QUERY);
+			rs = s.executeQuery(GET_ALL_COMPUTERS_QUERY);
 			computers = MapperResultSet.toComputerArrayList(rs);
 		} catch (SQLException e) {
 			e.printStackTrace();
-			throw new DAOException("Fail during: " + GET_COMPUTERS_QUERY);
+			throw new DAOException("Fail during: " + GET_ALL_COMPUTERS_QUERY);
 		} finally {
 			try {
 				conn.close();
 			} catch (SQLException e) {
 				e.printStackTrace();
-				throw new DAOException("Fail when closing after: " + GET_COMPUTERS_QUERY);
+				throw new DAOException("Fail when closing after: " + GET_ALL_COMPUTERS_QUERY);
+			}
+		}
+
+		return computers;
+	}
+	
+	@Override
+	public List<Computer> getComputers(int offset, int steps) throws DAOException {
+
+		LOGGER.debug(GET_COMPUTER_QUERY);
+		List<Computer> computers = null;
+		ResultSet rs;
+		Statement s;
+		Connection conn = jdbcConnectionImpl.getConnection();
+
+		try {
+			s = conn.createStatement();
+			String query = String.format(GET_COMPUTERS_QUERY, steps, offset);
+			rs = s.executeQuery(query);
+			computers = MapperResultSet.toComputerArrayList(rs);
+		} catch (SQLException e) {
+			e.printStackTrace();
+			throw new DAOException("Fail during: " + GET_COMPUTER_QUERY);
+		} finally {
+			try {
+				conn.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+				throw new DAOException("Fail when closing after: " + GET_COMPUTER_QUERY);
 			}
 		}
 
 		return computers;
 	}
 
+	@Override
 	public Computer createComputer(Computer computer) throws DAOException {
 
 		LOGGER.debug(CREATE_COMPUTER_QUERY);
@@ -132,9 +166,9 @@ public enum ComputerDaoImpl implements ComputerDao {
 		}
 
 		return computer;
-
 	}
 
+	@Override
 	public Computer updateComputer(Computer computer) throws DAOException {
 
 		LOGGER.debug(UPDATE_COMPUTER_QUERY);
@@ -171,9 +205,9 @@ public enum ComputerDaoImpl implements ComputerDao {
 		}
 
 		return computer;
-
 	}
 
+	@Override
 	public void deleteComputer(int id) throws DAOException {
 
 		LOGGER.debug(DELETE_COMPUTER_QUERY);
@@ -198,4 +232,32 @@ public enum ComputerDaoImpl implements ComputerDao {
 
 	}
 
+	@Override
+	public int getNumberOfComputers() throws DAOException {
+		LOGGER.debug(COUNT_COMPUTERS_QUERY);
+		ResultSet rs;
+		PreparedStatement ps;
+		int numberOfComputers = 0;
+		Connection conn = jdbcConnectionImpl.getConnection();
+
+		try {
+			ps = conn.prepareStatement(COUNT_COMPUTERS_QUERY);
+			rs = ps.executeQuery();
+			rs.next();
+		    numberOfComputers = rs.getInt(1);
+		} catch (SQLException e) {
+			e.printStackTrace();
+			throw new DAOException("Fail during: " + COUNT_COMPUTERS_QUERY);
+		} finally {
+			try {
+				conn.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+				throw new DAOException("Fail when closing after: " + COUNT_COMPUTERS_QUERY);
+			}
+		}
+
+		return numberOfComputers;
+	}
+	
 }
