@@ -101,7 +101,7 @@ public enum ComputerDaoImpl implements ComputerDao {
 	@Override
 	public List<Computer> getComputers(int offset, int steps) throws DAOException {
 
-		LOGGER.debug(GET_COMPUTER_QUERY);
+		LOGGER.debug(GET_COMPUTERS_QUERY);
 		List<Computer> computers = null;
 		ResultSet rs;
 		Statement s;
@@ -114,13 +114,13 @@ public enum ComputerDaoImpl implements ComputerDao {
 			computers = MapperResultSet.toComputerArrayList(rs);
 		} catch (SQLException e) {
 			e.printStackTrace();
-			throw new DAOException("Fail during: " + GET_COMPUTER_QUERY);
+			throw new DAOException("Fail during: " + GET_COMPUTERS_QUERY);
 		} finally {
 			try {
 				conn.close();
 			} catch (SQLException e) {
 				e.printStackTrace();
-				throw new DAOException("Fail when closing after: " + GET_COMPUTER_QUERY);
+				throw new DAOException("Fail when closing after: " + GET_COMPUTERS_QUERY);
 			}
 		}
 

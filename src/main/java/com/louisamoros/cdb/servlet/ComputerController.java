@@ -42,13 +42,15 @@ public class ComputerController extends HttpServlet {
 			throws ServletException, IOException {
 		
 		computerService = ComputerServiceImpl.INSTANCE;
-		int steps = Page.stepsVerification(request.getParameter("steps"));
-		int offset = Page.offsetVerification(request.getParameter("offset"));
-		request.setAttribute("computers", computerService.getComputers(offset, steps));
+		String page = request.getParameter("page");
+		String perpage = request.getParameter("perpage");
+		int offset = Page.getOffset(page, perpage);
+		int limit = Page.getLimit(perpage);
+		LOGGER.debug("GET computers offset=" + offset + " limit=" + limit + " page=" + page + " perpage=" + perpage);
+		request.setAttribute("computers", computerService.getComputers(offset, limit));
 		request.setAttribute("numberOfComputers", computerService.getNumberOfComputers());
-		request.setAttribute("steps", steps);
-		request.setAttribute("offset", offset);
-		LOGGER.debug("GET computers offset=" + offset + " and steps=" + steps);
+		request.setAttribute("page", page);
+		request.setAttribute("perpage", perpage);
 		RequestDispatcher rd = request.getRequestDispatcher(COMPUTERS_DASHBOARD);
 		rd.forward(request, response);
 		

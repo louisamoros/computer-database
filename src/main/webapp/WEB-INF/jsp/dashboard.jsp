@@ -73,8 +73,7 @@
 
 <footer class="navbar-fixed-bottom">
     <div class="container text-center">
-        <cdb:paginate currentPage="${page + 1}" totalCount="${numberOfComputers}"
-                      perPage="${perPage + 1}" uri="dashboard" next="&raquo;"
+        <cdb:paginate currentPage="${page}" perPage="${perpage}" totalCount="${numberOfComputers}" uri="dashboard" next="&raquo;"
                       previous="&laquo;"/>
     </div>
 </footer>
