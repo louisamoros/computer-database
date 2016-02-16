@@ -9,6 +9,17 @@ public class ComputerDto {
 	private String companyName;
 	private int companyId;
 
+	public ComputerDto(int computerId, String name, String discontinuedDate, String introducedDate, String companyName,
+			int companyId) {
+		super();
+		this.computerId = computerId;
+		this.name = name;
+		this.discontinuedDate = discontinuedDate;
+		this.introducedDate = introducedDate;
+		this.companyName = companyName;
+		this.companyId = companyId;
+	}
+	
 	public int getComputerId() {
 		return computerId;
 	}
@@ -55,6 +66,63 @@ public class ComputerDto {
 
 	public void setCompanyId(int companyId) {
 		this.companyId = companyId;
+	}
+
+
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + companyId;
+		result = prime * result + ((companyName == null) ? 0 : companyName.hashCode());
+		result = prime * result + computerId;
+		result = prime * result + ((discontinuedDate == null) ? 0 : discontinuedDate.hashCode());
+		result = prime * result + ((introducedDate == null) ? 0 : introducedDate.hashCode());
+		result = prime * result + ((name == null) ? 0 : name.hashCode());
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		ComputerDto other = (ComputerDto) obj;
+		if (companyId != other.companyId)
+			return false;
+		if (companyName == null) {
+			if (other.companyName != null)
+				return false;
+		} else if (!companyName.equals(other.companyName))
+			return false;
+		if (computerId != other.computerId)
+			return false;
+		if (discontinuedDate == null) {
+			if (other.discontinuedDate != null)
+				return false;
+		} else if (!discontinuedDate.equals(other.discontinuedDate))
+			return false;
+		if (introducedDate == null) {
+			if (other.introducedDate != null)
+				return false;
+		} else if (!introducedDate.equals(other.introducedDate))
+			return false;
+		if (name == null) {
+			if (other.name != null)
+				return false;
+		} else if (!name.equals(other.name))
+			return false;
+		return true;
+	}
+
+	@Override
+	public String toString() {
+		return "ComputerDto [computerId=" + computerId + ", name=" + name + ", discontinuedDate=" + discontinuedDate
+				+ ", introducedDate=" + introducedDate + ", companyName=" + companyName + ", companyId=" + companyId
+				+ "]";
 	}
 
 }

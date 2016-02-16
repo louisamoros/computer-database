@@ -25,19 +25,20 @@ public class CompanyServiceTest {
 
 	private static Logger LOGGER = LoggerFactory.getLogger(CompanyServiceTest.class);
 	private static CompanyDao mockCompanyDao;
+	private static CompanyService companyService;
 
 	@BeforeClass
 	public static void init() {
 		LOGGER.debug("Init mocking companyDao...");
 		mockCompanyDao = PowerMockito.mock(CompanyDaoImpl.class);
-		PowerMockito.when(mockCompanyDao.getCompanies()).thenReturn(new ArrayList<Company>());
+		companyService = CompanyServiceImpl.INSTANCE;
+		companyService.setCompanyDao(mockCompanyDao);
 	}
 
 	@Test
 	public void getAllCompaniesTest() {
 		LOGGER.debug("getAllCompaniesTest...");
-		CompanyService companyService = CompanyServiceImpl.INSTANCE;
-		companyService.setCompanyDao(mockCompanyDao);
+		PowerMockito.when(mockCompanyDao.getCompanies()).thenReturn(new ArrayList<Company>());
 		Assert.assertTrue(companyService.getCompanies() instanceof List<?>);
 	}
 
