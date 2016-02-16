@@ -1,3 +1,4 @@
+package util;
 /*package com.louisamoros.cdb.util;
 
 import java.nio.charset.Charset;

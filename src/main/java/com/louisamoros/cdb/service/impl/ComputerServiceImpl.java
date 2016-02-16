@@ -23,7 +23,7 @@ public enum ComputerServiceImpl implements ComputerService {
 	private ComputerServiceImpl() {
 		computerDao = ComputerDaoImpl.INSTANCE;
 	}
-
+	
 	@Override
 	public List<Computer> getAllComputers() {
 		return computerDao.getAllComputers();
@@ -66,4 +66,9 @@ public enum ComputerServiceImpl implements ComputerService {
 	public int getNumberOfComputers() {
 		return computerDao.getNumberOfComputers();
 	}
+	
+	public void setComputerDao(ComputerDao computerDao) {
+		this.computerDao = computerDao;
+	}
+
 }

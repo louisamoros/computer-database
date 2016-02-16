@@ -29,65 +29,66 @@ public class Pagination extends SimpleTagSupport {
 	}
 
 	@Override
-    public void doTag() throws JspException {
-        Writer out = getWriter();
+	public void doTag() throws JspException {
+		Writer out = getWriter();
 
-        try {
-        	
-        	out.write("<div class=\"btn-group btn-group-sm pull-right\" role=\"group\" >");
-			out.write(constructButtonLink(10, "10"));
-			out.write(constructButtonLink(50, "50"));
-			out.write(constructButtonLink(100, "100"));            
-            out.write("</div>");
-        	
-            out.write("<nav>");
-            out.write("<ul class=\"pagination\">");
+		try {
 
-            if(perPage == 0) {
-            	perPage = 10;
-            }
-            int totalPages = Math.abs(totalCount / perPage);
-            int startingPage = Math.max(currentPage - maxToShow / 2, 1);
-            int endingPage = startingPage + maxToShow;
-            boolean isLastPage = currentPage == totalPages;
-            
-            if (endingPage > totalPages + 1) {
-                int diff = endingPage - totalPages;
-                startingPage -= diff - 1;
-                if (startingPage < 1) {
-                    startingPage = 1;
-                }
-                endingPage = totalPages + 1;
-            }
+			if (perPage == 0) {
+				perPage = 10;
+			}
+			int totalPages = Math.abs(totalCount / perPage);
+			int startingPage = Math.max(currentPage - maxToShow / 2, 1);
+			int endingPage = startingPage + maxToShow;
+			boolean isLastPage = currentPage == totalPages;
+			if (endingPage > totalPages + 1) {
+				int diff = endingPage - totalPages;
+				startingPage -= diff - 1;
+				if (startingPage < 1) {
+					startingPage = 1;
+				}
+				endingPage = totalPages + 1;
+			}
 
-            if (currentPage > 1) {
-                out.write(constructLink(currentPage - 1, previous, null, false));
-            } else {
-                out.write(constructLink(1, previous, "disabled", true));
-            }
+			out.write("<div class=\"btn-group btn-group-sm pull-right\" role=\"group\" >");
+			boolean active = perPage == 10;
+			out.write(constructButtonLink(10, "10", active));
+			active = perPage == 50;
+			out.write(constructButtonLink(50, "50", active));
+			active = perPage == 100;
+			out.write(constructButtonLink(100, "100", active));
+			out.write("</div>");
 
-            for (int i = startingPage ; i < endingPage ; i++) {
-                if (i == currentPage) {
-                    out.write(constructLink(i, String.valueOf(i), "active", true));
-                } else {
-                    out.write(constructLink(i, String.valueOf(i), null, false));
-                }
-            }
+			out.write("<nav>");
+			out.write("<ul class=\"pagination\">");
 
-            if (isLastPage) {
-                out.write(constructLink(endingPage, next, "disabled", true));
-            } else {
-                out.write(constructLink(currentPage + 1, next, null, false));
-            }
+			if (currentPage > 1) {
+				out.write(constructLink(currentPage - 1, previous, null, false));
+			} else {
+				out.write(constructLink(1, previous, "disabled", true));
+			}
 
-            out.write("</ul>");
-            out.write("</nav>");
+			for (int i = startingPage; i < endingPage; i++) {
+				if (i == currentPage) {
+					out.write(constructLink(i, String.valueOf(i), "active", true));
+				} else {
+					out.write(constructLink(i, String.valueOf(i), null, false));
+				}
+			}
 
+			if (isLastPage) {
+				out.write(constructLink(endingPage, next, "disabled", true));
+			} else {
+				out.write(constructLink(currentPage + 1, next, null, false));
+			}
 
-        } catch (java.io.IOException ex) {
-            throw new JspException("Error in Paginator tag", ex);
-        }
-    }
+			out.write("</ul>");
+			out.write("</nav>");
+
+		} catch (java.io.IOException ex) {
+			throw new JspException("Error in Paginator tag", ex);
+		}
+	}
 
 	private String constructLink(int page, String text, String className, boolean disabled) {
 		StringBuilder link = new StringBuilder("<li");
@@ -97,15 +98,22 @@ public class Pagination extends SimpleTagSupport {
 			link.append("\"");
 		}
 		if (disabled)
-			link.append(">").append("<a href=\"\">" + text + "</a></li>");
+			link.append(">").append("<a href>" + text + "</a></li>");
 		else
 			link.append(">")
 					.append("<a href=\"" + uri + "?page=" + page + "&perpage=" + perPage + "\">" + text + "</a></li>");
 		return link.toString();
 	}
 
-	private String constructButtonLink(int pp, String text) {
-		StringBuilder link = new StringBuilder("<a href=\"" + uri + "?page=" + 1 + "&perpage=" + pp + "\" class=\"btn btn-default\">");
+	private String constructButtonLink(int pp, String text, boolean active) {
+		
+		String className = "";
+		if(active) {
+			className = "active";
+		}
+		
+		StringBuilder link = new StringBuilder(
+				"<a href=\"" + uri + "?page=" + 1 + "&perpage=" + pp + "\" class=\"btn btn-default + " + className + "\">");
 		link.append(text);
 		link.append("</a>");
 		return link.toString();

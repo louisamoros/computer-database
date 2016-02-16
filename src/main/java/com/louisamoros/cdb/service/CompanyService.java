@@ -2,6 +2,7 @@ package com.louisamoros.cdb.service;
 
 import java.util.List;
 
+import com.louisamoros.cdb.dao.CompanyDao;
 import com.louisamoros.cdb.model.Company;
 
 public interface CompanyService {
@@ -11,5 +12,11 @@ public interface CompanyService {
 	 * @return companies list
 	 */
 	List<Company> getCompanies();
+	
+	/**
+	 * Setter companyDao (use for test to pass the mockCompanyDao)
+	 * @param companyDao
+	 */
+	void setCompanyDao(CompanyDao companyDao);
 	
 }

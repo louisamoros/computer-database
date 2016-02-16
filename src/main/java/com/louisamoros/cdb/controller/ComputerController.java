@@ -1,4 +1,4 @@
-package com.louisamoros.cdb.servlet;
+package com.louisamoros.cdb.controller;
 
 import java.io.IOException;
 

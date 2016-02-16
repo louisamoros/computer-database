@@ -27,4 +27,8 @@ public enum CompanyServiceImpl implements CompanyService {
 		return companyDao.getCompanies();
 	}
 
+	public void setCompanyDao(CompanyDao companyDao) {
+		this.companyDao = companyDao;
+	}
+
 }

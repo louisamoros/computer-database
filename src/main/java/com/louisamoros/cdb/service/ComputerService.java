@@ -2,6 +2,7 @@ package com.louisamoros.cdb.service;
 
 import java.util.List;
 
+import com.louisamoros.cdb.dao.ComputerDao;
 import com.louisamoros.cdb.model.Computer;
 
 public interface ComputerService {
@@ -53,5 +54,11 @@ public interface ComputerService {
 	 * @param computerId
 	 */
 	void deleteComputer(int computerId);
+	
+	/**
+	 * Setter computerDao (use for test to pass the mockComputerDao)
+	 * @param computerDao
+	 */
+	void setComputerDao(ComputerDao computerDao);
 	
 }

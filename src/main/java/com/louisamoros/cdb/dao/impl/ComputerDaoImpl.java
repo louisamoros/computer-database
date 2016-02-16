@@ -30,7 +30,7 @@ public enum ComputerDaoImpl implements ComputerDao {
 	private JDBCConnectionImpl jdbcConnectionImpl;
 	private static final String GET_COMPUTER_QUERY = "SELECT * FROM computer LEFT JOIN company ON computer.company_id = company.id WHERE computer.id=?;";
 	private static final String GET_ALL_COMPUTERS_QUERY = "SELECT * FROM computer LEFT JOIN company ON computer.company_id = company.id;";
-	private static final String GET_COMPUTERS_QUERY = "SELECT * FROM computer LEFT JOIN company ON computer.company_id = company.id LIMIT %d OFFSET %d;";
+	private static final String GET_COMPUTERS_QUERY = "SELECT * FROM computer LEFT JOIN company ON computer.company_id = company.id ORDER BY computer.name LIMIT %d OFFSET %d;";
 	private static final String UPDATE_COMPUTER_QUERY = "UPDATE computer SET name=?, introduced=?, discontinued=?, company_id=? WHERE id=?";
 	private static final String DELETE_COMPUTER_QUERY = "DELETE FROM computer WHERE id=?";
 	private static final String COUNT_COMPUTERS_QUERY = "SELECT COUNT(*) FROM computer;";

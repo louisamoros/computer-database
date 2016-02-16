@@ -16,7 +16,7 @@
 <body>
 <header class="navbar navbar-inverse navbar-fixed-top">
     <div class="container">
-        <a class="navbar-brand" href="dashboard.html"> Application -
+        <a class="navbar-brand" href="dashboard"> Application -
             Computer Database </a>
     </div>
 </header>
@@ -31,15 +31,15 @@
             <div class="pull-left">
                 <form id="searchForm" action="#" method="GET" class="form-inline">
                     <input type="search" id="searchbox" name="search"
-                           class="form-control" placeholder="Search name"/>
+                           class="form-control disabled" placeholder="Search name"/>
                     <input type="submit" id="searchsubmit" value="Filter by name"
-                           class="btn btn-primary"/>
+                           class="btn btn-primary disabled"/>
                 </form>
             </div>
             <div class="pull-right">
-                <a class="btn btn-success" id="addComputer" href="addComputer.html">Add
+                <a class="btn btn-success" id="addComputer" href="addComputer">Add
                     Computer</a>
-                <a class="btn btn-default" id="editComputer" href="#"
+                <a class="btn btn-default disabled" id="editComputer" href=""
                    onclick="$.fn.toggleEditMode();">Edit</a>
             </div>
         </div>
