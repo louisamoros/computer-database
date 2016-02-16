@@ -6,8 +6,8 @@ import com.louisamoros.cdb.dao.ComputerDao;
 import com.louisamoros.cdb.dao.impl.ComputerDaoImpl;
 import com.louisamoros.cdb.model.Computer;
 import com.louisamoros.cdb.service.ComputerService;
-import com.louisamoros.cdb.service.InvalidComputerNameException;
-import com.louisamoros.cdb.service.InvalidDateOrderException;
+import com.louisamoros.cdb.exception.InvalidComputerNameException;
+import com.louisamoros.cdb.exception.InvalidDateOrderException;
 
 /**
  * Computer Service used to CRUD computers

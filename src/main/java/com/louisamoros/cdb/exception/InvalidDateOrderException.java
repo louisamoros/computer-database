@@ -1,4 +1,4 @@
-package com.louisamoros.cdb.service;
+package com.louisamoros.cdb.exception;
 
 public class InvalidDateOrderException extends RuntimeException {
 	

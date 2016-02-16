@@ -4,6 +4,8 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.louisamoros.cdb.exception.InvalidComputerNameException;
+import com.louisamoros.cdb.exception.InvalidDateOrderException;
 import org.junit.Assert;
 import org.junit.BeforeClass;
 import org.junit.Test;

@@ -5,6 +5,10 @@ public class CompanyDto {
 	int companyId;
 	String name;
 
+	public CompanyDto() {
+		super();
+	}
+
 	public CompanyDto(int companyId, String name) {
 		super();
 		this.companyId = companyId;

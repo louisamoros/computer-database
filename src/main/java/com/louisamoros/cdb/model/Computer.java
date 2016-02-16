@@ -15,6 +15,10 @@ public class Computer {
 	private LocalDate introducedDate;
 	private LocalDate discontinuedDate;
 
+	public Computer() {
+		super();
+	}
+
 	public Computer(int computerId, Company company, String name, LocalDate introducedDate, LocalDate discontinuedDate) {
 		super();
 		this.computerId = computerId;

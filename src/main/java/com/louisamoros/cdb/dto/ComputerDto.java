@@ -9,17 +9,6 @@ public class ComputerDto {
 	private String companyName;
 	private int companyId;
 
-	public ComputerDto(int computerId, String name, String discontinuedDate, String introducedDate, String companyName,
-			int companyId) {
-		super();
-		this.computerId = computerId;
-		this.name = name;
-		this.discontinuedDate = discontinuedDate;
-		this.introducedDate = introducedDate;
-		this.companyName = companyName;
-		this.companyId = companyId;
-	}
-	
 	public int getComputerId() {
 		return computerId;
 	}
