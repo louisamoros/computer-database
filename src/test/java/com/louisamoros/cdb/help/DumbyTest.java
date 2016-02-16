@@ -1,4 +1,4 @@
-package help;
+package com.louisamoros.cdb.help;
 
 import org.junit.Assert;
 import org.junit.Test;

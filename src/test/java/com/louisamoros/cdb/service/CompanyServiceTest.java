@@ -1,4 +1,4 @@
-package service;
+package com.louisamoros.cdb.service;
 
 import java.util.ArrayList;
 import java.util.List;

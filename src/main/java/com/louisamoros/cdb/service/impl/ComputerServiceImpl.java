@@ -6,7 +6,8 @@ import com.louisamoros.cdb.dao.ComputerDao;
 import com.louisamoros.cdb.dao.impl.ComputerDaoImpl;
 import com.louisamoros.cdb.model.Computer;
 import com.louisamoros.cdb.service.ComputerService;
-import com.louisamoros.cdb.service.InvalidDateException;
+import com.louisamoros.cdb.service.InvalidComputerNameException;
+import com.louisamoros.cdb.service.InvalidDateOrderException;
 
 /**
  * Computer Service used to CRUD computers
@@ -35,20 +36,20 @@ public enum ComputerServiceImpl implements ComputerService {
 	}
 
 	@Override
-	public Computer createComputer(Computer computer) throws InvalidDateException {
-		if (computer.getIntroducedDate().isBefore(computer.getDiscontinuedDate())) {
+	public Computer createComputer(Computer computer) throws InvalidDateOrderException {
+		if (isValidComputer(computer)) {
 			return computerDao.createComputer(computer);
 		} else {
-			throw new InvalidDateException("Can't create computer with dates in the wrong order.");
+			return null;
 		}
 	}
 
 	@Override
-	public Computer updateComputer(Computer computer) throws InvalidDateException {
-		if (computer.getIntroducedDate().isBefore(computer.getDiscontinuedDate())) {
+	public Computer updateComputer(Computer computer) throws InvalidDateOrderException {
+		if (isValidComputer(computer)) {
 			return computerDao.updateComputer(computer);
 		} else {
-			throw new InvalidDateException("Can't create computer with dates in the wrong order.");
+			return null;
 		}
 	}
 
@@ -65,6 +66,18 @@ public enum ComputerServiceImpl implements ComputerService {
 	@Override
 	public int getNumberOfComputers() {
 		return computerDao.getNumberOfComputers();
+	}
+	
+	private boolean isValidComputer(Computer computer) {
+		boolean isValid = false;
+		if(computer.getIntroducedDate() != null && computer.getDiscontinuedDate() != null && computer.getIntroducedDate().isAfter(computer.getDiscontinuedDate())) {
+			throw new InvalidDateOrderException("Intoduced date should be before discontinued date.");
+		} else if (computer.getName() == null || computer.getName().isEmpty()) {
+			throw new InvalidComputerNameException("Computer name is required.");
+		} else {
+			isValid = true;
+		}
+		return isValid;
 	}
 	
 	public void setComputerDao(ComputerDao computerDao) {
