@@ -17,7 +17,9 @@ public class Page {
 		if(pp != null) {
 			ppInt = Integer.parseInt(pp);
 		}
-		offsetReturn = (pInt - 1) * ppInt + 1;
+		if(pInt > 0 && (ppInt == 10 || ppInt == 50 || ppInt == 100)) {
+			offsetReturn = (pInt - 1) * ppInt + 1;
+		}
 		return offsetReturn;
 	}
 	
