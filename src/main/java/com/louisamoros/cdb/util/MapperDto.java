@@ -2,6 +2,7 @@ package com.louisamoros.cdb.util;
 
 import java.time.LocalDate;
 
+import com.louisamoros.cdb.dto.CompanyDto;
 import com.louisamoros.cdb.dto.ComputerDto;
 import com.louisamoros.cdb.model.Company;
 import com.louisamoros.cdb.model.Computer;
@@ -40,6 +41,30 @@ public class MapperDto {
 				computer.getDiscontinuedDate().toString().replace("-", "/"), computer.getIntroducedDate().toString().replace("-", "/"),
 				computer.getCompany().getName(), computer.getCompany().getCompanyId());
 		return computerDto;
+	}
+	
+	/**
+	 * Convert CompanyDao element to Company model.
+	 * 
+	 * @param company
+	 *            dto
+	 * @return company model
+	 */
+	public static Company toCompany(CompanyDto companyDto) {
+		Company company = new Company(companyDto.getCompanyId(), companyDto.getName());
+		return company;
+	}
+
+	/**
+	 * Convert Company model to CompanyDao element.
+	 * 
+	 * @param company
+	 *            model
+	 * @return company dto
+	 */
+	public static CompanyDto toCompanyDto(Company company) {
+		CompanyDto companyDto = new CompanyDto(company.getCompanyId(), company.getName());
+		return companyDto;
 	}
 
 }

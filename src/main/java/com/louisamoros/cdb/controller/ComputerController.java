@@ -1,6 +1,7 @@
 package com.louisamoros.cdb.controller;
 
 import java.io.IOException;
+import java.util.ArrayList;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -12,8 +13,11 @@ import javax.servlet.http.HttpServletResponse;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import com.louisamoros.cdb.dto.ComputerDto;
+import com.louisamoros.cdb.model.Computer;
 import com.louisamoros.cdb.service.ComputerService;
 import com.louisamoros.cdb.service.impl.ComputerServiceImpl;
+import com.louisamoros.cdb.util.MapperDto;
 import com.louisamoros.cdb.util.Page;
 
 /**
@@ -47,7 +51,13 @@ public class ComputerController extends HttpServlet {
 		int offset = Page.getOffset(page, perpage);
 		int limit = Page.getLimit(perpage);
 		LOGGER.debug("GET computers offset=" + offset + " limit=" + limit + " page=" + page + " perpage=" + perpage);
-		request.setAttribute("computers", computerService.getComputers(offset, limit));
+		
+		ArrayList<ComputerDto> computersDto = new ArrayList<>();
+		for(Computer computer:computerService.getComputers(offset, limit)) {
+			computersDto.add(MapperDto.toComputerDto(computer));
+		}
+		
+		request.setAttribute("computers", computersDto);
 		request.setAttribute("numberOfComputers", computerService.getNumberOfComputers());
 		request.setAttribute("page", page);
 		request.setAttribute("perpage", perpage);
