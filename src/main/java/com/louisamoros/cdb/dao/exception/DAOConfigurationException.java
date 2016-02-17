@@ -1,5 +1,10 @@
-package com.louisamoros.cdb.dao;
+package com.louisamoros.cdb.dao.exception;
 
+/**
+ * This exception will be use for 
+ * @author louis
+ *
+ */
 public class DAOConfigurationException extends RuntimeException {
 
 	private static final long serialVersionUID = 1L;

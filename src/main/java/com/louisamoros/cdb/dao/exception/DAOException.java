@@ -1,4 +1,4 @@
-package com.louisamoros.cdb.dao;
+package com.louisamoros.cdb.dao.exception;
 
 public class DAOException extends RuntimeException {
 

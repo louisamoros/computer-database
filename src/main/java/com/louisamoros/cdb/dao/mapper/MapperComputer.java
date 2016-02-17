@@ -1,4 +1,4 @@
-package com.louisamoros.cdb.util;
+package com.louisamoros.cdb.dao.mapper;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -6,43 +6,26 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.louisamoros.cdb.dao.exception.DAOMapperException;
 import com.louisamoros.cdb.model.Company;
 import com.louisamoros.cdb.model.Computer;
 
 /**
- * Class with static method use to convert SetResult (JDBC object) to ArrayList.
+ * Mapper class with static method use to convert ResultSet to List for
+ * <Computer> object model.
  * 
- * @author excilys
+ * @author louis
  *
  */
-public class MapperResultSet {
+public class MapperComputer {
 
 	/**
-	 * Convert resultSet to arrayList based on company model.
+	 * Convert ResultSet to List<Computer> based on <Computer> model.
 	 * 
-	 * @param resultSet<Company>
-	 * @return companies list
+	 * @param ResultSet<Computer>
+	 * @return List<Computer>
 	 */
-	public static List<Company> toCompanyArrayList(ResultSet rs) {
-		List<Company> companies = new ArrayList<Company>();
-		try {
-			while (rs.next()) {
-				Company company = new Company(rs.getInt("id"), rs.getString("name"));
-				companies.add(company);
-			}
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
-		return companies;
-	}
-
-	/**
-	 * Convert resultSet to arrayList based on computer model.
-	 * 
-	 * @param resultSet<Computer>
-	 * @return computers list
-	 */
-	public static List<Computer> toComputerArrayList(ResultSet rs) {
+	public static List<Computer> toList(ResultSet rs) throws DAOMapperException {
 		List<Computer> computers = new ArrayList<Computer>();
 		try {
 			while (rs.next()) {
@@ -60,17 +43,18 @@ public class MapperResultSet {
 				computers.add(computer);
 			}
 		} catch (SQLException e) {
-			e.printStackTrace();
+			throw new DAOMapperException("Fail to map ResultSet of Computer to List of Computer.", e);
 		}
 		return computers;
 	}
-	
+
 	/**
-	 * This method transform a computer resultSet to a computer model
-	 * @param resultSet
-	 * @return computer
+	 * Convert ResultSet to <Computer> model
+	 * 
+	 * @param ResultSet
+	 * @return <Computer>
 	 */
-	public static Computer toComputerModel(ResultSet rs) {
+	public static Computer toComputer(ResultSet rs) throws DAOMapperException {
 		Computer computer = null;
 		try {
 			while (rs.next()) {
@@ -87,7 +71,7 @@ public class MapperResultSet {
 						rs.getString("computer.name"), dateIntroduced, dateDiscontinued);
 			}
 		} catch (SQLException e) {
-			e.printStackTrace();
+			throw new DAOMapperException("Fail to map ResultSet to Computer.", e);
 		}
 		return computer;
 	}

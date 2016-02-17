@@ -1,4 +1,4 @@
-package com.louisamoros.cdb.util;
+package com.louisamoros.cdb.dao.connection;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -7,12 +7,14 @@ import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.util.Properties;
 
-import com.louisamoros.cdb.dao.DAOConfigurationException;
+import com.louisamoros.cdb.dao.exception.DAOConfigurationException;
+import com.louisamoros.cdb.dao.exception.DAOConnectionException;
 
 /**
- * This class is an enum singleton which manage connections.
+ * This class is an enum singleton which implements <JDBCConnection> interface
+ * and manages connections.
  * 
- * @author excilys
+ * @author louis
  *
  */
 public enum JDBCConnectionImpl implements JDBCConnection {
@@ -21,11 +23,14 @@ public enum JDBCConnectionImpl implements JDBCConnection {
 
 	private Connection conn = null;
 	private static final String PROPERTIES_FILE = "dao.properties";
-	private Properties properties;
-	
+	private final String url;
+	private final String driver;
+	private final String username;
+	private final String password;
+
 	private JDBCConnectionImpl() {
-		
-		properties = new Properties();
+
+		Properties properties = new Properties();
 		InputStream propertiesFile = JDBCConnection.class.getClassLoader().getResourceAsStream(PROPERTIES_FILE);
 
 		if (propertiesFile == null) {
@@ -37,46 +42,37 @@ public enum JDBCConnectionImpl implements JDBCConnection {
 		} catch (IOException e) {
 			throw new DAOConfigurationException("Cannot load properties file " + PROPERTIES_FILE, e);
 		}
-
-		try {
-			Class.forName(properties.getProperty("driver"));
-		} catch (ClassNotFoundException e) {
-			System.out.println("Error using mysql driver...");
-			e.printStackTrace();
-		}
 		
+		driver = properties.getProperty("driver");
+		url = properties.getProperty("url");
+		username = properties.getProperty("username");
+		password = properties.getProperty("password");
+		
+		try {
+			Class.forName(driver);
+		} catch (ClassNotFoundException e) {
+			throw new DAOConfigurationException("Driver not found." + e);
+		}
+
 	}
 
-	/**
-	 * This method initialize a new connection and give it to the class where it
-	 * has been called
-	 * 
-	 * @return connection
-	 */
 	@Override
 	public Connection getConnection() {
 
 		try {
-			conn = DriverManager.getConnection(properties.getProperty("url"), properties.getProperty("username"),
-					properties.getProperty("password"));
+			conn = DriverManager.getConnection(url, username, password);
 		} catch (SQLException e) {
-			System.out.println("Error during connection...rollback and close");
 			try {
 				conn.rollback();
 				conn.close();
 			} catch (SQLException e1) {
-				e1.printStackTrace();
+				throw new DAOConnectionException("Rollback and close connection exception." + e);
 			}
-			e.printStackTrace();
+			throw new DAOConnectionException("Cannot get connection using url:" + url, e);
 		}
 
 		return conn;
 
 	}
 
-	@Override
-	public Properties getProperties() {
-		return properties;
-	}
-	
 }

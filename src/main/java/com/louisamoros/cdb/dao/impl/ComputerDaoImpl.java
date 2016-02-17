@@ -12,15 +12,15 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.louisamoros.cdb.dao.ComputerDao;
-import com.louisamoros.cdb.dao.DAOException;
+import com.louisamoros.cdb.dao.connection.JDBCConnectionImpl;
+import com.louisamoros.cdb.dao.exception.DAOException;
+import com.louisamoros.cdb.dao.mapper.MapperComputer;
 import com.louisamoros.cdb.model.Computer;
-import com.louisamoros.cdb.util.JDBCConnectionImpl;
-import com.louisamoros.cdb.util.MapperResultSet;
 
 /**
- * ComputerDaoImpl implements methods of ComputerDao interface.
+ * <ComputerDaoImpl> implements methods of <ComputerDao> interface.
  * 
- * @author excilys
+ * @author louis
  *
  */
 public enum ComputerDaoImpl implements ComputerDao {
@@ -30,23 +30,23 @@ public enum ComputerDaoImpl implements ComputerDao {
 	private JDBCConnectionImpl jdbcConnectionImpl;
 	private static final String GET_COMPUTER_QUERY = "SELECT * FROM computer LEFT JOIN company ON computer.company_id = company.id WHERE computer.id=?;";
 	private static final String GET_ALL_COMPUTERS_QUERY = "SELECT * FROM computer LEFT JOIN company ON computer.company_id = company.id;";
-	private static final String GET_COMPUTERS_QUERY = "SELECT * FROM computer LEFT JOIN company ON computer.company_id = company.id ORDER BY computer.name LIMIT %d OFFSET %d;";
+	private static final String GET_COMPUTERS_QUERY = "SELECT * FROM computer LEFT JOIN company ON computer.company_id = company.id ORDER BY computer.name LIMIT ? OFFSET ?;";
 	private static final String UPDATE_COMPUTER_QUERY = "UPDATE computer SET name=?, introduced=?, discontinued=?, company_id=? WHERE id=?";
 	private static final String DELETE_COMPUTER_QUERY = "DELETE FROM computer WHERE id=?";
 	private static final String COUNT_COMPUTERS_QUERY = "SELECT COUNT(*) FROM computer;";
 	private static final String CREATE_COMPUTER_QUERY = "INSERT INTO computer VALUES (default, ?, ?, ?, ?);";
 	private static Logger LOGGER = LoggerFactory.getLogger(ComputerDao.class);
-	
+
 	private ComputerDaoImpl() {
 		jdbcConnectionImpl = JDBCConnectionImpl.INSTANCE;
 	}
 
 	@Override
-	public Computer getComputer(int id) throws DAOException {
+	public Computer get(int id) throws DAOException {
 
 		LOGGER.debug(GET_COMPUTER_QUERY);
-		ResultSet rs;
-		PreparedStatement ps;
+		ResultSet rs = null;
+		PreparedStatement ps = null;
 		Computer computer = null;
 		Connection conn = jdbcConnectionImpl.getConnection();
 
@@ -54,95 +54,80 @@ public enum ComputerDaoImpl implements ComputerDao {
 			ps = conn.prepareStatement(GET_COMPUTER_QUERY);
 			ps.setInt(1, id);
 			rs = ps.executeQuery();
-			computer = MapperResultSet.toComputerModel(rs);
+			computer = MapperComputer.toComputer(rs);
 		} catch (SQLException e) {
-			e.printStackTrace();
-			throw new DAOException("Fail during: " + GET_COMPUTER_QUERY);
+			throw new DAOException("Fail during: " + GET_COMPUTER_QUERY, e);
 		} finally {
-			try {
-				conn.close();
-			} catch (SQLException e) {
-				e.printStackTrace();
-				throw new DAOException("Fail when closing after: " + GET_COMPUTER_QUERY);
-			}
+			ConnectionCloser.close(rs, ps, conn, GET_COMPUTER_QUERY);
 		}
 
 		return computer;
 	}
 
 	@Override
-	public List<Computer> getAllComputers() throws DAOException {
+	public List<Computer> getAll() throws DAOException {
 
 		LOGGER.debug(GET_ALL_COMPUTERS_QUERY);
 		List<Computer> computers = null;
-		ResultSet rs;
-		Statement s;
+		ResultSet rs = null;
+		PreparedStatement ps = null;
 		Connection conn = jdbcConnectionImpl.getConnection();
 
 		try {
-			s = conn.createStatement();
-			rs = s.executeQuery(GET_ALL_COMPUTERS_QUERY);
-			computers = MapperResultSet.toComputerArrayList(rs);
+			ps = conn.prepareStatement(GET_ALL_COMPUTERS_QUERY);
+			rs = ps.executeQuery();
+			computers = MapperComputer.toList(rs);
 		} catch (SQLException e) {
-			e.printStackTrace();
-			throw new DAOException("Fail during: " + GET_ALL_COMPUTERS_QUERY);
+			throw new DAOException("Fail during: " + GET_ALL_COMPUTERS_QUERY, e);
 		} finally {
-			try {
-				conn.close();
-			} catch (SQLException e) {
-				e.printStackTrace();
-				throw new DAOException("Fail when closing after: " + GET_ALL_COMPUTERS_QUERY);
-			}
+			ConnectionCloser.close(rs, ps, conn, GET_ALL_COMPUTERS_QUERY);
 		}
 
 		return computers;
 	}
-	
+
 	@Override
-	public List<Computer> getComputers(int offset, int steps) throws DAOException {
+	public List<Computer> get(int offset, int limit) throws DAOException {
 
 		LOGGER.debug(GET_COMPUTERS_QUERY);
 		List<Computer> computers = null;
-		ResultSet rs;
-		Statement s;
+		ResultSet rs = null;
+		PreparedStatement ps = null;
 		Connection conn = jdbcConnectionImpl.getConnection();
 
 		try {
-			s = conn.createStatement();
-			String query = String.format(GET_COMPUTERS_QUERY, steps, offset);
-			rs = s.executeQuery(query);
-			computers = MapperResultSet.toComputerArrayList(rs);
+			ps = conn.prepareStatement(GET_COMPUTERS_QUERY);
+			ps.setInt(1, limit);
+			ps.setInt(2, offset);
+			rs = ps.executeQuery();
+			computers = MapperComputer.toList(rs);
 		} catch (SQLException e) {
-			e.printStackTrace();
-			throw new DAOException("Fail during: " + GET_COMPUTERS_QUERY);
+			throw new DAOException("Fail during: " + GET_COMPUTERS_QUERY, e);
 		} finally {
-			try {
-				conn.close();
-			} catch (SQLException e) {
-				e.printStackTrace();
-				throw new DAOException("Fail when closing after: " + GET_COMPUTERS_QUERY);
-			}
+			ConnectionCloser.close(rs, ps, conn, GET_COMPUTERS_QUERY);
 		}
 
 		return computers;
 	}
 
 	@Override
-	public Computer createComputer(Computer computer) throws DAOException {
+	public Computer create(Computer computer) throws DAOException {
 
 		LOGGER.debug(CREATE_COMPUTER_QUERY);
-		PreparedStatement ps = null;
 		Connection conn = jdbcConnectionImpl.getConnection();
+		PreparedStatement ps = null;
+		ResultSet rs = null;
+		
 		Timestamp dateIntroduced = null;
 		Timestamp dateDiscontinued = null;
-		
+
 		if (computer.getIntroducedDate() != null) {
 			dateIntroduced = Timestamp.valueOf(computer.getIntroducedDate().atStartOfDay());
 		}
 		if (computer.getDiscontinuedDate() != null) {
 			dateDiscontinued = Timestamp.valueOf(computer.getDiscontinuedDate().atStartOfDay());
 		}
-		
+
 		try {
 			ps = conn.prepareStatement(CREATE_COMPUTER_QUERY, Statement.RETURN_GENERATED_KEYS);
 			ps.setString(1, computer.getName());
@@ -150,40 +135,35 @@ public enum ComputerDaoImpl implements ComputerDao {
 			ps.setTimestamp(3, dateDiscontinued);
 			ps.setInt(4, computer.getCompany().getCompanyId());
 			ps.executeUpdate();
-			ResultSet rs = ps.getGeneratedKeys();
+			rs = ps.getGeneratedKeys();
 			rs.next();
 			computer.setComputerId(rs.getInt(1));
 		} catch (SQLException e) {
-			e.printStackTrace();
-			throw new DAOException("Fail during: " + CREATE_COMPUTER_QUERY);
+			throw new DAOException("Fail during: " + CREATE_COMPUTER_QUERY, e);
 		} finally {
-			try {
-				conn.close();
-			} catch (SQLException e) {
-				e.printStackTrace();
-				throw new DAOException("Fail when closing after: " + CREATE_COMPUTER_QUERY);
-			}
+			ConnectionCloser.close(rs, ps, conn, CREATE_COMPUTER_QUERY);
 		}
 
 		return computer;
 	}
 
 	@Override
-	public Computer updateComputer(Computer computer) throws DAOException {
+	public Computer update(Computer computer) throws DAOException {
 
 		LOGGER.debug(UPDATE_COMPUTER_QUERY);
-		PreparedStatement ps = null;
 		Connection conn = jdbcConnectionImpl.getConnection();
+		PreparedStatement ps = null;
+		
 		Timestamp dateIntroduced = null;
 		Timestamp dateDiscontinued = null;
-		
+
 		if (computer.getIntroducedDate() != null) {
 			dateIntroduced = Timestamp.valueOf(computer.getIntroducedDate().atStartOfDay());
 		}
 		if (computer.getDiscontinuedDate() != null) {
 			dateDiscontinued = Timestamp.valueOf(computer.getDiscontinuedDate().atStartOfDay());
 		}
-		
+
 		try {
 			ps = conn.prepareStatement(UPDATE_COMPUTER_QUERY);
 			ps.setString(1, computer.getName());
@@ -193,71 +173,54 @@ public enum ComputerDaoImpl implements ComputerDao {
 			ps.setInt(5, computer.getComputerId());
 			ps.executeUpdate();
 		} catch (SQLException e) {
-			e.printStackTrace();
-			throw new DAOException("Fail during: " + UPDATE_COMPUTER_QUERY);
+			throw new DAOException("Fail during: " + UPDATE_COMPUTER_QUERY, e);
 		} finally {
-			try {
-				conn.close();
-			} catch (SQLException e) {
-				e.printStackTrace();
-				throw new DAOException("Fail when closing after: " + UPDATE_COMPUTER_QUERY);
-			}
+			ConnectionCloser.close(ps, conn, UPDATE_COMPUTER_QUERY);
 		}
 
 		return computer;
 	}
 
 	@Override
-	public void deleteComputer(int id) throws DAOException {
+	public void delete(int id) throws DAOException {
 
 		LOGGER.debug(DELETE_COMPUTER_QUERY);
-		PreparedStatement ps = null;
 		Connection conn = jdbcConnectionImpl.getConnection();
+		PreparedStatement ps = null;
 
 		try {
 			ps = conn.prepareStatement(DELETE_COMPUTER_QUERY);
 			ps.setInt(1, id);
 			ps.executeUpdate();
 		} catch (SQLException e) {
-			e.printStackTrace();
-			throw new DAOException("Fail during: " + DELETE_COMPUTER_QUERY);
+			throw new DAOException("Fail during: " + DELETE_COMPUTER_QUERY, e);
 		} finally {
-			try {
-				conn.close();
-			} catch (SQLException e) {
-				e.printStackTrace();
-				throw new DAOException("Fail when closing after: " + DELETE_COMPUTER_QUERY);
-			}
+			ConnectionCloser.close(ps, conn, DELETE_COMPUTER_QUERY);
 		}
 
 	}
 
 	@Override
-	public int getNumberOfComputers() throws DAOException {
+	public int count() throws DAOException {
+		
 		LOGGER.debug(COUNT_COMPUTERS_QUERY);
-		ResultSet rs;
-		PreparedStatement ps;
-		int numberOfComputers = 0;
 		Connection conn = jdbcConnectionImpl.getConnection();
+		ResultSet rs = null;
+		PreparedStatement ps = null;
+		int count = 0;
 
 		try {
 			ps = conn.prepareStatement(COUNT_COMPUTERS_QUERY);
 			rs = ps.executeQuery();
 			rs.next();
-		    numberOfComputers = rs.getInt(1);
+			count = rs.getInt(1);
 		} catch (SQLException e) {
-			e.printStackTrace();
-			throw new DAOException("Fail during: " + COUNT_COMPUTERS_QUERY);
+			throw new DAOException("Fail during: " + COUNT_COMPUTERS_QUERY, e);
 		} finally {
-			try {
-				conn.close();
-			} catch (SQLException e) {
-				e.printStackTrace();
-				throw new DAOException("Fail when closing after: " + COUNT_COMPUTERS_QUERY);
-			}
+			ConnectionCloser.close(rs, ps, conn, COUNT_COMPUTERS_QUERY);
 		}
 
-		return numberOfComputers;
+		return count;
 	}
-	
+
 }
