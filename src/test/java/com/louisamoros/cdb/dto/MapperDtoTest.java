@@ -11,7 +11,7 @@ import com.louisamoros.cdb.exception.IntegrityException;
 import com.louisamoros.cdb.exception.InvalidComputerNameException;
 import com.louisamoros.cdb.model.Company;
 import com.louisamoros.cdb.model.Computer;
-import com.louisamoros.cdb.util.MapperDto;
+import com.louisamoros.cdb.dto.mapper.ComputerDaoMapper;
 
 public class MapperDtoTest {
 
@@ -32,7 +32,7 @@ public class MapperDtoTest {
 		Company company = new Company(1, "companyTest");
 		Computer computer = new Computer(1, company, "computerTest", LocalDate.of(2000, 9, 21), LocalDate.of(2000, 9, 21));
 
-		ComputerDto computerDto = MapperDto.toComputerDto(computer);
+		ComputerDto computerDto = ComputerDaoMapper.toComputerDto(computer);
 
 		Assert.assertEquals(computerDtoExpected.getCompanyId(), computerDto.getCompanyId());
 		Assert.assertEquals(computerDtoExpected.getCompanyName(), computerDto.getCompanyName());
@@ -57,7 +57,7 @@ public class MapperDtoTest {
 		Company company = null;
 		Computer computer = new Computer(company, "computerTest", null, null);
 
-		ComputerDto computerDto = MapperDto.toComputerDto(computer);
+		ComputerDto computerDto = ComputerDaoMapper.toComputerDto(computer);
 
 		Assert.assertEquals(computerDtoExpected.getCompanyId(), computerDto.getCompanyId());
 		Assert.assertEquals(computerDtoExpected.getCompanyName(), computerDto.getCompanyName());
@@ -74,7 +74,7 @@ public class MapperDtoTest {
 		Company company = null;
 		Computer computer = new Computer(company, null, null, null);
 
-		MapperDto.toComputerDto(computer);
+		ComputerDaoMapper.toComputerDto(computer);
 	}
 	
 	@Test (expected = IntegrityException.class)
@@ -83,7 +83,7 @@ public class MapperDtoTest {
 		
 		Computer computer = null;
 
-		MapperDto.toComputerDto(computer);
+		ComputerDaoMapper.toComputerDto(computer);
 	}
 	
 	@Test
@@ -100,7 +100,7 @@ public class MapperDtoTest {
 		computerDto.setCompanyId(1);
 		computerDto.setCompanyName("companyTest");
 
-		Computer computer = MapperDto.toComputer(computerDto);
+		Computer computer = ComputerDaoMapper.toComputer(computerDto);
 
 		Assert.assertEquals(computerExpected.getCompany(), computer.getCompany());
 		Assert.assertEquals(computerExpected.getComputerId(), computer.getComputerId());
@@ -123,7 +123,7 @@ public class MapperDtoTest {
 		computerDto.setCompanyId(0);
 		computerDto.setCompanyName("");
 
-		Computer computer = MapperDto.toComputer(computerDto);
+		Computer computer = ComputerDaoMapper.toComputer(computerDto);
 
 		Assert.assertEquals(computerExpected.getCompany(), computer.getCompany());
 		Assert.assertEquals(computerExpected.getComputerId(), computer.getComputerId());
@@ -139,7 +139,7 @@ public class MapperDtoTest {
 		Company company = null;
 		Computer computer = new Computer(company, null, null, null);
 
-		MapperDto.toComputerDto(computer);
+		ComputerDaoMapper.toComputerDto(computer);
 	}
 	
 	@Test (expected = IntegrityException.class)
@@ -148,7 +148,7 @@ public class MapperDtoTest {
 		
 		Computer computer = null;
 
-		MapperDto.toComputerDto(computer);
+		ComputerDaoMapper.toComputerDto(computer);
 	}
 
 }

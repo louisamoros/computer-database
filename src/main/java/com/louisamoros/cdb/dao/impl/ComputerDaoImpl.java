@@ -133,7 +133,7 @@ public enum ComputerDaoImpl implements ComputerDao {
 			ps.setString(1, computer.getName());
 			ps.setTimestamp(2, dateIntroduced);
 			ps.setTimestamp(3, dateDiscontinued);
-			ps.setInt(4, computer.getCompany().getCompanyId());
+			ps.setInt(4, computer.getCompany().getId());
 			ps.executeUpdate();
 			rs = ps.getGeneratedKeys();
 			rs.next();
@@ -169,7 +169,7 @@ public enum ComputerDaoImpl implements ComputerDao {
 			ps.setString(1, computer.getName());
 			ps.setTimestamp(2, dateIntroduced);
 			ps.setTimestamp(3, dateDiscontinued);
-			ps.setInt(4, computer.getCompany().getCompanyId());
+			ps.setInt(4, computer.getCompany().getId());
 			ps.setInt(5, computer.getComputerId());
 			ps.executeUpdate();
 		} catch (SQLException e) {

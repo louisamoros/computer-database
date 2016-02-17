@@ -1,38 +1,33 @@
 package com.louisamoros.cdb.dto;
 
+/**
+ * CompanyDto using Builder static class for constructor.
+ *
+ * @author louis
+ */
 public class CompanyDto {
 
-	int companyId;
+	int id;
 	String name;
 
-	public CompanyDto() {
-		super();
+	private CompanyDto(Builder builder) {
+		this.id = builder.id;
+		this.name = builder.name;
 	}
 
-	public CompanyDto(int companyId, String name) {
-		super();
-		this.companyId = companyId;
-		this.name = name;
+	public int getId() {
+		return id;
 	}
-	
-	public int getCompanyId() {
-		return companyId;
-	}
-	public void setCompanyId(int companyId) {
-		this.companyId = companyId;
-	}
+
 	public String getName() {
 		return name;
 	}
-	public void setName(String name) {
-		this.name = name;
-	}
-	
+
 	@Override
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
-		result = prime * result + companyId;
+		result = prime * result + id;
 		result = prime * result + ((name == null) ? 0 : name.hashCode());
 		return result;
 	}
@@ -46,7 +41,7 @@ public class CompanyDto {
 		if (getClass() != obj.getClass())
 			return false;
 		CompanyDto other = (CompanyDto) obj;
-		if (companyId != other.companyId)
+		if (id != other.id)
 			return false;
 		if (name == null) {
 			if (other.name != null)
@@ -58,7 +53,29 @@ public class CompanyDto {
 
 	@Override
 	public String toString() {
-		return "CompanyDto [companyId=" + companyId + ", name=" + name + "]";
+		return "CompanyDto [id=" + id + ", name=" + name + "]";
+	}
+
+	public static class Builder {
+
+		// optional
+		private int id;
+		private String name;
+
+		public Builder id(int id) {
+			this.id = id;
+			return this;
+		}
+
+		public Builder name(String name) {
+			this.name = name;
+			return this;
+		}
+
+		public CompanyDto build() {
+			return new CompanyDto(this);
+		}
+
 	}
 
 }

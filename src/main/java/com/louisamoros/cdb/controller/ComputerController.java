@@ -17,7 +17,7 @@ import com.louisamoros.cdb.dto.ComputerDto;
 import com.louisamoros.cdb.model.Computer;
 import com.louisamoros.cdb.service.ComputerService;
 import com.louisamoros.cdb.service.impl.ComputerServiceImpl;
-import com.louisamoros.cdb.util.MapperDto;
+import com.louisamoros.cdb.dto.mapper.ComputerDaoMapper;
 import com.louisamoros.cdb.util.Page;
 
 /**
@@ -54,7 +54,7 @@ public class ComputerController extends HttpServlet {
 		
 		ArrayList<ComputerDto> computersDto = new ArrayList<>();
 		for(Computer computer:computerService.getComputers(offset, limit)) {
-			computersDto.add(MapperDto.toComputerDto(computer));
+			computersDto.add(ComputerDaoMapper.toComputerDto(computer));
 		}
 		
 		request.setAttribute("computers", computersDto);

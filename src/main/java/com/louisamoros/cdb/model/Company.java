@@ -1,84 +1,82 @@
 package com.louisamoros.cdb.model;
 
 /**
- * Company model.
+ * Company using Builder static class for constructor.
  *
- * @author excilys
+ * @author louis
  */
 public class Company {
 
-	private int id;
-	private String name;
+    private int id;
+    private String name;
 
-	public static class Builder {
+    private Company(Builder builder) {
+        this.id = builder.id;
+        this.name = builder.name;
+    }
 
-		// optional
-		private int id;
-		private String name;
+    public int getId() {
+        return id;
+    }
 
-		public Builder() {
-			super();
-		}
+    public String getName() {
+        return name;
+    }
 
-		public Builder cheese(boolean value) {
-			cheese = value;
-			return this;
-		}
+    @Override
+    public String toString() {
+        return "Company [id=" + id + ", name=" + name + "]";
+    }
 
-	}
+    @Override
+    public int hashCode() {
+        final int prime = 31;
+        int result = 1;
+        result = prime * result + id;
+        result = prime * result + ((name == null) ? 0 : name.hashCode());
+        return result;
+    }
 
-	private Company(Builder builder) {
-		id = builder.id;
-		name = builder.;
-	}
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj)
+            return true;
+        if (obj == null)
+            return false;
+        if (getClass() != obj.getClass())
+            return false;
+        Company other = (Company) obj;
+        if (id != other.id)
+            return false;
+        if (name == null) {
+            if (other.name != null)
+                return false;
+        } else if (!name.equals(other.name))
+            return false;
+        return true;
+    }
 
-	public int getCompanyId() {
-		return companyId;
-	}
+    public static class Builder {
 
-	public void setCompanyId(int companyId) {
-		this.companyId = companyId;
-	}
+        // optional
+        private int id;
+        private String name;
 
-	public String getName() {
-		return name;
-	}
+        public Builder id(int id) {
+            this.id = id;
+            return this;
+        }
 
-	public void setName(String name) {
-		this.name = name;
-	}
+        public Builder name(String name) {
+            this.name = name;
+            return this;
+        }
 
-	@Override
-	public String toString() {
-		return "Company [companyId=" + companyId + ", name=" + name + "]";
-	}
+        public Company build() {
+            return new Company(this);
+        }
 
-	@Override
-	public int hashCode() {
-		final int prime = 31;
-		int result = 1;
-		result = prime * result + companyId;
-		result = prime * result + ((name == null) ? 0 : name.hashCode());
-		return result;
-	}
+    }
 
-	@Override
-	public boolean equals(Object obj) {
-		if (this == obj)
-			return true;
-		if (obj == null)
-			return false;
-		if (getClass() != obj.getClass())
-			return false;
-		Company other = (Company) obj;
-		if (companyId != other.companyId)
-			return false;
-		if (name == null) {
-			if (other.name != null)
-				return false;
-		} else if (!name.equals(other.name))
-			return false;
-		return true;
-	}
 
 }
