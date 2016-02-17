@@ -1,5 +1,10 @@
 package com.louisamoros.cdb.dao.exception;
 
+/**
+ * Catch any exception in DAOs.
+ * @author louis
+ *
+ */
 public class DAOException extends RuntimeException {
 
 	private static final long serialVersionUID = 1L;

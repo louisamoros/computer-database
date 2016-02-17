@@ -7,13 +7,13 @@ import com.louisamoros.cdb.model.Computer;
 
 /**
  * ComputerDao interface implemented by ComputerDaoImpl. Use to Map the database with java object.
- * @author excilys
+ * @author louis
  *
  */
 public interface ComputerDao {
 
 	/**
-	 * This method return the number of records of computers in the database
+	 * This method return the number of records of computers in the database.
 	 * @return number of computer in database
 	 * @throws DAOException
 	 */
@@ -22,14 +22,14 @@ public interface ComputerDao {
 	/**
 	 * Fetch the computer from the database based on its Id.
 	 * @param computerId
-	 * @return computer
+	 * @return <Computer>
 	 * @throws DAOException
 	 */
 	Computer get(int computerId) throws DAOException;
 
 	/**
 	 * Fetch all computers from the database.
-	 * @return
+	 * @return <List> of <Computer>
 	 * @throws DAOException
 	 */
 	List<Computer> getAll() throws DAOException;
@@ -38,15 +38,15 @@ public interface ComputerDao {
 	 * Fetch computers from the database function of offset and steps params.
 	 * @param offset
 	 * @param steps
-	 * @return list of computers
+	 * @return <List> of <Computer>
 	 * @throws DAOException
 	 */
 	List<Computer> get(int offset, int steps) throws DAOException;
 	
 	/**
 	 * Create a new computer in the database.
-	 * @param computer
-	 * @return created computer
+	 * @param <Computer> to create
+	 * @return <Computer> created
 	 * @throws DAOException
 	 */
 	Computer create(Computer computer) throws DAOException;
@@ -54,7 +54,7 @@ public interface ComputerDao {
 	/**
 	 * Update an existing computer based on its Id
 	 * @param computerId
-	 * @return updated computer
+	 * @return <Computer> updated
 	 * @throws DAOException
 	 */
 	Computer update(Computer computer) throws DAOException;

@@ -1,7 +1,7 @@
 package com.louisamoros.cdb.dao.exception;
 
 /**
- * This exception will be use for 
+ * Catch error during JDBC connection initialization.
  * @author louis
  *
  */

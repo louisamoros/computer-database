@@ -6,8 +6,8 @@ import com.louisamoros.cdb.dao.exception.DAOException;
 import com.louisamoros.cdb.model.Company;
 
 /**
- * CompanyDao interface implemented by singleton enum CompanyDaoImpl. Use to Map
- * the database with java object.
+ * <CompanyDao> interface implemented by singleton enum <CompanyDaoImpl>. Use to
+ * map the database with java object.
  * 
  * @author louis
  *
@@ -17,7 +17,7 @@ public interface CompanyDao {
 	/**
 	 * Fetch all the companies of the database.
 	 * 
-	 * @return companies list
+	 * @return <List> of <Company>
 	 */
 	List<Company> getAll() throws DAOException;
 
