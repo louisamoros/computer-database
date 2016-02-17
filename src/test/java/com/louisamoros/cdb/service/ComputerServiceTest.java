@@ -43,7 +43,7 @@ public class ComputerServiceTest {
 		LOGGER.debug("getAllComputersTest...");
 		PowerMockito.when(mockComputerDao.getAllComputers()).thenReturn(getComputers());
 		Assert.assertTrue(computerService.getAllComputers() instanceof List<?>);
-		Assert.assertEquals(computerService.getComputers(0, 10).size(), 2);
+		Assert.assertEquals(computerService.getAllComputers().size(), 2);
 	}
 
 	@Test
@@ -93,8 +93,9 @@ public class ComputerServiceTest {
 		LOGGER.debug("updateComputerTest...");
 		ArrayList<Computer> computers = getComputers();
 		Computer computer1 = new Computer(null, "updatedComputer", null, null);
-		computers.add(1, computer1);
+		computers.set(1, computer1);
 		PowerMockito.when(mockComputerDao.updateComputer(computer1)).thenReturn(computer1);
+		PowerMockito.when(mockComputerDao.getAllComputers()).thenReturn(computers);
 		Assert.assertEquals(computerService.getAllComputers().size(), 2);
 		Assert.assertTrue(computer1.equals(computers.get(1)));
 	}
