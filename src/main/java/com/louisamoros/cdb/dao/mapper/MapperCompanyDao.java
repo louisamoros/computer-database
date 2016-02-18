@@ -14,7 +14,7 @@ import com.louisamoros.cdb.model.Company;
  * @author louis
  *
  */
-public class MapperCompany {
+public class MapperCompanyDao {
 
 	/**
 	 * Convert ResultSet to List<Company> based on <Company> model.

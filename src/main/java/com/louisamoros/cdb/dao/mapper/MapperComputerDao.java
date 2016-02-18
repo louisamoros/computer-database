@@ -17,7 +17,7 @@ import com.louisamoros.cdb.model.Computer;
  * @author louis
  *
  */
-public class MapperComputer {
+public class MapperComputerDao {
 
 	/**
 	 * Convert ResultSet to List<Computer> based on <Computer> model.

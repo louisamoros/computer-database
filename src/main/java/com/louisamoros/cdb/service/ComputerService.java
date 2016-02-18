@@ -22,10 +22,10 @@ public interface ComputerService {
 	/**
 	 * Fetch computers from computer dao page function of offset and steps params.
 	 * @param offset
-	 * @param steps
+	 * @param limit
 	 * @return computers list
 	 */
-	List<Computer> get(int offset, int steps);
+	List<Computer> get(int offset, int limit);
 	
 	/**
 	 * Fetch the computer from dao based on its Id.

@@ -9,7 +9,7 @@ import com.louisamoros.cdb.model.Company;
  *
  * @author louis
  */
-public class CompanyDtoMapper {
+public class MapperCompanyDto {
 
     /**
      * Convert CompanyDao element to Company model.

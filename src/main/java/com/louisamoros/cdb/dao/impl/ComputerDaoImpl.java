@@ -14,7 +14,7 @@ import org.slf4j.LoggerFactory;
 import com.louisamoros.cdb.dao.ComputerDao;
 import com.louisamoros.cdb.dao.connection.JDBCConnectionImpl;
 import com.louisamoros.cdb.dao.exception.DAOException;
-import com.louisamoros.cdb.dao.mapper.MapperComputer;
+import com.louisamoros.cdb.dao.mapper.MapperComputerDao;
 import com.louisamoros.cdb.model.Company;
 import com.louisamoros.cdb.model.Computer;
 
@@ -55,7 +55,7 @@ public enum ComputerDaoImpl implements ComputerDao {
 			ps = conn.prepareStatement(GET_COMPUTER_QUERY);
 			ps.setInt(1, id);
 			rs = ps.executeQuery();
-			computer = MapperComputer.toComputer(rs);
+			computer = MapperComputerDao.toComputer(rs);
 		} catch (SQLException e) {
 			throw new DAOException("Fail during: " + GET_COMPUTER_QUERY, e);
 		} finally {
@@ -77,7 +77,7 @@ public enum ComputerDaoImpl implements ComputerDao {
 		try {
 			ps = conn.prepareStatement(GET_ALL_COMPUTERS_QUERY);
 			rs = ps.executeQuery();
-			computers = MapperComputer.toList(rs);
+			computers = MapperComputerDao.toList(rs);
 		} catch (SQLException e) {
 			throw new DAOException("Fail during: " + GET_ALL_COMPUTERS_QUERY, e);
 		} finally {
@@ -101,7 +101,7 @@ public enum ComputerDaoImpl implements ComputerDao {
 			ps.setInt(1, limit);
 			ps.setInt(2, offset);
 			rs = ps.executeQuery();
-			computers = MapperComputer.toList(rs);
+			computers = MapperComputerDao.toList(rs);
 		} catch (SQLException e) {
 			throw new DAOException("Fail during: " + GET_COMPUTERS_QUERY, e);
 		} finally {

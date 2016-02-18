@@ -52,8 +52,8 @@ public enum ComputerServiceImpl implements ComputerService {
 	}
 
 	@Override
-	public List<Computer> get(int offset, int steps) {
-		return computerDao.get(offset, steps);
+	public List<Computer> get(int offset, int limit) {
+		return computerDao.get(offset, limit);
 	}
 
 	@Override

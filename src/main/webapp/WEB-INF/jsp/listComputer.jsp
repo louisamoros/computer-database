@@ -22,7 +22,7 @@
 
 	<section id="main">
 		<div class="container">
-			<h1 id="homeTitle">NO Computers found</h1>
+			<h1 id="homeTitle">TODO COUNT Computers found</h1>
 			<div id="actions" class="form-horizontal">
 				<div class="pull-left">
 					<form id="searchForm" action="#" method="GET" class="form-inline">
@@ -42,7 +42,7 @@
 	</section>
 	
 	<footer class="navbar-fixed-bottom">
-		<div class="container text-center">FOOTER</div>
+		<div class="container text-center">TODO PAGER</div>
 	</footer>
 	<script src="js/jquery.min.js"></script>
 	<script src="js/bootstrap.min.js"></script>
