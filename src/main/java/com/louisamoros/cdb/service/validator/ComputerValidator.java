@@ -8,17 +8,14 @@ import com.louisamoros.cdb.exception.InvalidDateOrderException;
 import com.louisamoros.cdb.model.Computer;
 
 /**
- * Verication class for a computer or a list of computers.
- * 
- * @author louis
- *
+ * The Class ComputerValidator.
  */
 public class ComputerValidator {
 
 	/**
-	 * Verify computer object and throw runtime exception if anything wrong.
-	 * 
-	 * @param <Computer>
+	 * Validate.
+	 *
+	 * @param computer the computer
 	 */
 	public static void validate(Computer computer) {
 
@@ -36,10 +33,9 @@ public class ComputerValidator {
 	}
 
 	/**
-	 * Verify computer object list using validate method.
-	 * 
-	 * @param <List>
-	 *            of <Computer>
+	 * Validate.
+	 *
+	 * @param computers the computers
 	 */
 	public static void validate(List<Computer> computers) {
 

@@ -1,10 +1,11 @@
 package com.louisamoros.cdb.dto.mapper;
 
+import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 
 import com.louisamoros.cdb.dto.ComputerDto;
-import com.louisamoros.cdb.dto.validator.ComputerDtoValidator;
-import com.louisamoros.cdb.exception.IntegrityException;
+import com.louisamoros.cdb.model.Company;
 import com.louisamoros.cdb.model.Computer;
 import com.louisamoros.cdb.service.validator.ComputerValidator;
 
@@ -23,27 +24,30 @@ public class MapperComputerDto {
 	 */
 	public static Computer toComputer(ComputerDto computerDto) {
 
-		ComputerDtoValidator.validate(computerDto);
-		if (computerDto == null) {
-			throw new IntegrityException("A computer dto can't be null.");
-		}
-		return null;
-		
+		Computer computer = new Computer.Builder(computerDto.getComputerName())
+				.company(
+						new Company.Builder().id(computerDto.getCompanyId()).name(computerDto.getCompanyName()).build())
+				.discontinued(LocalDate.parse(computerDto.getDiscontinuedDate()))
+				.introduced(LocalDate.parse(computerDto.getIntroducedDate())).id(computerDto.getComputerId()).build();
+		return computer;
+
 	}
-	
+
 	/**
 	 * Convert List of ComputerDto element to ComputerDao model.
-	 * @param <List> of <ComputerDto>
+	 * 
+	 * @param <List>
+	 *            of <ComputerDto>
 	 * @return <List> of <Computer>
 	 */
 	public static List<Computer> toComputerList(List<ComputerDto> computersDto) {
-	
-		ComputerDtoValidator.validate(computersDto);
-		if (computersDto == null) {
-			throw new IntegrityException("List of computers dto can't be null.");
+		
+		List<Computer> computers = new ArrayList<>();
+		for(ComputerDto computerDto:computersDto) {
+			computers.add(toComputer(computerDto));
 		}
-		return null;
-	
+		return computers;
+
 	}
 
 	/**
@@ -55,26 +59,31 @@ public class MapperComputerDto {
 	public static ComputerDto toComputerDto(Computer computer) {
 
 		ComputerValidator.validate(computer);
-		if (computer == null) {
-			throw new IntegrityException("A computer can't be null.");
-		}
-		return null;
-	
+		ComputerDto computerDto = new ComputerDto.Builder(computer.getName())
+				.companyId(computer.getCompany().getId())
+				.companyName(computer.getCompany().getName())
+				.computerId(computer.getId())
+				.introduced(String.valueOf(computer.getIntroduced()))
+				.discontinued(String.valueOf(computer.getDiscontinued()))
+				.build();
+		return computerDto;
+
 	}
 
 	/**
-	 * Convert List of Computer model to ComputerDao element.
-	 * @param <List> of <Computer>
-	 * @return <List> of <ComputerDto>
+	 * To computer dto list.
+	 *
+	 * @param computers the computers
+	 * @return the list
 	 */
 	public static List<ComputerDto> toComputerDtoList(List<Computer> computers) {
-		
-		ComputerValidator.validate(computers);
-		if (computers == null) {
-			throw new IntegrityException("List of computers can't be null.");
+
+		List<ComputerDto> computersDto = new ArrayList<>();
+		for(Computer computer:computers) {
+			computersDto.add(toComputerDto(computer));
 		}
-		return null;
-	
+		return computersDto;
+
 	}
 
 }

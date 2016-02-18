@@ -29,13 +29,13 @@ public enum ComputerDaoImpl implements ComputerDao {
 	INSTANCE;
 
 	private JDBCConnectionImpl jdbcConnectionImpl;
-	private static final String GET_COMPUTER_QUERY = "SELECT * FROM computer LEFT JOIN company ON computer.company_id = company.id WHERE computer.id=?;";
-	private static final String GET_ALL_COMPUTERS_QUERY = "SELECT * FROM computer LEFT JOIN company ON computer.company_id = company.id;";
-	private static final String GET_COMPUTERS_QUERY = "SELECT * FROM computer LEFT JOIN company ON computer.company_id = company.id ORDER BY computer.name LIMIT ? OFFSET ?;";
+	private static final String GET_COMPUTER_QUERY = "SELECT * FROM computer LEFT JOIN company ON computer.company_id = company.id WHERE computer.id=?";
+	private static final String GET_ALL_COMPUTERS_QUERY = "SELECT * FROM computer LEFT JOIN company ON computer.company_id = company.id";
+	private static final String GET_COMPUTERS_QUERY = "SELECT * FROM computer LEFT JOIN company ON computer.company_id = company.id ORDER BY computer.name LIMIT ? OFFSET ?";
 	private static final String UPDATE_COMPUTER_QUERY = "UPDATE computer SET name=?, introduced=?, discontinued=?, company_id=? WHERE id=?";
 	private static final String DELETE_COMPUTER_QUERY = "DELETE FROM computer WHERE id=?";
-	private static final String COUNT_COMPUTERS_QUERY = "SELECT COUNT(*) FROM computer;";
-	private static final String CREATE_COMPUTER_QUERY = "INSERT INTO computer VALUES (default, ?, ?, ?, ?);";
+	private static final String COUNT_COMPUTERS_QUERY = "SELECT COUNT(*) FROM computer";
+	private static final String CREATE_COMPUTER_QUERY = "INSERT INTO computer VALUES (default, ?, ?, ?, ?)";
 	private static Logger LOGGER = LoggerFactory.getLogger(ComputerDao.class);
 
 	private ComputerDaoImpl() {
@@ -99,7 +99,7 @@ public enum ComputerDaoImpl implements ComputerDao {
 		try {
 			ps = conn.prepareStatement(GET_COMPUTERS_QUERY);
 			ps.setInt(1, limit);
-			ps.setInt(2, offset);
+			ps.setInt(2, offset);			
 			rs = ps.executeQuery();
 			computers = MapperComputerDao.toList(rs);
 		} catch (SQLException e) {

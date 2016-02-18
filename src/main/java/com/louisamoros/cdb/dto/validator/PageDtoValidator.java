@@ -8,12 +8,12 @@ package com.louisamoros.cdb.dto.validator;
 public class PageDtoValidator {
 
 	/**
-	 * Validation method for page. It has to be greater or equal to 0.
+	 * Validation method for page. It has to be greater than 0.
 	 * @param <String> page
 	 * @return int page
 	 */
 	public static int validatePage(String p) {
-		int page = 0;
+		int page = 1;
 		if(p != null) {
 			if(Integer.parseInt(p) >= 0) {
 				page = Integer.parseInt(p);

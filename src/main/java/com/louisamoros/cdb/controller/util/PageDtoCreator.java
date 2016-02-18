@@ -4,22 +4,26 @@ import com.louisamoros.cdb.dto.PageDto;
 import com.louisamoros.cdb.dto.validator.PageDtoValidator;
 
 /**
- * Create <PageDto> by validating attributes via <PageValidator> and calculating
- * other useful attributes such as offset and limit.
- * 
- * @author louis
- *
+ * The Class PageDtoCreator.
  */
 public class PageDtoCreator {
 
-	public static PageDto create(String p, String pp) {
+	/**
+	 * Creates the.
+	 *
+	 * @param page the page
+	 * @param perPage the per page
+	 * @param count the count
+	 * @return the page dto
+	 */
+	public static PageDto create(String page, String perPage, int count) {
 
-		int page = PageDtoValidator.validatePage(p);
-		int perPage = PageDtoValidator.validatePerPage(pp);
-		int offset = (page - 1) * perPage + 1;
-		int limit = perPage;
+		int p = PageDtoValidator.validatePage(page);
+		int pp = PageDtoValidator.validatePerPage(perPage);
+		int offset = (p - 1) * pp + 1;
+		int limit = pp;
 
-		PageDto pageDto = new PageDto.Builder().page(perPage).perPage(perPage).limit(limit).offset(offset).build();
+		PageDto pageDto = new PageDto.Builder().page(p).perPage(pp).limit(limit).offset(offset).count(count).build();
 
 		return pageDto;
 

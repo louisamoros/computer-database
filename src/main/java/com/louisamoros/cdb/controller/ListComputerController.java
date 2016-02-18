@@ -22,7 +22,7 @@ import com.louisamoros.cdb.service.ComputerService;
 import com.louisamoros.cdb.service.impl.ComputerServiceImpl;
 
 /**
- * Servlet implementation class ComputersServlet
+ * Servlet implementation class ListComputerServlet
  */
 @WebServlet("/computer")
 public class ListComputerController extends HttpServlet {
@@ -50,9 +50,12 @@ public class ListComputerController extends HttpServlet {
 		LOGGER.debug("GOTO >>> lisComputer.jsp");
 		String page = request.getParameter("p");
 		String perPage = request.getParameter("pp");
-		PageDto pageDto = PageDtoCreator.create(page, perPage);
+		int count = computerService.count();
+		PageDto pageDto = PageDtoCreator.create(page, perPage, count);
 		List<Computer> computers = computerService.get(pageDto.getOffset(), pageDto.getLimit());
 		List<ComputerDto> computersDto = MapperComputerDto.toComputerDtoList(computers);
+		request.setAttribute("computers", computersDto);
+		request.setAttribute("page", pageDto);
 		RequestDispatcher rd = request.getRequestDispatcher(LIST_COMPUTER);
 		rd.forward(request, response);
 		
