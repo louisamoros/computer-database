@@ -41,41 +41,41 @@ public class ComputerServiceTest {
 	@Test
 	public void getAllComputersTest() {
 		LOGGER.debug("getAllComputersTest...");
-		PowerMockito.when(mockComputerDao.getAllComputers()).thenReturn(getComputers());
-		Assert.assertTrue(computerService.getAllComputers() instanceof List<?>);
-		Assert.assertEquals(computerService.getAllComputers().size(), 2);
+		PowerMockito.when(mockComputerDao.getAll()).thenReturn(getComputers());
+		Assert.assertTrue(computerService.getAll() instanceof List<?>);
+		Assert.assertEquals(computerService.getAll().size(), 2);
 	}
 
 	@Test
 	public void getComputersTest() {
 		LOGGER.debug("getComputersTest...");
-		PowerMockito.when(mockComputerDao.getComputers(0, 10)).thenReturn(getComputers());
-		Assert.assertTrue(computerService.getComputers(0, 10) instanceof List<?>);
-		Assert.assertEquals(computerService.getComputers(0, 10).size(), 2);
+		PowerMockito.when(mockComputerDao.get(0, 10)).thenReturn(getComputers());
+		Assert.assertTrue(computerService.get(0, 10) instanceof List<?>);
+		Assert.assertEquals(computerService.get(0, 10).size(), 2);
 	}
 
 	@Test
 	public void createComputerTest() {
 		LOGGER.debug("createComputerTest...");
-		Computer computer1 = new Computer(null, "computer1", null, null);
-		Computer computerReturn = new Computer(1, null, "computer1", null, null);
-		PowerMockito.when(mockComputerDao.createComputer(computer1)).thenReturn(computerReturn);
-		Computer createdComputer = computerService.createComputer(computer1);
+		Computer computer1 = new Computer.Builder("computer1").company(null).introduced(null).discontinued(null).build();
+		Computer computerReturn = new Computer.Builder("computer1").id(1).company(null).discontinued(null).introduced(null).build();
+		PowerMockito.when(mockComputerDao.create(computer1)).thenReturn(computerReturn);
+		Computer createdComputer = computerService.create(computer1);
 		Assert.assertTrue(createdComputer.equals(computerReturn));
 	}
 	
 	@Test (expected = InvalidComputerNameException.class)
 	public void createComputerInvalidNameTest() {
 		LOGGER.debug("createComputerInvalidNameTest...");
-		Computer computer1 = new Computer(null, null, null, null);
-		computerService.createComputer(computer1);
+		Computer computer1 = new Computer.Builder(null).company(null).discontinued(null).introduced(null).build();
+		computerService.create(computer1);
 	}
 	
 	@Test (expected = InvalidDateOrderException.class)
 	public void createComputerInvalidDateOrderTest() {
 		LOGGER.debug("createComputerInvalidDateOrderTest...");
-		Computer computer1 = new Computer(null, "computer1", LocalDate.now(), LocalDate.of(2000, 9, 9));
-		computerService.createComputer(computer1);
+		Computer computer1 = new Computer.Builder("computer1").company(null).discontinued(LocalDate.of(2000, 9, 9)).introduced(LocalDate.now()).build();
+		computerService.create(computer1);
 	}
 	
 	@Test
@@ -83,26 +83,26 @@ public class ComputerServiceTest {
 		LOGGER.debug("deleteComputerTest...");
 		ArrayList<Computer> computers = getComputers();
 		computers.remove(1);
-		mockComputerDao.deleteComputer(1);
-		PowerMockito.when(mockComputerDao.getAllComputers()).thenReturn(computers);
-		Assert.assertEquals(computerService.getAllComputers().size(), 1);		
+		mockComputerDao.delete(1);
+		PowerMockito.when(mockComputerDao.getAll()).thenReturn(computers);
+		Assert.assertEquals(computerService.getAll().size(), 1);		
 	}
 	
 	@Test
 	public void updateComputerTest() {
 		LOGGER.debug("updateComputerTest...");
 		ArrayList<Computer> computers = getComputers();
-		Computer computer1 = new Computer(null, "updatedComputer", null, null);
+		Computer computer1 = new Computer.Builder("updatedComputer").company(null).discontinued(null).introduced(null).build();
 		computers.set(1, computer1);
-		PowerMockito.when(mockComputerDao.updateComputer(computer1)).thenReturn(computer1);
-		PowerMockito.when(mockComputerDao.getAllComputers()).thenReturn(computers);
-		Assert.assertEquals(computerService.getAllComputers().size(), 2);
+		PowerMockito.when(mockComputerDao.update(computer1)).thenReturn(computer1);
+		PowerMockito.when(mockComputerDao.getAll()).thenReturn(computers);
+		Assert.assertEquals(computerService.getAll().size(), 2);
 		Assert.assertTrue(computer1.equals(computers.get(1)));
 	}
 	
 	private ArrayList<Computer> getComputers() {
-		Computer computer1 = new Computer(null, "computer1", null, null);
-		Computer computer2 = new Computer(null, "computer2", null, null);
+		Computer computer1 = new Computer.Builder("computer1").company(null).discontinued(null).introduced(null).build();
+		Computer computer2 = new Computer.Builder("computer2").company(null).discontinued(null).introduced(null).build();
 		ArrayList<Computer> computers = new ArrayList<Computer>();
 		computers.add(computer1);
 		computers.add(computer2);

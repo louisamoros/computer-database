@@ -10,7 +10,7 @@ import com.louisamoros.cdb.service.CompanyService;
 /**
  * Company Service used to CRUD companies and verify inputs.
  * 
- * @author excilys
+ * @author louis
  *
  */
 public enum CompanyServiceImpl implements CompanyService {
@@ -23,8 +23,8 @@ public enum CompanyServiceImpl implements CompanyService {
 		companyDao = CompanyDaoImpl.INSTANCE;
 	}
 
-	public List<Company> getCompanies() {
-		return companyDao.getCompanies();
+	public List<Company> getAll() {
+		return companyDao.getAll();
 	}
 
 	public void setCompanyDao(CompanyDao companyDao) {

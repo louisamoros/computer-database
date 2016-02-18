@@ -38,8 +38,8 @@ public class CompanyServiceTest {
 	@Test
 	public void getAllCompaniesTest() {
 		LOGGER.debug("getAllCompaniesTest...");
-		PowerMockito.when(mockCompanyDao.getCompanies()).thenReturn(new ArrayList<Company>());
-		Assert.assertTrue(companyService.getCompanies() instanceof List<?>);
+		PowerMockito.when(mockCompanyDao.getAll()).thenReturn(new ArrayList<Company>());
+		Assert.assertTrue(companyService.getAll() instanceof List<?>);
 	}
 
 }

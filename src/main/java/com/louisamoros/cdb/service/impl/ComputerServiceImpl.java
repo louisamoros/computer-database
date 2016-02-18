@@ -6,13 +6,12 @@ import com.louisamoros.cdb.dao.ComputerDao;
 import com.louisamoros.cdb.dao.impl.ComputerDaoImpl;
 import com.louisamoros.cdb.model.Computer;
 import com.louisamoros.cdb.service.ComputerService;
-import com.louisamoros.cdb.exception.InvalidComputerNameException;
-import com.louisamoros.cdb.exception.InvalidDateOrderException;
+import com.louisamoros.cdb.service.validator.ComputerValidator;
 
 /**
- * Computer Service used to CRUD computers
+ * Computer Service used to CRUD computers and verify inputs.
  * 
- * @author excilys
+ * @author louis
  *
  */
 public enum ComputerServiceImpl implements ComputerService {
@@ -24,62 +23,44 @@ public enum ComputerServiceImpl implements ComputerService {
 	private ComputerServiceImpl() {
 		computerDao = ComputerDaoImpl.INSTANCE;
 	}
-	
+
 	@Override
-	public List<Computer> getAllComputers() {
-		return computerDao.getAllComputers();
+	public List<Computer> getAll() {
+		return computerDao.getAll();
 	}
 
 	@Override
-	public Computer getComputer(int computerId) {
-		return computerDao.getComputer(computerId);
+	public Computer get(int computerId) {
+		return computerDao.get(computerId);
 	}
 
 	@Override
-	public Computer createComputer(Computer computer) throws InvalidDateOrderException {
-		if (isValidComputer(computer)) {
-			return computerDao.createComputer(computer);
-		} else {
-			return null;
-		}
+	public Computer create(Computer computer) {
+		ComputerValidator.validate(computer);
+		return computerDao.create(computer);
 	}
 
 	@Override
-	public Computer updateComputer(Computer computer) throws InvalidDateOrderException {
-		if (isValidComputer(computer)) {
-			return computerDao.updateComputer(computer);
-		} else {
-			return null;
-		}
+	public Computer update(Computer computer) {
+		ComputerValidator.validate(computer);
+		return computerDao.update(computer);
 	}
 
 	@Override
-	public void deleteComputer(int computerId) {
-		computerDao.deleteComputer(computerId);
+	public void delete(int computerId) {
+		computerDao.delete(computerId);
 	}
 
 	@Override
-	public List<Computer> getComputers(int offset, int steps) {
-		return computerDao.getComputers(offset, steps);
+	public List<Computer> get(int offset, int steps) {
+		return computerDao.get(offset, steps);
 	}
 
 	@Override
-	public int getNumberOfComputers() {
-		return computerDao.getNumberOfComputers();
+	public int count() {
+		return computerDao.count();
 	}
-	
-	private boolean isValidComputer(Computer computer) {
-		boolean isValid = false;
-		if(computer.getIntroducedDate() != null && computer.getDiscontinuedDate() != null && computer.getIntroducedDate().isAfter(computer.getDiscontinuedDate())) {
-			throw new InvalidDateOrderException("Intoduced date should be before discontinued date.");
-		} else if (computer.getName() == null || computer.getName().isEmpty()) {
-			throw new InvalidComputerNameException("Computer name is required.");
-		} else {
-			isValid = true;
-		}
-		return isValid;
-	}
-	
+
 	public void setComputerDao(ComputerDao computerDao) {
 		this.computerDao = computerDao;
 	}

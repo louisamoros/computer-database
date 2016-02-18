@@ -37,9 +37,12 @@ public class MapperComputer {
 				if (rs.getTimestamp("discontinued") != null) {
 					dateDiscontinued = rs.getTimestamp("discontinued").toLocalDateTime().toLocalDate();
 				}
-				Computer computer = new Computer(rs.getInt("computer.id"),
-						new Company(rs.getInt("company.id"), rs.getString("company.name")),
-						rs.getString("computer.name"), dateIntroduced, dateDiscontinued);
+				Computer computer = new Computer.Builder(rs.getString("computer.name"))
+						.id(rs.getInt("computer.id"))
+						.company(new Company.Builder().id(rs.getInt("company.id")).name(rs.getString("company.name")).build())
+						.introduced(dateIntroduced)
+						.discontinued(dateDiscontinued)
+						.build();
 				computers.add(computer);
 			}
 		} catch (SQLException e) {
@@ -66,9 +69,12 @@ public class MapperComputer {
 				if (rs.getTimestamp("discontinued") != null) {
 					dateDiscontinued = rs.getTimestamp("discontinued").toLocalDateTime().toLocalDate();
 				}
-				computer = new Computer(rs.getInt("computer.id"),
-						new Company(rs.getInt("company.id"), rs.getString("company.name")),
-						rs.getString("computer.name"), dateIntroduced, dateDiscontinued);
+				computer = new Computer.Builder(rs.getString("computer.name"))
+						.id(rs.getInt("computer.id"))
+						.company(new Company.Builder().id(rs.getInt("company.id")).name(rs.getString("company.name")).build())
+						.introduced(dateIntroduced)
+						.discontinued(dateDiscontinued)
+						.build();
 			}
 		} catch (SQLException e) {
 			throw new DAOMapperException("Fail to map ResultSet to Computer.", e);

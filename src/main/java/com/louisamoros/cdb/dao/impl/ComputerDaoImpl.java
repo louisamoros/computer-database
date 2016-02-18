@@ -15,6 +15,7 @@ import com.louisamoros.cdb.dao.ComputerDao;
 import com.louisamoros.cdb.dao.connection.JDBCConnectionImpl;
 import com.louisamoros.cdb.dao.exception.DAOException;
 import com.louisamoros.cdb.dao.mapper.MapperComputer;
+import com.louisamoros.cdb.model.Company;
 import com.louisamoros.cdb.model.Computer;
 
 /**
@@ -121,11 +122,11 @@ public enum ComputerDaoImpl implements ComputerDao {
 		Timestamp dateIntroduced = null;
 		Timestamp dateDiscontinued = null;
 
-		if (computer.getIntroducedDate() != null) {
-			dateIntroduced = Timestamp.valueOf(computer.getIntroducedDate().atStartOfDay());
+		if (computer.getIntroduced() != null) {
+			dateIntroduced = Timestamp.valueOf(computer.getIntroduced().atStartOfDay());
 		}
-		if (computer.getDiscontinuedDate() != null) {
-			dateDiscontinued = Timestamp.valueOf(computer.getDiscontinuedDate().atStartOfDay());
+		if (computer.getDiscontinued() != null) {
+			dateDiscontinued = Timestamp.valueOf(computer.getDiscontinued().atStartOfDay());
 		}
 
 		try {
@@ -137,7 +138,12 @@ public enum ComputerDaoImpl implements ComputerDao {
 			ps.executeUpdate();
 			rs = ps.getGeneratedKeys();
 			rs.next();
-			computer.setComputerId(rs.getInt(1));
+			computer = new Computer.Builder(computer.getName())
+					.company(new Company.Builder().id(computer.getCompany().getId()).build())
+					.introduced(computer.getIntroduced())
+					.discontinued(computer.getDiscontinued())
+					.id(rs.getInt(1))
+					.build();
 		} catch (SQLException e) {
 			throw new DAOException("Fail during: " + CREATE_COMPUTER_QUERY, e);
 		} finally {
@@ -157,11 +163,11 @@ public enum ComputerDaoImpl implements ComputerDao {
 		Timestamp dateIntroduced = null;
 		Timestamp dateDiscontinued = null;
 
-		if (computer.getIntroducedDate() != null) {
-			dateIntroduced = Timestamp.valueOf(computer.getIntroducedDate().atStartOfDay());
+		if (computer.getIntroduced() != null) {
+			dateIntroduced = Timestamp.valueOf(computer.getIntroduced().atStartOfDay());
 		}
-		if (computer.getDiscontinuedDate() != null) {
-			dateDiscontinued = Timestamp.valueOf(computer.getDiscontinuedDate().atStartOfDay());
+		if (computer.getDiscontinued() != null) {
+			dateDiscontinued = Timestamp.valueOf(computer.getDiscontinued().atStartOfDay());
 		}
 
 		try {
@@ -170,7 +176,7 @@ public enum ComputerDaoImpl implements ComputerDao {
 			ps.setTimestamp(2, dateIntroduced);
 			ps.setTimestamp(3, dateDiscontinued);
 			ps.setInt(4, computer.getCompany().getId());
-			ps.setInt(5, computer.getComputerId());
+			ps.setInt(5, computer.getId());
 			ps.executeUpdate();
 		} catch (SQLException e) {
 			throw new DAOException("Fail during: " + UPDATE_COMPUTER_QUERY, e);

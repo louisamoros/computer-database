@@ -26,7 +26,10 @@ public class MapperCompany {
 		List<Company> companies = new ArrayList<Company>();
 		try {
 			while (rs.next()) {
-				Company company = new Company(rs.getInt("id"), rs.getString("name"));
+				Company company = new Company.Builder()
+						.name(rs.getString("name"))
+						.id(rs.getInt("id"))
+						.build();
 				companies.add(company);
 			}
 		} catch (SQLException e) {

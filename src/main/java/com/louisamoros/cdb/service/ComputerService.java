@@ -3,7 +3,6 @@ package com.louisamoros.cdb.service;
 import java.util.List;
 
 import com.louisamoros.cdb.dao.ComputerDao;
-import com.louisamoros.cdb.exception.InvalidDateOrderException;
 import com.louisamoros.cdb.model.Computer;
 
 public interface ComputerService {
@@ -12,13 +11,13 @@ public interface ComputerService {
 	 * This method return the numbers of records of computers in the database via the dao.
 	 * @return number of computers
 	 */
-	int getNumberOfComputers();
+	int count();
 	
 	/**
 	 * Fetch all computers from computer dao.
 	 * @return computers list
 	 */
-	List<Computer> getAllComputers();
+	List<Computer> getAll();
 	
 	/**
 	 * Fetch computers from computer dao page function of offset and steps params.
@@ -26,21 +25,21 @@ public interface ComputerService {
 	 * @param steps
 	 * @return computers list
 	 */
-	List<Computer> getComputers(int offset, int steps);
+	List<Computer> get(int offset, int steps);
 	
 	/**
 	 * Fetch the computer from dao based on its Id.
 	 * @param computerId
 	 * @return computer based on its Id
 	 */
-	Computer getComputer(int computerId);
+	Computer get(int computerId);
 	
 	/**
 	 * Create a new computer with dao method.
 	 * @param computer
 	 * @return created computer
 	 */
-	Computer createComputer(Computer computer) throws InvalidDateOrderException;
+	Computer create(Computer computer);
 	
 	/**
 	 * Update an existing computer based on its Id.
@@ -48,13 +47,13 @@ public interface ComputerService {
 	 * @param computer
 	 * @return updated computer
 	 */
-	Computer updateComputer(Computer computer) throws InvalidDateOrderException;
+	Computer update(Computer computer);
 	
 	/**
 	 * Delete a specific computer based on its id.
 	 * @param computerId
 	 */
-	void deleteComputer(int computerId);
+	void delete(int computerId);
 	
 	/**
 	 * Setter computerDao (use for test to pass the mockComputerDao)

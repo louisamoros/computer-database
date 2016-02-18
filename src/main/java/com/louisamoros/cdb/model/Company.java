@@ -61,7 +61,7 @@ public class Company {
         // optional
         private int id;
         private String name;
-
+        
         public Builder id(int id) {
             this.id = id;
             return this;

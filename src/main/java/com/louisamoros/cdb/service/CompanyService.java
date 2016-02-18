@@ -11,7 +11,7 @@ public interface CompanyService {
 	 * Fetch all companies from dao company.
 	 * @return companies list
 	 */
-	List<Company> getCompanies();
+	List<Company> getAll();
 	
 	/**
 	 * Setter companyDao (use for test to pass the mockCompanyDao)
