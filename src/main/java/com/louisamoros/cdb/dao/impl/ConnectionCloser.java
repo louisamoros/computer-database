@@ -23,28 +23,18 @@ public class ConnectionCloser {
 	 */
 	public static void close(ResultSet rs, PreparedStatement ps, Connection conn, String message) {
 		try {
-			rs.close();
-			ps.close();
-			conn.close();
+			if(rs != null) {
+				rs.close();				
+			}
+			if(ps != null) {
+				ps.close();				
+			}
+			if(conn != null) {
+				conn.close();
+			}
 		} catch (SQLException e) {
 			throw new DAOException("Fail when closing after: " + message, e);
 		}
 	}
-
-	/**
-	 * Close in a try catch all the given parameters and throw new <DaoException> with given message.
-	 * @param <PreparedStatement>
-	 * @param <Connection>
-	 * @param message
-	 */
-	public static void close(PreparedStatement ps, Connection conn, String message) {
-		try {
-			ps.close();
-			conn.close();
-		} catch (SQLException e) {
-			throw new DAOException("Fail when closing after: " + message, e);
-		}
-	}
-
 	
 }

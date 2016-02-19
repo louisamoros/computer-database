@@ -39,7 +39,7 @@ public interface ComputerService {
 	 * @param computer
 	 * @return created computer
 	 */
-	Computer create(Computer computer);
+	int create(Computer computer);
 	
 	/**
 	 * Update an existing computer based on its Id.

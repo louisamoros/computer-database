@@ -58,10 +58,9 @@ public class ComputerServiceTest {
 	public void createComputerTest() {
 		LOGGER.debug("createComputerTest...");
 		Computer computer1 = new Computer.Builder("computer1").company(null).introduced(null).discontinued(null).build();
-		Computer computerReturn = new Computer.Builder("computer1").id(1).company(null).discontinued(null).introduced(null).build();
-		PowerMockito.when(mockComputerDao.create(computer1)).thenReturn(computerReturn);
-		Computer createdComputer = computerService.create(computer1);
-		Assert.assertTrue(createdComputer.equals(computerReturn));
+		PowerMockito.when(mockComputerDao.create(computer1)).thenReturn(1);
+		int createdComputerId = computerService.create(computer1);
+		Assert.assertTrue(createdComputerId == 1);
 	}
 	
 	@Test (expected = InvalidComputerNameException.class)

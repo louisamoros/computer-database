@@ -5,7 +5,6 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
-import java.sql.Timestamp;
 import java.util.List;
 
 import org.slf4j.Logger;
@@ -14,8 +13,8 @@ import org.slf4j.LoggerFactory;
 import com.louisamoros.cdb.dao.ComputerDao;
 import com.louisamoros.cdb.dao.connection.JDBCConnectionImpl;
 import com.louisamoros.cdb.dao.exception.DAOException;
-import com.louisamoros.cdb.dao.mapper.MapperComputerDao;
-import com.louisamoros.cdb.model.Company;
+import com.louisamoros.cdb.dao.mapper.MapperComputerDaoPs;
+import com.louisamoros.cdb.dao.mapper.MapperRsComputerDao;
 import com.louisamoros.cdb.model.Computer;
 
 /**
@@ -55,7 +54,7 @@ public enum ComputerDaoImpl implements ComputerDao {
 			ps = conn.prepareStatement(GET_COMPUTER_QUERY);
 			ps.setInt(1, id);
 			rs = ps.executeQuery();
-			computer = MapperComputerDao.toComputer(rs);
+			computer = MapperRsComputerDao.toComputer(rs);
 		} catch (SQLException e) {
 			throw new DAOException("Fail during: " + GET_COMPUTER_QUERY, e);
 		} finally {
@@ -77,7 +76,7 @@ public enum ComputerDaoImpl implements ComputerDao {
 		try {
 			ps = conn.prepareStatement(GET_ALL_COMPUTERS_QUERY);
 			rs = ps.executeQuery();
-			computers = MapperComputerDao.toList(rs);
+			computers = MapperRsComputerDao.toList(rs);
 		} catch (SQLException e) {
 			throw new DAOException("Fail during: " + GET_ALL_COMPUTERS_QUERY, e);
 		} finally {
@@ -99,9 +98,9 @@ public enum ComputerDaoImpl implements ComputerDao {
 		try {
 			ps = conn.prepareStatement(GET_COMPUTERS_QUERY);
 			ps.setInt(1, limit);
-			ps.setInt(2, offset);			
+			ps.setInt(2, offset);
 			rs = ps.executeQuery();
-			computers = MapperComputerDao.toList(rs);
+			computers = MapperRsComputerDao.toList(rs);
 		} catch (SQLException e) {
 			throw new DAOException("Fail during: " + GET_COMPUTERS_QUERY, e);
 		} finally {
@@ -112,45 +111,28 @@ public enum ComputerDaoImpl implements ComputerDao {
 	}
 
 	@Override
-	public Computer create(Computer computer) throws DAOException {
+	public int create(Computer computer) throws DAOException {
 
 		LOGGER.debug(CREATE_COMPUTER_QUERY);
 		Connection conn = jdbcConnectionImpl.getConnection();
 		PreparedStatement ps = null;
 		ResultSet rs = null;
+		int computerId = 0;
 		
-		Timestamp dateIntroduced = null;
-		Timestamp dateDiscontinued = null;
-
-		if (computer.getIntroduced() != null) {
-			dateIntroduced = Timestamp.valueOf(computer.getIntroduced().atStartOfDay());
-		}
-		if (computer.getDiscontinued() != null) {
-			dateDiscontinued = Timestamp.valueOf(computer.getDiscontinued().atStartOfDay());
-		}
-
 		try {
-			ps = conn.prepareStatement(CREATE_COMPUTER_QUERY, Statement.RETURN_GENERATED_KEYS);
-			ps.setString(1, computer.getName());
-			ps.setTimestamp(2, dateIntroduced);
-			ps.setTimestamp(3, dateDiscontinued);
-			ps.setInt(4, computer.getCompany().getId());
+			ps = conn.prepareStatement(CREATE_COMPUTER_QUERY, Statement.RETURN_GENERATED_KEYS);	
+			ps = MapperComputerDaoPs.toPs(computer, ps);
 			ps.executeUpdate();
 			rs = ps.getGeneratedKeys();
 			rs.next();
-			computer = new Computer.Builder(computer.getName())
-					.company(new Company.Builder().id(computer.getCompany().getId()).build())
-					.introduced(computer.getIntroduced())
-					.discontinued(computer.getDiscontinued())
-					.id(rs.getInt(1))
-					.build();
+			computerId = rs.getInt(1);
 		} catch (SQLException e) {
 			throw new DAOException("Fail during: " + CREATE_COMPUTER_QUERY, e);
 		} finally {
 			ConnectionCloser.close(rs, ps, conn, CREATE_COMPUTER_QUERY);
 		}
 
-		return computer;
+		return computerId;
 	}
 
 	@Override
@@ -159,29 +141,16 @@ public enum ComputerDaoImpl implements ComputerDao {
 		LOGGER.debug(UPDATE_COMPUTER_QUERY);
 		Connection conn = jdbcConnectionImpl.getConnection();
 		PreparedStatement ps = null;
-		
-		Timestamp dateIntroduced = null;
-		Timestamp dateDiscontinued = null;
-
-		if (computer.getIntroduced() != null) {
-			dateIntroduced = Timestamp.valueOf(computer.getIntroduced().atStartOfDay());
-		}
-		if (computer.getDiscontinued() != null) {
-			dateDiscontinued = Timestamp.valueOf(computer.getDiscontinued().atStartOfDay());
-		}
 
 		try {
 			ps = conn.prepareStatement(UPDATE_COMPUTER_QUERY);
-			ps.setString(1, computer.getName());
-			ps.setTimestamp(2, dateIntroduced);
-			ps.setTimestamp(3, dateDiscontinued);
-			ps.setInt(4, computer.getCompany().getId());
+			ps = MapperComputerDaoPs.toPs(computer, ps);
 			ps.setInt(5, computer.getId());
 			ps.executeUpdate();
 		} catch (SQLException e) {
 			throw new DAOException("Fail during: " + UPDATE_COMPUTER_QUERY, e);
 		} finally {
-			ConnectionCloser.close(ps, conn, UPDATE_COMPUTER_QUERY);
+			ConnectionCloser.close(null, ps, conn, UPDATE_COMPUTER_QUERY);
 		}
 
 		return computer;
@@ -201,14 +170,14 @@ public enum ComputerDaoImpl implements ComputerDao {
 		} catch (SQLException e) {
 			throw new DAOException("Fail during: " + DELETE_COMPUTER_QUERY, e);
 		} finally {
-			ConnectionCloser.close(ps, conn, DELETE_COMPUTER_QUERY);
+			ConnectionCloser.close(null, ps, conn, DELETE_COMPUTER_QUERY);
 		}
 
 	}
 
 	@Override
 	public int count() throws DAOException {
-		
+
 		LOGGER.debug(COUNT_COMPUTERS_QUERY);
 		Connection conn = jdbcConnectionImpl.getConnection();
 		ResultSet rs = null;

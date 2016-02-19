@@ -3,32 +3,24 @@
  */
 package com.louisamoros.cdb.dto;
 
-import javax.validation.constraints.Min;
-import javax.validation.constraints.Pattern;
-
 /**
  * The Class PageDto.
  */
 public class PageDto {
 
 	/** The page. */
-	@Min(value=0, message="Invalid page number.")
 	private int page = 0;
 	
 	/** The per page. */
-	@Pattern(regexp="((?:1|5|10)0)", message="Invalid per page number.") // authorize 10, 50 ou 100
 	private int perPage = 10;
 	
 	/** The offset. */
-	@Min(value=0, message="Invalid offset number.")
 	private int offset = 0;
 	
 	/** The limit. */
-	@Min(value=0, message="Invalid limit number.")
 	private int limit = 10;
 	
 	/** The count. */
-	@Min(value=0, message="Invalid count number.")
 	private int count = 0;
 	
 	/** The uri. */

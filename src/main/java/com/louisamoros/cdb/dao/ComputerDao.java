@@ -49,7 +49,7 @@ public interface ComputerDao {
 	 * @return <Computer> created
 	 * @throws DAOException
 	 */
-	Computer create(Computer computer) throws DAOException;
+	int create(Computer computer) throws DAOException;
 
 	/**
 	 * Update an existing computer based on its Id

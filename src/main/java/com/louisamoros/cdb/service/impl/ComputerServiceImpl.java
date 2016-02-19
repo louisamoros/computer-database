@@ -35,7 +35,7 @@ public enum ComputerServiceImpl implements ComputerService {
 	}
 
 	@Override
-	public Computer create(Computer computer) {
+	public int create(Computer computer) {
 		ComputerValidator.validate(computer);
 		return computerDao.create(computer);
 	}

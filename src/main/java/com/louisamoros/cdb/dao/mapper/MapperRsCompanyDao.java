@@ -9,27 +9,22 @@ import com.louisamoros.cdb.dao.exception.DAOMapperException;
 import com.louisamoros.cdb.model.Company;
 
 /**
- * Mapper class with static method use to convert ResultSet to List for <Company> object model.
- * 
- * @author louis
- *
+ * The Class MapperRsCompanyDao.
  */
-public class MapperCompanyDao {
+public class MapperRsCompanyDao {
 
 	/**
-	 * Convert ResultSet to List<Company> based on <Company> model.
-	 * 
-	 * @param ResultSet<Company>
-	 * @return List<Company>
+	 * To list.
+	 *
+	 * @param rs the rs
+	 * @return the list
+	 * @throws DAOMapperException the DAO mapper exception
 	 */
 	public static List<Company> toList(ResultSet rs) throws DAOMapperException {
 		List<Company> companies = new ArrayList<Company>();
 		try {
 			while (rs.next()) {
-				Company company = new Company.Builder()
-						.name(rs.getString("name"))
-						.id(rs.getInt("id"))
-						.build();
+				Company company = new Company.Builder().name(rs.getString("name")).id(rs.getInt("id")).build();
 				companies.add(company);
 			}
 		} catch (SQLException e) {

@@ -51,7 +51,7 @@ public class ListComputerController extends HttpServlet {
 		String page = request.getParameter("p");
 		String perPage = request.getParameter("pp");
 		int count = computerService.count();
-		PageDto pageDto = PageDtoCreator.create(page, perPage, "computerdatabase/computer", count);
+		PageDto pageDto = PageDtoCreator.create(page, perPage, "computer", count);
 		List<Computer> computers = computerService.get(pageDto.getOffset(), pageDto.getLimit());
 		List<ComputerDto> computersDto = MapperComputerDto.toComputerDtoList(computers);
 		request.setAttribute("computers", computersDto);

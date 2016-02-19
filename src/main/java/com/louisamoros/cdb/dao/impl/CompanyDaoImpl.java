@@ -12,7 +12,7 @@ import org.slf4j.LoggerFactory;
 import com.louisamoros.cdb.dao.CompanyDao;
 import com.louisamoros.cdb.dao.connection.JDBCConnectionImpl;
 import com.louisamoros.cdb.dao.exception.DAOException;
-import com.louisamoros.cdb.dao.mapper.MapperCompanyDao;
+import com.louisamoros.cdb.dao.mapper.MapperRsCompanyDao;
 import com.louisamoros.cdb.model.Company;
 
 /**
@@ -44,7 +44,7 @@ public enum CompanyDaoImpl implements CompanyDao {
 		try {
 			ps = conn.prepareStatement(GET_COMPANIES_QUERY);
 			rs = ps.executeQuery();
-			companies = MapperCompanyDao.toList(rs);
+			companies = MapperRsCompanyDao.toList(rs);
 		} catch (SQLException e) {
 			throw new DAOException("Fail during: " + GET_COMPANIES_QUERY, e);
 		} finally {

@@ -1,38 +1,26 @@
 package com.louisamoros.cdb.dto;
 
-import javax.validation.constraints.Min;
-import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Size;
-
-import com.louisamoros.cdb.dto.validator.Date;
-
 /**
  * The Class ComputerDto.
  */
 public class ComputerDto {
 
 	/** The computer id. */
-	@Min(value=0)
     private int computerId;
     
 	/** The computer name. */
-	@NotNull
-    @Size(min=1, max=50)
     private String computerName;
     
     /** The discontinued. */
-	@Date(message="Discontinued date is not well formated.")
 	private String discontinued;
     
     /** The introduced. */
-	@Date(message="Introduced date is not well formated.")
     private String introduced;
     
     /** The company name. */
     private String companyName;
     
     /** The company id. */
-    @Min(value=0)
     private int companyId;
 
     /**

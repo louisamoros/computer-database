@@ -11,19 +11,16 @@ import com.louisamoros.cdb.model.Company;
 import com.louisamoros.cdb.model.Computer;
 
 /**
- * Mapper class with static method use to convert ResultSet to List for
- * <Computer> object model.
- * 
- * @author louis
- *
+ * The Class MapperRsComputerDao.
  */
-public class MapperComputerDao {
+public class MapperRsComputerDao {
 
 	/**
-	 * Convert ResultSet to List<Computer> based on <Computer> model.
-	 * 
-	 * @param ResultSet<Computer>
-	 * @return List<Computer>
+	 * To list.
+	 *
+	 * @param rs the rs
+	 * @return the list
+	 * @throws DAOMapperException the DAO mapper exception
 	 */
 	public static List<Computer> toList(ResultSet rs) throws DAOMapperException {
 		List<Computer> computers = new ArrayList<Computer>();
@@ -38,11 +35,9 @@ public class MapperComputerDao {
 					dateDiscontinued = rs.getTimestamp("discontinued").toLocalDateTime().toLocalDate();
 				}
 				Computer computer = new Computer.Builder(rs.getString("computer.name"))
-						.id(rs.getInt("computer.id"))
-						.company(new Company.Builder().id(rs.getInt("company.id")).name(rs.getString("company.name")).build())
-						.introduced(dateIntroduced)
-						.discontinued(dateDiscontinued)
-						.build();
+						.id(rs.getInt("computer.id")).company(new Company.Builder().id(rs.getInt("company.id"))
+								.name(rs.getString("company.name")).build())
+						.introduced(dateIntroduced).discontinued(dateDiscontinued).build();
 				computers.add(computer);
 			}
 		} catch (SQLException e) {
@@ -52,10 +47,11 @@ public class MapperComputerDao {
 	}
 
 	/**
-	 * Convert ResultSet to <Computer> model
-	 * 
-	 * @param ResultSet
-	 * @return <Computer>
+	 * To computer.
+	 *
+	 * @param rs the rs
+	 * @return the computer
+	 * @throws DAOMapperException the DAO mapper exception
 	 */
 	public static Computer toComputer(ResultSet rs) throws DAOMapperException {
 		Computer computer = null;
@@ -70,11 +66,9 @@ public class MapperComputerDao {
 					dateDiscontinued = rs.getTimestamp("discontinued").toLocalDateTime().toLocalDate();
 				}
 				computer = new Computer.Builder(rs.getString("computer.name"))
-						.id(rs.getInt("computer.id"))
-						.company(new Company.Builder().id(rs.getInt("company.id")).name(rs.getString("company.name")).build())
-						.introduced(dateIntroduced)
-						.discontinued(dateDiscontinued)
-						.build();
+						.id(rs.getInt("computer.id")).company(new Company.Builder().id(rs.getInt("company.id"))
+								.name(rs.getString("company.name")).build())
+						.introduced(dateIntroduced).discontinued(dateDiscontinued).build();
 			}
 		} catch (SQLException e) {
 			throw new DAOMapperException("Fail to map ResultSet to Computer.", e);
