@@ -27,8 +27,8 @@ public class MapperComputerDto {
 		Computer computer = new Computer.Builder(computerDto.getComputerName())
 				.company(
 						new Company.Builder().id(computerDto.getCompanyId()).name(computerDto.getCompanyName()).build())
-				.discontinued(LocalDate.parse(computerDto.getDiscontinuedDate()))
-				.introduced(LocalDate.parse(computerDto.getIntroducedDate())).id(computerDto.getComputerId()).build();
+				.discontinued(LocalDate.parse(computerDto.getDiscontinued()))
+				.introduced(LocalDate.parse(computerDto.getIntroduced())).id(computerDto.getComputerId()).build();
 		return computer;
 
 	}

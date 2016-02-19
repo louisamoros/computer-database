@@ -57,11 +57,11 @@ public class ComputerDto {
         return computerName;
     }
 
-    public String getDiscontinuedDate() {
+    public String getDiscontinued() {
         return discontinued;
     }
 
-    public String getIntroducedDate() {
+    public String getIntroduced() {
         return introduced;
     }
 
