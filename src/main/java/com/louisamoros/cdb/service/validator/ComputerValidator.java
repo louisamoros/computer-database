@@ -20,7 +20,7 @@ public class ComputerValidator {
 	public static void validate(Computer computer) {
 
 		if (computer == null) {
-			throw new IntegrityException("Computer cannot be null validation says.");
+			throw new IntegrityException("Computer cannot be null.");
 		}
 		if (computer.getIntroduced() != null && computer.getDiscontinued() != null
 				&& computer.getIntroduced().isAfter(computer.getDiscontinued())) {

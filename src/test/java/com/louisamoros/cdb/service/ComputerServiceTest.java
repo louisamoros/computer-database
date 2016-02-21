@@ -93,7 +93,7 @@ public class ComputerServiceTest {
 		ArrayList<Computer> computers = getComputers();
 		Computer computer1 = new Computer.Builder("updatedComputer").company(null).discontinued(null).introduced(null).build();
 		computers.set(1, computer1);
-		PowerMockito.when(mockComputerDao.update(computer1)).thenReturn(computer1);
+		PowerMockito.when(mockComputerDao.update(computer1)).thenReturn(computer1.getId());
 		PowerMockito.when(mockComputerDao.getAll()).thenReturn(computers);
 		Assert.assertEquals(computerService.getAll().size(), 2);
 		Assert.assertTrue(computer1.equals(computers.get(1)));

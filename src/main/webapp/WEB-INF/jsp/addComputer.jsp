@@ -39,12 +39,12 @@
 									placeholder="Computer name">
 							</div>
 							<div class="form-group">
-								<label for="introducedDate">Introduced date</label> <input
+								<label for="introduced">Introduced date</label> <input
 									type="date" class="form-control" id="introduced" name="introduced"
 									placeholder="Introduced date">
 							</div>
 							<div class="form-group">
-								<label for="discontinuedDate">Discontinued date</label> <input
+								<label for="discontinued">Discontinued date</label> <input
 									type="date" class="form-control" id="discontinued" name="discontinued"
 									placeholder="Discontinued date">
 							</div>
@@ -53,7 +53,7 @@
 									class="form-control" id="companyId" name="companyId">
 									<option value="0">-- select --</option>
 									<c:forEach items="${companies}" var="company">
-										<option value="${company.companyId}">${company.name}</option>
+										<option value="${company.id}">${company.name}</option>
 									</c:forEach>
 								</select>
 							</div>
@@ -66,35 +66,6 @@
 				</div>
 			</div>
 		</div>
-		
-		<div class="jumbotron">
-				<form action="" method="post" id="register-form"
-					novalidate="novalidate">
-					<div id="form-content">
-						<fieldset>
-							<div class="form-group">
-								<label for="firstname">First Name</label> <input type="text"
-									name="firstname" class="form-control" />
-							</div>
-							<div class="form-group">
-								<label for="lastname">Last Name</label> <input type="text"
-									name="lastname" class="form-control" />
-							</div>
-							<div class="form-group">
-								<label for="email">Email</label> <input type="text" name="email"
-									class="form-control" />
-							</div>
-							<div class="form-group">
-								<label for="password">Password</label> <input type="password"
-									name="password" class="form-control" />
-							</div>
-							<div>
-								<input type="submit" value="Register" class="btn btn-primary" />
-							</div>
-						</fieldset>
-					</div>
-				</form>
-			</div>
 	</section>
 </body>
 

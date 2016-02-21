@@ -24,26 +24,14 @@ import com.louisamoros.cdb.service.impl.ComputerServiceImpl;
 /**
  * Servlet implementation class ListComputerServlet
  */
-@WebServlet("/computer")
+@WebServlet(name = "/computer", value = "/computer")
 public class ListComputerController extends HttpServlet {
 	
 	private static final long serialVersionUID = 1L;
 	private static final Logger LOGGER = LoggerFactory.getLogger(ListComputerController.class);
 	private ComputerService computerService = ComputerServiceImpl.INSTANCE;
 	private static final String LIST_COMPUTER = "/WEB-INF/jsp/listComputer.jsp";
-	
 
-	/**
-	 * @see HttpServlet#HttpServlet()
-	 */
-	public ListComputerController() {
-		super();
-	}
-
-	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse
-	 *      response)
-	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		
@@ -56,7 +44,6 @@ public class ListComputerController extends HttpServlet {
 		List<ComputerDto> computersDto = MapperComputerDto.toComputerDtoList(computers);
 		request.setAttribute("computers", computersDto);
 		request.setAttribute("page", pageDto);
-		LOGGER.error(pageDto.toString());
 		RequestDispatcher rd = request.getRequestDispatcher(LIST_COMPUTER);
 		rd.forward(request, response);
 		

@@ -1,5 +1,6 @@
 package com.louisamoros.cdb.dto.validator;
 
+import java.time.LocalDate;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -9,8 +10,9 @@ import com.louisamoros.cdb.exception.IntegrityException;
 public class ComputerDtoValidator {
 	
 	/** The Constant DATE_PATTERN. */
-	private static final String DATE_PATTERN = "(0?[1-9]|[12][0-9]|3[01])/(0?[1-9]|1[012])/((19|20)\\d\\d)";
-	
+	/* Date Format (yyyy-mm-dd) Regular Expression Pattern */
+	private static final String DATE_PATTERN = "((19|20)\\d\\d)-(0[1-9]|1[012])-(0[1-9]|[12][0-9]|3[01])";
+
 	public static void validate(ComputerDto computerDto) {
 		
 		if(computerDto == null) {
@@ -39,7 +41,7 @@ public class ComputerDtoValidator {
 		
 		Pattern pattern = Pattern.compile(DATE_PATTERN);
 		Matcher matcher = pattern.matcher(date);
-		boolean isValid = false;
+		boolean isValid;
 
 		if (matcher.matches()) {
 
@@ -47,9 +49,9 @@ public class ComputerDtoValidator {
 
 			if (matcher.find()) {
 
-				String day = matcher.group(1);
+				String day = matcher.group(3);
 				String month = matcher.group(2);
-				int year = Integer.parseInt(matcher.group(3));
+				int year = Integer.parseInt(matcher.group(1));
 
 				if (day.equals("31") && (month.equals("4") || month.equals("6") || month.equals("9")
 						|| month.equals("11") || month.equals("04") || month.equals("06") || month.equals("09"))) {

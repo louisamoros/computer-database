@@ -20,7 +20,7 @@ public enum ComputerServiceImpl implements ComputerService {
 
 	private ComputerDao computerDao;
 
-	private ComputerServiceImpl() {
+	ComputerServiceImpl() {
 		computerDao = ComputerDaoImpl.INSTANCE;
 	}
 
@@ -41,7 +41,7 @@ public enum ComputerServiceImpl implements ComputerService {
 	}
 
 	@Override
-	public Computer update(Computer computer) {
+	public int update(Computer computer) {
 		ComputerValidator.validate(computer);
 		return computerDao.update(computer);
 	}

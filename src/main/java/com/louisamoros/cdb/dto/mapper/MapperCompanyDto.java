@@ -4,6 +4,9 @@ import com.louisamoros.cdb.dto.CompanyDto;
 import com.louisamoros.cdb.model.Company;
 import com.louisamoros.cdb.service.validator.CompanyValidator;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * Company mapper between dto and model.
  *
@@ -36,5 +39,20 @@ public class MapperCompanyDto {
 		CompanyDto companyDto = new CompanyDto.Builder().id(company.getId()).name(company.getName()).build();
 		return companyDto;
 	}
+
+    /**
+     * To company dto list.
+     *
+     * @param companies the companies
+     * @return the list
+     */
+    public static List<CompanyDto> toCompanyDtoList(List<Company> companies) {
+
+        List<CompanyDto> companiesDto = new ArrayList<>();
+        companies.forEach (company -> companiesDto.add(toCompanyDto(company)));
+        return companiesDto;
+
+    }
+
 
 }

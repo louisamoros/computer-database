@@ -9,93 +9,91 @@ import com.louisamoros.cdb.dto.ComputerDto;
 import com.louisamoros.cdb.model.Company;
 import com.louisamoros.cdb.model.Computer;
 import com.louisamoros.cdb.service.validator.ComputerValidator;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * The Class MapperComputerDto.
  */
 public class MapperComputerDto {
 
-	/**
-	 * To computer.
-	 *
-	 * @param computerDto
-	 *            the computer dto
-	 * @return the computer
-	 */
-	public static Computer toComputer(ComputerDto computerDto) {
+    private static final Logger LOGGER = LoggerFactory.getLogger(MapperComputerDto.class);
 
-		LocalDate introduced = null;
-		LocalDate discontinued = null;
-		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MM/dd/yyyy");
+    /**
+     * To computer.
+     *
+     * @param computerDto the computer dto
+     * @return the computer
+     */
+    public static Computer toComputer(ComputerDto computerDto) {
 
-		if (computerDto.getIntroduced() != null) {
-			introduced = LocalDate.parse(computerDto.getIntroduced(), formatter);
-		}
-		if (computerDto.getDiscontinued() != null) {
-			discontinued = LocalDate.parse(computerDto.getDiscontinued(), formatter);
-		}
+        LOGGER.debug("Mapper from computerDto :" + computerDto);
+        LocalDate introduced = null;
+        LocalDate discontinued = null;
 
-		Company company = null;
-		if (computerDto.getCompanyId() != 0) {
-			company = new Company.Builder().id(computerDto.getCompanyId()).name(computerDto.getCompanyName()).build();
-		}
+        if (computerDto.getIntroduced() != null && !computerDto.getIntroduced().isEmpty()) {
+            introduced = LocalDate.parse(computerDto.getIntroduced());
+        }
+        if (computerDto.getDiscontinued() != null && !computerDto.getDiscontinued().isEmpty()) {
+            discontinued = LocalDate.parse(computerDto.getDiscontinued());
+        }
 
-		Computer computer = new Computer.Builder(computerDto.getComputerName()).company(company)
-				.discontinued(discontinued).introduced(introduced).id(computerDto.getComputerId()).build();
-		return computer;
+        Company company = null;
+        if (computerDto.getCompanyId() != 0) {
+            company = new Company.Builder().id(computerDto.getCompanyId()).name(computerDto.getCompanyName()).build();
+        }
 
-	}
+        Computer computer = new Computer.Builder(computerDto.getComputerName()).company(company)
+                .discontinued(discontinued).introduced(introduced).id(computerDto.getComputerId()).build();
+        LOGGER.debug("Mapper to computer: " + computer);
 
-	/**
-	 * To computer list.
-	 *
-	 * @param computersDto
-	 *            the computers dto
-	 * @return the list
-	 */
-	public static List<Computer> toComputerList(List<ComputerDto> computersDto) {
+        return computer;
 
-		List<Computer> computers = new ArrayList<>();
-		for (ComputerDto computerDto : computersDto) {
-			computers.add(toComputer(computerDto));
-		}
-		return computers;
+    }
 
-	}
+    /**
+     * To computer list.
+     *
+     * @param computersDto the computers dto
+     * @return the list
+     */
+    public static List<Computer> toComputerList(List<ComputerDto> computersDto) {
 
-	/**
-	 * To computer dto.
-	 *
-	 * @param computer
-	 *            the computer
-	 * @return the computer dto
-	 */
-	public static ComputerDto toComputerDto(Computer computer) {
+        List<Computer> computers = new ArrayList<>();
+        computersDto.forEach (computerDto -> computers.add(toComputer(computerDto)));
+        return computers;
 
-		ComputerValidator.validate(computer);
-		ComputerDto computerDto = new ComputerDto.Builder(computer.getName()).companyId(computer.getCompany().getId())
-				.companyName(computer.getCompany().getName()).computerId(computer.getId())
-				.introduced(String.valueOf(computer.getIntroduced()))
-				.discontinued(String.valueOf(computer.getDiscontinued())).build();
-		return computerDto;
+    }
 
-	}
+    /**
+     * To computer dto.
+     *
+     * @param computer the computer
+     * @return the computer dto
+     */
+    public static ComputerDto toComputerDto(Computer computer) {
 
-	/**
-	 * To computer dto list.
-	 *
-	 * @param computers
-	 *            the computers
-	 * @return the list
-	 */
-	public static List<ComputerDto> toComputerDtoList(List<Computer> computers) {
+        ComputerValidator.validate(computer);
+        ComputerDto computerDto = new ComputerDto.Builder(computer.getName()).companyId(computer.getCompany().getId())
+                .companyName(computer.getCompany().getName()).computerId(computer.getId())
+                .introduced(String.valueOf(computer.getIntroduced()))
+                .discontinued(String.valueOf(computer.getDiscontinued())).build();
+        return computerDto;
 
-		List<ComputerDto> computersDto = new ArrayList<>();
-		for (Computer computer : computers) {
-			computersDto.add(toComputerDto(computer));
-		}
-		return computersDto;
+    }
 
-	}
+    /**
+     * To computer dto list.
+     *
+     * @param computers the computers
+     * @return the list
+     */
+    public static List<ComputerDto> toComputerDtoList(List<Computer> computers) {
+
+        List<ComputerDto> computersDto = new ArrayList<>();
+        computers.forEach(computer -> computersDto.add(toComputerDto(computer)));
+        return computersDto;
+
+    }
 
 }

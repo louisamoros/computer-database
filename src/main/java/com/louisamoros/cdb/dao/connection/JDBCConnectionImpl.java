@@ -28,7 +28,7 @@ public enum JDBCConnectionImpl implements JDBCConnection {
 	private final String username;
 	private final String password;
 
-	private JDBCConnectionImpl() {
+	JDBCConnectionImpl() {
 
 		Properties properties = new Properties();
 		InputStream propertiesFile = JDBCConnection.class.getClassLoader().getResourceAsStream(PROPERTIES_FILE);

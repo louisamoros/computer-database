@@ -44,10 +44,10 @@ public interface ComputerService {
 	/**
 	 * Update an existing computer based on its Id.
 	 * @param computerId
-	 * @param computer
+	 * @param computerCreatedId
 	 * @return updated computer
 	 */
-	Computer update(Computer computer);
+	int update(Computer computer);
 	
 	/**
 	 * Delete a specific computer based on its id.

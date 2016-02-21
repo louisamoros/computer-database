@@ -1,5 +1,60 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE xml>
-<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:web="http://xmlns.jcp.org/xml/ns/javaee" xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd">
-  <display-name>Archetype Created Web Application</display-name>
+<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xmlns:web="http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd" version="3.1"
+         xmlns="http://xmlns.jcp.org/xml/ns/javaee">
+
+    <display-name>computer database webapp</display-name>
+
+    <!--<error-page>-->
+        <!--<error-code>404</error-code>-->
+        <!--<location>/WEB-INF/jsp/404.jsp</location>-->
+    <!--</error-page>-->
+
+    <!--<error-page>-->
+        <!--<error-code>403</error-code>-->
+        <!--<location>/WEB-INF/jsp/403.jsp</location>-->
+    <!--</error-page>-->
+
+    <!--<error-page>-->
+        <!--<error-code>500</error-code>-->
+        <!--<location>/WEB-INF/jsp/500.jsp</location>-->
+    <!--</error-page>-->
+
+    <!--<error-page>-->
+        <!--<exception-type>com.louisamoros.cdb.dao.exception.DAOConfigurationException</exception-type>-->
+        <!--<location>/WEB-INF/jsp/500.jsp</location>-->
+    <!--</error-page>-->
+
+    <!--<error-page>-->
+        <!--<exception-type>com.louisamoros.cdb.dao.exception.DAOConnectionException</exception-type>-->
+        <!--<location>/WEB-INF/jsp/500.jsp</location>-->
+    <!--</error-page>-->
+
+    <!--<error-page>-->
+        <!--<exception-type>com.louisamoros.cdb.dao.exception.DAOException</exception-type>-->
+        <!--<location>/WEB-INF/jsp/500.jsp</location>-->
+    <!--</error-page>-->
+
+    <!--<error-page>-->
+        <!--<exception-type>com.louisamoros.cdb.dao.exception.DAOMapperException</exception-type>-->
+        <!--<location>/WEB-INF/jsp/500.jsp</location>-->
+    <!--</error-page>-->
+
+    <!--<error-page>-->
+        <!--<exception-type>com.louisamoros.cdb.exception.IntegrityException</exception-type>-->
+        <!--<location>/WEB-INF/jsp/500.jsp</location>-->
+    <!--</error-page>-->
+
+    <!--<error-page>-->
+        <!--<exception-type>com.louisamoros.cdb.exception.InvalidComputerNameException</exception-type>-->
+        <!--<location>/WEB-INF/jsp/500.jsp</location>-->
+    <!--</error-page>-->
+
+    <!--<error-page>-->
+        <!--<exception-type>com.louisamoros.cdb.exception.InvalidDateOrderException</exception-type>-->
+        <!--<location>/WEB-INF/jsp/500.jsp</location>-->
+    <!--</error-page>-->
+
+
 </web-app>

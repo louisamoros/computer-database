@@ -136,7 +136,7 @@ public enum ComputerDaoImpl implements ComputerDao {
 	}
 
 	@Override
-	public Computer update(Computer computer) throws DAOException {
+	public int update(Computer computer) throws DAOException {
 
 		LOGGER.debug(UPDATE_COMPUTER_QUERY);
 		Connection conn = jdbcConnectionImpl.getConnection();
@@ -153,7 +153,7 @@ public enum ComputerDaoImpl implements ComputerDao {
 			ConnectionCloser.close(null, ps, conn, UPDATE_COMPUTER_QUERY);
 		}
 
-		return computer;
+		return computer.getId();
 	}
 
 	@Override

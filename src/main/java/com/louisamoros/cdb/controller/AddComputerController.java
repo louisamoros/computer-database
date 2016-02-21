@@ -1,6 +1,7 @@
 package com.louisamoros.cdb.controller;
 
 import java.io.IOException;
+import java.util.List;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -9,6 +10,9 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.louisamoros.cdb.dto.CompanyDto;
+import com.louisamoros.cdb.dto.mapper.MapperCompanyDto;
+import com.louisamoros.cdb.model.Company;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -24,56 +28,42 @@ import com.louisamoros.cdb.service.impl.ComputerServiceImpl;
 /**
  * Servlet implementation class NewComputer
  */
-@WebServlet("/computer/new")
+@WebServlet(name = "/computer/new", value = "/computer/new")
 public class AddComputerController extends HttpServlet {
 
-	private static final long serialVersionUID = 1L;
-	private static final Logger LOGGER = LoggerFactory.getLogger(AddComputerController.class);
-	private CompanyService companyService = CompanyServiceImpl.INSTANCE;
-	private ComputerService computerService = ComputerServiceImpl.INSTANCE;
-	private static final String ADD_COMPUTER = "/WEB-INF/jsp/addComputer.jsp";
+    private static final long serialVersionUID = 1L;
+    private static final Logger LOGGER = LoggerFactory.getLogger(AddComputerController.class);
+    private CompanyService companyService = CompanyServiceImpl.INSTANCE;
+    private ComputerService computerService = ComputerServiceImpl.INSTANCE;
+    private static final String ADD_COMPUTER = "/WEB-INF/jsp/addComputer.jsp";
 
-	/**
-	 * @see HttpServlet#HttpServlet()
-	 */
-	public AddComputerController() {
-		super();
-	}
+    protected void doGet(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
 
-	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse
-	 *      response)
-	 */
-	protected void doGet(HttpServletRequest request, HttpServletResponse response)
-			throws ServletException, IOException {
+        LOGGER.debug("GOTO >>> addComputer.jsp");
+        List<Company> companies = companyService.getAll();
+        List<CompanyDto> companiesDto = MapperCompanyDto.toCompanyDtoList(companies);
+        request.setAttribute("companies", companiesDto);
+        RequestDispatcher rd = request.getRequestDispatcher(ADD_COMPUTER);
+        rd.forward(request, response);
 
-		LOGGER.debug("GOTO >>> addComputer.jsp");
-		request.setAttribute("computers", companyService.getAll());
-		RequestDispatcher rd = request.getRequestDispatcher(ADD_COMPUTER);
-		rd.forward(request, response);
+    }
 
-	}
+    protected void doPost(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
 
-	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse
-	 *      response)
-	 */
-	protected void doPost(HttpServletRequest request, HttpServletResponse response)
-			throws ServletException, IOException {
+        LOGGER.debug("DO POST computer creation...");
+        ComputerDto computerDto = new ComputerDto.Builder(request.getParameter("name"))
+                .companyId(Integer.parseInt(request.getParameter("companyId")))
+                .discontinued(request.getParameter("discontinued"))
+                .introduced(request.getParameter("introduced"))
+                .build();
+        ComputerDtoValidator.validate(computerDto);
+        Computer computer = MapperComputerDto.toComputer(computerDto);
+        int computerCreatedId = computerService.create(computer);
+        LOGGER.debug("CREATED ComputerId : " + computerCreatedId);
+        response.sendRedirect("/computer");
 
-		LOGGER.debug("CREATE Computer...");
-		ComputerDto computerDto = new ComputerDto.Builder(request.getParameter("name"))
-				.companyId(Integer.parseInt(request.getParameter("companyId")))
-				.discontinued(request.getParameter("discontinued"))
-				.introduced(request.getParameter("introduced"))
-				.build();
-		LOGGER.debug(computerDto.toString());
-		ComputerDtoValidator.validate(computerDto);
-		Computer computer = MapperComputerDto.toComputer(computerDto);
-		int computerCreatedId = computerService.create(computer);
-		LOGGER.debug("CREATED ComputerId : " + computerCreatedId);
-		response.sendRedirect("/computer");
-
-	}
+    }
 
 }
