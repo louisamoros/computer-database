@@ -12,8 +12,8 @@ import org.slf4j.LoggerFactory;
 
 import com.louisamoros.cdb.controller.util.QueryParams;
 import com.louisamoros.cdb.dao.ComputerDao;
-import com.louisamoros.cdb.dao.connection.JDBCConnectionImpl;
-import com.louisamoros.cdb.dao.exception.DAOException;
+import com.louisamoros.cdb.dao.connection.JdbcConnectionImpl;
+import com.louisamoros.cdb.dao.exception.DaoException;
 import com.louisamoros.cdb.dao.mapper.MapperComputerDaoPs;
 import com.louisamoros.cdb.dao.mapper.MapperRsComputerDao;
 import com.louisamoros.cdb.dao.util.QueryStatementGenerator;
@@ -29,7 +29,7 @@ public enum ComputerDaoImpl implements ComputerDao {
 
 	INSTANCE;
 
-	private JDBCConnectionImpl jdbcConnectionImpl;
+	private JdbcConnectionImpl jdbcConnectionImpl;
 	private static final String GET_COMPUTER_QUERY = "SELECT * FROM computer LEFT JOIN company ON computer.company_id = company.id WHERE computer.id=?";
 	private static final String GET_ALL_COMPUTERS_QUERY = "SELECT * FROM computer LEFT JOIN company ON computer.company_id = company.id";
 	private static final String GET_COMPUTERS_QUERY = "SELECT * FROM computer LEFT JOIN company ON computer.company_id = company.id ORDER BY computer.name LIMIT ? OFFSET ?";
@@ -40,11 +40,11 @@ public enum ComputerDaoImpl implements ComputerDao {
 	private static Logger LOGGER = LoggerFactory.getLogger(ComputerDao.class);
 
 	private ComputerDaoImpl() {
-		jdbcConnectionImpl = JDBCConnectionImpl.INSTANCE;
+		jdbcConnectionImpl = JdbcConnectionImpl.INSTANCE;
 	}
 
 	@Override
-	public Computer get(int id) throws DAOException {
+	public Computer get(int id) throws DaoException {
 
 		LOGGER.debug(GET_COMPUTER_QUERY);
 		ResultSet rs = null;
@@ -58,7 +58,7 @@ public enum ComputerDaoImpl implements ComputerDao {
 			rs = ps.executeQuery();
 			computer = MapperRsComputerDao.toComputer(rs);
 		} catch (SQLException e) {
-			throw new DAOException("Fail during: " + GET_COMPUTER_QUERY, e);
+			throw new DaoException("Fail during: " + GET_COMPUTER_QUERY, e);
 		} finally {
 			ConnectionCloser.close(rs, ps, conn, GET_COMPUTER_QUERY);
 		}
@@ -67,7 +67,7 @@ public enum ComputerDaoImpl implements ComputerDao {
 	}
 
 	@Override
-	public List<Computer> getAll() throws DAOException {
+	public List<Computer> getAll() throws DaoException {
 
 		LOGGER.debug(GET_ALL_COMPUTERS_QUERY);
 		List<Computer> computers = null;
@@ -80,7 +80,7 @@ public enum ComputerDaoImpl implements ComputerDao {
 			rs = ps.executeQuery();
 			computers = MapperRsComputerDao.toList(rs);
 		} catch (SQLException e) {
-			throw new DAOException("Fail during: " + GET_ALL_COMPUTERS_QUERY, e);
+			throw new DaoException("Fail during: " + GET_ALL_COMPUTERS_QUERY, e);
 		} finally {
 			ConnectionCloser.close(rs, ps, conn, GET_ALL_COMPUTERS_QUERY);
 		}
@@ -89,7 +89,7 @@ public enum ComputerDaoImpl implements ComputerDao {
 	}
 
 	@Override
-	public List<Computer> get(QueryParams qp) throws DAOException {
+	public List<Computer> get(QueryParams qp) throws DaoException {
 
 		LOGGER.debug(GET_COMPUTERS_QUERY);
 		List<Computer> computers = null;
@@ -104,7 +104,7 @@ public enum ComputerDaoImpl implements ComputerDao {
 			rs = qsp.getPreparedStatement().executeQuery();
 			computers = MapperRsComputerDao.toList(rs);
 		} catch (SQLException e) {
-			throw new DAOException("Fail during: " + GET_COMPUTERS_QUERY, e);
+			throw new DaoException("Fail during: " + GET_COMPUTERS_QUERY, e);
 		} finally {
 			ConnectionCloser.close(rs, ps, conn, GET_COMPUTERS_QUERY);
 		}
@@ -113,7 +113,7 @@ public enum ComputerDaoImpl implements ComputerDao {
 	}
 
 	@Override
-	public int create(Computer computer) throws DAOException {
+	public int create(Computer computer) throws DaoException {
 
 		LOGGER.debug(CREATE_COMPUTER_QUERY);
 		Connection conn = jdbcConnectionImpl.getConnection();
@@ -129,7 +129,7 @@ public enum ComputerDaoImpl implements ComputerDao {
 			rs.next();
 			computerId = rs.getInt(1);
 		} catch (SQLException e) {
-			throw new DAOException("Fail during: " + CREATE_COMPUTER_QUERY, e);
+			throw new DaoException("Fail during: " + CREATE_COMPUTER_QUERY, e);
 		} finally {
 			ConnectionCloser.close(rs, ps, conn, CREATE_COMPUTER_QUERY);
 		}
@@ -138,7 +138,7 @@ public enum ComputerDaoImpl implements ComputerDao {
 	}
 
 	@Override
-	public int update(Computer computer) throws DAOException {
+	public int update(Computer computer) throws DaoException {
 
 		LOGGER.debug(UPDATE_COMPUTER_QUERY);
 		Connection conn = jdbcConnectionImpl.getConnection();
@@ -150,7 +150,7 @@ public enum ComputerDaoImpl implements ComputerDao {
 			ps.setInt(5, computer.getId());
 			ps.executeUpdate();
 		} catch (SQLException e) {
-			throw new DAOException("Fail during: " + UPDATE_COMPUTER_QUERY, e);
+			throw new DaoException("Fail during: " + UPDATE_COMPUTER_QUERY, e);
 		} finally {
 			ConnectionCloser.close(null, ps, conn, UPDATE_COMPUTER_QUERY);
 		}
@@ -159,7 +159,7 @@ public enum ComputerDaoImpl implements ComputerDao {
 	}
 
 	@Override
-	public void delete(int id) throws DAOException {
+	public void delete(int id) throws DaoException {
 
 		LOGGER.debug(DELETE_COMPUTER_QUERY);
 		Connection conn = jdbcConnectionImpl.getConnection();
@@ -170,7 +170,7 @@ public enum ComputerDaoImpl implements ComputerDao {
 			ps.setInt(1, id);
 			ps.executeUpdate();
 		} catch (SQLException e) {
-			throw new DAOException("Fail during: " + DELETE_COMPUTER_QUERY, e);
+			throw new DaoException("Fail during: " + DELETE_COMPUTER_QUERY, e);
 		} finally {
 			ConnectionCloser.close(null, ps, conn, DELETE_COMPUTER_QUERY);
 		}
@@ -178,7 +178,7 @@ public enum ComputerDaoImpl implements ComputerDao {
 	}
 
 	@Override
-	public int count() throws DAOException {
+	public int count() throws DaoException {
 
 		LOGGER.debug(COUNT_COMPUTERS_QUERY);
 		Connection conn = jdbcConnectionImpl.getConnection();
@@ -192,7 +192,7 @@ public enum ComputerDaoImpl implements ComputerDao {
 			rs.next();
 			count = rs.getInt(1);
 		} catch (SQLException e) {
-			throw new DAOException("Fail during: " + COUNT_COMPUTERS_QUERY, e);
+			throw new DaoException("Fail during: " + COUNT_COMPUTERS_QUERY, e);
 		} finally {
 			ConnectionCloser.close(rs, ps, conn, COUNT_COMPUTERS_QUERY);
 		}

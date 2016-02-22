@@ -2,7 +2,7 @@ package com.louisamoros.cdb.dao;
 
 import java.util.List;
 
-import com.louisamoros.cdb.dao.exception.DAOException;
+import com.louisamoros.cdb.dao.exception.DaoException;
 import com.louisamoros.cdb.model.Company;
 
 /**
@@ -19,6 +19,6 @@ public interface CompanyDao {
 	 * 
 	 * @return <List> of <Company>
 	 */
-	List<Company> getAll() throws DAOException;
+	List<Company> getAll() throws DaoException;
 
 }

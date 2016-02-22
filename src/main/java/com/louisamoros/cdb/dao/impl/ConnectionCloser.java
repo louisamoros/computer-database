@@ -5,7 +5,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-import com.louisamoros.cdb.dao.exception.DAOException;
+import com.louisamoros.cdb.dao.exception.DaoException;
 
 /**
  * <ConnectionCloser> class is used to close (via static methods) a <Connection>, <PreparedStatement> nor <ResultSet>.
@@ -33,7 +33,7 @@ public class ConnectionCloser {
 				conn.close();
 			}
 		} catch (SQLException e) {
-			throw new DAOException("Fail when closing after: " + message, e);
+			throw new DaoException("Fail when closing after: " + message, e);
 		}
 	}
 	

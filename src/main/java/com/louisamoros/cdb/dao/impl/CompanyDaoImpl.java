@@ -10,48 +10,53 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.louisamoros.cdb.dao.CompanyDao;
-import com.louisamoros.cdb.dao.connection.JDBCConnectionImpl;
-import com.louisamoros.cdb.dao.exception.DAOException;
+import com.louisamoros.cdb.dao.connection.JdbcConnectionImpl;
+import com.louisamoros.cdb.dao.exception.DaoException;
 import com.louisamoros.cdb.dao.mapper.MapperRsCompanyDao;
 import com.louisamoros.cdb.model.Company;
 
 /**
- * <CompanyDaoImpl> implements methods of <CompanyDao> interface.
- * 
- * @author louis
- *
+ * The Enum CompanyDaoImpl.
  */
 public enum CompanyDaoImpl implements CompanyDao {
 
-	INSTANCE;
+  INSTANCE;
 
-	private JDBCConnectionImpl jdbcConnection;
-	private static final String GET_COMPANIES_QUERY = "SELECT * FROM company;";
-	private static Logger LOGGER = LoggerFactory.getLogger(CompanyDao.class);
+  private JdbcConnectionImpl jdbcConnection;
+  private static final String GET_COMPANIES_QUERY = "SELECT * FROM company;";
+  private static Logger LOGGER = LoggerFactory.getLogger(CompanyDao.class);
 
-	private CompanyDaoImpl() {
-		jdbcConnection = JDBCConnectionImpl.INSTANCE;
-	}
+  /**
+   * Instantiates a new company dao impl.
+   */
+  private CompanyDaoImpl() {
+    jdbcConnection = JdbcConnectionImpl.INSTANCE;
+  }
 
-	public List<Company> getAll() throws DAOException {
+  /*
+   * (non-Javadoc)
+   * 
+   * @see com.louisamoros.cdb.dao.CompanyDao#getAll()
+   */
+  public List<Company> getAll() {
 
-		LOGGER.debug(GET_COMPANIES_QUERY);
-		List<Company> companies = null;
-		ResultSet rs = null;
-		PreparedStatement ps = null;
-		Connection conn = jdbcConnection.getConnection();
+    LOGGER.debug(GET_COMPANIES_QUERY);
+    List<Company> companies = null;
+    ResultSet rs = null;
+    PreparedStatement ps = null;
+    Connection conn = jdbcConnection.getConnection();
 
-		try {
-			ps = conn.prepareStatement(GET_COMPANIES_QUERY);
-			rs = ps.executeQuery();
-			companies = MapperRsCompanyDao.toList(rs);
-		} catch (SQLException e) {
-			throw new DAOException("Fail during: " + GET_COMPANIES_QUERY, e);
-		} finally {
-			ConnectionCloser.close(rs, ps, conn, GET_COMPANIES_QUERY);
-		}
+    try {
+      ps = conn.prepareStatement(GET_COMPANIES_QUERY);
+      rs = ps.executeQuery();
+      companies = MapperRsCompanyDao.toList(rs);
+    } catch (SQLException e) {
+      throw new DaoException("Fail during: " + GET_COMPANIES_QUERY, e);
+    } finally {
+      ConnectionCloser.close(rs, ps, conn, GET_COMPANIES_QUERY);
+    }
 
-		return companies;
-	}
+    return companies;
+  }
 
 }

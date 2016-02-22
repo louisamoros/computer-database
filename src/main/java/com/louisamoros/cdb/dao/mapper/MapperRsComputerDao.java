@@ -6,7 +6,7 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.louisamoros.cdb.dao.exception.DAOMapperException;
+import com.louisamoros.cdb.dao.exception.DaoMapperException;
 import com.louisamoros.cdb.model.Company;
 import com.louisamoros.cdb.model.Computer;
 
@@ -20,9 +20,9 @@ public class MapperRsComputerDao {
 	 *
 	 * @param rs the rs
 	 * @return the list
-	 * @throws DAOMapperException the DAO mapper exception
+	 * @throws DaoMapperException the DAO mapper exception
 	 */
-	public static List<Computer> toList(ResultSet rs) throws DAOMapperException {
+	public static List<Computer> toList(ResultSet rs) throws DaoMapperException {
 		List<Computer> computers = new ArrayList<Computer>();
 		try {
 			while (rs.next()) {
@@ -41,7 +41,7 @@ public class MapperRsComputerDao {
 				computers.add(computer);
 			}
 		} catch (SQLException e) {
-			throw new DAOMapperException("Fail to map ResultSet of Computer to List of Computer.", e);
+			throw new DaoMapperException("Fail to map ResultSet of Computer to List of Computer.", e);
 		}
 		return computers;
 	}
@@ -51,9 +51,9 @@ public class MapperRsComputerDao {
 	 *
 	 * @param rs the rs
 	 * @return the computer
-	 * @throws DAOMapperException the DAO mapper exception
+	 * @throws DaoMapperException the DAO mapper exception
 	 */
-	public static Computer toComputer(ResultSet rs) throws DAOMapperException {
+	public static Computer toComputer(ResultSet rs) throws DaoMapperException {
 		Computer computer = null;
 		try {
 			while (rs.next()) {
@@ -71,7 +71,7 @@ public class MapperRsComputerDao {
 						.introduced(dateIntroduced).discontinued(dateDiscontinued).build();
 			}
 		} catch (SQLException e) {
-			throw new DAOMapperException("Fail to map ResultSet to Computer.", e);
+			throw new DaoMapperException("Fail to map ResultSet to Computer.", e);
 		}
 		return computer;
 	}

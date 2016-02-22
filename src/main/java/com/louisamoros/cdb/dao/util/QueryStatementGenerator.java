@@ -6,7 +6,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.louisamoros.cdb.dao.exception.DAOException;
+import com.louisamoros.cdb.dao.exception.DaoException;
 
 public class QueryStatementGenerator {
 
@@ -122,9 +122,9 @@ public class QueryStatementGenerator {
 					preparedStatement.setString(i, insertIntoPS.get(i));
 				}
 			} catch (SQLException e) {
-				throw new DAOException("Fail during: " + query, e);
+				throw new DaoException("Fail during: " + query, e);
 			} catch (Exception e) {
-				throw new DAOException("Fail during: " + query, e);
+				throw new DaoException("Fail during: " + query, e);
 			}
 			return new QueryStatementGenerator(this);
 		}

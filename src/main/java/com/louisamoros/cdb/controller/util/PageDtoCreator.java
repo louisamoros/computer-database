@@ -8,59 +8,63 @@ import com.louisamoros.cdb.dto.validator.PageDtoValidator;
  */
 public class PageDtoCreator {
 
-	/** The Constant MAX_TO_SHOW. */
-	private static final int MAX_TO_SHOW = 5;
+  private static final int MAX_TO_SHOW = 5;
 
-	/**
-	 * Creates the.
-	 *
-	 * @param page the page
-	 * @param perPage the per page
-	 * @param uri the uri
-	 * @param orderBy the order by
-	 * @param order the order
-	 * @param search the search
-	 * @param count the count
-	 * @return the page dto
-	 */
-	public static PageDto create(String page, String perPage, String uri, String orderBy, String order, String search,
-			int count) {
+  /**
+   * Creates the.
+   *
+   * @param page the page
+   * @param perPage the per page
+   * @param uri the uri
+   * @param orderBy the order by
+   * @param order the order
+   * @param search the search
+   * @param count the count
+   * @return the page dto
+   */
+  public static PageDto create(String page, String perPage, String uri, String orderBy,
+      String order, String search, int count) {
 
-		int p = PageDtoValidator.validatePage(page);
-		int pp = PageDtoValidator.validatePerPage(perPage);
+    int pageBuild = PageDtoValidator.validatePage(page);
+    int perPageBuild = PageDtoValidator.validatePerPage(perPage);
 
-		int offset = (p - 1) * pp + 1;
-		int limit = pp;
-		int totalPage = Math.abs(count / pp);
-		int startingPage = Math.max(p - MAX_TO_SHOW / 2, 1);
-		int endingPage = startingPage + MAX_TO_SHOW;
+    int offsetBuild;
+    offsetBuild = (pageBuild - 1) * perPageBuild + 1;
+    
+    int limitBuild;
+    limitBuild = perPageBuild;
+    
+    int totalPage = Math.abs(count / perPageBuild);
+    int startingPage = Math.max(pageBuild - MAX_TO_SHOW / 2, 1);
+    int endingPage = startingPage + MAX_TO_SHOW;
 
-		if (endingPage > totalPage + 1) {
-			int diff = endingPage - totalPage;
-			startingPage -= diff - 1;
-			if (startingPage < 1) {
-				startingPage = 1;
-			}
-			endingPage = totalPage + 1;
-		}
+    if (endingPage > totalPage + 1) {
+      int diff = endingPage - totalPage;
+      startingPage -= diff - 1;
+      if (startingPage < 1) {
+        startingPage = 1;
+      }
+      endingPage = totalPage + 1;
+    }
 
-		String ob = "computer.name";
-		if ("company.name".equals(orderBy) || "computer.introduced".equals(orderBy)
-				|| "computer.discontinued".equals(orderBy)) {
-			ob = orderBy;
-		}
+    String orderByBuild = "computer.name";
+    if ("company.name".equals(orderBy) || "computer.introduced".equals(orderBy)
+        || "computer.discontinued".equals(orderBy)) {
+      orderByBuild = orderBy;
+    }
 
-		String o = "asc";
-		if ("desc".equals(order)) {
-			o = order;
-		}
+    String orderBuild = "asc";
+    if ("desc".equals(order)) {
+      orderBuild = order;
+    }
 
-		PageDto pageDto = new PageDto.Builder().page(p).perPage(pp).limit(limit).offset(offset).count(count)
-				.startingPage(startingPage).endingPage(endingPage).totalPage(totalPage).uri(uri).orderBy(ob).order(o)
-				.search(search).build();
+    PageDto pageDto = new PageDto.Builder().page(pageBuild).perPage(perPageBuild).limit(limitBuild)
+        .offset(offsetBuild).count(count).startingPage(startingPage).endingPage(endingPage)
+        .totalPage(totalPage).uri(uri).orderBy(orderByBuild).order(orderBuild).search(search)
+        .build();
 
-		return pageDto;
+    return pageDto;
 
-	}
+  }
 
 }

@@ -6,7 +6,7 @@ import java.sql.Timestamp;
 import java.sql.Types;
 import java.time.LocalDate;
 
-import com.louisamoros.cdb.dao.exception.DAOMapperException;
+import com.louisamoros.cdb.dao.exception.DaoMapperException;
 import com.louisamoros.cdb.model.Company;
 import com.louisamoros.cdb.model.Computer;
 import java.sql.PreparedStatement;
@@ -18,9 +18,9 @@ public class MapperComputerDaoPs {
 	 *
 	 * @param rs the rs
 	 * @return the list
-	 * @throws DAOMapperException the DAO mapper exception
+	 * @throws DaoMapperException the DAO mapper exception
 	 */
-	public static PreparedStatement toPs(Computer computer, PreparedStatement ps) throws DAOMapperException {
+	public static PreparedStatement toPs(Computer computer, PreparedStatement ps) throws DaoMapperException {
 
 		try {
 			ps.setString(1, computer.getName());
@@ -40,7 +40,7 @@ public class MapperComputerDaoPs {
 				ps.setNull(4, Types.INTEGER);
 			}
 		} catch(SQLException e) {
-			throw new DAOMapperException("Fail during prepared statement mapping." + e);
+			throw new DaoMapperException("Fail during prepared statement mapping." + e);
 		}
 				
 		return ps;
@@ -52,9 +52,9 @@ public class MapperComputerDaoPs {
 	 *
 	 * @param rs the rs
 	 * @return the computer
-	 * @throws DAOMapperException the DAO mapper exception
+	 * @throws DaoMapperException the DAO mapper exception
 	 */
-	public static Computer toComputer(ResultSet rs) throws DAOMapperException {
+	public static Computer toComputer(ResultSet rs) throws DaoMapperException {
 		Computer computer = null;
 		try {
 			while (rs.next()) {
@@ -72,7 +72,7 @@ public class MapperComputerDaoPs {
 						.introduced(dateIntroduced).discontinued(dateDiscontinued).build();
 			}
 		} catch (SQLException e) {
-			throw new DAOMapperException("Fail to map ResultSet to Computer.", e);
+			throw new DaoMapperException("Fail to map ResultSet to Computer.", e);
 		}
 		return computer;
 	}
