@@ -34,6 +34,12 @@ public class PageDto {
 	
 	/** The total page. */
 	private int totalPage;
+	
+	private String search;
+	
+	private String orderBy;
+	
+	private String order;
 		
 	/**
 	 * Instantiates a new page dto.
@@ -50,43 +56,71 @@ public class PageDto {
 		this.startingPage = builder.startingPage;
 		this.endingPage = builder.endingPage;
 		this.totalPage = builder.totalPage;
+		this.search = builder.search;
+		this.orderBy = builder.orderBy;
+		this.order = builder.order;
 	}
+
 
 	public int getPage() {
 		return page;
 	}
 
+
 	public int getPerPage() {
 		return perPage;
 	}
+
 
 	public int getOffset() {
 		return offset;
 	}
 
+
 	public int getLimit() {
 		return limit;
 	}
+
 
 	public int getCount() {
 		return count;
 	}
 
+
 	public String getUri() {
 		return uri;
 	}
+
 
 	public int getStartingPage() {
 		return startingPage;
 	}
 
+
 	public int getEndingPage() {
 		return endingPage;
 	}
 
+
 	public int getTotalPage() {
 		return totalPage;
 	}
+
+
+	public String getSearch() {
+		return search;
+	}
+
+
+	public String getOrderBy() {
+		return orderBy;
+	}
+
+
+	public String getOrder() {
+		return order;
+	}
+
 
 	@Override
 	public int hashCode() {
@@ -96,13 +130,17 @@ public class PageDto {
 		result = prime * result + endingPage;
 		result = prime * result + limit;
 		result = prime * result + offset;
+		result = prime * result + ((order == null) ? 0 : order.hashCode());
+		result = prime * result + ((orderBy == null) ? 0 : orderBy.hashCode());
 		result = prime * result + page;
 		result = prime * result + perPage;
+		result = prime * result + ((search == null) ? 0 : search.hashCode());
 		result = prime * result + startingPage;
 		result = prime * result + totalPage;
 		result = prime * result + ((uri == null) ? 0 : uri.hashCode());
 		return result;
 	}
+
 
 	@Override
 	public boolean equals(Object obj) {
@@ -121,9 +159,24 @@ public class PageDto {
 			return false;
 		if (offset != other.offset)
 			return false;
+		if (order == null) {
+			if (other.order != null)
+				return false;
+		} else if (!order.equals(other.order))
+			return false;
+		if (orderBy == null) {
+			if (other.orderBy != null)
+				return false;
+		} else if (!orderBy.equals(other.orderBy))
+			return false;
 		if (page != other.page)
 			return false;
 		if (perPage != other.perPage)
+			return false;
+		if (search == null) {
+			if (other.search != null)
+				return false;
+		} else if (!search.equals(other.search))
 			return false;
 		if (startingPage != other.startingPage)
 			return false;
@@ -137,12 +190,14 @@ public class PageDto {
 		return true;
 	}
 
+
 	@Override
 	public String toString() {
 		return "PageDto [page=" + page + ", perPage=" + perPage + ", offset=" + offset + ", limit=" + limit + ", count="
 				+ count + ", uri=" + uri + ", startingPage=" + startingPage + ", endingPage=" + endingPage
-				+ ", totalPage=" + totalPage + "]";
+				+ ", totalPage=" + totalPage + ", search=" + search + ", orderBy=" + orderBy + ", order=" + order + "]";
 	}
+
 
 	/**
 	 * The Class Builder.
@@ -176,6 +231,13 @@ public class PageDto {
 		
 		/** The total page. */
 		private int totalPage;
+		
+		/** The search. */
+		private String search;
+		
+		private String orderBy;
+		
+		private String order;
 		
 		/**
 		 * Uri.
@@ -276,6 +338,21 @@ public class PageDto {
 			return this;
 		}
 
+		public Builder search(String search) {
+			this.search = search;
+			return this;
+		}
+		
+		public Builder orderBy(String orderBy) {
+			this.orderBy = orderBy;
+			return this;
+		}
+		
+		public Builder order(String order) {
+			this.order = order;
+			return this;
+		}
+		
 		/**
 		 * Builds the.
 		 *

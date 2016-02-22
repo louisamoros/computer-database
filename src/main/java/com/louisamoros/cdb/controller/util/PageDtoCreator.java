@@ -17,10 +17,14 @@ public class PageDtoCreator {
 	 * @param page the page
 	 * @param perPage the per page
 	 * @param uri the uri
+	 * @param orderBy the order by
+	 * @param order the order
+	 * @param search the search
 	 * @param count the count
 	 * @return the page dto
 	 */
-	public static PageDto create(String page, String perPage, String uri, int count) {
+	public static PageDto create(String page, String perPage, String uri, String orderBy, String order, String search,
+			int count) {
 
 		int p = PageDtoValidator.validatePage(page);
 		int pp = PageDtoValidator.validatePerPage(perPage);
@@ -40,8 +44,20 @@ public class PageDtoCreator {
 			endingPage = totalPage + 1;
 		}
 
+		String ob = "computer.name";
+		if ("company.name".equals(orderBy) || "computer.introduced".equals(orderBy)
+				|| "computer.discontinued".equals(orderBy)) {
+			ob = orderBy;
+		}
+
+		String o = "asc";
+		if ("desc".equals(order)) {
+			o = order;
+		}
+
 		PageDto pageDto = new PageDto.Builder().page(p).perPage(pp).limit(limit).offset(offset).count(count)
-				.startingPage(startingPage).endingPage(endingPage).totalPage(totalPage).uri(uri).build();
+				.startingPage(startingPage).endingPage(endingPage).totalPage(totalPage).uri(uri).orderBy(ob).order(o)
+				.search(search).build();
 
 		return pageDto;
 

@@ -63,10 +63,62 @@
                         </a>
                     </span>
                 </th>
-                <th>Computer name</th>
-                <th>Introduced date</th>
-                <th>Discontinued date</th>
-                <th>Company</th>
+                <th>
+                	<c:choose>
+                		<c:when test="${page.order == 'asc'}">
+                			<a href="<cdb:link page="${page}" ovr_orderBy="computer.name" ovr_order="desc"></cdb:link>">
+                				Computer name <span class="glyphicon glyphicon-chevron-down"></span>
+                			</a>
+                		</c:when>
+                		<c:otherwise>
+                			<a href="<cdb:link page="${page}" ovr_orderBy="computer.name" ovr_order="asc"></cdb:link>">
+                				Computer name <span class="glyphicon glyphicon-chevron-up"></span>
+                			</a>
+                		</c:otherwise>
+                	</c:choose>
+                </th>
+                <th>
+                	<c:choose>
+                		<c:when test="${page.order == 'asc'}">
+                			<a href="<cdb:link page="${page}" ovr_orderBy="computer.introduced" ovr_order="desc"></cdb:link>">
+                				Introduced date <span class="glyphicon glyphicon-chevron-down"></span>
+                			</a>
+                		</c:when>
+                		<c:otherwise>
+                			<a href="<cdb:link page="${page}" ovr_orderBy="computer.introduced" ovr_order="asc"></cdb:link>">
+                				Introduced date <span class="glyphicon glyphicon-chevron-up"></span>
+                			</a>
+                		</c:otherwise>
+                	</c:choose>
+				</th>
+                <th>
+					<c:choose>
+                		<c:when test="${page.order == 'asc'}">
+                			<a href="<cdb:link page="${page}" ovr_orderBy="computer.discontinued" ovr_order="desc"></cdb:link>">
+                				Discontinued date <span class="glyphicon glyphicon-chevron-down"></span>
+                			</a>
+                		</c:when>
+                		<c:otherwise>
+                			<a href="<cdb:link page="${page}" ovr_orderBy="computer.discontinued" ovr_order="asc"></cdb:link>">
+                				Discontinued date <span class="glyphicon glyphicon-chevron-up"></span>
+                			</a>
+                		</c:otherwise>
+                	</c:choose>
+				</th>
+                <th>
+					<c:choose>
+                		<c:when test="${page.order == 'asc'}">
+                			<a href="<cdb:link page="${page}" ovr_orderBy="company.name" ovr_order="desc"></cdb:link>">
+                				Company <span class="glyphicon glyphicon-chevron-down"></span>
+                			</a>
+                		</c:when>
+                		<c:otherwise>
+                			<a href="<cdb:link page="${page}" ovr_orderBy="company.name" ovr_order="asc"></cdb:link>">
+                				Company <span class="glyphicon glyphicon-chevron-up"></span>
+                			</a>
+                		</c:otherwise>
+                	</c:choose>
+				</th>
             </tr>
             </thead>
             <!-- Browse attribute computers -->
@@ -93,7 +145,7 @@
 
 <footer class="navbar-fixed-bottom">
     <div class="container text-center">
-        <cdb:pagination page="${page}"></cdb:pagination>
+		<cdb:pagination page="${page}"></cdb:pagination>
     </div>
 </footer>
 <script src="js/jquery.min.js"></script>

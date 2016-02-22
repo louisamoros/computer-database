@@ -2,6 +2,7 @@ package com.louisamoros.cdb.service.impl;
 
 import java.util.List;
 
+import com.louisamoros.cdb.controller.util.QueryParams;
 import com.louisamoros.cdb.dao.ComputerDao;
 import com.louisamoros.cdb.dao.impl.ComputerDaoImpl;
 import com.louisamoros.cdb.model.Computer;
@@ -52,8 +53,8 @@ public enum ComputerServiceImpl implements ComputerService {
 	}
 
 	@Override
-	public List<Computer> get(int offset, int limit) {
-		return computerDao.get(offset, limit);
+	public List<Computer> get(QueryParams qp) {
+		return computerDao.get(qp);
 	}
 
 	@Override

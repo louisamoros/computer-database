@@ -2,6 +2,7 @@ package com.louisamoros.cdb.dao;
 
 import java.util.List;
 
+import com.louisamoros.cdb.controller.util.QueryParams;
 import com.louisamoros.cdb.dao.exception.DAOException;
 import com.louisamoros.cdb.model.Computer;
 
@@ -35,13 +36,12 @@ public interface ComputerDao {
 	List<Computer> getAll() throws DAOException;
 
 	/**
-	 * Fetch computers from the database function of offset and steps params.
-	 * @param offset
-	 * @param steps
+	 * Fetch computers from the database function of query params.
+	 * @param queryParams
 	 * @return <List> of <Computer>
 	 * @throws DAOException
 	 */
-	List<Computer> get(int offset, int steps) throws DAOException;
+	List<Computer> get(QueryParams qp) throws DAOException;
 	
 	/**
 	 * Create a new computer in the database.

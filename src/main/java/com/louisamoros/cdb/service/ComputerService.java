@@ -2,6 +2,7 @@ package com.louisamoros.cdb.service;
 
 import java.util.List;
 
+import com.louisamoros.cdb.controller.util.QueryParams;
 import com.louisamoros.cdb.dao.ComputerDao;
 import com.louisamoros.cdb.model.Computer;
 
@@ -20,12 +21,11 @@ public interface ComputerService {
 	List<Computer> getAll();
 	
 	/**
-	 * Fetch computers from computer dao page function of offset and steps params.
-	 * @param offset
-	 * @param limit
+	 * Fetch computers from computer dao page function of query params.
+	 * @param queryParams
 	 * @return computers list
 	 */
-	List<Computer> get(int offset, int limit);
+	List<Computer> get(QueryParams qp);
 	
 	/**
 	 * Fetch the computer from dao based on its Id.

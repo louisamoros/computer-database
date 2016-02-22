@@ -10,11 +10,13 @@ import java.util.List;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import com.louisamoros.cdb.controller.util.QueryParams;
 import com.louisamoros.cdb.dao.ComputerDao;
 import com.louisamoros.cdb.dao.connection.JDBCConnectionImpl;
 import com.louisamoros.cdb.dao.exception.DAOException;
 import com.louisamoros.cdb.dao.mapper.MapperComputerDaoPs;
 import com.louisamoros.cdb.dao.mapper.MapperRsComputerDao;
+import com.louisamoros.cdb.dao.util.QueryStatementGenerator;
 import com.louisamoros.cdb.model.Computer;
 
 /**
@@ -87,19 +89,19 @@ public enum ComputerDaoImpl implements ComputerDao {
 	}
 
 	@Override
-	public List<Computer> get(int offset, int limit) throws DAOException {
+	public List<Computer> get(QueryParams qp) throws DAOException {
 
 		LOGGER.debug(GET_COMPUTERS_QUERY);
 		List<Computer> computers = null;
 		ResultSet rs = null;
 		PreparedStatement ps = null;
 		Connection conn = jdbcConnectionImpl.getConnection();
+		QueryStatementGenerator qsp = new QueryStatementGenerator.Builder(conn).select("*").from("computer")
+				.leftJoinOn("company", "computer.company_id = company.id").orderBy(qp.getOrderBy()).order(qp.getOrder())
+				.limit(String.valueOf(qp.getLimit())).offset(String.valueOf(qp.getOffset())).build();
 
 		try {
-			ps = conn.prepareStatement(GET_COMPUTERS_QUERY);
-			ps.setInt(1, limit);
-			ps.setInt(2, offset);
-			rs = ps.executeQuery();
+			rs = qsp.getPreparedStatement().executeQuery();
 			computers = MapperRsComputerDao.toList(rs);
 		} catch (SQLException e) {
 			throw new DAOException("Fail during: " + GET_COMPUTERS_QUERY, e);
@@ -118,9 +120,9 @@ public enum ComputerDaoImpl implements ComputerDao {
 		PreparedStatement ps = null;
 		ResultSet rs = null;
 		int computerId = 0;
-		
+
 		try {
-			ps = conn.prepareStatement(CREATE_COMPUTER_QUERY, Statement.RETURN_GENERATED_KEYS);	
+			ps = conn.prepareStatement(CREATE_COMPUTER_QUERY, Statement.RETURN_GENERATED_KEYS);
 			ps = MapperComputerDaoPs.toPs(computer, ps);
 			ps.executeUpdate();
 			rs = ps.getGeneratedKeys();
