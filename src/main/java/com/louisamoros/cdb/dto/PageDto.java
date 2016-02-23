@@ -107,49 +107,68 @@ public class PageDto {
 
   @Override
   public boolean equals(Object obj) {
-    if (this == obj)
+    if (this == obj) {
       return true;
-    if (obj == null)
+    }
+    if (obj == null) {
       return false;
-    if (getClass() != obj.getClass())
+    }
+    if (getClass() != obj.getClass()) {
       return false;
+    }
     PageDto other = (PageDto) obj;
-    if (count != other.count)
+    if (count != other.count) {
       return false;
-    if (endingPage != other.endingPage)
+    }
+    if (endingPage != other.endingPage) {
       return false;
-    if (limit != other.limit)
+    }
+    if (limit != other.limit) {
       return false;
-    if (offset != other.offset)
+    }
+    if (offset != other.offset) {
       return false;
+    }
     if (order == null) {
-      if (other.order != null)
+      if (other.order != null) {
         return false;
-    } else if (!order.equals(other.order))
+      }
+    } else if (!order.equals(other.order)) {
       return false;
+    }
     if (orderBy == null) {
-      if (other.orderBy != null)
+      if (other.orderBy != null) {
         return false;
-    } else if (!orderBy.equals(other.orderBy))
+      }
+    } else if (!orderBy.equals(other.orderBy)) {
       return false;
-    if (page != other.page)
+    }
+    if (page != other.page) {
       return false;
-    if (perPage != other.perPage)
+    }
+    if (perPage != other.perPage) {
       return false;
+    }
     if (search == null) {
-      if (other.search != null)
+      if (other.search != null) {
         return false;
-    } else if (!search.equals(other.search))
+      }
+    } else if (!search.equals(other.search)) {
       return false;
-    if (startingPage != other.startingPage)
+    }
+    if (startingPage != other.startingPage) {
       return false;
-    if (totalPage != other.totalPage)
+    }
+    if (totalPage != other.totalPage) {
       return false;
+    }
     if (uri == null) {
-      if (other.uri != null)
+      if (other.uri != null) {
         return false;
-    } else if (!uri.equals(other.uri))
+      }
+    } else if (!uri.equals(other.uri)) {
       return false;
+    }
     return true;
   }
 

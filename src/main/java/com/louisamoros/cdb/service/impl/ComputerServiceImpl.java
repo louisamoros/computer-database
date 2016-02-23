@@ -36,6 +36,11 @@ public enum ComputerServiceImpl implements ComputerService {
   }
 
   @Override
+  public List<Computer> get(QueryParams qp) {
+    return computerDao.get(qp);
+  }
+
+  @Override
   public int create(Computer computer) {
     ComputerValidator.validate(computer);
     return computerDao.create(computer);
@@ -50,11 +55,6 @@ public enum ComputerServiceImpl implements ComputerService {
   @Override
   public void delete(int computerId) {
     computerDao.delete(computerId);
-  }
-
-  @Override
-  public List<Computer> get(QueryParams qp) {
-    return computerDao.get(qp);
   }
 
   @Override

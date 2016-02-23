@@ -76,37 +76,50 @@ public class ComputerDto {
 
   @Override
   public boolean equals(Object obj) {
-    if (this == obj)
+    if (this == obj) {
       return true;
-    if (obj == null)
+    }
+    if (obj == null) {
       return false;
-    if (getClass() != obj.getClass())
+    }
+    if (getClass() != obj.getClass()) {
       return false;
+    }
     ComputerDto other = (ComputerDto) obj;
-    if (companyId != other.companyId)
+    if (companyId != other.companyId) {
       return false;
+    }
     if (companyName == null) {
-      if (other.companyName != null)
+      if (other.companyName != null) {
         return false;
-    } else if (!companyName.equals(other.companyName))
+      }
+    } else if (!companyName.equals(other.companyName)) {
       return false;
-    if (computerId != other.computerId)
+    }
+    if (computerId != other.computerId) {
       return false;
+    }
     if (discontinued == null) {
-      if (other.discontinued != null)
+      if (other.discontinued != null) {
         return false;
-    } else if (!discontinued.equals(other.discontinued))
+      }
+    } else if (!discontinued.equals(other.discontinued)) {
       return false;
+    }
     if (introduced == null) {
-      if (other.introduced != null)
+      if (other.introduced != null) {
         return false;
-    } else if (!introduced.equals(other.introduced))
+      }
+    } else if (!introduced.equals(other.introduced)) {
       return false;
+    }
     if (computerName == null) {
-      if (other.computerName != null)
+      if (other.computerName != null) {
         return false;
-    } else if (!computerName.equals(other.computerName))
+      }
+    } else if (!computerName.equals(other.computerName)) {
       return false;
+    }
     return true;
   }
 

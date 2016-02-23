@@ -33,6 +33,7 @@ public enum CompanyDaoImpl implements CompanyDao {
     jdbcConnection = JdbcConnectionImpl.INSTANCE;
   }
 
+  @Override
   public List<Company> getAll() {
 
     LOGGER.debug(GET_COMPANIES_QUERY);

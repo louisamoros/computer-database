@@ -200,12 +200,10 @@ public class QueryStatementGenerator {
      *
      * @param insertInto the insert into
      * @param set the set
-     * @param values the values
      * @return the builder
      */
-    public Builder insertInto(String insertInto, String set, List<String> values) {
+    public Builder insertInto(String insertInto, String set) {
       query.append(INSERT_INTO).append(insertInto).append(VALUES).append(set);
-      values.forEach(value -> insertIntoPS.add(value));
       return this;
     }
 

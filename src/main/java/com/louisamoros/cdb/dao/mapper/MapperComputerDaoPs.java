@@ -24,8 +24,7 @@ public class MapperComputerDaoPs {
    * @return the prepared statement
    * @throws DaoMapperException the dao mapper exception
    */
-  public static PreparedStatement toPs(Computer computer, PreparedStatement ps)
-      throws DaoMapperException {
+  public static PreparedStatement toPs(Computer computer, PreparedStatement ps) {
 
     try {
       ps.setString(1, computer.getName());

@@ -27,13 +27,6 @@ public enum ComputerDaoImpl implements ComputerDao {
   INSTANCE;
 
   private JdbcConnectionImpl jdbcConnectionImpl;
-  private static final String GET_COMPUTER_QUERY = "SELECT * FROM computer LEFT JOIN company ON computer.company_id = company.id WHERE computer.id=?";
-  private static final String GET_ALL_COMPUTERS_QUERY = "SELECT * FROM computer LEFT JOIN company ON computer.company_id = company.id";
-  private static final String GET_COMPUTERS_QUERY = "SELECT * FROM computer LEFT JOIN company ON computer.company_id = company.id ORDER BY computer.name LIMIT ? OFFSET ?";
-  private static final String UPDATE_COMPUTER_QUERY = "UPDATE computer SET name=?, introduced=?, discontinued=?, company_id=? WHERE id=?";
-  private static final String DELETE_COMPUTER_QUERY = "DELETE FROM computer WHERE id=?";
-  private static final String COUNT_COMPUTERS_QUERY = "SELECT COUNT(*) FROM computer";
-  private static final String CREATE_COMPUTER_QUERY = "INSERT INTO computer VALUES (default, ?, ?, ?, ?)";
   private static Logger LOGGER = LoggerFactory.getLogger(ComputerDao.class);
 
   /**
@@ -45,56 +38,30 @@ public enum ComputerDaoImpl implements ComputerDao {
 
   @Override
   public Computer get(int id) throws DaoException {
-
-    LOGGER.debug(GET_COMPUTER_QUERY);
     ResultSet rs = null;
-    PreparedStatement ps = null;
     Computer computer = null;
     Connection conn = jdbcConnectionImpl.getConnection();
+    QueryStatementGenerator qsp = new QueryStatementGenerator.Builder(conn).select("*")
+        .from("computer").leftJoinOn("company", "computer.company_id = company.id")
+        .where("computer.id=?", String.valueOf(id)).build();
 
     try {
-      ps = conn.prepareStatement(GET_COMPUTER_QUERY);
-      ps.setInt(1, id);
-      rs = ps.executeQuery();
+      rs = qsp.getPreparedStatement().executeQuery();
       computer = MapperRsComputerDao.toComputer(rs);
     } catch (SQLException e) {
-      throw new DaoException("Fail during: " + GET_COMPUTER_QUERY, e);
+      throw new DaoException("Fail during: " + qsp.getQuery(), e);
     } finally {
-      ConnectionCloser.close(rs, ps, conn, GET_COMPUTER_QUERY);
+      ConnectionCloser.close(rs, qsp.getPreparedStatement(), conn, qsp.getQuery().toString());
     }
 
     return computer;
   }
 
   @Override
-  public List<Computer> getAll() throws DaoException {
-
-    LOGGER.debug(GET_ALL_COMPUTERS_QUERY);
-    List<Computer> computers = null;
-    ResultSet rs = null;
-    PreparedStatement ps = null;
-    Connection conn = jdbcConnectionImpl.getConnection();
-
-    try {
-      ps = conn.prepareStatement(GET_ALL_COMPUTERS_QUERY);
-      rs = ps.executeQuery();
-      computers = MapperRsComputerDao.toList(rs);
-    } catch (SQLException e) {
-      throw new DaoException("Fail during: " + GET_ALL_COMPUTERS_QUERY, e);
-    } finally {
-      ConnectionCloser.close(rs, ps, conn, GET_ALL_COMPUTERS_QUERY);
-    }
-
-    return computers;
-  }
-
-  @Override
   public List<Computer> get(QueryParams qp) throws DaoException {
 
-    LOGGER.debug(GET_COMPUTERS_QUERY);
     List<Computer> computers = null;
     ResultSet rs = null;
-    PreparedStatement ps = null;
     Connection conn = jdbcConnectionImpl.getConnection();
     QueryStatementGenerator qsp = new QueryStatementGenerator.Builder(conn).select("*")
         .from("computer").leftJoinOn("company", "computer.company_id = company.id")
@@ -105,9 +72,30 @@ public enum ComputerDaoImpl implements ComputerDao {
       rs = qsp.getPreparedStatement().executeQuery();
       computers = MapperRsComputerDao.toList(rs);
     } catch (SQLException e) {
-      throw new DaoException("Fail during: " + GET_COMPUTERS_QUERY, e);
+      throw new DaoException("Fail during: " + qsp.getQuery(), e);
     } finally {
-      ConnectionCloser.close(rs, ps, conn, GET_COMPUTERS_QUERY);
+      ConnectionCloser.close(rs, qsp.getPreparedStatement(), conn, qsp.getQuery().toString());
+    }
+
+    return computers;
+  }
+
+  @Override
+  public List<Computer> getAll() throws DaoException {
+
+    List<Computer> computers = null;
+    ResultSet rs = null;
+    Connection conn = jdbcConnectionImpl.getConnection();
+    QueryStatementGenerator qsp = new QueryStatementGenerator.Builder(conn).select("*")
+        .from("computer").leftJoinOn("company", "computer.company_id = company.id").build();
+
+    try {
+      rs = qsp.getPreparedStatement().executeQuery();
+      computers = MapperRsComputerDao.toList(rs);
+    } catch (SQLException e) {
+      throw new DaoException("Fail during: " + qsp.getQuery(), e);
+    } finally {
+      ConnectionCloser.close(rs, qsp.getPreparedStatement(), conn, qsp.getQuery().toString());
     }
 
     return computers;
@@ -116,23 +104,24 @@ public enum ComputerDaoImpl implements ComputerDao {
   @Override
   public int create(Computer computer) throws DaoException {
 
-    LOGGER.debug(CREATE_COMPUTER_QUERY);
+    String createComputerQuery = "INSERT INTO computer VALUES (default, ?, ?, ?, ?)";
+    LOGGER.debug(createComputerQuery);
     Connection conn = jdbcConnectionImpl.getConnection();
     PreparedStatement ps = null;
     ResultSet rs = null;
     int computerId = 0;
 
     try {
-      ps = conn.prepareStatement(CREATE_COMPUTER_QUERY, Statement.RETURN_GENERATED_KEYS);
+      ps = conn.prepareStatement(createComputerQuery, Statement.RETURN_GENERATED_KEYS);
       ps = MapperComputerDaoPs.toPs(computer, ps);
       ps.executeUpdate();
       rs = ps.getGeneratedKeys();
       rs.next();
       computerId = rs.getInt(1);
     } catch (SQLException e) {
-      throw new DaoException("Fail during: " + CREATE_COMPUTER_QUERY, e);
+      throw new DaoException("Fail during: " + createComputerQuery, e);
     } finally {
-      ConnectionCloser.close(rs, ps, conn, CREATE_COMPUTER_QUERY);
+      ConnectionCloser.close(rs, ps, conn, createComputerQuery);
     }
 
     return computerId;
@@ -141,19 +130,20 @@ public enum ComputerDaoImpl implements ComputerDao {
   @Override
   public int update(Computer computer) throws DaoException {
 
-    LOGGER.debug(UPDATE_COMPUTER_QUERY);
+    String sql = "UPDATE computer SET name=?, introduced=?, discontinued=?, company_id=? WHERE id=?";
+    LOGGER.debug(sql);
     Connection conn = jdbcConnectionImpl.getConnection();
     PreparedStatement ps = null;
 
     try {
-      ps = conn.prepareStatement(UPDATE_COMPUTER_QUERY);
+      ps = conn.prepareStatement(sql);
       ps = MapperComputerDaoPs.toPs(computer, ps);
       ps.setInt(5, computer.getId());
       ps.executeUpdate();
     } catch (SQLException e) {
-      throw new DaoException("Fail during: " + UPDATE_COMPUTER_QUERY, e);
+      throw new DaoException("Fail during: " + sql, e);
     } finally {
-      ConnectionCloser.close(null, ps, conn, UPDATE_COMPUTER_QUERY);
+      ConnectionCloser.close(null, ps, conn, sql);
     }
 
     return computer.getId();
@@ -162,18 +152,16 @@ public enum ComputerDaoImpl implements ComputerDao {
   @Override
   public void delete(int id) throws DaoException {
 
-    LOGGER.debug(DELETE_COMPUTER_QUERY);
     Connection conn = jdbcConnectionImpl.getConnection();
-    PreparedStatement ps = null;
+    QueryStatementGenerator qsp = new QueryStatementGenerator.Builder(conn).deleteFrom("computer")
+        .where("id=?", String.valueOf(id)).build();
 
     try {
-      ps = conn.prepareStatement(DELETE_COMPUTER_QUERY);
-      ps.setInt(1, id);
-      ps.executeUpdate();
+      qsp.getPreparedStatement().executeUpdate();
     } catch (SQLException e) {
-      throw new DaoException("Fail during: " + DELETE_COMPUTER_QUERY, e);
+      throw new DaoException("Fail during: " + qsp.getQuery(), e);
     } finally {
-      ConnectionCloser.close(null, ps, conn, DELETE_COMPUTER_QUERY);
+      ConnectionCloser.close(null, qsp.getPreparedStatement(), conn, qsp.getQuery().toString());
     }
 
   }
@@ -181,21 +169,20 @@ public enum ComputerDaoImpl implements ComputerDao {
   @Override
   public int count() throws DaoException {
 
-    LOGGER.debug(COUNT_COMPUTERS_QUERY);
     Connection conn = jdbcConnectionImpl.getConnection();
     ResultSet rs = null;
-    PreparedStatement ps = null;
     int count = 0;
+    QueryStatementGenerator qsp = new QueryStatementGenerator.Builder(conn)
+        .selectCountFrom("computer").build();
 
     try {
-      ps = conn.prepareStatement(COUNT_COMPUTERS_QUERY);
-      rs = ps.executeQuery();
+      rs = qsp.getPreparedStatement().executeQuery();
       rs.next();
       count = rs.getInt(1);
     } catch (SQLException e) {
-      throw new DaoException("Fail during: " + COUNT_COMPUTERS_QUERY, e);
+      throw new DaoException("Fail during: " + qsp.getQuery(), e);
     } finally {
-      ConnectionCloser.close(rs, ps, conn, COUNT_COMPUTERS_QUERY);
+      ConnectionCloser.close(rs, qsp.getPreparedStatement(), conn, qsp.getQuery().toString());
     }
 
     return count;
