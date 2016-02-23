@@ -43,7 +43,10 @@ public enum ComputerDaoImpl implements ComputerDao {
         .from("computer").leftJoinOn("company", "computer.company_id = company.id")
         .where("computer.id=?", String.valueOf(id)).build();
     LOGGER.debug(qsp.getQuery().toString());
+
     try {
+      qsp.getPreparedStatement().clearParameters();
+      qsp.getPreparedStatement().setInt(1, id);
       rs = qsp.getPreparedStatement().executeQuery();
       computer = MapperRsComputerDao.toComputer(rs);
     } catch (SQLException e) {
@@ -160,6 +163,8 @@ public enum ComputerDaoImpl implements ComputerDao {
         .where("id=?", String.valueOf(id)).build();
     LOGGER.debug(qsp.getQuery().toString());
     try {
+      qsp.getPreparedStatement().clearParameters();
+      qsp.getPreparedStatement().setInt(1, id);
       qsp.getPreparedStatement().executeUpdate();
     } catch (SQLException e) {
       throw new DaoException("Fail during: " + qsp.getQuery(), e);

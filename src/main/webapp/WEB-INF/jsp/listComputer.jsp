@@ -51,14 +51,18 @@
         </div>
     </div>
 
-    <div class="container" style="margin-top: 10px;">
+		<form id="deleteForm" action="computer/delete" method="POST">
+			<input type="hidden" name="selection" value="">
+		</form>
+
+		<div class="container" style="margin-top: 10px;">
         <table class="table table-striped table-bordered">
             <thead>
             <tr>
                 <th class="editMode" style="width: 60px; height: 22px;">
                     <input type="checkbox" id="selectall"/>
                     <span style="vertical-align: top;"> -
-                        <a href="#" id="deleteSelected" onclick="$.fn.deleteSelected();">
+                        <a id="deleteSelected" onclick="$.fn.deleteSelected();">
                             <i class="fa fa-trash-o fa-lg"></i>
                         </a>
                     </span>
@@ -126,7 +130,7 @@
             <c:forEach items="${computers}" var="computer">
                 <tr>
                     <td class="editMode">
-                        <input type="checkbox" name="cb" class="cb" value="0">
+                        <input type="checkbox" name="cb" class="cb" value="${computer.computerId}">
                     </td>
                     <td>
                         <a href="computer/edit?id=${computer.computerId}">
