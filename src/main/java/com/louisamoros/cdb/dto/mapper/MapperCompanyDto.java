@@ -8,51 +8,50 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Company mapper between dto and model.
- *
- * @author louis
+ * The Class MapperCompanyDto.
  */
 public class MapperCompanyDto {
 
-	/**
-	 * Convert CompanyDao element to Company model.
-	 *
-	 * @param <CompanyDto>
-	 * @return <Company>
-	 */
-	public static Company toCompany(CompanyDto companyDto) {
+  /**
+   * To company.
+   *
+   * @param companyDto the company dto
+   * @return the company
+   */
+  public static Company toCompany(CompanyDto companyDto) {
 
-		Company company = new Company.Builder().id(companyDto.getId()).name(companyDto.getName()).build();
-		return company;
+    Company company = new Company.Builder().id(companyDto.getId()).name(companyDto.getName())
+        .build();
+    return company;
 
-	}
+  }
 
-	/**
-	 * To company dto.
-	 *
-	 * @param company the company
-	 * @return the company dto
-	 */
-	public static CompanyDto toCompanyDto(Company company) {
+  /**
+   * To company dto.
+   *
+   * @param company the company
+   * @return the company dto
+   */
+  public static CompanyDto toCompanyDto(Company company) {
 
-		CompanyValidator.validate(company);
-		CompanyDto companyDto = new CompanyDto.Builder().id(company.getId()).name(company.getName()).build();
-		return companyDto;
-	}
+    CompanyValidator.validate(company);
+    CompanyDto companyDto = new CompanyDto.Builder().id(company.getId()).name(company.getName())
+        .build();
+    return companyDto;
+  }
 
-    /**
-     * To company dto list.
-     *
-     * @param companies the companies
-     * @return the list
-     */
-    public static List<CompanyDto> toCompanyDtoList(List<Company> companies) {
+  /**
+   * To company dto list.
+   *
+   * @param companies the companies
+   * @return the list
+   */
+  public static List<CompanyDto> toCompanyDtoList(List<Company> companies) {
 
-        List<CompanyDto> companiesDto = new ArrayList<>();
-        companies.forEach (company -> companiesDto.add(toCompanyDto(company)));
-        return companiesDto;
+    List<CompanyDto> companiesDto = new ArrayList<>();
+    companies.forEach(company -> companiesDto.add(toCompanyDto(company)));
+    return companiesDto;
 
-    }
-
+  }
 
 }

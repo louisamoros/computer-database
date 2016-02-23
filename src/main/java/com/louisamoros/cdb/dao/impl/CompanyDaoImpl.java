@@ -1,19 +1,19 @@
 package com.louisamoros.cdb.dao.impl;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.util.List;
-
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
 import com.louisamoros.cdb.dao.CompanyDao;
 import com.louisamoros.cdb.dao.connection.JdbcConnectionImpl;
 import com.louisamoros.cdb.dao.exception.DaoException;
 import com.louisamoros.cdb.dao.mapper.MapperRsCompanyDao;
 import com.louisamoros.cdb.model.Company;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.List;
 
 /**
  * The Enum CompanyDaoImpl.
@@ -33,11 +33,6 @@ public enum CompanyDaoImpl implements CompanyDao {
     jdbcConnection = JdbcConnectionImpl.INSTANCE;
   }
 
-  /*
-   * (non-Javadoc)
-   * 
-   * @see com.louisamoros.cdb.dao.CompanyDao#getAll()
-   */
   public List<Company> getAll() {
 
     LOGGER.debug(GET_COMPANIES_QUERY);
