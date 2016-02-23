@@ -34,10 +34,11 @@ public class EditComputerController extends HttpServlet {
 
   private static final long serialVersionUID = 1L;
   private static final Logger LOGGER = LoggerFactory.getLogger(EditComputerController.class);
+  private static final String EDIT_COMPUTER = "/WEB-INF/jsp/editComputer.jsp";
   private CompanyService companyService = CompanyServiceImpl.INSTANCE;
   private ComputerService computerService = ComputerServiceImpl.INSTANCE;
-  private static final String EDIT_COMPUTER = "/WEB-INF/jsp/editComputer.jsp";
 
+  @Override
   protected void doGet(HttpServletRequest request, HttpServletResponse response)
       throws ServletException, IOException {
 
@@ -54,6 +55,7 @@ public class EditComputerController extends HttpServlet {
 
   }
 
+  @Override
   protected void doPost(HttpServletRequest request, HttpServletResponse response)
       throws ServletException, IOException {
 

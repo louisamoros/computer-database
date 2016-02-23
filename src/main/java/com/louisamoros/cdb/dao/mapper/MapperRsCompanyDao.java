@@ -20,7 +20,7 @@ public class MapperRsCompanyDao {
    * @return the list
    * @throws DaoMapperException the dao mapper exception
    */
-  public static List<Company> toList(ResultSet rs) throws DaoMapperException {
+  public static List<Company> toList(ResultSet rs) {
     List<Company> companies = new ArrayList<Company>();
     try {
       while (rs.next()) {

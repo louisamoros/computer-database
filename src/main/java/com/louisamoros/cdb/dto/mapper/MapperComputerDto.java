@@ -5,9 +5,6 @@ import com.louisamoros.cdb.model.Company;
 import com.louisamoros.cdb.model.Computer;
 import com.louisamoros.cdb.service.validator.ComputerValidator;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
@@ -17,8 +14,6 @@ import java.util.List;
  */
 public class MapperComputerDto {
 
-  private static final Logger LOGGER = LoggerFactory.getLogger(MapperComputerDto.class);
-
   /**
    * To computer.
    *
@@ -27,7 +22,6 @@ public class MapperComputerDto {
    */
   public static Computer toComputer(ComputerDto computerDto) {
 
-    LOGGER.debug("Mapper from computerDto :" + computerDto);
     LocalDate introduced = null;
     LocalDate discontinued = null;
 
@@ -46,7 +40,6 @@ public class MapperComputerDto {
 
     Computer computer = new Computer.Builder(computerDto.getComputerName()).company(company)
         .discontinued(discontinued).introduced(introduced).id(computerDto.getComputerId()).build();
-    LOGGER.debug("Mapper to computer: " + computer);
 
     return computer;
 

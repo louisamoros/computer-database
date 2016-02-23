@@ -13,15 +13,17 @@ public interface ComputerDao {
 
   int count() throws DaoException;
 
-  Computer get(int computerId) throws DaoException;
+  Computer get(int computerId);
 
-  List<Computer> get(QueryParams qp) throws DaoException;
+  List<Computer> get(QueryParams qp);
 
-  List<Computer> getAll() throws DaoException;
+  List<Computer> getAll();
 
-  int create(Computer computer) throws DaoException;
+  int create(Computer computer);
 
-  int update(Computer computer) throws DaoException;
+  int update(Computer computer);
+
+  void deleteByCompanyId(int companyId);
 
   void delete(int computerId) throws DaoException;
 

@@ -5,13 +5,8 @@ import java.sql.Connection;
 /**
  * The Interface JDBCConnection.
  */
-public interface JdbcConnection {
+public interface ConnectionManager {
 
-  /**
-   * Gets the connection.
-   *
-   * @return the connection
-   */
   Connection getConnection();
 
 }

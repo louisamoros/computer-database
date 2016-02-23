@@ -1,18 +1,10 @@
 package com.louisamoros.cdb.model;
 
-/**
- * The Class Company.
- */
 public class Company {
 
   private int id;
   private String name;
 
-  /**
-   * Instantiates a new company.
-   *
-   * @param builder the builder
-   */
   private Company(Builder builder) {
     this.id = builder.id;
     this.name = builder.name;
@@ -65,42 +57,22 @@ public class Company {
     return true;
   }
 
-  /**
-   * The Class Builder.
-   */
   public static class Builder {
 
     // optional
     private int id;
     private String name;
 
-    /**
-     * Id.
-     *
-     * @param id the id
-     * @return the builder
-     */
     public Builder id(int id) {
       this.id = id;
       return this;
     }
 
-    /**
-     * Name.
-     *
-     * @param name the name
-     * @return the builder
-     */
     public Builder name(String name) {
       this.name = name;
       return this;
     }
 
-    /**
-     * Builds the.
-     *
-     * @return the company
-     */
     public Company build() {
       return new Company(this);
     }

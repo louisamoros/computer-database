@@ -2,7 +2,8 @@ package com.louisamoros.cdb.dao.impl;
 
 import com.louisamoros.cdb.controller.util.QueryParams;
 import com.louisamoros.cdb.dao.ComputerDao;
-import com.louisamoros.cdb.dao.connection.JdbcConnectionImpl;
+import com.louisamoros.cdb.dao.connection.ConnectionManager;
+import com.louisamoros.cdb.dao.connection.ConnectionManagerImpl;
 import com.louisamoros.cdb.dao.exception.DaoException;
 import com.louisamoros.cdb.dao.mapper.MapperComputerDaoPs;
 import com.louisamoros.cdb.dao.mapper.MapperRsComputerDao;
@@ -26,21 +27,18 @@ public enum ComputerDaoImpl implements ComputerDao {
 
   INSTANCE;
 
-  private JdbcConnectionImpl jdbcConnectionImpl;
-  private static Logger LOGGER = LoggerFactory.getLogger(ComputerDao.class);
+  public static Logger LOGGER = LoggerFactory.getLogger(ComputerDao.class);
+  private ConnectionManager connectionManager;
 
-  /**
-   * Instantiates a new computer dao impl.
-   */
   private ComputerDaoImpl() {
-    jdbcConnectionImpl = JdbcConnectionImpl.INSTANCE;
+    connectionManager = ConnectionManagerImpl.INSTANCE;
   }
 
   @Override
-  public Computer get(int id) throws DaoException {
+  public Computer get(int id) {
     ResultSet rs = null;
     Computer computer = null;
-    Connection conn = jdbcConnectionImpl.getConnection();
+    Connection conn = connectionManager.getConnection();
     QueryStatementGenerator qsp = new QueryStatementGenerator.Builder(conn).select("*")
         .from("computer").leftJoinOn("company", "computer.company_id = company.id")
         .where("computer.id=?", String.valueOf(id)).build();
@@ -51,18 +49,18 @@ public enum ComputerDaoImpl implements ComputerDao {
     } catch (SQLException e) {
       throw new DaoException("Fail during: " + qsp.getQuery(), e);
     } finally {
-      ConnectionCloser.close(rs, qsp.getPreparedStatement(), conn, qsp.getQuery().toString());
+      ObjectCloser.close(rs, qsp.getPreparedStatement(), qsp.getQuery().toString());
     }
 
     return computer;
   }
 
   @Override
-  public List<Computer> get(QueryParams qp) throws DaoException {
+  public List<Computer> get(QueryParams qp) {
 
     List<Computer> computers = null;
     ResultSet rs = null;
-    Connection conn = jdbcConnectionImpl.getConnection();
+    Connection conn = connectionManager.getConnection();
     QueryStatementGenerator qsp = new QueryStatementGenerator.Builder(conn).select("*")
         .from("computer").leftJoinOn("company", "computer.company_id = company.id")
         .orderBy(qp.getOrderBy()).order(qp.getOrder()).limit(String.valueOf(qp.getLimit()))
@@ -74,18 +72,18 @@ public enum ComputerDaoImpl implements ComputerDao {
     } catch (SQLException e) {
       throw new DaoException("Fail during: " + qsp.getQuery(), e);
     } finally {
-      ConnectionCloser.close(rs, qsp.getPreparedStatement(), conn, qsp.getQuery().toString());
+      ObjectCloser.close(rs, qsp.getPreparedStatement(), qsp.getQuery().toString());
     }
 
     return computers;
   }
 
   @Override
-  public List<Computer> getAll() throws DaoException {
+  public List<Computer> getAll() {
 
     List<Computer> computers = null;
     ResultSet rs = null;
-    Connection conn = jdbcConnectionImpl.getConnection();
+    Connection conn = connectionManager.getConnection();
     QueryStatementGenerator qsp = new QueryStatementGenerator.Builder(conn).select("*")
         .from("computer").leftJoinOn("company", "computer.company_id = company.id").build();
 
@@ -95,18 +93,18 @@ public enum ComputerDaoImpl implements ComputerDao {
     } catch (SQLException e) {
       throw new DaoException("Fail during: " + qsp.getQuery(), e);
     } finally {
-      ConnectionCloser.close(rs, qsp.getPreparedStatement(), conn, qsp.getQuery().toString());
+      ObjectCloser.close(rs, qsp.getPreparedStatement(), qsp.getQuery().toString());
     }
 
     return computers;
   }
 
   @Override
-  public int create(Computer computer) throws DaoException {
+  public int create(Computer computer) {
 
     String createComputerQuery = "INSERT INTO computer VALUES (default, ?, ?, ?, ?)";
     LOGGER.debug(createComputerQuery);
-    Connection conn = jdbcConnectionImpl.getConnection();
+    Connection conn = connectionManager.getConnection();
     PreparedStatement ps = null;
     ResultSet rs = null;
     int computerId = 0;
@@ -121,38 +119,38 @@ public enum ComputerDaoImpl implements ComputerDao {
     } catch (SQLException e) {
       throw new DaoException("Fail during: " + createComputerQuery, e);
     } finally {
-      ConnectionCloser.close(rs, ps, conn, createComputerQuery);
+      ObjectCloser.close(rs, ps, createComputerQuery);
     }
 
     return computerId;
   }
 
   @Override
-  public int update(Computer computer) throws DaoException {
+  public int update(Computer computer) {
 
-    String sql = "UPDATE computer SET name=?, introduced=?, discontinued=?, company_id=? WHERE id=?";
-    LOGGER.debug(sql);
-    Connection conn = jdbcConnectionImpl.getConnection();
+    String updateComputerQuery = "UPDATE computer SET name=?, introduced=?, discontinued=?, company_id=? WHERE id=?";
+    LOGGER.debug(updateComputerQuery);
+    Connection conn = connectionManager.getConnection();
     PreparedStatement ps = null;
 
     try {
-      ps = conn.prepareStatement(sql);
+      ps = conn.prepareStatement(updateComputerQuery);
       ps = MapperComputerDaoPs.toPs(computer, ps);
       ps.setInt(5, computer.getId());
       ps.executeUpdate();
     } catch (SQLException e) {
-      throw new DaoException("Fail during: " + sql, e);
+      throw new DaoException("Fail during: " + updateComputerQuery, e);
     } finally {
-      ConnectionCloser.close(null, ps, conn, sql);
+      ObjectCloser.close(null, ps, updateComputerQuery);
     }
 
     return computer.getId();
   }
 
   @Override
-  public void delete(int id) throws DaoException {
+  public void delete(int id) {
 
-    Connection conn = jdbcConnectionImpl.getConnection();
+    Connection conn = connectionManager.getConnection();
     QueryStatementGenerator qsp = new QueryStatementGenerator.Builder(conn).deleteFrom("computer")
         .where("id=?", String.valueOf(id)).build();
 
@@ -161,15 +159,15 @@ public enum ComputerDaoImpl implements ComputerDao {
     } catch (SQLException e) {
       throw new DaoException("Fail during: " + qsp.getQuery(), e);
     } finally {
-      ConnectionCloser.close(null, qsp.getPreparedStatement(), conn, qsp.getQuery().toString());
+      ObjectCloser.close(null, qsp.getPreparedStatement(), qsp.getQuery().toString());
     }
 
   }
 
   @Override
-  public int count() throws DaoException {
+  public int count() {
 
-    Connection conn = jdbcConnectionImpl.getConnection();
+    Connection conn = connectionManager.getConnection();
     ResultSet rs = null;
     int count = 0;
     QueryStatementGenerator qsp = new QueryStatementGenerator.Builder(conn)
@@ -182,10 +180,27 @@ public enum ComputerDaoImpl implements ComputerDao {
     } catch (SQLException e) {
       throw new DaoException("Fail during: " + qsp.getQuery(), e);
     } finally {
-      ConnectionCloser.close(rs, qsp.getPreparedStatement(), conn, qsp.getQuery().toString());
+      ObjectCloser.close(rs, qsp.getPreparedStatement(), qsp.getQuery().toString());
     }
 
     return count;
+  }
+
+  @Override
+  public void deleteByCompanyId(int companyId) {
+
+    Connection conn = connectionManager.getConnection();
+    QueryStatementGenerator qsp = new QueryStatementGenerator.Builder(conn).deleteFrom("computer")
+        .where("company_id=?", String.valueOf(companyId)).build();
+
+    try {
+      qsp.getPreparedStatement().executeUpdate();
+    } catch (SQLException e) {
+      throw new DaoException("Fail during: " + qsp.getQuery(), e);
+    } finally {
+      ObjectCloser.close(null, qsp.getPreparedStatement(), qsp.getQuery().toString());
+    }
+
   }
 
 }

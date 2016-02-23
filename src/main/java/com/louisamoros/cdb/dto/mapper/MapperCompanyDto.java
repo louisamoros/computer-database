@@ -38,6 +38,7 @@ public class MapperCompanyDto {
     CompanyDto companyDto = new CompanyDto.Builder().id(company.getId()).name(company.getName())
         .build();
     return companyDto;
+
   }
 
   /**

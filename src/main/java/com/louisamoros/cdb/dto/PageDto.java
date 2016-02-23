@@ -18,11 +18,6 @@ public class PageDto {
   private String orderBy;
   private String order;
 
-  /**
-   * Instantiates a new page dto.
-   *
-   * @param builder the builder
-   */
   private PageDto(Builder builder) {
     this.page = builder.page;
     this.perPage = builder.perPage;
@@ -199,143 +194,66 @@ public class PageDto {
     private String orderBy;
     private String order;
 
-    /**
-     * Uri.
-     *
-     * @param uri the uri
-     * @return the builder
-     */
     public Builder uri(String uri) {
       this.uri = uri;
       return this;
     }
 
-    /**
-     * Page.
-     *
-     * @param page the page
-     * @return the builder
-     */
     public Builder page(int page) {
       this.page = page;
       return this;
     }
 
-    /**
-     * Per page.
-     *
-     * @param perPage the per page
-     * @return the builder
-     */
     public Builder perPage(int perPage) {
       this.perPage = perPage;
       return this;
     }
 
-    /**
-     * Limit.
-     *
-     * @param limit the limit
-     * @return the builder
-     */
     public Builder limit(int limit) {
       this.limit = limit;
       return this;
     }
 
-    /**
-     * Offset.
-     *
-     * @param offset the offset
-     * @return the builder
-     */
     public Builder offset(int offset) {
       this.offset = offset;
       return this;
     }
 
-    /**
-     * Count.
-     *
-     * @param count the count
-     * @return the builder
-     */
     public Builder count(int count) {
       this.count = count;
       return this;
     }
 
-    /**
-     * Starting page.
-     *
-     * @param startingPage the starting page
-     * @return the builder
-     */
     public Builder startingPage(int startingPage) {
       this.startingPage = startingPage;
       return this;
     }
 
-    /**
-     * Ending page.
-     *
-     * @param endingPage the ending page
-     * @return the builder
-     */
     public Builder endingPage(int endingPage) {
       this.endingPage = endingPage;
       return this;
     }
 
-    /**
-     * Total page.
-     *
-     * @param totalPage the total page
-     * @return the builder
-     */
     public Builder totalPage(int totalPage) {
       this.totalPage = totalPage;
       return this;
     }
 
-    /**
-     * Search.
-     *
-     * @param search the search
-     * @return the builder
-     */
     public Builder search(String search) {
       this.search = search;
       return this;
     }
 
-    /**
-     * Order by.
-     *
-     * @param orderBy the order by
-     * @return the builder
-     */
     public Builder orderBy(String orderBy) {
       this.orderBy = orderBy;
       return this;
     }
 
-    /**
-     * Order.
-     *
-     * @param order the order
-     * @return the builder
-     */
     public Builder order(String order) {
       this.order = order;
       return this;
     }
 
-    /**
-     * Builds the.
-     *
-     * @return the page dto
-     */
     public PageDto build() {
       return new PageDto(this);
     }

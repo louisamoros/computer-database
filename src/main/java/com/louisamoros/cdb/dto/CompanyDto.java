@@ -8,11 +8,6 @@ public class CompanyDto {
   int id;
   String name;
 
-  /**
-   * Instantiates a new company dto.
-   *
-   * @param builder the builder
-   */
   private CompanyDto(Builder builder) {
     this.id = builder.id;
     this.name = builder.name;
@@ -65,42 +60,22 @@ public class CompanyDto {
     return "CompanyDto [id=" + id + ", name=" + name + "]";
   }
 
-  /**
-   * The Class Builder.
-   */
   public static class Builder {
 
     // optional
     private int id;
     private String name;
 
-    /**
-     * Id.
-     *
-     * @param id the id
-     * @return the builder
-     */
     public Builder id(int id) {
       this.id = id;
       return this;
     }
 
-    /**
-     * Name.
-     *
-     * @param name the name
-     * @return the builder
-     */
     public Builder name(String name) {
       this.name = name;
       return this;
     }
 
-    /**
-     * Builds the.
-     *
-     * @return the company dto
-     */
     public CompanyDto build() {
       return new CompanyDto(this);
     }

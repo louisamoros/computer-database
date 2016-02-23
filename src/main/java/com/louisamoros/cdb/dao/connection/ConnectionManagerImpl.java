@@ -14,24 +14,24 @@ import java.util.Properties;
 /**
  * The Enum JDBCConnectionImpl.
  */
-public enum JdbcConnectionImpl implements JdbcConnection {
+public enum ConnectionManagerImpl implements ConnectionManager {
 
   INSTANCE;
 
-  private Connection conn;
-  private static BoneCP connPool;
   private static final String PROPERTIES_FILE = "dao.properties";
   private static final String URL;
   private static final String DRIVER;
   private static final String USERNAME;
   private static final String PASSWORD;
+  private static BoneCP connPool;
+  private Connection conn;
 
   static {
 
     try {
 
       Properties properties = new Properties();
-      InputStream propertiesFile = JdbcConnection.class.getClassLoader()
+      InputStream propertiesFile = ConnectionManager.class.getClassLoader()
           .getResourceAsStream(PROPERTIES_FILE);
 
       properties.load(propertiesFile);

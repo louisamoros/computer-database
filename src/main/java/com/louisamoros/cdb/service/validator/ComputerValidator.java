@@ -7,9 +7,6 @@ import com.louisamoros.cdb.model.Computer;
 
 import java.util.List;
 
-/**
- * The Class ComputerValidator.
- */
 public class ComputerValidator {
 
   /**

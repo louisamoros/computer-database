@@ -5,12 +5,11 @@ import com.louisamoros.cdb.model.Company;
 
 import java.util.List;
 
-/**
- * The Interface CompanyService.
- */
 public interface CompanyService {
 
   List<Company> getAll();
+
+  void delete(int companyId);
 
   void setCompanyDao(CompanyDao companyDao);
 

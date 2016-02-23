@@ -20,7 +20,7 @@ public class ComputerRestRequest {
    * @return the valid id
    */
   public static int getValidId(String id) {
-    // regex parse pathInfo
+
     Matcher matcher = regExIdPattern.matcher(id);
     if (matcher.find()) {
       validId = Integer.parseInt(matcher.group(1));

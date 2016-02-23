@@ -1,6 +1,5 @@
 package com.louisamoros.cdb.dao;
 
-import com.louisamoros.cdb.dao.exception.DaoException;
 import com.louisamoros.cdb.model.Company;
 
 import java.util.List;
@@ -10,6 +9,8 @@ import java.util.List;
  */
 public interface CompanyDao {
 
-  List<Company> getAll() throws DaoException;
+  List<Company> getAll();
+
+  void delete(int companyId);
 
 }

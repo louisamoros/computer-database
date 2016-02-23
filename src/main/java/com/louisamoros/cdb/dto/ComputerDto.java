@@ -5,29 +5,13 @@ package com.louisamoros.cdb.dto;
  */
 public class ComputerDto {
 
-  /** The computer id. */
   private int computerId;
-
-  /** The computer name. */
   private String computerName;
-
-  /** The discontinued. */
   private String discontinued;
-
-  /** The introduced. */
   private String introduced;
-
-  /** The company name. */
   private String companyName;
-
-  /** The company id. */
   private int companyId;
 
-  /**
-   * Instantiates a new computer dto.
-   *
-   * @param builder the builder
-   */
   private ComputerDto(Builder builder) {
     this.computerId = builder.computerId;
     this.computerName = builder.computerName;
@@ -136,73 +120,34 @@ public class ComputerDto {
   public static class Builder {
 
     // require
-    /** The computer name. */
     private String computerName;
 
     // optional
-    /** The computer id. */
     private int computerId;
-
-    /** The discontinued. */
     private String discontinued;
-
-    /** The introduced. */
     private String introduced;
-
-    /** The company name. */
     private String companyName;
-
-    /** The company id. */
     private int companyId;
 
-    /**
-     * Instantiates a new builder.
-     *
-     * @param computerName the computer name
-     */
     public Builder(String computerName) {
       this.computerName = computerName;
     }
 
-    /**
-     * Discontinued.
-     *
-     * @param discontinued the discontinued
-     * @return the builder
-     */
     public Builder discontinued(String discontinued) {
       this.discontinued = discontinued;
       return this;
     }
 
-    /**
-     * Introduced.
-     *
-     * @param introduced the introduced
-     * @return the builder
-     */
     public Builder introduced(String introduced) {
       this.introduced = introduced;
       return this;
     }
 
-    /**
-     * Company name.
-     *
-     * @param companyName the company name
-     * @return the builder
-     */
     public Builder companyName(String companyName) {
       this.companyName = companyName;
       return this;
     }
 
-    /**
-     * Company id.
-     *
-     * @param companyId the company id
-     * @return the builder
-     */
     public Builder companyId(int companyId) {
       this.companyId = companyId;
       return this;
@@ -213,11 +158,6 @@ public class ComputerDto {
       return this;
     }
 
-    /**
-     * Builds the.
-     *
-     * @return the computer dto
-     */
     public ComputerDto build() {
       return new ComputerDto(this);
     }

@@ -30,9 +30,10 @@ public class ListComputerController extends HttpServlet {
 
   private static final long serialVersionUID = -1500697912744651041L;
   private static final Logger LOGGER = LoggerFactory.getLogger(ListComputerController.class);
-  private ComputerService computerService = ComputerServiceImpl.INSTANCE;
   private static final String LIST_COMPUTER = "/WEB-INF/jsp/listComputer.jsp";
+  private ComputerService computerService = ComputerServiceImpl.INSTANCE;
 
+  @Override
   protected void doGet(HttpServletRequest request, HttpServletResponse response)
       throws ServletException, IOException {
 

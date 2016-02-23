@@ -22,7 +22,7 @@ public class MapperRsComputerDao {
    * @return the list
    * @throws DaoMapperException the dao mapper exception
    */
-  public static List<Computer> toList(ResultSet rs) throws DaoMapperException {
+  public static List<Computer> toList(ResultSet rs) {
     List<Computer> computers = new ArrayList<Computer>();
     try {
       while (rs.next()) {
@@ -54,7 +54,7 @@ public class MapperRsComputerDao {
    * @return the computer
    * @throws DaoMapperException the dao mapper exception
    */
-  public static Computer toComputer(ResultSet rs) throws DaoMapperException {
+  public static Computer toComputer(ResultSet rs) {
     Computer computer = null;
     try {
       while (rs.next()) {
@@ -76,4 +76,5 @@ public class MapperRsComputerDao {
     }
     return computer;
   }
+
 }

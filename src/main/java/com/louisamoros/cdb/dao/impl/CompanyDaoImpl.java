@@ -1,16 +1,17 @@
 package com.louisamoros.cdb.dao.impl;
 
 import com.louisamoros.cdb.dao.CompanyDao;
-import com.louisamoros.cdb.dao.connection.JdbcConnectionImpl;
+import com.louisamoros.cdb.dao.connection.ConnectionManager;
+import com.louisamoros.cdb.dao.connection.ConnectionManagerImpl;
 import com.louisamoros.cdb.dao.exception.DaoException;
 import com.louisamoros.cdb.dao.mapper.MapperRsCompanyDao;
+import com.louisamoros.cdb.dao.util.QueryStatementGenerator;
 import com.louisamoros.cdb.model.Company;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.sql.Connection;
-import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.List;
@@ -22,37 +23,49 @@ public enum CompanyDaoImpl implements CompanyDao {
 
   INSTANCE;
 
-  private JdbcConnectionImpl jdbcConnection;
-  private static final String GET_COMPANIES_QUERY = "SELECT * FROM company;";
-  private static Logger LOGGER = LoggerFactory.getLogger(CompanyDao.class);
+  public static Logger LOGGER = LoggerFactory.getLogger(CompanyDao.class);
+  private ConnectionManager connectionManager;
 
-  /**
-   * Instantiates a new company dao impl.
-   */
   private CompanyDaoImpl() {
-    jdbcConnection = JdbcConnectionImpl.INSTANCE;
+    connectionManager = ConnectionManagerImpl.INSTANCE;
   }
 
   @Override
   public List<Company> getAll() {
 
-    LOGGER.debug(GET_COMPANIES_QUERY);
     List<Company> companies = null;
     ResultSet rs = null;
-    PreparedStatement ps = null;
-    Connection conn = jdbcConnection.getConnection();
+    Connection conn = connectionManager.getConnection();
+    QueryStatementGenerator qsp = new QueryStatementGenerator.Builder(conn).select("*")
+        .from("company").build();
 
     try {
-      ps = conn.prepareStatement(GET_COMPANIES_QUERY);
-      rs = ps.executeQuery();
+      rs = qsp.getPreparedStatement().executeQuery();
       companies = MapperRsCompanyDao.toList(rs);
     } catch (SQLException e) {
-      throw new DaoException("Fail during: " + GET_COMPANIES_QUERY, e);
+      throw new DaoException("Fail during: " + qsp.getQuery(), e);
     } finally {
-      ConnectionCloser.close(rs, ps, conn, GET_COMPANIES_QUERY);
+      ObjectCloser.close(rs, qsp.getPreparedStatement(), qsp.getQuery().toString());
     }
 
     return companies;
+  }
+
+  @Override
+  public void delete(int companyId) {
+
+    Connection conn = connectionManager.getConnection();
+    QueryStatementGenerator qsp = new QueryStatementGenerator.Builder(conn).deleteFrom("company")
+        .where("id=?", String.valueOf(companyId)).build();;
+
+    try {
+      qsp.getPreparedStatement().executeUpdate();
+    } catch (SQLException e) {
+      throw new DaoException("Fail during: " + qsp.getQuery(), e);
+    } finally {
+      ObjectCloser.close(null, qsp.getPreparedStatement(), qsp.getQuery().toString());
+    }
+
   }
 
 }

@@ -5,9 +5,6 @@ import com.louisamoros.cdb.model.Company;
 
 import java.util.List;
 
-/**
- * The Class CompanyValidator.
- */
 public class CompanyValidator {
 
   /**

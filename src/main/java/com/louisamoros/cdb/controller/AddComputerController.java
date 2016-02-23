@@ -31,12 +31,13 @@ import javax.servlet.http.HttpServletResponse;
 @WebServlet(name = "/computer/new", value = "/computer/new")
 public class AddComputerController extends HttpServlet {
 
-  private static final long serialVersionUID = 1L;
+  private static final long serialVersionUID = 2184299382015455686L;
   private static final Logger LOGGER = LoggerFactory.getLogger(AddComputerController.class);
+  private static final String ADD_COMPUTER = "/WEB-INF/jsp/addComputer.jsp";
   private CompanyService companyService = CompanyServiceImpl.INSTANCE;
   private ComputerService computerService = ComputerServiceImpl.INSTANCE;
-  private static final String ADD_COMPUTER = "/WEB-INF/jsp/addComputer.jsp";
 
+  @Override
   protected void doGet(HttpServletRequest request, HttpServletResponse response)
       throws ServletException, IOException {
 
@@ -49,6 +50,7 @@ public class AddComputerController extends HttpServlet {
 
   }
 
+  @Override
   protected void doPost(HttpServletRequest request, HttpServletResponse response)
       throws ServletException, IOException {
 
