@@ -59,9 +59,7 @@ public enum TransactionManagerImpl implements TransactionManager {
   public void commitTransaction() {
     try {
       context.get().commit();
-      LOGGER.info("successfully commited");
     } catch (SQLException e) {
-      LOGGER.error("failed to commit transaction");
       throw new TransactionManagerException("Commiting transaction failed." + e);
     }
   }

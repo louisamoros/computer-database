@@ -1,12 +1,12 @@
 package com.louisamoros.cdb.dao.impl;
 
 import com.louisamoros.cdb.dao.CompanyDao;
-import com.louisamoros.cdb.dao.connection.ConnectionManager;
-import com.louisamoros.cdb.dao.connection.ConnectionManagerImpl;
 import com.louisamoros.cdb.dao.exception.DaoException;
 import com.louisamoros.cdb.dao.mapper.MapperRsCompanyDao;
 import com.louisamoros.cdb.dao.util.QueryStatementGenerator;
 import com.louisamoros.cdb.model.Company;
+import com.louisamoros.cdb.service.util.TransactionManager;
+import com.louisamoros.cdb.service.util.TransactionManagerImpl;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -24,10 +24,10 @@ public enum CompanyDaoImpl implements CompanyDao {
   INSTANCE;
 
   public static Logger LOGGER = LoggerFactory.getLogger(CompanyDao.class);
-  private ConnectionManager connectionManager;
+  private TransactionManager transactionManager;
 
   private CompanyDaoImpl() {
-    connectionManager = ConnectionManagerImpl.INSTANCE;
+    transactionManager = TransactionManagerImpl.INSTANCE;
   }
 
   @Override
@@ -35,7 +35,7 @@ public enum CompanyDaoImpl implements CompanyDao {
 
     List<Company> companies = null;
     ResultSet rs = null;
-    Connection conn = connectionManager.getConnection();
+    Connection conn = transactionManager.getConnection();
     QueryStatementGenerator qsp = new QueryStatementGenerator.Builder(conn).select("*")
         .from("company").build();
 
@@ -46,6 +46,7 @@ public enum CompanyDaoImpl implements CompanyDao {
       throw new DaoException("Fail during: " + qsp.getQuery(), e);
     } finally {
       ObjectCloser.close(rs, qsp.getPreparedStatement(), qsp.getQuery().toString());
+      transactionManager.closeConnection();
     }
 
     return companies;
@@ -54,7 +55,7 @@ public enum CompanyDaoImpl implements CompanyDao {
   @Override
   public void delete(int companyId) {
 
-    Connection conn = connectionManager.getConnection();
+    Connection conn = transactionManager.getConnection();
     QueryStatementGenerator qsp = new QueryStatementGenerator.Builder(conn).deleteFrom("company")
         .where("id=?", String.valueOf(companyId)).build();;
 
@@ -64,6 +65,7 @@ public enum CompanyDaoImpl implements CompanyDao {
       throw new DaoException("Fail during: " + qsp.getQuery(), e);
     } finally {
       ObjectCloser.close(null, qsp.getPreparedStatement(), qsp.getQuery().toString());
+      transactionManager.closeConnection();
     }
 
   }
