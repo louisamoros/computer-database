@@ -1,37 +1,23 @@
 package com.louisamoros.cdb.dao.util;
 
-import com.louisamoros.cdb.dao.exception.DaoException;
-
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.SQLException;
-import java.util.ArrayList;
-import java.util.List;
-
 /**
  * The Class QueryStatementGenerator.
  */
-public class QueryStatementGenerator {
+public class QueryGenerator {
 
   private static StringBuilder query;
-  private static PreparedStatement preparedStatement;
 
   /**
    * Instantiates a new query statement generator.
    *
    * @param builder the builder
    */
-  private QueryStatementGenerator(Builder builder) {
+  private QueryGenerator(Builder builder) {
     query = builder.query;
-    preparedStatement = builder.preparedStatement;
   }
 
   public StringBuilder getQuery() {
     return query;
-  }
-
-  public PreparedStatement getPreparedStatement() {
-    return preparedStatement;
   }
 
   /**
@@ -53,20 +39,8 @@ public class QueryStatementGenerator {
     private static final String SELECT_COUNT_FROM = " SELECT COUNT(*) FROM ";
     private static final String INSERT_INTO = " INSERT INTO ";
     private static final String VALUES = " VALUES ";
-    private static List<String> insertIntoPS = new ArrayList<>();
 
     private StringBuilder query = new StringBuilder();
-    private PreparedStatement preparedStatement;
-    private static Connection conn = null;
-
-    /**
-     * Instantiates a new builder.
-     *
-     * @param conn the conn
-     */
-    public Builder(Connection conn) {
-      Builder.conn = conn;
-    }
 
     /**
      * Select.
@@ -142,9 +116,8 @@ public class QueryStatementGenerator {
      * @param whereValue the where value
      * @return the builder
      */
-    public Builder where(String where, String whereValue) {
+    public Builder where(String where) {
       query.append(WHERE).append(where);
-      insertIntoPS.add(whereValue);
       return this;
     }
 
@@ -189,9 +162,8 @@ public class QueryStatementGenerator {
      * @param values the values
      * @return the builder
      */
-    public Builder update(String update, String set, List<String> values) {
+    public Builder update(String update, String set) {
       query.append(UPDATE).append(update).append(SET).append(set);
-      values.forEach(value -> insertIntoPS.add(value));
       return this;
     }
 
@@ -212,18 +184,8 @@ public class QueryStatementGenerator {
      *
      * @return the query statement generator
      */
-    public QueryStatementGenerator build() {
-      try {
-        preparedStatement = conn.prepareStatement(query.toString());
-        for (int i = 1; i < insertIntoPS.size(); i++) {
-          preparedStatement.setString(i, insertIntoPS.get(i));
-        }
-      } catch (SQLException e) {
-        throw new DaoException("Fail during: " + query, e);
-      } catch (Exception e) {
-        throw new DaoException("Fail during: " + query, e);
-      }
-      return new QueryStatementGenerator(this);
+    public QueryGenerator build() {
+      return new QueryGenerator(this);
     }
 
   }

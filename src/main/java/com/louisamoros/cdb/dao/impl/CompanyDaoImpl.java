@@ -3,7 +3,8 @@ package com.louisamoros.cdb.dao.impl;
 import com.louisamoros.cdb.dao.CompanyDao;
 import com.louisamoros.cdb.dao.exception.DaoException;
 import com.louisamoros.cdb.dao.mapper.MapperRsCompanyDao;
-import com.louisamoros.cdb.dao.util.QueryStatementGenerator;
+import com.louisamoros.cdb.dao.util.ObjectCloser;
+import com.louisamoros.cdb.dao.util.QueryGenerator;
 import com.louisamoros.cdb.model.Company;
 import com.louisamoros.cdb.service.util.TransactionManager;
 import com.louisamoros.cdb.service.util.TransactionManagerImpl;
@@ -12,6 +13,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.List;
@@ -35,17 +37,19 @@ public enum CompanyDaoImpl implements CompanyDao {
 
     List<Company> companies = null;
     ResultSet rs = null;
+    PreparedStatement ps = null;
     Connection conn = transactionManager.getConnection();
-    QueryStatementGenerator qsp = new QueryStatementGenerator.Builder(conn).select("*")
-        .from("company").build();
+    QueryGenerator qg = new QueryGenerator.Builder().select("*").from("company").build();
 
     try {
-      rs = qsp.getPreparedStatement().executeQuery();
+      ps = conn.prepareStatement(qg.getQuery().toString());
+      rs = ps.executeQuery();
+
       companies = MapperRsCompanyDao.toList(rs);
     } catch (SQLException e) {
-      throw new DaoException("Fail during: " + qsp.getQuery(), e);
+      throw new DaoException("Fail during: " + qg.getQuery(), e);
     } finally {
-      ObjectCloser.close(rs, qsp.getPreparedStatement(), qsp.getQuery().toString());
+      ObjectCloser.close(rs, ps, qg.getQuery().toString());
       transactionManager.closeConnection();
     }
 
@@ -55,16 +59,18 @@ public enum CompanyDaoImpl implements CompanyDao {
   @Override
   public void delete(int companyId) {
 
+    PreparedStatement ps = null;
     Connection conn = transactionManager.getConnection();
-    QueryStatementGenerator qsp = new QueryStatementGenerator.Builder(conn).deleteFrom("company")
-        .where("id=?", String.valueOf(companyId)).build();;
+    QueryGenerator qg = new QueryGenerator.Builder().deleteFrom("company").where("id=?").build();
 
     try {
-      qsp.getPreparedStatement().executeUpdate();
+      ps = conn.prepareStatement(qg.getQuery().toString());
+      ps.setInt(1, companyId);
+      ps.executeUpdate();
     } catch (SQLException e) {
-      throw new DaoException("Fail during: " + qsp.getQuery(), e);
+      throw new DaoException("Fail during: " + qg.getQuery(), e);
     } finally {
-      ObjectCloser.close(null, qsp.getPreparedStatement(), qsp.getQuery().toString());
+      ObjectCloser.close(null, ps, qg.getQuery().toString());
       transactionManager.closeConnection();
     }
 

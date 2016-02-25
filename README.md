@@ -12,3 +12,7 @@ Specs are described here: https://github.com/loicortola/spec-cdb/
  - t0+28 - Maven Multi-modules, Spring Security, Hibernate ORM (JPA, Criteria, QueryDSL, Spring Data JPA)
  - t0+30 - Web Services, end of project
  - t0+33 - Project presentation to sales & tech audience
+
+Docker command:
+
+ - docker run -p 8080:8080 louisamoros/cdb-jenkins

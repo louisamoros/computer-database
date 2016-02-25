@@ -1,4 +1,4 @@
-package com.louisamoros.cdb.dao.impl;
+package com.louisamoros.cdb.dao.util;
 
 import com.louisamoros.cdb.dao.exception.DaoException;
 
