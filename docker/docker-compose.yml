@@ -1,0 +1,17 @@
+dind-cdb:
+  build: ./dind
+  container_name: container-dind-cdb
+  privileged: true
+  expose:
+    - "5000"
+  environment:
+    PORT: "5000"
+jenkins-cdb:
+  build: ./jenkins-cdb
+  container_name: container-jenkins-cdb
+  ports: 
+    - "9000:8080"
+  links:
+    - dind-cdb
+  volumes:
+    - .dockercfg:/root/.dockercfg
