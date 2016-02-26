@@ -1,10 +1,11 @@
-package com.louisamoros.cdb.service;
+package com.louisamoros.cdb.utest;
 
 import com.louisamoros.cdb.dao.ComputerDao;
 import com.louisamoros.cdb.dao.impl.ComputerDaoImpl;
 import com.louisamoros.cdb.exception.InvalidComputerNameException;
 import com.louisamoros.cdb.exception.InvalidDateOrderException;
 import com.louisamoros.cdb.model.Computer;
+import com.louisamoros.cdb.service.ComputerService;
 import com.louisamoros.cdb.service.impl.ComputerServiceImpl;
 
 import org.junit.Assert;

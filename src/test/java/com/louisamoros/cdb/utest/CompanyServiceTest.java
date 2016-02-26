@@ -1,8 +1,9 @@
-package com.louisamoros.cdb.service;
+package com.louisamoros.cdb.utest;
 
 import com.louisamoros.cdb.dao.CompanyDao;
 import com.louisamoros.cdb.dao.impl.CompanyDaoImpl;
 import com.louisamoros.cdb.model.Company;
+import com.louisamoros.cdb.service.CompanyService;
 import com.louisamoros.cdb.service.impl.CompanyServiceImpl;
 
 import org.junit.Assert;

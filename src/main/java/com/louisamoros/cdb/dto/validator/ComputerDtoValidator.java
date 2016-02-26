@@ -25,17 +25,17 @@ public class ComputerDtoValidator {
     if (computerDto.getComputerName() == null || computerDto.getComputerName().isEmpty()) {
       throw new IntegrityException("Computer name is required.");
     }
-    if (computerDto.getDiscontinued() != null) {
-      if (!computerDto.getDiscontinued().isEmpty()) {
-        if (!isDateValid(computerDto.getDiscontinued())) {
-          throw new IntegrityException("Discontinued date format invalid.");
-        }
-      }
-    }
     if (computerDto.getIntroduced() != null) {
       if (!computerDto.getIntroduced().isEmpty()) {
         if (!isDateValid(computerDto.getIntroduced())) {
           throw new IntegrityException("Introduced date format invalid.");
+        }
+      }
+    }
+    if (computerDto.getDiscontinued() != null) {
+      if (!computerDto.getDiscontinued().isEmpty()) {
+        if (!isDateValid(computerDto.getDiscontinued())) {
+          throw new IntegrityException("Discontinued date format invalid.");
         }
       }
     }
