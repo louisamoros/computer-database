@@ -13,6 +13,10 @@ Specs are described here: https://github.com/loicortola/spec-cdb/
  - t0+30 - Web Services, end of project
  - t0+33 - Project presentation to sales & tech audience
 
-Docker command:
+Dockers:
 
- - docker run -p 8080:8080 louisamoros/cdb-jenkins
+ - https://github.com/louisamoros/dind-cdb
+ - https://github.com/louisamoros/jenkins-cdb
+ - https://github.com/louisamoros/jdk8-mvn-cdb
+ - https://github.com/louisamoros/mysql-test-cdb
+ - https://github.com/louisamoros/mysql-prod-cdb

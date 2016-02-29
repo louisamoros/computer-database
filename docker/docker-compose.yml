@@ -13,5 +13,3 @@ jenkins-cdb:
     - "9000:8080"
   links:
     - dind-cdb
-  volumes:
-    - .dockercfg:/root/.dockercfg
