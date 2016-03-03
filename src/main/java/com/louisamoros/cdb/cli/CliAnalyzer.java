@@ -1,5 +1,8 @@
+
 package com.louisamoros.cdb.cli;
 
+import com.louisamoros.cdb.service.CompanyService;
+import com.louisamoros.cdb.service.ComputerService;
 import org.apache.commons.cli.BasicParser;
 import org.apache.commons.cli.CommandLine;
 import org.apache.commons.cli.CommandLineParser;
@@ -8,48 +11,64 @@ import org.apache.commons.cli.Options;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+/**
+ * Cli analyzer handle commands of the cli.
+ */
 public class CliAnalyzer {
 
+  /**
+   * Logback logger for the class.
+   */
   private static final Logger LOGGER = LoggerFactory.getLogger(CliAnalyzer.class);
-  private String[] args = null;
+
+  /**
+   * Commands attribute where the commands are.
+   */
+  private final String[] commands;
+
+  /**
+   * Options attributes use with apache cli.
+   */
   private Options options = new Options();
 
   /**
    * Instantiates a new cli analyzer.
    *
-   * @param args the args
+   * @param cmds the string array of commands
    */
-  public CliAnalyzer(String[] args) {
+  public CliAnalyzer(final String... cmds) {
 
-    this.args = args;
+    this.commands = cmds;
     options.addOption("h", "help", false, "Show help.");
     // ELEMENT
     options.addOption("e", "element", true, "Element you want to act on <required>.");
     // ACTIONS
-    options.addOption("g", "get", false, "Command to GET the element.");
+    options.addOption("g", "get", true, "Command to GET the element.");
     options.addOption("c", "create", false, "Command to CREATE the element.");
-    options.addOption("d", "delete", false, "Command to DELETE the element.");
-    options.addOption("u", "update", false, "Command to UPDATE the element.");
+    options.addOption("d", "delete", true, "Command to DELETE the element.");
+    options.addOption("u", "update", true, "Command to UPDATE the element.");
+    options.addOption("count", false, "Command to COUNT number of element.");
     // PARAMS
-    options.addOption("id", "id", true, "Arg ID of the element.");
     options.addOption("n", "name", true, "Arg NAME of the element.");
-    options.addOption("din", "date-in", true, "Arg DATE INTRODUCED of the element.");
-    options.addOption("dout", "date-out", true, "Arg DATE DISCONTINUED of the element.");
-    options.addOption("idc", "id-company", true, "Arg ID COMPANY of the element.");
+    options.addOption("din", true, "Arg DATE INTRODUCED of the element.");
+    options.addOption("dout", true, "Arg DATE DISCONTINUED of the element.");
+    options.addOption("idc", true, "Arg ID COMPANY of the element.");
 
   }
 
   /**
-   * Parses the.
+   * Parse method will decompose commands to handle the request.
+   * @param companyService the company service
+   * @param computerService the computer service
    */
-  public void parse() {
+  public final void parse(final CompanyService companyService, final ComputerService computerService) {
 
     CommandLineParser parser = new BasicParser();
     CommandLine cmd = null;
 
     try {
 
-      cmd = parser.parse(options, args);
+      cmd = parser.parse(options, commands);
 
       // ask for help
       if (cmd.hasOption("h")) {
@@ -60,9 +79,9 @@ public class CliAnalyzer {
       if (cmd.hasOption("e")) {
         LOGGER.info("Element:" + cmd.getOptionValue("e"));
         if ("computer".equals(cmd.getOptionValue("e"))) {
-          ComputerCli.manage(cmd);
+          CliComputer.manage(cmd, computerService);
         } else if ("company".equals(cmd.getOptionValue("e"))) {
-          CompanyCli.manage(cmd);
+          CliCompany.manage(cmd, companyService);
         } else {
           LOGGER.error("Invalid element");
         }
@@ -82,6 +101,9 @@ public class CliAnalyzer {
 
   }
 
+  /**
+   * Help method print cli command help.
+   */
   private void help() {
     HelpFormatter formater = new HelpFormatter();
     formater.printHelp("CLI", options);

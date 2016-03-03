@@ -1,3 +1,4 @@
+
 package com.louisamoros.cdb.cli;
 
 import com.louisamoros.cdb.service.CompanyService;
@@ -8,7 +9,27 @@ import org.springframework.context.support.ClassPathXmlApplicationContext;
 import java.io.IOException;
 import java.util.Scanner;
 
-public class ComandLineInterface {
+/**
+ * Cli launcher class.
+ */
+public final class CliLauncher {
+
+  /**
+   * Computer service for the cli.
+   */
+  private static ComputerService computerService;
+
+  /**
+   * Company service for the cli.
+   */
+  private static CompanyService companyService;
+
+  /**
+   * The cli launcher constructor.
+   */
+  private CliLauncher() {
+    super();
+  }
 
   /**
    * The main method.
@@ -16,15 +37,15 @@ public class ComandLineInterface {
    * @param args the arguments
    * @throws IOException Signals that an I/O exception has occurred.
    */
-  public static void main(String... args) {
+  public static void main(final String... args) {
 
     boolean end = true;
     Scanner scanner = new Scanner(System.in);
 
     try (ClassPathXmlApplicationContext context = new ClassPathXmlApplicationContext(
         "classpath:application-context.xml")) {
-      ComputerService computerService = context.getBean(ComputerService.class);
-      CompanyService companyService = context.getBean(CompanyService.class);
+      computerService = context.getBean(ComputerService.class);
+      companyService = context.getBean(CompanyService.class);
     }
 
     while (end) {
@@ -33,7 +54,7 @@ public class ComandLineInterface {
       String command = scanner.nextLine();
       System.out.println(String.format("%s", command));
       String[] commands = command.split(" ");
-      new CliAnalyzer(commands).parse();
+      new CliAnalyzer(commands).parse(companyService, computerService);
       System.out.println(" ");
 
     }
