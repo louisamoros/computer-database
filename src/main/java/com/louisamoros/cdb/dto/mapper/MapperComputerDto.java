@@ -6,8 +6,8 @@ import com.louisamoros.cdb.model.Computer;
 import com.louisamoros.cdb.service.validator.ComputerValidator;
 
 import java.time.LocalDate;
-import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * The Class MapperComputerDto.
@@ -52,11 +52,7 @@ public class MapperComputerDto {
    * @return the list
    */
   public static List<Computer> toComputerList(List<ComputerDto> computersDto) {
-
-    List<Computer> computers = new ArrayList<>();
-    computersDto.forEach(computerDto -> computers.add(toComputer(computerDto)));
-    return computers;
-
+    return computersDto.stream().map(MapperComputerDto::toComputer).collect(Collectors.toList());
   }
 
   /**
@@ -83,11 +79,7 @@ public class MapperComputerDto {
    * @return the list
    */
   public static List<ComputerDto> toComputerDtoList(List<Computer> computers) {
-
-    List<ComputerDto> computersDto = new ArrayList<>();
-    computers.forEach(computer -> computersDto.add(toComputerDto(computer)));
-    return computersDto;
-
+    return computers.stream().map(MapperComputerDto::toComputerDto).collect(Collectors.toList());
   }
 
 }

@@ -19,7 +19,7 @@
 //
 // @Test
 // public void toComputerDtoTest() {
-// LOGGER.debug("toComputerDtoTest...");
+// LOGGER.info("toComputerDtoTest...");
 //
 // ComputerDto computerDtoExpected = new ComputerDto();
 // computerDtoExpected.setName("computerTest");
@@ -46,7 +46,7 @@
 //
 // @Test
 // public void toComputerDtoNullTest() {
-// LOGGER.debug("toComputerDtoNullTest...");
+// LOGGER.info("toComputerDtoNullTest...");
 //
 // ComputerDto computerDtoExpected = new ComputerDto();
 // computerDtoExpected.setName("computerTest");
@@ -72,7 +72,7 @@
 //
 // @Test (expected = InvalidComputerNameException.class)
 // public void toComputerDtoNoComputerNameTest() {
-// LOGGER.debug("toComputerDtoNoComputerNameTest...");
+// LOGGER.info("toComputerDtoNoComputerNameTest...");
 //
 // Company company = null;
 // Computer computer = new Computer(company, null, null, null);
@@ -82,7 +82,7 @@
 //
 // @Test (expected = IntegrityException.class)
 // public void toComputerDtoNoComputerTest() {
-// LOGGER.debug("toComputerDtoNoComputerTest...");
+// LOGGER.info("toComputerDtoNoComputerTest...");
 //
 // Computer computer = null;
 //
@@ -91,7 +91,7 @@
 //
 // @Test
 // public void toComputerTest() {
-// LOGGER.debug("toComputerTest...");
+// LOGGER.info("toComputerTest...");
 // Company companyExpected = new Company(1, "companyTest");
 // Computer computerExpected = new Computer(1, companyExpected, "computerTest", LocalDate.of(2000,
 // 9, 21), LocalDate.of(2000, 9, 21));
@@ -115,7 +115,7 @@
 //
 // @Test
 // public void toComputerNullTest() {
-// LOGGER.debug("toComputerNullTest...");
+// LOGGER.info("toComputerNullTest...");
 // Company companyExpected = null;
 // Computer computerExpected = new Computer(companyExpected, "computerTest", null, null);
 //
@@ -138,7 +138,7 @@
 //
 // @Test (expected = InvalidComputerNameException.class)
 // public void toComputerNoComputerNameTest() {
-// LOGGER.debug("toComputerNoComputerNameTest...");
+// LOGGER.info("toComputerNoComputerNameTest...");
 //
 // Company company = null;
 // Computer computer = new Computer(company, null, null, null);
@@ -148,7 +148,7 @@
 //
 // @Test (expected = IntegrityException.class)
 // public void toComputerNoComputerTest() {
-// LOGGER.debug("toComputerDtoNoComputerTest...");
+// LOGGER.info("toComputerDtoNoComputerTest...");
 //
 // Computer computer = null;
 //

@@ -9,11 +9,10 @@ import com.louisamoros.cdb.model.Company;
 import com.louisamoros.cdb.model.Computer;
 import com.louisamoros.cdb.service.CompanyService;
 import com.louisamoros.cdb.service.ComputerService;
-import com.louisamoros.cdb.service.impl.CompanyServiceImpl;
-import com.louisamoros.cdb.service.impl.ComputerServiceImpl;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 
 import java.io.IOException;
 import java.util.List;
@@ -21,27 +20,30 @@ import java.util.List;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
-import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 /**
  * The Class AddComputerController.
  */
-@WebServlet(name = "/computer/new", value = "/computer/new")
-public class AddComputerController extends HttpServlet {
+@WebServlet(name = "computerNew", value = "/computer/new")
+public class AddComputerController extends AbstractController {
 
   private static final long serialVersionUID = 2184299382015455686L;
   private static final Logger LOGGER = LoggerFactory.getLogger(AddComputerController.class);
   private static final String ADD_COMPUTER = "/WEB-INF/jsp/addComputer.jsp";
-  private CompanyService companyService = CompanyServiceImpl.INSTANCE;
-  private ComputerService computerService = ComputerServiceImpl.INSTANCE;
+
+  @Autowired
+  private CompanyService companyService;
+
+  @Autowired
+  private ComputerService computerService;
 
   @Override
   protected void doGet(HttpServletRequest request, HttpServletResponse response)
       throws ServletException, IOException {
 
-    LOGGER.debug("GOTO >>> addComputer.jsp");
+    LOGGER.info("GOTO >>> addComputer.jsp");
     List<Company> companies = companyService.getAll();
     List<CompanyDto> companiesDto = MapperCompanyDto.toCompanyDtoList(companies);
     request.setAttribute("companies", companiesDto);
@@ -54,7 +56,7 @@ public class AddComputerController extends HttpServlet {
   protected void doPost(HttpServletRequest request, HttpServletResponse response)
       throws ServletException, IOException {
 
-    LOGGER.debug("DO POST computer creation...");
+    LOGGER.info("DO POST computer creation...");
     ComputerDto computerDto = new ComputerDto.Builder(request.getParameter("name"))
         .companyId(Integer.parseInt(request.getParameter("companyId")))
         .discontinued(request.getParameter("discontinued"))
@@ -62,8 +64,8 @@ public class AddComputerController extends HttpServlet {
     ComputerDtoValidator.validate(computerDto);
     Computer computer = MapperComputerDto.toComputer(computerDto);
     int computerCreatedId = computerService.create(computer);
-    LOGGER.debug("CREATED ComputerId : " + computerCreatedId);
-    response.sendRedirect("/computer");
+    LOGGER.info("CREATED ComputerId : " + computerCreatedId);
+    response.sendRedirect("/cdb/computer");
 
   }
 

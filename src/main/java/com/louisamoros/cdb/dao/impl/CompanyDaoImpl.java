@@ -7,10 +7,11 @@ import com.louisamoros.cdb.dao.util.ObjectCloser;
 import com.louisamoros.cdb.dao.util.QueryGenerator;
 import com.louisamoros.cdb.model.Company;
 import com.louisamoros.cdb.service.util.TransactionManager;
-import com.louisamoros.cdb.service.util.TransactionManagerImpl;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Repository;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -18,19 +19,13 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.List;
 
-/**
- * The Enum CompanyDaoImpl.
- */
-public enum CompanyDaoImpl implements CompanyDao {
-
-  INSTANCE;
+@Repository
+public class CompanyDaoImpl implements CompanyDao {
 
   public static Logger LOGGER = LoggerFactory.getLogger(CompanyDao.class);
-  private TransactionManager transactionManager;
 
-  private CompanyDaoImpl() {
-    transactionManager = TransactionManagerImpl.INSTANCE;
-  }
+  @Autowired
+  private TransactionManager transactionManager;
 
   @Override
   public List<Company> getAll() {

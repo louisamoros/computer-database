@@ -9,10 +9,11 @@ import com.louisamoros.cdb.dao.util.ObjectCloser;
 import com.louisamoros.cdb.dao.util.QueryGenerator;
 import com.louisamoros.cdb.model.Computer;
 import com.louisamoros.cdb.service.util.TransactionManager;
-import com.louisamoros.cdb.service.util.TransactionManagerImpl;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Repository;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -21,19 +22,18 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.List;
 
-/**
- * The Enum ComputerDaoImpl.
- */
-public enum ComputerDaoImpl implements ComputerDao {
+import javax.sql.DataSource;
 
-  INSTANCE;
+@Repository
+public class ComputerDaoImpl implements ComputerDao {
 
   public static Logger LOGGER = LoggerFactory.getLogger(ComputerDao.class);
+
+  @Autowired
   private TransactionManager transactionManager;
 
-  private ComputerDaoImpl() {
-    transactionManager = TransactionManagerImpl.INSTANCE;
-  }
+  @Autowired
+  private DataSource dataSource;
 
   @Override
   public Computer get(int id) {
@@ -43,7 +43,7 @@ public enum ComputerDaoImpl implements ComputerDao {
     Connection conn = transactionManager.getConnection();
     QueryGenerator qg = new QueryGenerator.Builder().select("*").from("computer")
         .leftJoinOn("company", "computer.company_id = company.id").where("computer.id=?").build();
-    LOGGER.debug(qg.getQuery().toString());
+    LOGGER.info(qg.getQuery().toString());
 
     try {
       ps = conn.prepareStatement(qg.getQuery().toString());
@@ -71,8 +71,9 @@ public enum ComputerDaoImpl implements ComputerDao {
         .leftJoinOn("company", "computer.company_id = company.id").orderBy(qp.getOrderBy())
         .order(qp.getOrder()).limit(String.valueOf(qp.getLimit()))
         .offset(String.valueOf(qp.getOffset())).build();
-    LOGGER.debug(qg.getQuery().toString());
+    LOGGER.info(qg.getQuery().toString());
     try {
+      conn = dataSource.getConnection();
       ps = conn.prepareStatement(qg.getQuery().toString());
       rs = ps.executeQuery();
       computers = MapperRsComputerDao.toList(rs);
@@ -95,7 +96,7 @@ public enum ComputerDaoImpl implements ComputerDao {
     Connection conn = transactionManager.getConnection();
     QueryGenerator qg = new QueryGenerator.Builder().select("*").from("computer")
         .leftJoinOn("company", "computer.company_id = company.id").build();
-    LOGGER.debug(qg.getQuery().toString());
+    LOGGER.info(qg.getQuery().toString());
     try {
       ps = conn.prepareStatement(qg.getQuery().toString());
       rs = ps.executeQuery();
@@ -113,14 +114,13 @@ public enum ComputerDaoImpl implements ComputerDao {
   @Override
   public int create(Computer computer) {
 
-    // String createComputerQuery = "INSERT INTO computer VALUES (default, ?, ?, ?, ?)";
     Connection conn = transactionManager.getConnection();
     PreparedStatement ps = null;
     ResultSet rs = null;
     int computerId = 0;
     QueryGenerator qg = new QueryGenerator.Builder().insertInto("computer", "(default, ?, ?, ?, ?)")
         .build();
-    LOGGER.debug(qg.getQuery().toString());
+    LOGGER.info(qg.getQuery().toString());
 
     try {
       ps = conn.prepareStatement(qg.getQuery().toString(), Statement.RETURN_GENERATED_KEYS);
@@ -142,14 +142,12 @@ public enum ComputerDaoImpl implements ComputerDao {
   @Override
   public int update(Computer computer) {
 
-    // String updateComputerQuery = "UPDATE computer SET name=?, introduced=?, discontinued=?,
-    // company_id=? WHERE id=?";
     Connection conn = transactionManager.getConnection();
     PreparedStatement ps = null;
     QueryGenerator qg = new QueryGenerator.Builder()
         .update("computer", "name=?, introduced=?, discontinued=?, company_id=?").where("id=?")
         .build();
-    LOGGER.debug(qg.getQuery().toString());
+    LOGGER.info(qg.getQuery().toString());
 
     try {
       ps = conn.prepareStatement(qg.getQuery().toString());
@@ -172,7 +170,7 @@ public enum ComputerDaoImpl implements ComputerDao {
     Connection conn = transactionManager.getConnection();
     PreparedStatement ps = null;
     QueryGenerator qg = new QueryGenerator.Builder().deleteFrom("computer").where("id=?").build();
-    LOGGER.debug(qg.getQuery().toString());
+    LOGGER.info(qg.getQuery().toString());
     try {
       ps = conn.prepareStatement(qg.getQuery().toString());
       ps.setInt(1, id);
@@ -194,8 +192,9 @@ public enum ComputerDaoImpl implements ComputerDao {
     PreparedStatement ps = null;
     int count = 0;
     QueryGenerator qg = new QueryGenerator.Builder().selectCountFrom("computer").build();
-    LOGGER.debug(qg.getQuery().toString());
+    LOGGER.info(qg.getQuery().toString());
     try {
+      conn = dataSource.getConnection();
       ps = conn.prepareStatement(qg.getQuery().toString());
       rs = ps.executeQuery();
       rs.next();
@@ -217,7 +216,7 @@ public enum ComputerDaoImpl implements ComputerDao {
     Connection conn = transactionManager.getConnection();
     QueryGenerator qsp = new QueryGenerator.Builder().deleteFrom("computer").where("company_id=?")
         .build();
-    LOGGER.debug(qsp.getQuery().toString());
+    LOGGER.info(qsp.getQuery().toString());
     try {
       ps = conn.prepareStatement(qsp.getQuery().toString());
       ps.setInt(1, companyId);

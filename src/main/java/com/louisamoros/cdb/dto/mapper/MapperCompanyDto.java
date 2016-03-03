@@ -4,8 +4,8 @@ import com.louisamoros.cdb.dto.CompanyDto;
 import com.louisamoros.cdb.model.Company;
 import com.louisamoros.cdb.service.validator.CompanyValidator;
 
-import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * The Class MapperCompanyDto.
@@ -48,11 +48,7 @@ public class MapperCompanyDto {
    * @return the list
    */
   public static List<CompanyDto> toCompanyDtoList(List<Company> companies) {
-
-    List<CompanyDto> companiesDto = new ArrayList<>();
-    companies.forEach(company -> companiesDto.add(toCompanyDto(company)));
-    return companiesDto;
-
+    return companies.stream().map(MapperCompanyDto::toCompanyDto).collect(Collectors.toList());
   }
 
 }

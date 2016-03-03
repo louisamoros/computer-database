@@ -28,7 +28,7 @@
   * Inits the.
   */
 /*
- * @BeforeClass public static void init() { LOGGER.debug("Init mocking companyDao...");
+ * @BeforeClass public static void init() { LOGGER.info("Init mocking companyDao...");
  * mockCompanyDao = PowerMockito.mock(CompanyDaoImpl.class); companyService =
  * CompanyServiceImpl.INSTANCE; companyService.setCompanyDao(mockCompanyDao); }
  * 
@@ -37,7 +37,7 @@
   *
   * @return the all companies test
   *//*
-     * @Test public void getAllCompaniesTest() { LOGGER.debug("getAllCompaniesTest...");
+     * @Test public void getAllCompaniesTest() { LOGGER.info("getAllCompaniesTest...");
      * PowerMockito.when(mockCompanyDao.getAll()).thenReturn(new ArrayList<Company>());
      * Assert.assertTrue(companyService.getAll() instanceof List<?>); }
      * 

@@ -21,7 +21,7 @@ package com.louisamoros.cdb.utest;
  * @BeforeClass public static void initConnection() throws Exception {
  * 
  * jdbcConnection = JDBCConnectionImpl.INSTANCE; properties = jdbcConnection.getProperties();
- * LOGGER.debug(properties.getProperty("url")); LOGGER.debug(properties.getProperty("username"));
+ * LOGGER.info(properties.getProperty("url")); LOGGER.info(properties.getProperty("username"));
  * 
  * try { RunScript.execute(properties.getProperty("url"), properties.getProperty("username"),
  * properties.getProperty("password"),
@@ -35,7 +35,7 @@ package com.louisamoros.cdb.utest;
  * 
  * }
  * 
- * @Before public void importDataSet() throws Exception { LOGGER.debug(
+ * @Before public void importDataSet() throws Exception { LOGGER.info(
  * "###### Importing data set..."); IDataSet dataSet = readDataSet(); if (dataSet == null) {
  * LOGGER.error("###### DATASET_FILE cannot be read correctly."); } cleanlyInsert(dataSet); }
  * 

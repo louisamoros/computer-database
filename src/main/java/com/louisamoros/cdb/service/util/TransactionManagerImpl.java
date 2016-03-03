@@ -1,26 +1,24 @@
 package com.louisamoros.cdb.service.util;
 
 import com.louisamoros.cdb.dao.connection.ConnectionManager;
-import com.louisamoros.cdb.dao.connection.ConnectionManagerImpl;
 import com.louisamoros.cdb.service.exception.TransactionManagerException;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 import java.sql.Connection;
 import java.sql.SQLException;
 
-public enum TransactionManagerImpl implements TransactionManager {
-
-  INSTANCE;
+@Component
+public class TransactionManagerImpl implements TransactionManager {
 
   public static final Logger LOGGER = LoggerFactory.getLogger(TransactionManagerImpl.class);
   public final ThreadLocal<Connection> context = new ThreadLocal<Connection>();
-  private static ConnectionManager connectionManager;
 
-  static {
-    connectionManager = ConnectionManagerImpl.INSTANCE;
-  }
+  @Autowired
+  private ConnectionManager connectionManager;
 
   @Override
   public Connection getConnection() {

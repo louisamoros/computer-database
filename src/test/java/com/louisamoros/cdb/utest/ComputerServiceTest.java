@@ -30,7 +30,7 @@
   * Inits the.
   */
 /*
- * @BeforeClass public static void init() { LOGGER.debug("Init mocking computerDao...");
+ * @BeforeClass public static void init() { LOGGER.info("Init mocking computerDao...");
  * mockComputerDao = PowerMockito.mock(ComputerDaoImpl.class); computerService =
  * ComputerServiceImpl.INSTANCE; computerService.setComputerDao(mockComputerDao); }
  * 
@@ -40,7 +40,7 @@
   * @return the all computers test
   */
 /*
- * @Test public void getAllComputersTest() { LOGGER.debug("getAllComputersTest...");
+ * @Test public void getAllComputersTest() { LOGGER.info("getAllComputersTest...");
  * PowerMockito.when(mockComputerDao.getAll()).thenReturn(getComputers());
  * Assert.assertTrue(computerService.getAll() instanceof List<?>);
  * Assert.assertEquals(computerService.getAll().size(), 2); }
@@ -49,7 +49,7 @@
   * Creates the computer test.
   */
 /*
- * @Test public void createComputerTest() { LOGGER.debug("createComputerTest..."); Computer
+ * @Test public void createComputerTest() { LOGGER.info("createComputerTest..."); Computer
  * computer1 = new Computer.Builder("computer1").company(null).introduced(null)
  * .discontinued(null).build(); PowerMockito.when(mockComputerDao.create(computer1)).thenReturn(1);
  * int createdComputerId = computerService.create(computer1); Assert.assertTrue(createdComputerId ==
@@ -60,7 +60,7 @@
   */
 /*
  * @Test(expected = InvalidComputerNameException.class) public void createComputerInvalidNameTest()
- * { LOGGER.debug("createComputerInvalidNameTest..."); Computer computer1 = new
+ * { LOGGER.info("createComputerInvalidNameTest..."); Computer computer1 = new
  * Computer.Builder(null).company(null).discontinued(null) .introduced(null).build();
  * computerService.create(computer1); }
  * 
@@ -69,7 +69,7 @@
   */
 /*
  * @Test(expected = InvalidDateOrderException.class) public void
- * createComputerInvalidDateOrderTest() { LOGGER.debug("createComputerInvalidDateOrderTest...");
+ * createComputerInvalidDateOrderTest() { LOGGER.info("createComputerInvalidDateOrderTest...");
  * Computer computer1 = new Computer.Builder("computer1").company(null)
  * .discontinued(LocalDate.of(2000, 9, 9)).introduced(LocalDate.now()).build();
  * computerService.create(computer1); }
@@ -78,7 +78,7 @@
   * Delete computer test.
   */
 /*
- * @Test public void deleteComputerTest() { LOGGER.debug("deleteComputerTest...");
+ * @Test public void deleteComputerTest() { LOGGER.info("deleteComputerTest...");
  * ArrayList<Computer> computers = getComputers(); computers.remove(1); mockComputerDao.delete(1);
  * PowerMockito.when(mockComputerDao.getAll()).thenReturn(computers);
  * Assert.assertEquals(computerService.getAll().size(), 1); }
@@ -86,7 +86,7 @@
  *//**
   * Update computer test.
   *//*
-     * @Test public void updateComputerTest() { LOGGER.debug("updateComputerTest...");
+     * @Test public void updateComputerTest() { LOGGER.info("updateComputerTest...");
      * ArrayList<Computer> computers = getComputers(); Computer computer1 = new
      * Computer.Builder("updatedComputer").company(null).discontinued(null)
      * .introduced(null).build(); computers.set(1, computer1);

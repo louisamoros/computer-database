@@ -7,10 +7,10 @@ import com.louisamoros.cdb.dto.PageDto;
 import com.louisamoros.cdb.dto.mapper.MapperComputerDto;
 import com.louisamoros.cdb.model.Computer;
 import com.louisamoros.cdb.service.ComputerService;
-import com.louisamoros.cdb.service.impl.ComputerServiceImpl;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 
 import java.io.IOException;
 import java.util.List;
@@ -18,26 +18,27 @@ import java.util.List;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
-import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 /**
  * The Class ListComputerController.
  */
-@WebServlet(name = "/computer", value = "/computer")
-public class ListComputerController extends HttpServlet {
+@WebServlet(name = "computer", value = "/computer")
+public class ListComputerController extends AbstractController {
 
   private static final long serialVersionUID = -1500697912744651041L;
   private static final Logger LOGGER = LoggerFactory.getLogger(ListComputerController.class);
   private static final String LIST_COMPUTER = "/WEB-INF/jsp/listComputer.jsp";
-  private ComputerService computerService = ComputerServiceImpl.INSTANCE;
+
+  @Autowired
+  private ComputerService computerService;
 
   @Override
   protected void doGet(HttpServletRequest request, HttpServletResponse response)
       throws ServletException, IOException {
 
-    LOGGER.debug("GOTO >>> lisComputer.jsp");
+    LOGGER.info("GOTO >>> lisComputer.jsp");
     String page = request.getParameter("p");
     String perPage = request.getParameter("pp");
     String orderBy = request.getParameter("orderby");

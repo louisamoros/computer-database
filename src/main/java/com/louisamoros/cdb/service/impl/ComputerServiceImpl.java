@@ -2,28 +2,20 @@ package com.louisamoros.cdb.service.impl;
 
 import com.louisamoros.cdb.controller.util.QueryParams;
 import com.louisamoros.cdb.dao.ComputerDao;
-import com.louisamoros.cdb.dao.impl.ComputerDaoImpl;
 import com.louisamoros.cdb.model.Computer;
 import com.louisamoros.cdb.service.ComputerService;
 import com.louisamoros.cdb.service.validator.ComputerValidator;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
 import java.util.List;
 
-/**
- * The Enum ComputerServiceImpl.
- */
-public enum ComputerServiceImpl implements ComputerService {
+@Service
+public class ComputerServiceImpl implements ComputerService {
 
-  INSTANCE;
-
+  @Autowired
   private ComputerDao computerDao;
-
-  /**
-   * Instantiates a new computer service impl.
-   */
-  ComputerServiceImpl() {
-    computerDao = ComputerDaoImpl.INSTANCE;
-  }
 
   @Override
   public List<Computer> getAll() {

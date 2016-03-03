@@ -11,7 +11,7 @@ public class DumbyTest {
 
   @Test
   public void dumbyTest() {
-    LOGGER.debug("I am a working dumby test...");
+    LOGGER.info("I am a working dumby test...");
     Assert.assertTrue(true);
   }
 

@@ -1,7 +1,6 @@
 package com.louisamoros.cdb.dao;
 
 import com.louisamoros.cdb.controller.util.QueryParams;
-import com.louisamoros.cdb.dao.exception.DaoException;
 import com.louisamoros.cdb.model.Computer;
 
 import java.util.List;
@@ -11,7 +10,7 @@ import java.util.List;
  */
 public interface ComputerDao {
 
-  int count() throws DaoException;
+  int count();
 
   Computer get(int computerId);
 
@@ -25,6 +24,6 @@ public interface ComputerDao {
 
   void deleteByCompanyId(int companyId);
 
-  void delete(int computerId) throws DaoException;
+  void delete(int computerId);
 
 }
