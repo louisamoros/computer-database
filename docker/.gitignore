@@ -1,7 +1,0 @@
-# Ignore everything
-*
-
-# But not these files...
-!.gitignore
-!send-credentials.sh
-!docker-compose.yml
