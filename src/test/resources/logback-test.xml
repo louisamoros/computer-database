@@ -4,13 +4,23 @@
 
  <appender name="consoleAppender" class="ch.qos.logback.core.ConsoleAppender">
   <encoder>
-   <pattern>>>TEST %d{HH:mm:ss.SSS} | CDB-%-5level in [%thread] %logger{36} - %msg %n</pattern>
+   <pattern>UT CDB    %d{HH:mm:ss.SSS} | %-5level %logger{36} - %msg %n</pattern>
+  </encoder>
+ </appender>
+ 
+ <appender name="consoleAppenderSpring" class="ch.qos.logback.core.ConsoleAppender">
+  <encoder>
+   <pattern>UT SPRING %d{HH:mm:ss.SSS} | %-5level %logger{36} - %msg %n</pattern>
   </encoder>
  </appender>
 
- <root level="DEBUG">
+ <logger name="com.louisamoros.cdb" level="ALL">
   <appender-ref ref="consoleAppender" />
- </root>
+ </logger>
+ 
+ <logger name="org.springframework" level="INFO">
+  <appender-ref ref="consoleAppenderSpring" />
+ </logger>
 
 </configuration>
  

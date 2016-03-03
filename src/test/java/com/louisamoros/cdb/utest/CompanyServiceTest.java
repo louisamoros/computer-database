@@ -1,45 +1,57 @@
-/*
- * package com.louisamoros.cdb.utest;
- * 
- * import com.louisamoros.cdb.dao.CompanyDao; import com.louisamoros.cdb.dao.impl.CompanyDaoImpl;
- * import com.louisamoros.cdb.model.Company; import com.louisamoros.cdb.service.CompanyService;
- * import com.louisamoros.cdb.service.impl.CompanyServiceImpl;
- * 
- * import org.junit.Assert; import org.junit.BeforeClass; import org.junit.Test; import
- * org.junit.runner.RunWith; import org.powermock.api.mockito.PowerMockito; import
- * org.powermock.core.classloader.annotations.PrepareForTest; import
- * org.powermock.modules.junit4.PowerMockRunner; import org.slf4j.Logger; import
- * org.slf4j.LoggerFactory;
- * 
- * import java.util.ArrayList; import java.util.List;
- * 
- *//**
-  * The Class CompanyServiceTest.
-  */
-/*
- * @RunWith(PowerMockRunner.class)
- * 
- * @PrepareForTest(CompanyDaoImpl.class) public class CompanyServiceTest {
- * 
- * private static Logger LOGGER = LoggerFactory.getLogger(CompanyServiceTest.class); private static
- * CompanyDao mockCompanyDao; private static CompanyService companyService;
- * 
- *//**
-  * Inits the.
-  */
-/*
- * @BeforeClass public static void init() { LOGGER.info("Init mocking companyDao...");
- * mockCompanyDao = PowerMockito.mock(CompanyDaoImpl.class); companyService =
- * CompanyServiceImpl.INSTANCE; companyService.setCompanyDao(mockCompanyDao); }
- * 
- *//**
-  * Gets the all companies test.
-  *
-  * @return the all companies test
-  *//*
-     * @Test public void getAllCompaniesTest() { LOGGER.info("getAllCompaniesTest...");
-     * PowerMockito.when(mockCompanyDao.getAll()).thenReturn(new ArrayList<Company>());
-     * Assert.assertTrue(companyService.getAll() instanceof List<?>); }
-     * 
-     * }
-     */
+package com.louisamoros.cdb.utest;
+
+import com.louisamoros.cdb.dao.CompanyDao;
+import com.louisamoros.cdb.model.Company;
+import com.louisamoros.cdb.service.CompanyService;
+
+import org.junit.Assert;
+import org.junit.BeforeClass;
+import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.mockito.Mockito;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.test.context.ContextConfiguration;
+import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+
+import java.util.ArrayList;
+import java.util.List;
+
+/**
+ * The Class CompanyServiceTest.
+ */
+@RunWith(SpringJUnit4ClassRunner.class)
+@ContextConfiguration("test-application-context.xml")
+public class CompanyServiceTest {
+
+  private static Logger LOGGER = LoggerFactory.getLogger(CompanyServiceTest.class);
+
+  @Autowired
+  private static CompanyDao mockCompanyDao;
+
+  @Autowired
+  private static CompanyService companyService;
+
+  /**
+   * Inits the.
+   */
+  @BeforeClass
+  public static void init() {
+    LOGGER.info("Init mocking companyDao...");
+    companyService.setCompanyDao(mockCompanyDao);
+  }
+
+  /**
+   * Gets the all companies test.
+   *
+   * @return the all companies test
+   */
+  @Test
+  public void getAllCompaniesTest() {
+    LOGGER.info("getAllCompaniesTest...");
+    Mockito.when(mockCompanyDao.getAll()).thenReturn(new ArrayList<Company>());
+    Assert.assertTrue(companyService.getAll() instanceof List<?>);
+  }
+
+}

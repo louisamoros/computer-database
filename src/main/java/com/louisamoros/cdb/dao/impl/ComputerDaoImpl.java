@@ -8,7 +8,6 @@ import com.louisamoros.cdb.dao.mapper.MapperRsComputerDao;
 import com.louisamoros.cdb.dao.util.ObjectCloser;
 import com.louisamoros.cdb.dao.util.QueryGenerator;
 import com.louisamoros.cdb.model.Computer;
-import com.louisamoros.cdb.service.util.TransactionManager;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -30,22 +29,30 @@ public class ComputerDaoImpl implements ComputerDao {
   public static Logger LOGGER = LoggerFactory.getLogger(ComputerDao.class);
 
   @Autowired
-  private TransactionManager transactionManager;
-
-  @Autowired
   private DataSource dataSource;
 
   @Override
   public Computer get(int id) {
+
     ResultSet rs = null;
     PreparedStatement ps = null;
     Computer computer = null;
-    Connection conn = transactionManager.getConnection();
-    QueryGenerator qg = new QueryGenerator.Builder().select("*").from("computer")
-        .leftJoinOn("company", "computer.company_id = company.id").where("computer.id=?").build();
+    Connection conn = null;
+
+    // @formatter:off
+    QueryGenerator qg = new QueryGenerator
+        .Builder()
+        .select("*")
+        .from("computer")
+        .leftJoinOn("company", "computer.company_id = company.id")
+        .where("computer.id=?")
+        .build();
+    // @formatter:on
+
     LOGGER.info(qg.getQuery().toString());
 
     try {
+      conn = dataSource.getConnection();
       ps = conn.prepareStatement(qg.getQuery().toString());
       ps.setInt(1, id);
       rs = ps.executeQuery();
@@ -54,7 +61,6 @@ public class ComputerDaoImpl implements ComputerDao {
       throw new DaoException("Fail during: " + qg.getQuery(), e);
     } finally {
       ObjectCloser.close(rs, ps, qg.getQuery().toString());
-      transactionManager.closeConnection();
     }
 
     return computer;
@@ -66,12 +72,23 @@ public class ComputerDaoImpl implements ComputerDao {
     List<Computer> computers = null;
     ResultSet rs = null;
     PreparedStatement ps = null;
-    Connection conn = transactionManager.getConnection();
-    QueryGenerator qg = new QueryGenerator.Builder().select("*").from("computer")
-        .leftJoinOn("company", "computer.company_id = company.id").orderBy(qp.getOrderBy())
-        .order(qp.getOrder()).limit(String.valueOf(qp.getLimit()))
-        .offset(String.valueOf(qp.getOffset())).build();
+    Connection conn = null;
+
+    // @formatter:off
+    QueryGenerator qg = new QueryGenerator
+        .Builder()
+        .select("*")
+        .from("computer")
+        .leftJoinOn("company", "computer.company_id = company.id")
+        .orderBy(qp.getOrderBy())
+        .order(qp.getOrder())
+        .limit(String.valueOf(qp.getLimit()))
+        .offset(String.valueOf(qp.getOffset()))
+        .build();
+    // @formatter:on
+
     LOGGER.info(qg.getQuery().toString());
+
     try {
       conn = dataSource.getConnection();
       ps = conn.prepareStatement(qg.getQuery().toString());
@@ -81,7 +98,6 @@ public class ComputerDaoImpl implements ComputerDao {
       throw new DaoException("Fail during: " + qg.getQuery(), e);
     } finally {
       ObjectCloser.close(rs, ps, qg.getQuery().toString());
-      transactionManager.closeConnection();
     }
 
     return computers;
@@ -93,11 +109,21 @@ public class ComputerDaoImpl implements ComputerDao {
     List<Computer> computers = null;
     ResultSet rs = null;
     PreparedStatement ps = null;
-    Connection conn = transactionManager.getConnection();
-    QueryGenerator qg = new QueryGenerator.Builder().select("*").from("computer")
-        .leftJoinOn("company", "computer.company_id = company.id").build();
+    Connection conn = null;
+
+    // @formatter:off
+    QueryGenerator qg = new QueryGenerator
+        .Builder()
+        .select("*")
+        .from("computer")
+        .leftJoinOn("company", "computer.company_id = company.id")
+        .build();
+    // @formatter:off
+    
     LOGGER.info(qg.getQuery().toString());
+    
     try {
+      conn = dataSource.getConnection();
       ps = conn.prepareStatement(qg.getQuery().toString());
       rs = ps.executeQuery();
       computers = MapperRsComputerDao.toList(rs);
@@ -105,7 +131,6 @@ public class ComputerDaoImpl implements ComputerDao {
       throw new DaoException("Fail during: " + qg.getQuery(), e);
     } finally {
       ObjectCloser.close(rs, ps, qg.getQuery().toString());
-      transactionManager.closeConnection();
     }
 
     return computers;
@@ -114,15 +139,22 @@ public class ComputerDaoImpl implements ComputerDao {
   @Override
   public int create(Computer computer) {
 
-    Connection conn = transactionManager.getConnection();
+    Connection conn = null;
     PreparedStatement ps = null;
     ResultSet rs = null;
     int computerId = 0;
-    QueryGenerator qg = new QueryGenerator.Builder().insertInto("computer", "(default, ?, ?, ?, ?)")
+
+    // @formatter:off
+    QueryGenerator qg = new QueryGenerator
+        .Builder()
+        .insertInto("computer", "(default, ?, ?, ?, ?)")
         .build();
+    // @formatter:on
+
     LOGGER.info(qg.getQuery().toString());
 
     try {
+      conn = dataSource.getConnection();
       ps = conn.prepareStatement(qg.getQuery().toString(), Statement.RETURN_GENERATED_KEYS);
       ps = MapperComputerDaoPs.toPs(computer, ps);
       ps.executeUpdate();
@@ -133,7 +165,6 @@ public class ComputerDaoImpl implements ComputerDao {
       throw new DaoException("Fail during: " + qg.getQuery(), e);
     } finally {
       ObjectCloser.close(rs, ps, qg.getQuery().toString());
-      transactionManager.closeConnection();
     }
 
     return computerId;
@@ -142,14 +173,21 @@ public class ComputerDaoImpl implements ComputerDao {
   @Override
   public int update(Computer computer) {
 
-    Connection conn = transactionManager.getConnection();
+    Connection conn = null;
     PreparedStatement ps = null;
-    QueryGenerator qg = new QueryGenerator.Builder()
-        .update("computer", "name=?, introduced=?, discontinued=?, company_id=?").where("id=?")
+
+    // @formatter:off
+    QueryGenerator qg = new QueryGenerator
+        .Builder()
+        .update("computer", "name=?, introduced=?, discontinued=?, company_id=?")
+        .where("id=?")
         .build();
+    // @formatter:on
+
     LOGGER.info(qg.getQuery().toString());
 
     try {
+      conn = dataSource.getConnection();
       ps = conn.prepareStatement(qg.getQuery().toString());
       ps = MapperComputerDaoPs.toPs(computer, ps);
       ps.setInt(5, computer.getId());
@@ -158,7 +196,6 @@ public class ComputerDaoImpl implements ComputerDao {
       throw new DaoException("Fail during: " + qg.getQuery().toString(), e);
     } finally {
       ObjectCloser.close(null, ps, qg.getQuery().toString());
-      transactionManager.closeConnection();
     }
 
     return computer.getId();
@@ -167,11 +204,21 @@ public class ComputerDaoImpl implements ComputerDao {
   @Override
   public void delete(int id) {
 
-    Connection conn = transactionManager.getConnection();
+    Connection conn = null;
     PreparedStatement ps = null;
-    QueryGenerator qg = new QueryGenerator.Builder().deleteFrom("computer").where("id=?").build();
+
+    // @formatter:off
+    QueryGenerator qg = new QueryGenerator
+        .Builder()
+        .deleteFrom("computer")
+        .where("id=?")
+        .build();
+    // @formatter:on
+
     LOGGER.info(qg.getQuery().toString());
+
     try {
+      conn = dataSource.getConnection();
       ps = conn.prepareStatement(qg.getQuery().toString());
       ps.setInt(1, id);
       ps.executeUpdate();
@@ -179,7 +226,6 @@ public class ComputerDaoImpl implements ComputerDao {
       throw new DaoException("Fail during: " + qg.getQuery(), e);
     } finally {
       ObjectCloser.close(null, ps, qg.getQuery().toString());
-      transactionManager.closeConnection();
     }
 
   }
@@ -187,12 +233,20 @@ public class ComputerDaoImpl implements ComputerDao {
   @Override
   public int count() {
 
-    Connection conn = transactionManager.getConnection();
+    Connection conn = null;
     ResultSet rs = null;
     PreparedStatement ps = null;
     int count = 0;
-    QueryGenerator qg = new QueryGenerator.Builder().selectCountFrom("computer").build();
+
+    // @formatter:off
+    QueryGenerator qg = new QueryGenerator
+        .Builder()
+        .selectCountFrom("computer")
+        .build();
+    // @formatter:on
+
     LOGGER.info(qg.getQuery().toString());
+
     try {
       conn = dataSource.getConnection();
       ps = conn.prepareStatement(qg.getQuery().toString());
@@ -203,7 +257,6 @@ public class ComputerDaoImpl implements ComputerDao {
       throw new DaoException("Fail during: " + qg.getQuery(), e);
     } finally {
       ObjectCloser.close(rs, ps, qg.getQuery().toString());
-      transactionManager.closeConnection();
     }
 
     return count;
@@ -213,11 +266,20 @@ public class ComputerDaoImpl implements ComputerDao {
   public void deleteByCompanyId(int companyId) {
 
     PreparedStatement ps = null;
-    Connection conn = transactionManager.getConnection();
-    QueryGenerator qsp = new QueryGenerator.Builder().deleteFrom("computer").where("company_id=?")
+    Connection conn = null;
+
+    // @formatter:off
+    QueryGenerator qsp = new QueryGenerator
+        .Builder()
+        .deleteFrom("computer")
+        .where("company_id=?")
         .build();
+    // @formatter:off
+    
     LOGGER.info(qsp.getQuery().toString());
+    
     try {
+      conn = dataSource.getConnection();
       ps = conn.prepareStatement(qsp.getQuery().toString());
       ps.setInt(1, companyId);
       ps.executeUpdate();
@@ -225,7 +287,6 @@ public class ComputerDaoImpl implements ComputerDao {
       throw new DaoException("Fail during: " + qsp.getQuery(), e);
     } finally {
       ObjectCloser.close(null, ps, qsp.getQuery().toString());
-      transactionManager.closeConnection();
     }
 
   }
