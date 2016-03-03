@@ -8,12 +8,4 @@ public class InvalidDateOrderException extends RuntimeException {
     super(message);
   }
 
-  public InvalidDateOrderException(String message, Throwable cause) {
-    super(message, cause);
-  }
-
-  public InvalidDateOrderException(Throwable cause) {
-    super(cause);
-  }
-
 }

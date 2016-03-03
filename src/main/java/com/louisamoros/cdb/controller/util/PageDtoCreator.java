@@ -30,10 +30,10 @@ public class PageDtoCreator {
 
     int offsetBuild;
     offsetBuild = (pageBuild - 1) * perPageBuild + 1;
-    
+
     int limitBuild;
     limitBuild = perPageBuild;
-    
+
     int totalPage = Math.abs(count / perPageBuild);
     int startingPage = Math.max(pageBuild - MAX_TO_SHOW / 2, 1);
     int endingPage = startingPage + MAX_TO_SHOW;

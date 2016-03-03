@@ -10,9 +10,6 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * The Class MapperRsComputerDao.
- */
 public class MapperRsComputerDao {
 
   /**
@@ -34,11 +31,19 @@ public class MapperRsComputerDao {
         if (rs.getTimestamp("discontinued") != null) {
           dateDiscontinued = rs.getTimestamp("discontinued").toLocalDateTime().toLocalDate();
         }
-        Computer computer = new Computer.Builder(rs.getString("computer.name"))
+        // @formatter:off
+        Computer computer = new Computer
+            .Builder(rs.getString("computer.name"))
             .id(rs.getInt("computer.id"))
-            .company(new Company.Builder().id(rs.getInt("company.id"))
-                .name(rs.getString("company.name")).build())
-            .introduced(dateIntroduced).discontinued(dateDiscontinued).build();
+            .company(new Company
+                .Builder()
+                .id(rs.getInt("company.id"))
+                .name(rs.getString("company.name"))
+                .build())
+            .introduced(dateIntroduced)
+            .discontinued(dateDiscontinued)
+            .build();
+        // @formatter:on
         computers.add(computer);
       }
     } catch (SQLException e) {
@@ -66,10 +71,19 @@ public class MapperRsComputerDao {
         if (rs.getTimestamp("discontinued") != null) {
           dateDiscontinued = rs.getTimestamp("discontinued").toLocalDateTime().toLocalDate();
         }
-        computer = new Computer.Builder(rs.getString("computer.name")).id(rs.getInt("computer.id"))
-            .company(new Company.Builder().id(rs.getInt("company.id"))
-                .name(rs.getString("company.name")).build())
-            .introduced(dateIntroduced).discontinued(dateDiscontinued).build();
+        // @formatter:off
+        computer = new Computer
+            .Builder(rs.getString("computer.name"))
+            .id(rs.getInt("computer.id"))
+            .company(new Company
+                .Builder()
+                .id(rs.getInt("company.id"))
+                .name(rs.getString("company.name"))
+                .build())
+            .introduced(dateIntroduced)
+            .discontinued(dateDiscontinued)
+            .build();
+        // @formatter:on
       }
     } catch (SQLException e) {
       throw new DaoMapperException("Fail to map ResultSet to Computer.", e);

@@ -8,12 +8,4 @@ public class RestRequestException extends RuntimeException {
     super(message);
   }
 
-  public RestRequestException(String message, Throwable cause) {
-    super(message, cause);
-  }
-
-  public RestRequestException(Throwable cause) {
-    super(cause);
-  }
-
 }

@@ -8,12 +8,4 @@ public class InvalidComputerNameException extends RuntimeException {
     super(message);
   }
 
-  public InvalidComputerNameException(String message, Throwable cause) {
-    super(message, cause);
-  }
-
-  public InvalidComputerNameException(Throwable cause) {
-    super(cause);
-  }
-
 }

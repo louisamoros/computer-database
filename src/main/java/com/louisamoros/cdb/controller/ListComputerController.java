@@ -47,9 +47,16 @@ public class ListComputerController extends AbstractController {
     int count = computerService.count();
     PageDto pageDto = PageDtoCreator.create(page, perPage, "computer", orderBy, order, search,
         count);
-    QueryParams qp = new QueryParams.Builder().offset(pageDto.getOffset()).limit(pageDto.getLimit())
-        .order(pageDto.getOrder()).orderBy(pageDto.getOrderBy()).search(pageDto.getSearch())
+    // @formatter:off
+    QueryParams qp = new QueryParams
+        .Builder()
+        .offset(pageDto.getOffset())
+        .limit(pageDto.getLimit())
+        .order(pageDto.getOrder())
+        .orderBy(pageDto.getOrderBy())
+        .search(pageDto.getSearch())
         .build();
+    // @formatter:on
     List<Computer> computers = computerService.get(qp);
     List<ComputerDto> computersDto = MapperComputerDto.toComputerDtoList(computers);
     request.setAttribute("computers", computersDto);

@@ -62,16 +62,18 @@ public class EditComputerController extends AbstractController {
       throws ServletException, IOException {
 
     LOGGER.info("DO POST computer update... id:" + request.getParameter("computerId"));
-    ComputerDto computerDto = new ComputerDto.Builder(request.getParameter("computerName"))
+    // @formatter:off
+    ComputerDto computerDto = new ComputerDto
+        .Builder(request.getParameter("computerName"))
         .computerId(Integer.parseInt(request.getParameter("computerId")))
         .companyId(Integer.parseInt(request.getParameter("companyId")))
         .discontinued(request.getParameter("discontinued"))
-        .introduced(request.getParameter("introduced")).build();
-    LOGGER.error(computerDto.toString());
+        .introduced(request.getParameter("introduced"))
+        .build();
+    // @formatter:off
     ComputerDtoValidator.validate(computerDto);
     Computer computer = MapperComputerDto.toComputer(computerDto);
-    int computerUpdatedId = computerService.update(computer);
-    LOGGER.info("UPDATED ComputerId : " + computerUpdatedId);
+    computerService.update(computer);
     response.sendRedirect("/cdb/computer");
 
   }

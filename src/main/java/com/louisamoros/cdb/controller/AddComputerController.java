@@ -23,9 +23,6 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-/**
- * The Class AddComputerController.
- */
 @WebServlet(name = "computerNew", value = "/computer/new")
 public class AddComputerController extends AbstractController {
 
@@ -57,14 +54,17 @@ public class AddComputerController extends AbstractController {
       throws ServletException, IOException {
 
     LOGGER.info("DO POST computer creation...");
-    ComputerDto computerDto = new ComputerDto.Builder(request.getParameter("name"))
+    // @formatter:off
+    ComputerDto computerDto = new ComputerDto
+        .Builder(request.getParameter("name"))
         .companyId(Integer.parseInt(request.getParameter("companyId")))
         .discontinued(request.getParameter("discontinued"))
-        .introduced(request.getParameter("introduced")).build();
+        .introduced(request.getParameter("introduced"))
+        .build();
+    // @formatter:on
     ComputerDtoValidator.validate(computerDto);
     Computer computer = MapperComputerDto.toComputer(computerDto);
-    int computerCreatedId = computerService.create(computer);
-    LOGGER.info("CREATED ComputerId : " + computerCreatedId);
+    computerService.create(computer);
     response.sendRedirect("/cdb/computer");
 
   }

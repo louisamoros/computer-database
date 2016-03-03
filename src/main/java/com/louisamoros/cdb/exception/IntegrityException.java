@@ -8,12 +8,4 @@ public class IntegrityException extends RuntimeException {
     super(message);
   }
 
-  public IntegrityException(String message, Throwable cause) {
-    super(message, cause);
-  }
-
-  public IntegrityException(Throwable cause) {
-    super(cause);
-  }
-
 }

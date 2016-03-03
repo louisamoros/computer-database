@@ -49,7 +49,7 @@ public class TransactionManagerImpl implements TransactionManager {
     try {
       getConnection().setAutoCommit(false);
     } catch (SQLException e) {
-      throw new TransactionManagerException("Starting connection failed." + e);
+      throw new TransactionManagerException("Starting connection failed.", e);
     }
   }
 
@@ -58,7 +58,7 @@ public class TransactionManagerImpl implements TransactionManager {
     try {
       context.get().commit();
     } catch (SQLException e) {
-      throw new TransactionManagerException("Commiting transaction failed." + e);
+      throw new TransactionManagerException("Commiting transaction failed.", e);
     }
   }
 
@@ -67,7 +67,7 @@ public class TransactionManagerImpl implements TransactionManager {
     try {
       context.get().rollback();
     } catch (SQLException e) {
-      throw new TransactionManagerException("Rollback on transaction failed." + e);
+      throw new TransactionManagerException("Rollback on transaction failed.", e);
     }
   }
 
@@ -76,7 +76,7 @@ public class TransactionManagerImpl implements TransactionManager {
     try {
       context.get().close();
     } catch (SQLException e) {
-      throw new TransactionManagerException("Ending transaction failed." + e);
+      throw new TransactionManagerException("Ending transaction failed.", e);
     }
     context.remove();
   }

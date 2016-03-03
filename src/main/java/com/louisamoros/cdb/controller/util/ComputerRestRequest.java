@@ -5,9 +5,6 @@ import com.louisamoros.cdb.controller.exception.RestRequestException;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-/**
- * The Class ComputerRestRequest.
- */
 public class ComputerRestRequest {
 
   private static Pattern regExIdPattern = Pattern.compile("([0-9]*)");

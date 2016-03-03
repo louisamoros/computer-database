@@ -8,9 +8,6 @@ import java.sql.SQLException;
 import java.sql.Timestamp;
 import java.sql.Types;
 
-/**
- * The Class MapperComputerDaoPs.
- */
 public class MapperComputerDaoPs {
 
   /**
@@ -19,7 +16,6 @@ public class MapperComputerDaoPs {
    * @param computer the computer
    * @param ps the ps
    * @return the prepared statement
-   * @throws DaoMapperException the dao mapper exception
    */
   public static PreparedStatement toPs(Computer computer, PreparedStatement ps) {
 
@@ -41,7 +37,7 @@ public class MapperComputerDaoPs {
         ps.setNull(4, Types.INTEGER);
       }
     } catch (SQLException e) {
-      throw new DaoMapperException("Fail during prepared statement mapping." + e);
+      throw new DaoMapperException("Fail during prepared statement mapping.", e);
     }
 
     return ps;
