@@ -2,33 +2,33 @@ package com.louisamoros.cdb.model;
 
 public class Company {
 
-  private int id;
-  private String name;
+  private int companyId;
+  private String companyName;
 
   private Company(Builder builder) {
-    this.id = builder.id;
-    this.name = builder.name;
+    this.companyId = builder.id;
+    this.companyName = builder.companyName;
   }
 
   public int getId() {
-    return id;
+    return companyId;
   }
 
   public String getName() {
-    return name;
+    return companyName;
   }
 
   @Override
   public String toString() {
-    return "Company [id=" + id + ", name=" + name + "]";
+    return "Company [companyId=" + companyId + ", companyName=" + companyName + "]";
   }
 
   @Override
   public int hashCode() {
     final int prime = 31;
     int result = 1;
-    result = prime * result + id;
-    result = prime * result + ((name == null) ? 0 : name.hashCode());
+    result = prime * result + companyId;
+    result = prime * result + ((companyName == null) ? 0 : companyName.hashCode());
     return result;
   }
 
@@ -44,14 +44,14 @@ public class Company {
       return false;
     }
     Company other = (Company) obj;
-    if (id != other.id) {
+    if (companyId != other.companyId) {
       return false;
     }
-    if (name == null) {
-      if (other.name != null) {
+    if (companyName == null) {
+      if (other.companyName != null) {
         return false;
       }
-    } else if (!name.equals(other.name)) {
+    } else if (!companyName.equals(other.companyName)) {
       return false;
     }
     return true;
@@ -61,15 +61,15 @@ public class Company {
 
     // optional
     private int id;
-    private String name;
+    private String companyName;
 
     public Builder id(int id) {
       this.id = id;
       return this;
     }
 
-    public Builder name(String name) {
-      this.name = name;
+    public Builder name(String companyName) {
+      this.companyName = companyName;
       return this;
     }
 

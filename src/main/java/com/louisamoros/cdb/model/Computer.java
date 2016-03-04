@@ -4,14 +4,14 @@ import java.time.LocalDate;
 
 public class Computer {
 
-  private int id;
+  private int computerId;
   private Company company;
   private String name;
   private LocalDate introduced;
   private LocalDate discontinued;
 
   private Computer(Builder builder) {
-    this.id = builder.id;
+    this.computerId = builder.computerId;
     this.name = builder.name;
     this.company = builder.company;
     this.discontinued = builder.discontinued;
@@ -19,7 +19,7 @@ public class Computer {
   }
 
   public int getId() {
-    return id;
+    return computerId;
   }
 
   public Company getCompany() {
@@ -40,8 +40,8 @@ public class Computer {
 
   @Override
   public String toString() {
-    return "Computer [id=" + id + ", company=" + company + ", name=" + name + ", introduced="
-        + introduced + ", discontinued=" + discontinued + "]";
+    return "Computer [computerId=" + computerId + ", company=" + company + ", name=" + name
+        + ", introduced=" + introduced + ", discontinued=" + discontinued + "]";
   }
 
   @Override
@@ -49,7 +49,7 @@ public class Computer {
     final int prime = 31;
     int result = 1;
     result = prime * result + ((company == null) ? 0 : company.hashCode());
-    result = prime * result + id;
+    result = prime * result + computerId;
     result = prime * result + ((discontinued == null) ? 0 : discontinued.hashCode());
     result = prime * result + ((introduced == null) ? 0 : introduced.hashCode());
     result = prime * result + ((name == null) ? 0 : name.hashCode());
@@ -75,7 +75,7 @@ public class Computer {
     } else if (!company.equals(other.company)) {
       return false;
     }
-    if (id != other.id) {
+    if (computerId != other.computerId) {
       return false;
     }
     if (discontinued == null) {
@@ -108,7 +108,7 @@ public class Computer {
     private String name;
 
     // optional
-    private int id;
+    private int computerId;
     private Company company;
     private LocalDate introduced;
     private LocalDate discontinued;
@@ -117,8 +117,8 @@ public class Computer {
       this.name = name;
     }
 
-    public Builder id(int id) {
-      this.id = id;
+    public Builder id(int computerId) {
+      this.computerId = computerId;
       return this;
     }
 

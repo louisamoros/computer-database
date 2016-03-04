@@ -2,26 +2,20 @@ package com.louisamoros.cdb.dao.impl;
 
 import com.louisamoros.cdb.controller.util.QueryParams;
 import com.louisamoros.cdb.dao.ComputerDao;
-import com.louisamoros.cdb.dao.exception.DaoException;
-import com.louisamoros.cdb.dao.mapper.MapperComputerDaoPs;
-import com.louisamoros.cdb.dao.mapper.MapperRsComputerDao;
-import com.louisamoros.cdb.dao.util.ObjectCloser;
+import com.louisamoros.cdb.dao.mapper.ComputerRowMapper;
 import com.louisamoros.cdb.dao.util.QueryGenerator;
 import com.louisamoros.cdb.model.Computer;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.jdbc.core.namedparam.BeanPropertySqlParameterSource;
+import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
+import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
+import org.springframework.jdbc.core.namedparam.SqlParameterSource;
 import org.springframework.stereotype.Repository;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
 import java.util.List;
-
-import javax.sql.DataSource;
 
 @Repository
 public class ComputerDaoImpl implements ComputerDao {
@@ -29,53 +23,32 @@ public class ComputerDaoImpl implements ComputerDao {
   public static Logger LOGGER = LoggerFactory.getLogger(ComputerDao.class);
 
   @Autowired
-  private DataSource dataSource;
+  private NamedParameterJdbcTemplate namedParameterJdbcTemplate;
 
   @Override
   public Computer get(int id) {
 
-    ResultSet rs = null;
-    PreparedStatement ps = null;
-    Computer computer = null;
-    Connection conn = null;
-
     // @formatter:off
-    QueryGenerator qg = new QueryGenerator
+    QueryGenerator queryGenerator = new QueryGenerator
         .Builder()
         .select("*")
         .from("computer")
         .leftJoinOn("company", "computer.company_id = company.id")
-        .where("computer.id=?")
+        .where("computer.id=computerId")
         .build();
     // @formatter:on
 
-    LOGGER.info(qg.getQuery().toString());
-
-    try {
-      conn = dataSource.getConnection();
-      ps = conn.prepareStatement(qg.getQuery().toString());
-      ps.setInt(1, id);
-      rs = ps.executeQuery();
-      computer = MapperRsComputerDao.toComputer(rs);
-    } catch (SQLException e) {
-      throw new DaoException("Fail during: " + qg.getQuery(), e);
-    } finally {
-      ObjectCloser.close(rs, ps, qg.getQuery().toString());
-    }
-
-    return computer;
+    LOGGER.info(queryGenerator.getQuery().toString());
+    SqlParameterSource namedParameters = new MapSqlParameterSource("computerId", id);
+    return namedParameterJdbcTemplate.queryForObject(queryGenerator.getQuery().toString(),
+        namedParameters, new ComputerRowMapper());
   }
 
   @Override
   public List<Computer> get(QueryParams qp) {
 
-    List<Computer> computers = null;
-    ResultSet rs = null;
-    PreparedStatement ps = null;
-    Connection conn = null;
-
     // @formatter:off
-    QueryGenerator qg = new QueryGenerator
+    QueryGenerator queryGenerator = new QueryGenerator
         .Builder()
         .select("*")
         .from("computer")
@@ -87,32 +60,18 @@ public class ComputerDaoImpl implements ComputerDao {
         .build();
     // @formatter:on
 
-    LOGGER.info(qg.getQuery().toString());
+    LOGGER.info(queryGenerator.getQuery().toString());
+    SqlParameterSource namedParameters = new MapSqlParameterSource();
 
-    try {
-      conn = dataSource.getConnection();
-      ps = conn.prepareStatement(qg.getQuery().toString());
-      rs = ps.executeQuery();
-      computers = MapperRsComputerDao.toList(rs);
-    } catch (SQLException e) {
-      throw new DaoException("Fail during: " + qg.getQuery(), e);
-    } finally {
-      ObjectCloser.close(rs, ps, qg.getQuery().toString());
-    }
-
-    return computers;
+    return namedParameterJdbcTemplate.query(queryGenerator.getQuery().toString(), namedParameters,
+        new ComputerRowMapper());
   }
 
   @Override
   public List<Computer> getAll() {
 
-    List<Computer> computers = null;
-    ResultSet rs = null;
-    PreparedStatement ps = null;
-    Connection conn = null;
-
     // @formatter:off
-    QueryGenerator qg = new QueryGenerator
+    QueryGenerator queryGenerator = new QueryGenerator
         .Builder()
         .select("*")
         .from("computer")
@@ -120,123 +79,67 @@ public class ComputerDaoImpl implements ComputerDao {
         .build();
     // @formatter:off
     
-    LOGGER.info(qg.getQuery().toString());
-    
-    try {
-      conn = dataSource.getConnection();
-      ps = conn.prepareStatement(qg.getQuery().toString());
-      rs = ps.executeQuery();
-      computers = MapperRsComputerDao.toList(rs);
-    } catch (SQLException e) {
-      throw new DaoException("Fail during: " + qg.getQuery(), e);
-    } finally {
-      ObjectCloser.close(rs, ps, qg.getQuery().toString());
-    }
-
-    return computers;
+    LOGGER.info(queryGenerator.getQuery().toString());
+    SqlParameterSource namedParameters = new MapSqlParameterSource();
+    return namedParameterJdbcTemplate.queryForList(queryGenerator.getQuery().toString(), namedParameters, Computer.class);
   }
 
   @Override
   public int create(Computer computer) {
 
-    Connection conn = null;
-    PreparedStatement ps = null;
-    ResultSet rs = null;
-    int computerId = 0;
-
     // @formatter:off
-    QueryGenerator qg = new QueryGenerator
+    QueryGenerator queryGenerator = new QueryGenerator
         .Builder()
-        .insertInto("computer", "(default, ?, ?, ?, ?)")
+        .insertInto("computer", "(default, :computerName, :introduced, :discontinued, :companyId)")
         .build();
     // @formatter:on
 
-    LOGGER.info(qg.getQuery().toString());
-
-    try {
-      conn = dataSource.getConnection();
-      ps = conn.prepareStatement(qg.getQuery().toString(), Statement.RETURN_GENERATED_KEYS);
-      ps = MapperComputerDaoPs.toPs(computer, ps);
-      ps.executeUpdate();
-      rs = ps.getGeneratedKeys();
-      rs.next();
-      computerId = rs.getInt(1);
-    } catch (SQLException e) {
-      throw new DaoException("Fail during: " + qg.getQuery(), e);
-    } finally {
-      ObjectCloser.close(rs, ps, qg.getQuery().toString());
-    }
-
-    return computerId;
+    LOGGER.info(queryGenerator.getQuery().toString());
+    // map the computer class model based on the class name attributes.
+    SqlParameterSource namedParameters = new BeanPropertySqlParameterSource(computer);
+    return namedParameterJdbcTemplate.queryForObject(queryGenerator.getQuery().toString(),
+        namedParameters, Integer.class);
   }
 
   @Override
   public int update(Computer computer) {
 
-    Connection conn = null;
-    PreparedStatement ps = null;
-
     // @formatter:off
     QueryGenerator qg = new QueryGenerator
         .Builder()
-        .update("computer", "name=?, introduced=?, discontinued=?, company_id=?")
-        .where("id=?")
+        .update("computer", "name=:computerName, introduced=:introduced, discontinued=:discontinued, company_id=:companyId")
+        .where("id=:computerId")
         .build();
     // @formatter:on
 
     LOGGER.info(qg.getQuery().toString());
 
-    try {
-      conn = dataSource.getConnection();
-      ps = conn.prepareStatement(qg.getQuery().toString());
-      ps = MapperComputerDaoPs.toPs(computer, ps);
-      ps.setInt(5, computer.getId());
-      ps.executeUpdate();
-    } catch (SQLException e) {
-      throw new DaoException("Fail during: " + qg.getQuery().toString(), e);
-    } finally {
-      ObjectCloser.close(null, ps, qg.getQuery().toString());
-    }
-
-    return computer.getId();
+    // map the computer class model based on the class name attributes.
+    SqlParameterSource namedParameters = new BeanPropertySqlParameterSource(computer);
+    return namedParameterJdbcTemplate.queryForObject(qg.getQuery().toString(), namedParameters,
+        Integer.class);
   }
 
   @Override
   public void delete(int id) {
 
-    Connection conn = null;
-    PreparedStatement ps = null;
-
     // @formatter:off
     QueryGenerator qg = new QueryGenerator
         .Builder()
         .deleteFrom("computer")
-        .where("id=?")
+        .where("id=:id")
         .build();
     // @formatter:on
 
     LOGGER.info(qg.getQuery().toString());
-
-    try {
-      conn = dataSource.getConnection();
-      ps = conn.prepareStatement(qg.getQuery().toString());
-      ps.setInt(1, id);
-      ps.executeUpdate();
-    } catch (SQLException e) {
-      throw new DaoException("Fail during: " + qg.getQuery(), e);
-    } finally {
-      ObjectCloser.close(null, ps, qg.getQuery().toString());
-    }
-
+    SqlParameterSource namedParameters = new MapSqlParameterSource("id", id);
+    int computerDeletedId = namedParameterJdbcTemplate.queryForObject(qg.getQuery().toString(),
+        namedParameters, Integer.class);
+    LOGGER.info("The deleted computer Id: " + computerDeletedId);
   }
 
   @Override
   public int count() {
-
-    Connection conn = null;
-    ResultSet rs = null;
-    PreparedStatement ps = null;
-    int count = 0;
 
     // @formatter:off
     QueryGenerator qg = new QueryGenerator
@@ -246,49 +149,26 @@ public class ComputerDaoImpl implements ComputerDao {
     // @formatter:on
 
     LOGGER.info(qg.getQuery().toString());
-
-    try {
-      conn = dataSource.getConnection();
-      ps = conn.prepareStatement(qg.getQuery().toString());
-      rs = ps.executeQuery();
-      rs.next();
-      count = rs.getInt(1);
-    } catch (SQLException e) {
-      throw new DaoException("Fail during: " + qg.getQuery(), e);
-    } finally {
-      ObjectCloser.close(rs, ps, qg.getQuery().toString());
-    }
-
-    return count;
+    SqlParameterSource namedParameters = new MapSqlParameterSource();
+    return namedParameterJdbcTemplate.queryForObject(qg.getQuery().toString(), namedParameters,
+        Integer.class);
   }
 
   @Override
   public void deleteByCompanyId(int companyId) {
 
-    PreparedStatement ps = null;
-    Connection conn = null;
-
     // @formatter:off
-    QueryGenerator qsp = new QueryGenerator
+    QueryGenerator queryGenerator = new QueryGenerator
         .Builder()
         .deleteFrom("computer")
-        .where("company_id=?")
+        .where("company_id=:companyId")
         .build();
     // @formatter:off
     
-    LOGGER.info(qsp.getQuery().toString());
-    
-    try {
-      conn = dataSource.getConnection();
-      ps = conn.prepareStatement(qsp.getQuery().toString());
-      ps.setInt(1, companyId);
-      ps.executeUpdate();
-    } catch (SQLException e) {
-      throw new DaoException("Fail during: " + qsp.getQuery(), e);
-    } finally {
-      ObjectCloser.close(null, ps, qsp.getQuery().toString());
-    }
-
+    LOGGER.info(queryGenerator.getQuery().toString());
+    SqlParameterSource namedParameters = new MapSqlParameterSource("companyId", companyId);
+    int companyDeletedId = namedParameterJdbcTemplate.queryForObject(queryGenerator.getQuery().toString(), namedParameters, Integer.class);
+    LOGGER.info("The deleted company Id (deleteByCompanyId): " + companyDeletedId);
   }
 
 }
