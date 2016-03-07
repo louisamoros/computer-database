@@ -64,9 +64,10 @@ public class MapperComputerDto {
   public static ComputerDto toComputerDto(Computer computer) {
 
     ComputerValidator.validate(computer);
-    ComputerDto computerDto = new ComputerDto.Builder(computer.getName())
-        .companyId(computer.getCompany().getId()).companyName(computer.getCompany().getName())
-        .computerId(computer.getId()).introduced(String.valueOf(computer.getIntroduced()))
+    ComputerDto computerDto = new ComputerDto.Builder(computer.getComputerName())
+        .companyId(computer.getCompany().getCompanyId())
+        .companyName(computer.getCompany().getCompanyName()).computerId(computer.getComputerId())
+        .introduced(String.valueOf(computer.getIntroduced()))
         .discontinued(String.valueOf(computer.getDiscontinued())).build();
     return computerDto;
 

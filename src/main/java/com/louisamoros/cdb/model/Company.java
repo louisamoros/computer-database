@@ -10,11 +10,11 @@ public class Company {
     this.companyName = builder.companyName;
   }
 
-  public int getId() {
+  public int getCompanyId() {
     return companyId;
   }
 
-  public String getName() {
+  public String getCompanyName() {
     return companyName;
   }
 

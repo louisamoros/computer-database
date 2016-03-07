@@ -23,7 +23,7 @@ public class ComputerValidator {
         && computer.getIntroduced().isAfter(computer.getDiscontinued())) {
       throw new InvalidDateOrderException("Intoduced date should be before discontinued date.");
     }
-    if (computer.getName() == null || computer.getName().isEmpty()) {
+    if (computer.getComputerName() == null || computer.getComputerName().isEmpty()) {
       throw new InvalidComputerNameException("Computer name is required.");
     }
 

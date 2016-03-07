@@ -15,6 +15,7 @@ import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.jdbc.core.namedparam.SqlParameterSource;
 import org.springframework.stereotype.Repository;
 
+import java.util.HashMap;
 import java.util.List;
 
 @Repository
@@ -34,7 +35,7 @@ public class ComputerDaoImpl implements ComputerDao {
         .select("*")
         .from("computer")
         .leftJoinOn("company", "computer.company_id = company.id")
-        .where("computer.id=computerId")
+        .where("computer.id=:computerId")
         .build();
     // @formatter:on
 
@@ -80,8 +81,7 @@ public class ComputerDaoImpl implements ComputerDao {
     // @formatter:off
     
     LOGGER.info(queryGenerator.getQuery().toString());
-    SqlParameterSource namedParameters = new MapSqlParameterSource();
-    return namedParameterJdbcTemplate.queryForList(queryGenerator.getQuery().toString(), namedParameters, Computer.class);
+    return namedParameterJdbcTemplate.queryForList(queryGenerator.getQuery().toString(), new HashMap<>(), Computer.class);
   }
 
   @Override
@@ -90,15 +90,14 @@ public class ComputerDaoImpl implements ComputerDao {
     // @formatter:off
     QueryGenerator queryGenerator = new QueryGenerator
         .Builder()
-        .insertInto("computer", "(default, :computerName, :introduced, :discontinued, :companyId)")
+        .insertInto("computer", "(default, :computerName, :introduced, :discontinued, :company.companyId)")
         .build();
     // @formatter:on
 
     LOGGER.info(queryGenerator.getQuery().toString());
     // map the computer class model based on the class name attributes.
     SqlParameterSource namedParameters = new BeanPropertySqlParameterSource(computer);
-    return namedParameterJdbcTemplate.queryForObject(queryGenerator.getQuery().toString(),
-        namedParameters, Integer.class);
+    return namedParameterJdbcTemplate.update(queryGenerator.getQuery().toString(), namedParameters);
   }
 
   @Override
@@ -107,7 +106,7 @@ public class ComputerDaoImpl implements ComputerDao {
     // @formatter:off
     QueryGenerator qg = new QueryGenerator
         .Builder()
-        .update("computer", "name=:computerName, introduced=:introduced, discontinued=:discontinued, company_id=:companyId")
+        .update("computer", "name=:computerName, introduced=:introduced, discontinued=:discontinued, company_id=:company.companyId")
         .where("id=:computerId")
         .build();
     // @formatter:on
@@ -116,12 +115,14 @@ public class ComputerDaoImpl implements ComputerDao {
 
     // map the computer class model based on the class name attributes.
     SqlParameterSource namedParameters = new BeanPropertySqlParameterSource(computer);
-    return namedParameterJdbcTemplate.queryForObject(qg.getQuery().toString(), namedParameters,
-        Integer.class);
+    System.out.println(namedParameters.getValue("company"));
+    // System.out.println(namedParameters);
+    namedParameterJdbcTemplate.update(qg.getQuery().toString(), namedParameters);
+    return 2;
   }
 
   @Override
-  public void delete(int id) {
+  public void delete(int computerId) {
 
     // @formatter:off
     QueryGenerator qg = new QueryGenerator
@@ -132,10 +133,9 @@ public class ComputerDaoImpl implements ComputerDao {
     // @formatter:on
 
     LOGGER.info(qg.getQuery().toString());
-    SqlParameterSource namedParameters = new MapSqlParameterSource("id", id);
-    int computerDeletedId = namedParameterJdbcTemplate.queryForObject(qg.getQuery().toString(),
-        namedParameters, Integer.class);
-    LOGGER.info("The deleted computer Id: " + computerDeletedId);
+    SqlParameterSource namedParameters = new MapSqlParameterSource("id", computerId);
+    namedParameterJdbcTemplate.update(qg.getQuery().toString(), namedParameters);
+    LOGGER.info("The deleted computer Id: " + computerId);
   }
 
   @Override
@@ -167,8 +167,8 @@ public class ComputerDaoImpl implements ComputerDao {
     
     LOGGER.info(queryGenerator.getQuery().toString());
     SqlParameterSource namedParameters = new MapSqlParameterSource("companyId", companyId);
-    int companyDeletedId = namedParameterJdbcTemplate.queryForObject(queryGenerator.getQuery().toString(), namedParameters, Integer.class);
-    LOGGER.info("The deleted company Id (deleteByCompanyId): " + companyDeletedId);
+    namedParameterJdbcTemplate.update(queryGenerator.getQuery().toString(), namedParameters);
+    LOGGER.info("The deleted company Id (deleteByCompanyId): " + companyId);
   }
 
 }

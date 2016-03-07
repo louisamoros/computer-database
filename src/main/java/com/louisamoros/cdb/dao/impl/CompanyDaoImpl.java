@@ -34,7 +34,7 @@ public class CompanyDaoImpl implements CompanyDao {
         .build();
     // @formatter:on
     LOGGER.info(queryGenerator.getQuery().toString());
-    return namedParameterJdbcTemplate.query(queryGenerator.getQuery().toString(), new HashMap(),
+    return namedParameterJdbcTemplate.query(queryGenerator.getQuery().toString(), new HashMap<>(),
         new CompanyRowMapper());
   }
 
@@ -49,8 +49,7 @@ public class CompanyDaoImpl implements CompanyDao {
     // @formatter:on
     LOGGER.info(queryGenerator.getQuery().toString());
     SqlParameterSource namedParameters = new MapSqlParameterSource("companyId", companyId);
-    namedParameterJdbcTemplate.queryForObject(queryGenerator.getQuery().toString(), namedParameters,
-        Integer.class);
+    namedParameterJdbcTemplate.update(queryGenerator.getQuery().toString(), namedParameters);
   }
 
 }

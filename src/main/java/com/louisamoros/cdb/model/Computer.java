@@ -6,19 +6,19 @@ public class Computer {
 
   private int computerId;
   private Company company;
-  private String name;
+  private String computerName;
   private LocalDate introduced;
   private LocalDate discontinued;
 
   private Computer(Builder builder) {
     this.computerId = builder.computerId;
-    this.name = builder.name;
+    this.computerName = builder.computerName;
     this.company = builder.company;
     this.discontinued = builder.discontinued;
     this.introduced = builder.introduced;
   }
 
-  public int getId() {
+  public int getComputerId() {
     return computerId;
   }
 
@@ -26,8 +26,8 @@ public class Computer {
     return company;
   }
 
-  public String getName() {
-    return name;
+  public String getComputerName() {
+    return computerName;
   }
 
   public LocalDate getIntroduced() {
@@ -40,8 +40,8 @@ public class Computer {
 
   @Override
   public String toString() {
-    return "Computer [computerId=" + computerId + ", company=" + company + ", name=" + name
-        + ", introduced=" + introduced + ", discontinued=" + discontinued + "]";
+    return "Computer [computerId=" + computerId + ", company=" + company + ", computerName="
+        + computerName + ", introduced=" + introduced + ", discontinued=" + discontinued + "]";
   }
 
   @Override
@@ -52,7 +52,7 @@ public class Computer {
     result = prime * result + computerId;
     result = prime * result + ((discontinued == null) ? 0 : discontinued.hashCode());
     result = prime * result + ((introduced == null) ? 0 : introduced.hashCode());
-    result = prime * result + ((name == null) ? 0 : name.hashCode());
+    result = prime * result + ((computerName == null) ? 0 : computerName.hashCode());
     return result;
   }
 
@@ -92,11 +92,11 @@ public class Computer {
     } else if (!introduced.equals(other.introduced)) {
       return false;
     }
-    if (name == null) {
-      if (other.name != null) {
+    if (computerName == null) {
+      if (other.computerName != null) {
         return false;
       }
-    } else if (!name.equals(other.name)) {
+    } else if (!computerName.equals(other.computerName)) {
       return false;
     }
     return true;
@@ -105,7 +105,7 @@ public class Computer {
   public static class Builder {
 
     // require
-    private String name;
+    private String computerName;
 
     // optional
     private int computerId;
@@ -114,7 +114,7 @@ public class Computer {
     private LocalDate discontinued;
 
     public Builder(String name) {
-      this.name = name;
+      this.computerName = name;
     }
 
     public Builder id(int computerId) {

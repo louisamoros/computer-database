@@ -17,7 +17,7 @@ public class CompanyValidator {
     if (company == null) {
       throw new IntegrityException("Company cannot be null validation says.");
     }
-    if (company.getId() < 0) {
+    if (company.getCompanyId() < 0) {
       throw new IntegrityException("Company id cannot be negative.");
     }
 

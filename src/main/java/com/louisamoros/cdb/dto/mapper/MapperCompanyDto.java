@@ -35,8 +35,8 @@ public class MapperCompanyDto {
   public static CompanyDto toCompanyDto(Company company) {
 
     CompanyValidator.validate(company);
-    CompanyDto companyDto = new CompanyDto.Builder().id(company.getId()).name(company.getName())
-        .build();
+    CompanyDto companyDto = new CompanyDto.Builder().id(company.getCompanyId())
+        .name(company.getCompanyName()).build();
     return companyDto;
 
   }
