@@ -3,6 +3,7 @@ package com.louisamoros.cdb.dto;
 /**
  * The Class ComputerDto.
  */
+
 public class ComputerDto {
 
   private int computerId;
@@ -19,6 +20,34 @@ public class ComputerDto {
     this.introduced = builder.introduced;
     this.companyName = builder.companyName;
     this.companyId = builder.companyId;
+  }
+
+  public ComputerDto() {
+    super();
+  }
+
+  public void setComputerId(int computerId) {
+    this.computerId = computerId;
+  }
+
+  public void setComputerName(String computerName) {
+    this.computerName = computerName;
+  }
+
+  public void setDiscontinued(String discontinued) {
+    this.discontinued = discontinued;
+  }
+
+  public void setIntroduced(String introduced) {
+    this.introduced = introduced;
+  }
+
+  public void setCompanyName(String companyName) {
+    this.companyName = companyName;
+  }
+
+  public void setCompanyId(int companyId) {
+    this.companyId = companyId;
   }
 
   public int getComputerId() {

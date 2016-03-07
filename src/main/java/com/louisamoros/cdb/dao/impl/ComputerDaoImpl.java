@@ -81,7 +81,7 @@ public class ComputerDaoImpl implements ComputerDao {
     // @formatter:off
     
     LOGGER.info(queryGenerator.getQuery().toString());
-    return namedParameterJdbcTemplate.queryForList(queryGenerator.getQuery().toString(), new HashMap<>(), Computer.class);
+    return namedParameterJdbcTemplate.query(queryGenerator.getQuery().toString(), new HashMap<>(), new ComputerRowMapper());
   }
 
   @Override

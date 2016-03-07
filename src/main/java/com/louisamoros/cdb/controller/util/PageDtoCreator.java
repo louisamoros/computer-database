@@ -22,7 +22,7 @@ public class PageDtoCreator {
    * @param count the count
    * @return the page dto
    */
-  public static PageDto create(String page, String perPage, String uri, String orderBy,
+  public static PageDto create(Integer page, Integer perPage, String uri, String orderBy,
       String order, String search, int count) {
 
     int pageBuild = PageDtoValidator.validatePage(page);

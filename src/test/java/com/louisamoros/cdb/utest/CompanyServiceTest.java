@@ -23,7 +23,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration("classpath:test-application-context.xml")
+@ContextConfiguration("classpath:test-mvc-application-context.xml")
 public class CompanyServiceTest {
 
   private static Logger LOGGER = LoggerFactory.getLogger(CompanyServiceTest.class);

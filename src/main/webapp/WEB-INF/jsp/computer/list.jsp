@@ -23,7 +23,7 @@
 <body>
 <header class="navbar navbar-inverse navbar-fixed-top">
     <div class="container">
-        <a class="navbar-brand" href="computer"> Application - Computer
+        <a class="navbar-brand" href="computer/list"> Application - Computer
             Database </a>
     </div>
 </header>
@@ -33,9 +33,9 @@
         <h1 id="homeTitle"><c:out value="${page.count}"></c:out> Computers found</h1>
         <div id="actions" class="form-horizontal">
             <div class="pull-left">
-                <form id="searchForm" action="#" method="GET" class="form-inline">
+                <form id="searchForm" action="api/computer" method="GET" class="form-inline">
                     <input type="search" id="searchbox" name="search"
-                           class="form-control" placeholder="Search name" disabled/> <input
+                           class="form-control" placeholder="Search name"/> <input
                         type="submit" id="searchsubmit" value="Filter by name"
                         class="btn btn-primary disabled"/>
                 </form>
@@ -51,7 +51,7 @@
         </div>
     </div>
 
-		<form id="deleteForm" action="computer/delete" method="POST">
+		<form id="deleteForm" action="api/computer/delete" method="POST">
 			<input type="hidden" name="selection" value="">
 		</form>
 
@@ -127,19 +127,19 @@
             </thead>
             <!-- Browse attribute computers -->
             <tbody id="results">
-            <c:forEach items="${computers}" var="computer">
+            <c:forEach items="${computersDto}" var="computerDto">
                 <tr>
                     <td class="editMode">
-                        <input type="checkbox" name="cb" class="cb" value="${computer.computerId}">
+                        <input type="checkbox" name="cb" class="cb" value="${computerDto.computerId}">
                     </td>
                     <td>
-                        <a href="computer/edit?id=${computer.computerId}">
-                            <c:out value="${computer.computerName}"/>
+                        <a href="computer/edit/${computerDto.computerId}">
+                            <c:out value="${computerDto.computerName}"/>
                         </a>
                     </td>
-                    <td><c:out value="${computer.introduced}"/></td>
-                    <td><c:out value="${computer.discontinued}"/></td>
-                    <td><c:out value="${computer.companyName}"/></td>
+                    <td><c:out value="${computerDto.introduced}"/></td>
+                    <td><c:out value="${computerDto.discontinued}"/></td>
+                    <td><c:out value="${computerDto.companyName}"/></td>
                 </tr>
             </c:forEach>
             </tbody>

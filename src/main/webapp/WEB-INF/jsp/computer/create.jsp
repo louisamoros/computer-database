@@ -21,7 +21,7 @@
 <body>
 	<header class="navbar navbar-inverse navbar-fixed-top">
 		<div class="container">
-			<a class="navbar-brand" href="computer"> Application - Computer
+			<a class="navbar-brand" href="computer/list"> Application - Computer
 				Database </a>
 		</div>
 	</header>
@@ -31,11 +31,11 @@
 			<div class="row">
 				<div class="col-xs-8 col-xs-offset-2 box">
 					<h1>Add Computer</h1>
-					<form action="computer/new" method="POST">
+					<form action="api/computer" method="POST" name="computerDto">
 						<fieldset>
 							<div class="form-group">
-								<label for="name">Computer name</label> <input
-									type="text" class="form-control" id="name" name="name"
+								<label for="computerName">Computer name</label> <input
+									type="text" class="form-control" id="computerName" name="computerName"
 									placeholder="Computer name">
 							</div>
 							<div class="form-group">
@@ -52,15 +52,15 @@
 								<label for="companyId">Company</label> <select
 									class="form-control" id="companyId" name="companyId">
 									<option value="0">-- select --</option>
-									<c:forEach items="${companies}" var="company">
-										<option value="${company.id}">${company.name}</option>
+									<c:forEach items="${companiesDto}" var="companyDto">
+										<option value="${companyDto.id}">${companyDto.name}</option>
 									</c:forEach>
 								</select>
 							</div>
 						</fieldset>
 						<div class="actions pull-right">
 							<input type="submit" value="Add" class="btn btn-primary">
-							or <a href="computer">Cancel</a>
+							or <a href="computer/list">Cancel</a>
 						</div>
 					</form>
 				</div>

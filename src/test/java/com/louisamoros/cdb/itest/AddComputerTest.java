@@ -40,8 +40,7 @@ public class AddComputerTest {
    */
   @Test
   public void test() throws Exception {
-    driver.get(baseUrl + "/cdb/");
-    driver.findElement(By.linkText("Let's go !!")).click();
+    driver.get(baseUrl + "/cdb/computer/list");
     driver.findElement(By.linkText("2")).click();
     driver.findElement(By.linkText("3")).click();
     driver.findElement(By.cssSelector("i.glyphicon.glyphicon-chevron-right")).click();
