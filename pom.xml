@@ -4,7 +4,7 @@
  <groupId>com.louisamoros.cdb</groupId>
  <artifactId>computerdatabase</artifactId>
  <name>computerdatabase</name>
- <version>0.5.0-SNAPSHOT</version>
+ <version>0.6.0-SNAPSHOT</version>
  <packaging>war</packaging>
  <repositories>
   <repository>
@@ -13,14 +13,15 @@
   </repository>
  </repositories>
  <properties>
+  <!-- encoding -->
   <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 
   <!-- DB -->
-  <mysql-connector.version>5.1.38</mysql-connector.version>
-  <bonecp.version>0.8.0.RELEASE</bonecp.version>
+  <mysql-connector-version>5.1.38</mysql-connector-version>
+  <bonecp-version>0.8.0.RELEASE</bonecp-version>
 
   <!-- Javadoc -->
-  <javadoc.version>2.10.3</javadoc.version>
+  <javadoc-version>2.10.3</javadoc-version>
 
   <!-- Log -->
   <slf4j-api-version>1.7.12</slf4j-api-version>
@@ -29,19 +30,22 @@
   <commons-logging-version>99-empty</commons-logging-version>
 
   <!-- Servlet -->
-  <javax.servlet.version>3.1.0</javax.servlet.version>
+  <javax-servlet-version>3.1.0</javax-servlet-version>
 
   <!-- JSP + JSTL -->
-  <javax.servlet.jsp.version>2.1</javax.servlet.jsp.version>
-  <jstl.version>1.2</jstl.version>
+  <javax-servlet-jsp-version>2.1</javax-servlet-jsp-version>
+  <jstl-version>1.2</jstl-version>
 
   <!-- Test -->
-  <junit.version>4.12</junit.version>
-  <mockito.version>1.10.19</mockito.version>
-  <selenium.version>2.52.0</selenium.version>
+  <junit-version>4.12</junit-version>
+  <mockito-version>1.10.19</mockito-version>
+  <selenium-version>2.52.0</selenium-version>
+
+  <!-- cdb cli with apache cli -->
+  <commons-cli-version>1.3.1</commons-cli-version>
 
   <!-- Spring -->
-  <springframework.version>4.2.5.RELEASE</springframework.version>
+  <springframework-version>4.2.5.RELEASE</springframework-version>
 
  </properties>
 
@@ -51,60 +55,60 @@
   <dependency>
    <groupId>org.springframework</groupId>
    <artifactId>spring-core</artifactId>
-   <version>${springframework.version}</version>
+   <version>${springframework-version}</version>
   </dependency>
   <dependency>
    <groupId>org.springframework</groupId>
    <artifactId>spring-context</artifactId>
-   <version>${springframework.version}</version>
+   <version>${springframework-version}</version>
   </dependency>
   <dependency>
    <groupId>org.springframework</groupId>
    <artifactId>spring-tx</artifactId>
-   <version>${springframework.version}</version>
+   <version>${springframework-version}</version>
   </dependency>
   <dependency>
    <groupId>org.springframework</groupId>
-   <artifactId>spring-web</artifactId>
-   <version>${springframework.version}</version>
+   <artifactId>spring-webmvc</artifactId>
+   <version>${springframework-version}</version>
   </dependency>
   <dependency>
    <groupId>org.springframework</groupId>
    <artifactId>spring-jdbc</artifactId>
-   <version>${springframework.version}</version>
+   <version>${springframework-version}</version>
   </dependency>
   <dependency>
    <groupId>org.springframework</groupId>
    <artifactId>spring-test</artifactId>
-   <version>${springframework.version}</version>
+   <version>${springframework-version}</version>
   </dependency>
 
   <!-- MySql connector for JDBC -->
   <dependency>
    <groupId>mysql</groupId>
    <artifactId>mysql-connector-java</artifactId>
-   <version>${mysql-connector.version}</version>
+   <version>${mysql-connector-version}</version>
   </dependency>
 
   <!-- Bonecep connection pool manager -->
   <dependency>
    <groupId>com.jolbox</groupId>
    <artifactId>bonecp</artifactId>
-   <version>${bonecp.version}</version>
+   <version>${bonecp-version}</version>
   </dependency>
 
   <!-- JSTL -->
   <dependency>
    <groupId>jstl</groupId>
    <artifactId>jstl</artifactId>
-   <version>${jstl.version}</version>
+   <version>${jstl-version}</version>
   </dependency>
 
   <!-- JSP -->
   <dependency>
    <groupId>javax.servlet.jsp</groupId>
    <artifactId>jsp-api</artifactId>
-   <version>${javax.servlet.jsp.version}</version>
+   <version>${javax-servlet-jsp-version}</version>
    <scope>provided</scope>
   </dependency>
 
@@ -112,7 +116,7 @@
   <dependency>
    <groupId>javax.servlet</groupId>
    <artifactId>javax.servlet-api</artifactId>
-   <version>${javax.servlet.version}</version>
+   <version>${javax-servlet-version}</version>
    <scope>provided</scope>
   </dependency>
 
@@ -121,7 +125,6 @@
    <groupId>org.slf4j</groupId>
    <artifactId>slf4j-api</artifactId>
    <version>${slf4j-api-version}</version>
-   <scope>runtime</scope>
   </dependency>
   <dependency>
    <groupId>ch.qos.logback</groupId>
@@ -144,7 +147,7 @@
   <dependency>
    <groupId>junit</groupId>
    <artifactId>junit</artifactId>
-   <version>${junit.version}</version>
+   <version>${junit-version}</version>
    <scope>test</scope>
   </dependency>
 
@@ -152,22 +155,22 @@
   <dependency>
    <groupId>org.mockito</groupId>
    <artifactId>mockito-all</artifactId>
-   <version>${mockito.version}</version>
+   <version>${mockito-version}</version>
   </dependency>
 
   <!-- Selenium for integration tests -->
   <dependency>
    <groupId>org.seleniumhq.selenium</groupId>
    <artifactId>selenium-java</artifactId>
-   <version>${selenium.version}</version>
+   <version>${selenium-version}</version>
    <scope>test</scope>
   </dependency>
 
-  <!-- Apache cli -->
+  <!-- Apache cli used for the cdb cli -->
   <dependency>
    <groupId>commons-cli</groupId>
    <artifactId>commons-cli</artifactId>
-   <version>1.3.1</version>
+   <version>${commons-cli-version}</version>
   </dependency>
 
 
