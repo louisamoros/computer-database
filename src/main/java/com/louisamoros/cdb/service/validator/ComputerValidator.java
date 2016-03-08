@@ -7,39 +7,47 @@ import com.louisamoros.cdb.model.Computer;
 
 import java.util.List;
 
-public class ComputerValidator {
+/**
+ * Computer model validator class.
+ */
+public final class ComputerValidator {
 
-  /**
-   * Validate.
-   *
-   * @param computer the computer
-   */
-  public static void validate(Computer computer) {
-
-    if (computer == null) {
-      throw new IntegrityException("Computer cannot be null.");
-    }
-    if (computer.getIntroduced() != null && computer.getDiscontinued() != null
-        && computer.getIntroduced().isAfter(computer.getDiscontinued())) {
-      throw new InvalidDateOrderException("Intoduced date should be before discontinued date.");
-    }
-    if (computer.getComputerName() == null || computer.getComputerName().isEmpty()) {
-      throw new InvalidComputerNameException("Computer name is required.");
+    /**
+     * Computer validator constructor.
+     */
+    private ComputerValidator() {
+        super();
     }
 
-  }
+    /**
+     * Validation method of a computer.
+     *
+     * @param computer
+     */
+    public static void validate(final Computer computer) {
 
-  /**
-   * Validate.
-   *
-   * @param computers the computers
-   */
-  public static void validate(List<Computer> computers) {
+        if (computer == null) {
+            throw new IntegrityException("Computer cannot be null.");
+        }
+        if (computer.getIntroduced() != null && computer.getDiscontinued() != null
+                && computer.getIntroduced().isAfter(computer.getDiscontinued())) {
+            throw new InvalidDateOrderException("Introduced date should be before discontinued date.");
+        }
+        if (computer.getComputerName() == null || computer.getComputerName().isEmpty()) {
+            throw new InvalidComputerNameException("Computer name is required.");
+        }
 
-    for (Computer computer : computers) {
-      validate(computer);
     }
 
-  }
+    /**
+     * Validation method of a company list.
+     *
+     * @param computers
+     */
+    public static void validate(final List<Computer> computers) {
+
+        computers.forEach(computer -> validate(computer));
+
+    }
 
 }

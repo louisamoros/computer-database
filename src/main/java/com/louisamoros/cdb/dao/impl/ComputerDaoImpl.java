@@ -46,7 +46,7 @@ public class ComputerDaoImpl implements ComputerDao {
   }
 
   @Override
-  public List<Computer> get(QueryParams qp) {
+  public List<Computer> get(QueryParams queryParams) {
 
     // @formatter:off
     QueryGenerator queryGenerator = new QueryGenerator
@@ -54,10 +54,10 @@ public class ComputerDaoImpl implements ComputerDao {
         .select("*")
         .from("computer")
         .leftJoinOn("company", "computer.company_id = company.id")
-        .orderBy(qp.getOrderBy())
-        .order(qp.getOrder())
-        .limit(String.valueOf(qp.getLimit()))
-        .offset(String.valueOf(qp.getOffset()))
+        .orderBy(queryParams.getOrderBy())
+        .order(queryParams.getOrder())
+        .limit(String.valueOf(queryParams.getLimit()))
+        .offset(String.valueOf(queryParams.getOffset()))
         .build();
     // @formatter:on
 

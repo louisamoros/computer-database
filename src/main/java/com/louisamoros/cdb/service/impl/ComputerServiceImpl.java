@@ -8,56 +8,60 @@ import com.louisamoros.cdb.service.validator.ComputerValidator;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
+/**
+ * Spring service computer implementation.
+ */
 @Service
-@Transactional
 public class ComputerServiceImpl implements ComputerService {
 
+  /**
+   * Autowired spring injection of computer dao.
+   */
   @Autowired
   private ComputerDao computerDao;
 
   @Override
-  public List<Computer> getAll() {
+  public final List<Computer> getAll() {
     return computerDao.getAll();
   }
 
   @Override
-  public Computer get(int computerId) {
+  public final Computer get(final int computerId) {
     return computerDao.get(computerId);
   }
 
   @Override
-  public List<Computer> get(QueryParams qp) {
-    return computerDao.get(qp);
+  public final List<Computer> get(final QueryParams queryParams) {
+    return computerDao.get(queryParams);
   }
 
   @Override
-  public int create(Computer computer) {
+  public final int create(final Computer computer) {
     ComputerValidator.validate(computer);
     return computerDao.create(computer);
   }
 
   @Override
-  public int update(Computer computer) {
+  public final int update(final Computer computer) {
     ComputerValidator.validate(computer);
     return computerDao.update(computer);
   }
 
   @Override
-  public void delete(int computerId) {
+  public final void delete(final int computerId) {
     computerDao.delete(computerId);
   }
 
   @Override
-  public int count() {
+  public final int count() {
     return computerDao.count();
   }
 
   @Override
-  public void setComputerDao(ComputerDao computerDao) {
+  public final void setComputerDao(final ComputerDao computerDao) {
     this.computerDao = computerDao;
   }
 

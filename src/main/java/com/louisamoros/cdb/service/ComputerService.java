@@ -6,22 +6,56 @@ import com.louisamoros.cdb.model.Computer;
 
 import java.util.List;
 
+/**
+ * Computer service interface.
+ */
 public interface ComputerService {
 
-  int count();
+    /**
+     * Count number of computers.
+     *
+     * @return number of computers
+     */
+    int count();
 
-  List<Computer> getAll();
+    /**
+     * Get all the computers.
+     * @return list of computer
+     */
+    List<Computer> getAll();
 
-  List<Computer> get(QueryParams qp);
+    /**
+     * Get filtered computers based on query.
+     * @param qp
+     * @return list of computer
+     */
+    List<Computer> get(final QueryParams qp);
 
-  Computer get(int computerId);
+    /**
+     * Get computer based on id.
+     * @param computerId
+     * @return computer
+     */
+    Computer get(final int computerId);
 
-  int create(Computer computer);
+    /**
+     * Create computer.
+     * @param computer
+     * @return computer created id
+     */
+    int create(final Computer computer);
 
-  int update(Computer computer);
+    /**
+     * Update computer.
+     * @param computer
+     * @return computer update id
+     */
+    int update(final Computer computer);
 
-  void delete(int computerId);
-
-  void setComputerDao(ComputerDao computerDao);
+    /**
+     * Delete computer based on id.
+     * @param computerId
+     */
+    void delete(final int computerId);
 
 }

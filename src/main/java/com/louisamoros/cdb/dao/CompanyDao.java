@@ -4,10 +4,23 @@ import com.louisamoros.cdb.model.Company;
 
 import java.util.List;
 
+/**
+ * Interface CompanyDao.
+ */
 public interface CompanyDao {
 
-  List<Company> getAll();
+    /**
+     * Get all companies.
+     *
+     * @return list of companies
+     */
+    List<Company> getAll();
 
-  void delete(int companyId);
+    /**
+     * Delete a company based on its id.
+     *
+     * @param companyId
+     */
+    void delete(int companyId);
 
 }

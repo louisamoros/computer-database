@@ -1,16 +1,26 @@
 package com.louisamoros.cdb.service;
 
-import com.louisamoros.cdb.dao.CompanyDao;
 import com.louisamoros.cdb.model.Company;
 
 import java.util.List;
 
+/**
+ * Company service interface.
+ */
 public interface CompanyService {
 
-  List<Company> getAll();
+    /**
+     * Get all companies.
+     *
+     * @return list of company
+     */
+    List<Company> getAll();
 
-  void delete(int companyId);
-
-  void setCompanyDao(CompanyDao companyDao);
+    /**
+     * Delete company and computer related.
+     *
+     * @param companyId
+     */
+    void delete(final int companyId);
 
 }

@@ -5,35 +5,42 @@ import com.louisamoros.cdb.model.Company;
 
 import java.util.List;
 
-public class CompanyValidator {
+/**
+ * Company model validator class.
+ */
+public final class CompanyValidator {
 
-  /**
-   * Validate.
-   *
-   * @param company the company
-   */
-  public static void validate(Company company) {
-
-    if (company == null) {
-      throw new IntegrityException("Company cannot be null validation says.");
-    }
-    if (company.getCompanyId() < 0) {
-      throw new IntegrityException("Company id cannot be negative.");
+    /**
+     * Company validator constructor.
+     */
+    private CompanyValidator() {
+        super();
     }
 
-  }
+    /**
+     * Validation method of a company.
+     * @param company
+     */
+    public static void validate(final Company company) {
 
-  /**
-   * Validate.
-   *
-   * @param companies the companies
-   */
-  public static void validate(List<Company> companies) {
+        if (company == null) {
+            throw new IntegrityException("Company cannot be null validation says.");
+        }
+        if (company.getCompanyId() < 0) {
+            throw new IntegrityException("Company id cannot be negative.");
+        }
 
-    for (Company company : companies) {
-      validate(company);
     }
 
-  }
+    /**
+     * Validation method of a company list.
+     *
+     * @param companies
+     */
+    public static void validate(final List<Company> companies) {
+
+        companies.forEach(company -> validate(company));
+
+    }
 
 }

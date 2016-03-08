@@ -3,194 +3,239 @@ package com.louisamoros.cdb.dto;
 /**
  * The Class ComputerDto.
  */
-
 public class ComputerDto {
 
-  private int computerId;
-  private String computerName;
-  private String discontinued;
-  private String introduced;
-  private String companyName;
-  private int companyId;
-
-  private ComputerDto(Builder builder) {
-    this.computerId = builder.computerId;
-    this.computerName = builder.computerName;
-    this.discontinued = builder.discontinued;
-    this.introduced = builder.introduced;
-    this.companyName = builder.companyName;
-    this.companyId = builder.companyId;
-  }
-
-  public ComputerDto() {
-    super();
-  }
-
-  public void setComputerId(int computerId) {
-    this.computerId = computerId;
-  }
-
-  public void setComputerName(String computerName) {
-    this.computerName = computerName;
-  }
-
-  public void setDiscontinued(String discontinued) {
-    this.discontinued = discontinued;
-  }
-
-  public void setIntroduced(String introduced) {
-    this.introduced = introduced;
-  }
-
-  public void setCompanyName(String companyName) {
-    this.companyName = companyName;
-  }
-
-  public void setCompanyId(int companyId) {
-    this.companyId = companyId;
-  }
-
-  public int getComputerId() {
-    return computerId;
-  }
-
-  public String getComputerName() {
-    return computerName;
-  }
-
-  public String getDiscontinued() {
-    return discontinued;
-  }
-
-  public String getIntroduced() {
-    return introduced;
-  }
-
-  public String getCompanyName() {
-    return companyName;
-  }
-
-  public int getCompanyId() {
-    return companyId;
-  }
-
-  @Override
-  public int hashCode() {
-    final int prime = 31;
-    int result = 1;
-    result = prime * result + companyId;
-    result = prime * result + ((companyName == null) ? 0 : companyName.hashCode());
-    result = prime * result + computerId;
-    result = prime * result + ((discontinued == null) ? 0 : discontinued.hashCode());
-    result = prime * result + ((introduced == null) ? 0 : introduced.hashCode());
-    result = prime * result + ((computerName == null) ? 0 : computerName.hashCode());
-    return result;
-  }
-
-  @Override
-  public boolean equals(Object obj) {
-    if (this == obj) {
-      return true;
-    }
-    if (obj == null) {
-      return false;
-    }
-    if (getClass() != obj.getClass()) {
-      return false;
-    }
-    ComputerDto other = (ComputerDto) obj;
-    if (companyId != other.companyId) {
-      return false;
-    }
-    if (companyName == null) {
-      if (other.companyName != null) {
-        return false;
-      }
-    } else if (!companyName.equals(other.companyName)) {
-      return false;
-    }
-    if (computerId != other.computerId) {
-      return false;
-    }
-    if (discontinued == null) {
-      if (other.discontinued != null) {
-        return false;
-      }
-    } else if (!discontinued.equals(other.discontinued)) {
-      return false;
-    }
-    if (introduced == null) {
-      if (other.introduced != null) {
-        return false;
-      }
-    } else if (!introduced.equals(other.introduced)) {
-      return false;
-    }
-    if (computerName == null) {
-      if (other.computerName != null) {
-        return false;
-      }
-    } else if (!computerName.equals(other.computerName)) {
-      return false;
-    }
-    return true;
-  }
-
-  @Override
-  public String toString() {
-    return "ComputerDto [computerId=" + computerId + ", computerName=" + computerName
-        + ", discontinued=" + discontinued + ", introduced=" + introduced + ", companyName="
-        + companyName + ", companyId=" + companyId + "]";
-  }
-
-  /**
-   * The Class Builder.
-   */
-  public static class Builder {
-
-    // require
-    private String computerName;
-
-    // optional
     private int computerId;
+    private String computerName;
     private String discontinued;
     private String introduced;
     private String companyName;
     private int companyId;
 
-    public Builder(String computerName) {
-      this.computerName = computerName;
+    /**
+     * ComputerDto class use builder pattern.
+     *
+     * @param builder
+     */
+    private ComputerDto(final Builder builder) {
+        this.computerId = builder.computerId;
+        this.computerName = builder.computerName;
+        this.discontinued = builder.discontinued;
+        this.introduced = builder.introduced;
+        this.companyName = builder.companyName;
+        this.companyId = builder.companyId;
     }
 
-    public Builder discontinued(String discontinued) {
-      this.discontinued = discontinued;
-      return this;
+    /**
+     * The computer dto constructor. Used by spring mvc in servlet.
+     * Not good as it breaks the builder pattern way of thinking.
+     * Need to find better solution...
+     */
+    public ComputerDto() {
+        super();
     }
 
-    public Builder introduced(String introduced) {
-      this.introduced = introduced;
-      return this;
+    public final int getComputerId() {
+        return computerId;
     }
 
-    public Builder companyName(String companyName) {
-      this.companyName = companyName;
-      return this;
+    public final void setComputerId(final int computerId) {
+        this.computerId = computerId;
     }
 
-    public Builder companyId(int companyId) {
-      this.companyId = companyId;
-      return this;
+    public final String getComputerName() {
+        return computerName;
     }
 
-    public Builder computerId(int computerId) {
-      this.computerId = computerId;
-      return this;
+    public final void setComputerName(final String computerName) {
+        this.computerName = computerName;
     }
 
-    public ComputerDto build() {
-      return new ComputerDto(this);
+    public final String getDiscontinued() {
+        return discontinued;
     }
 
-  }
+    public final void setDiscontinued(final String discontinued) {
+        this.discontinued = discontinued;
+    }
+
+    public final String getIntroduced() {
+        return introduced;
+    }
+
+    public final void setIntroduced(final String introduced) {
+        this.introduced = introduced;
+    }
+
+    public final String getCompanyName() {
+        return companyName;
+    }
+
+    public final int getCompanyId() {
+        return companyId;
+    }
+
+    public final void setCompanyId(final int companyId) {
+        this.companyId = companyId;
+    }
+
+    @Override
+    public final int hashCode() {
+        final int prime = 31;
+        int result = 1;
+        result = prime * result + companyId;
+        result = prime * result + ((companyName == null) ? 0 : companyName.hashCode());
+        result = prime * result + computerId;
+        result = prime * result + ((discontinued == null) ? 0 : discontinued.hashCode());
+        result = prime * result + ((introduced == null) ? 0 : introduced.hashCode());
+        result = prime * result + ((computerName == null) ? 0 : computerName.hashCode());
+        return result;
+    }
+
+    @Override
+    public final boolean equals(final Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        ComputerDto other = (ComputerDto) obj;
+        if (companyId != other.companyId) {
+            return false;
+        }
+        if (companyName == null) {
+            if (other.companyName != null) {
+                return false;
+            }
+        } else if (!companyName.equals(other.companyName)) {
+            return false;
+        }
+        if (computerId != other.computerId) {
+            return false;
+        }
+        if (discontinued == null) {
+            if (other.discontinued != null) {
+                return false;
+            }
+        } else if (!discontinued.equals(other.discontinued)) {
+            return false;
+        }
+        if (introduced == null) {
+            if (other.introduced != null) {
+                return false;
+            }
+        } else if (!introduced.equals(other.introduced)) {
+            return false;
+        }
+        if (computerName == null) {
+            if (other.computerName != null) {
+                return false;
+            }
+        } else if (!computerName.equals(other.computerName)) {
+            return false;
+        }
+        return true;
+    }
+
+    @Override
+    public final String toString() {
+        return "ComputerDto [computerId=" + computerId + ", computerName=" + computerName
+                + ", discontinued=" + discontinued + ", introduced=" + introduced + ", companyName="
+                + companyName + ", companyId=" + companyId + "]";
+    }
+
+    /**
+     * The Class Builder.
+     */
+    public static class Builder {
+
+        // require
+        private String computerName;
+
+        // optional
+        private int computerId;
+        private String discontinued;
+        private String introduced;
+        private String companyName;
+        private int companyId;
+
+        /**
+         * Builder constructor which requires computer name.
+         *
+         * @param computerName
+         */
+        public Builder(final String computerName) {
+            this.computerName = computerName;
+        }
+
+        /**
+         * Building the discontinued date.
+         *
+         * @param discontinued
+         * @return builder
+         */
+        public final Builder discontinued(final String discontinued) {
+            this.discontinued = discontinued;
+            return this;
+        }
+
+        /**
+         * Building the introduced date.
+         *
+         * @param introduced
+         * @return builder
+         */
+        public final Builder introduced(final String introduced) {
+            this.introduced = introduced;
+            return this;
+        }
+
+        /**
+         * Building the company name.
+         *
+         * @param companyName
+         * @return builder
+         */
+        public final Builder companyName(final String companyName) {
+            this.companyName = companyName;
+            return this;
+        }
+
+        /**
+         * Building the company id.
+         *
+         * @param companyId
+         * @return builder
+         */
+        public final Builder companyId(final int companyId) {
+            this.companyId = companyId;
+            return this;
+        }
+
+        /**
+         * Building the computer id.
+         *
+         * @param computerId
+         * @return builder
+         */
+        public final Builder computerId(final int computerId) {
+            this.computerId = computerId;
+            return this;
+        }
+
+        /**
+         * Building the computer dto object.
+         *
+         * @return computer dto
+         */
+        public ComputerDto build() {
+            return new ComputerDto(this);
+        }
+
+    }
 
 }

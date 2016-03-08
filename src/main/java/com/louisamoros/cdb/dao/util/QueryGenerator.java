@@ -3,191 +3,189 @@ package com.louisamoros.cdb.dao.util;
 /**
  * The Class QueryStatementGenerator.
  */
-public class QueryGenerator {
+public final class QueryGenerator {
 
-  private static StringBuilder query;
-
-  /**
-   * Instantiates a new query statement generator.
-   *
-   * @param builder the builder
-   */
-  private QueryGenerator(Builder builder) {
-    query = builder.query;
-  }
-
-  public StringBuilder getQuery() {
-    return query;
-  }
-
-  /**
-   * The Class Builder.
-   */
-  public static class Builder {
-
-    private static final String SELECT = " SELECT ";
-    private static final String FROM = " FROM ";
-    private static final String LEFT_JOIN = " LEFT JOIN ";
-    private static final String ON = " ON ";
-    private static final String WHERE = " WHERE ";
-    private static final String ORDER_BY = " ORDER BY ";
-    private static final String LIMIT = " LIMIT ";
-    private static final String OFFSET = " OFFSET ";
-    private static final String UPDATE = " UPDATE ";
-    private static final String SET = " SET ";
-    private static final String DELETE_FROM = " DELETE FROM ";
-    private static final String SELECT_COUNT_FROM = " SELECT COUNT(*) FROM ";
-    private static final String INSERT_INTO = " INSERT INTO ";
-    private static final String VALUES = " VALUES ";
-
-    private StringBuilder query = new StringBuilder();
+    private static StringBuilder query;
 
     /**
-     * Select.
+     * Instantiates a new query statement generator.
      *
-     * @param select the select
-     * @return the builder
+     * @param builder the builder
      */
-    public Builder select(String select) {
-      query.append(SELECT).append(select);
-      return this;
+    private QueryGenerator(final Builder builder) {
+        query = builder.query;
+    }
+
+    public StringBuilder getQuery() {
+        return query;
     }
 
     /**
-     * Select count from.
-     *
-     * @param selectCountFrom the select count from
-     * @return the builder
+     * The Class Builder.
      */
-    public Builder selectCountFrom(String selectCountFrom) {
-      query.append(SELECT_COUNT_FROM).append(selectCountFrom);
-      return this;
-    }
+    public static class Builder {
 
-    /**
-     * From.
-     *
-     * @param from the from
-     * @return the builder
-     */
-    public Builder from(String from) {
-      query.append(FROM).append(from);
-      return this;
-    }
+        private static final String SELECT = " SELECT ";
+        private static final String FROM = " FROM ";
+        private static final String LEFT_JOIN = " LEFT JOIN ";
+        private static final String ON = " ON ";
+        private static final String WHERE = " WHERE ";
+        private static final String ORDER_BY = " ORDER BY ";
+        private static final String LIMIT = " LIMIT ";
+        private static final String OFFSET = " OFFSET ";
+        private static final String UPDATE = " UPDATE ";
+        private static final String SET = " SET ";
+        private static final String DELETE_FROM = " DELETE FROM ";
+        private static final String SELECT_COUNT_FROM = " SELECT COUNT(*) FROM ";
+        private static final String INSERT_INTO = " INSERT INTO ";
+        private static final String VALUES = " VALUES ";
 
-    /**
-     * Left join on.
-     *
-     * @param leftJoin the left join
-     * @param on the on
-     * @return the builder
-     */
-    public Builder leftJoinOn(String leftJoin, String on) {
-      query.append(LEFT_JOIN).append(leftJoin).append(ON).append(on);
-      return this;
-    }
+        private StringBuilder query = new StringBuilder();
 
-    /**
-     * Limit.
-     *
-     * @param limit the limit
-     * @return the builder
-     */
-    public Builder limit(String limit) {
-      query.append(LIMIT).append(limit);
-      return this;
-    }
+        /**
+         * Building the select.
+         *
+         * @param select
+         * @return builder
+         */
+        public final Builder select(final String select) {
+            query.append(SELECT).append(select);
+            return this;
+        }
 
-    /**
-     * Offset.
-     *
-     * @param offset the offset
-     * @return the builder
-     */
-    public Builder offset(String offset) {
-      query.append(OFFSET).append(offset);
-      return this;
-    }
+        /**
+         * Building the selectCountFrom.
+         *
+         * @param selectCountFrom
+         * @return builder
+         */
+        public final Builder selectCountFrom(final String selectCountFrom) {
+            query.append(SELECT_COUNT_FROM).append(selectCountFrom);
+            return this;
+        }
 
-    /**
-     * Where.
-     *
-     * @param where the where
-     * @param whereValue the where value
-     * @return the builder
-     */
-    public Builder where(String where) {
-      query.append(WHERE).append(where);
-      return this;
-    }
+        /**
+         * Building the from.
+         *
+         * @param from
+         * @return builder
+         */
+        public final Builder from(final String from) {
+            query.append(FROM).append(from);
+            return this;
+        }
 
-    /**
-     * Order by.
-     *
-     * @param orderBy the order by
-     * @return the builder
-     */
-    public Builder orderBy(String orderBy) {
-      query.append(ORDER_BY).append(orderBy);
-      return this;
-    }
+        /**
+         * Building the leftJoin on.
+         *
+         * @param leftJoin
+         * @param on
+         * @return builder
+         */
+        public final Builder leftJoinOn(final String leftJoin, final String on) {
+            query.append(LEFT_JOIN).append(leftJoin).append(ON).append(on);
+            return this;
+        }
 
-    /**
-     * Order.
-     *
-     * @param order the order
-     * @return the builder
-     */
-    public Builder order(String order) {
-      query.append(" " + order);
-      return this;
-    }
+        /**
+         * Building the limit.
+         *
+         * @param limit
+         * @return builder
+         */
+        public final Builder limit(final String limit) {
+            query.append(LIMIT).append(limit);
+            return this;
+        }
 
-    /**
-     * Delete from.
-     *
-     * @param deleteFrom the delete from
-     * @return the builder
-     */
-    public Builder deleteFrom(String deleteFrom) {
-      query.append(DELETE_FROM).append(deleteFrom);
-      return this;
-    }
+        /**
+         * Building the offset.
+         *
+         * @param offset
+         * @return builder
+         */
+        public final Builder offset(final String offset) {
+            query.append(OFFSET).append(offset);
+            return this;
+        }
 
-    /**
-     * Update.
-     *
-     * @param update the update
-     * @param set the set
-     * @param values the values
-     * @return the builder
-     */
-    public Builder update(String update, String set) {
-      query.append(UPDATE).append(update).append(SET).append(set);
-      return this;
-    }
+        /**
+         * Building the where.
+         *
+         * @param where
+         * @return builder
+         */
+        public final Builder where(final String where) {
+            query.append(WHERE).append(where);
+            return this;
+        }
 
-    /**
-     * Insert into.
-     *
-     * @param insertInto the insert into
-     * @param set the set
-     * @return the builder
-     */
-    public Builder insertInto(String insertInto, String set) {
-      query.append(INSERT_INTO).append(insertInto).append(VALUES).append(set);
-      return this;
-    }
+        /**
+         * Building the orderBy.
+         *
+         * @param orderBy
+         * @return builder
+         */
+        public final Builder orderBy(final String orderBy) {
+            query.append(ORDER_BY).append(orderBy);
+            return this;
+        }
 
-    /**
-     * Builds the.
-     *
-     * @return the query statement generator
-     */
-    public QueryGenerator build() {
-      return new QueryGenerator(this);
-    }
+        /**
+         * Building the order.
+         *
+         * @param order
+         * @return builder
+         */
+        public final Builder order(final String order) {
+            query.append(" " + order);
+            return this;
+        }
 
-  }
+        /**
+         * Building the deleteFrom
+         *
+         * @param deleteFrom
+         * @return builder
+         */
+        public final Builder deleteFrom(final String deleteFrom) {
+            query.append(DELETE_FROM).append(deleteFrom);
+            return this;
+        }
+
+        /**
+         * Building the update.
+         *
+         * @param update
+         * @param set
+         * @return builder
+         */
+        public final Builder update(final String update, final String set) {
+            query.append(UPDATE).append(update).append(SET).append(set);
+            return this;
+        }
+
+        /**
+         * Building the insertInto
+         *
+         * @param insertInto
+         * @param set
+         * @return builder
+         */
+        public final Builder insertInto(final String insertInto, final String set) {
+            query.append(INSERT_INTO).append(insertInto).append(VALUES).append(set);
+            return this;
+        }
+
+        /**
+         * Building the query genrator object.
+         *
+         * @return the query generator
+         */
+        public final QueryGenerator build() {
+            return new QueryGenerator(this);
+        }
+
+    }
 
 }

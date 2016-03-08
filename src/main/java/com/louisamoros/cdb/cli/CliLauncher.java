@@ -1,12 +1,9 @@
-
 package com.louisamoros.cdb.cli;
 
 import com.louisamoros.cdb.service.CompanyService;
 import com.louisamoros.cdb.service.ComputerService;
-
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
-import java.io.IOException;
 import java.util.Scanner;
 
 /**
@@ -35,7 +32,6 @@ public final class CliLauncher {
    * The main method.
    *
    * @param args the arguments
-   * @throws IOException Signals that an I/O exception has occurred.
    */
   public static void main(final String... args) {
 

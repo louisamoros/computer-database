@@ -27,7 +27,8 @@ public final class CliCompany {
 
     /**
      * Manage static method to handle command.
-     * @param cmd the command
+     *
+     * @param cmd            the command
      * @param companyService the company service
      */
     public static void manage(final CommandLine cmd, final CompanyService companyService) {

@@ -10,45 +10,52 @@ import java.util.stream.Collectors;
 /**
  * The Class MapperCompanyDto.
  */
-public class MapperCompanyDto {
+public final class MapperCompanyDto {
 
-  /**
-   * To company.
-   *
-   * @param companyDto the company dto
-   * @return the company
-   */
-  public static Company toCompany(CompanyDto companyDto) {
+    /**
+     * The mapper company dto constructor.
+     */
+    private MapperCompanyDto() {
+        super();
+    }
 
-    Company company = new Company.Builder().id(companyDto.getId()).name(companyDto.getName())
-        .build();
-    return company;
+    /**
+     * Transform a company dto to a company model.
+     *
+     * @param companyDto
+     * @return company
+     */
+    public static Company toCompany(final CompanyDto companyDto) {
 
-  }
+        Company company = new Company.Builder().id(companyDto.getId()).name(companyDto.getName())
+                .build();
+        return company;
 
-  /**
-   * To company dto.
-   *
-   * @param company the company
-   * @return the company dto
-   */
-  public static CompanyDto toCompanyDto(Company company) {
+    }
 
-    CompanyValidator.validate(company);
-    CompanyDto companyDto = new CompanyDto.Builder().id(company.getCompanyId())
-        .name(company.getCompanyName()).build();
-    return companyDto;
+    /**
+     * Transform a company model to a company dto.
+     *
+     * @param company
+     * @return company dto
+     */
+    public static CompanyDto toCompanyDto(final Company company) {
 
-  }
+        CompanyValidator.validate(company);
+        CompanyDto companyDto = new CompanyDto.Builder().id(company.getCompanyId())
+                .name(company.getCompanyName()).build();
+        return companyDto;
 
-  /**
-   * To company dto list.
-   *
-   * @param companies the companies
-   * @return the list
-   */
-  public static List<CompanyDto> toCompanyDtoList(List<Company> companies) {
-    return companies.stream().map(MapperCompanyDto::toCompanyDto).collect(Collectors.toList());
-  }
+    }
+
+    /**
+     * Transform a list of company model to a list of company dto.
+     *
+     * @param companies
+     * @return list of company dto
+     */
+    public static List<CompanyDto> toCompanyDtoList(final List<Company> companies) {
+        return companies.stream().map(MapperCompanyDto::toCompanyDto).collect(Collectors.toList());
+    }
 
 }

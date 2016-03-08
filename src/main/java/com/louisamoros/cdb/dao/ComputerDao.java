@@ -6,24 +6,68 @@ import com.louisamoros.cdb.model.Computer;
 import java.util.List;
 
 /**
- * The Interface ComputerDao.
+ * Interface ComputerDao.
  */
 public interface ComputerDao {
 
-  int count();
+    /**
+     * Count number of computers.
+     *
+     * @return number of computers.
+     */
+    int count();
 
-  Computer get(int computerId);
+    /**
+     * Get computer based on its id.
+     *
+     * @param computerId
+     * @return computer
+     */
+    Computer get(int computerId);
 
-  List<Computer> get(QueryParams qp);
+    /**
+     * Get computers filtering by query params.
+     *
+     * @param queryParams
+     * @return list of computers
+     */
+    List<Computer> get(QueryParams queryParams);
 
-  List<Computer> getAll();
+    /**
+     * Get all computers.
+     *
+     * @return list of computers
+     */
+    List<Computer> getAll();
 
-  int create(Computer computer);
+    /**
+     * Create computer.
+     *
+     * @param computer
+     * @return id of created computer
+     */
+    int create(Computer computer);
 
-  int update(Computer computer);
+    /**
+     * Update computer.
+     *
+     * @param computer
+     * @return id of updated computer
+     */
+    int update(Computer computer);
 
-  void deleteByCompanyId(int companyId);
+    /**
+     * Delete all computers related to the company id.
+     *
+     * @param companyId
+     */
+    void deleteByCompanyId(int companyId);
 
-  void delete(int computerId);
+    /**
+     * Delete computer based on its id.
+     *
+     * @param computerId
+     */
+    void delete(int computerId);
 
 }

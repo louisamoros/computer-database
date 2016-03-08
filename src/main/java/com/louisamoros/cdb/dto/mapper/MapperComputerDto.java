@@ -12,75 +12,82 @@ import java.util.stream.Collectors;
 /**
  * The Class MapperComputerDto.
  */
-public class MapperComputerDto {
+public final class MapperComputerDto {
 
-  /**
-   * To computer.
-   *
-   * @param computerDto the computer dto
-   * @return the computer
-   */
-  public static Computer toComputer(ComputerDto computerDto) {
-
-    LocalDate introduced = null;
-    LocalDate discontinued = null;
-
-    if (computerDto.getIntroduced() != null && !computerDto.getIntroduced().isEmpty()) {
-      introduced = LocalDate.parse(computerDto.getIntroduced());
-    }
-    if (computerDto.getDiscontinued() != null && !computerDto.getDiscontinued().isEmpty()) {
-      discontinued = LocalDate.parse(computerDto.getDiscontinued());
+    /**
+     * The mapper computer dto constructor.
+     */
+    private MapperComputerDto() {
+        super();
     }
 
-    Company company = null;
-    if (computerDto.getCompanyId() != 0) {
-      company = new Company.Builder().id(computerDto.getCompanyId())
-          .name(computerDto.getCompanyName()).build();
+    /**
+     * Transform a computer dto to a computer model.
+     *
+     * @param computerDto
+     * @return computer
+     */
+    public static Computer toComputer(final ComputerDto computerDto) {
+
+        LocalDate introduced = null;
+        LocalDate discontinued = null;
+
+        if (computerDto.getIntroduced() != null && !computerDto.getIntroduced().isEmpty()) {
+            introduced = LocalDate.parse(computerDto.getIntroduced());
+        }
+        if (computerDto.getDiscontinued() != null && !computerDto.getDiscontinued().isEmpty()) {
+            discontinued = LocalDate.parse(computerDto.getDiscontinued());
+        }
+
+        Company company = null;
+        if (computerDto.getCompanyId() != 0) {
+            company = new Company.Builder().id(computerDto.getCompanyId())
+                    .name(computerDto.getCompanyName()).build();
+        }
+
+        Computer computer = new Computer.Builder(computerDto.getComputerName()).company(company)
+                .discontinued(discontinued).introduced(introduced).id(computerDto.getComputerId()).build();
+
+        return computer;
+
     }
 
-    Computer computer = new Computer.Builder(computerDto.getComputerName()).company(company)
-        .discontinued(discontinued).introduced(introduced).id(computerDto.getComputerId()).build();
+    /**
+     * Transform a list of computer dto to a list of computer model.
+     *
+     * @param computersDto
+     * @return list of computer
+     */
+    public static List<Computer> toComputerList(final List<ComputerDto> computersDto) {
+        return computersDto.stream().map(MapperComputerDto::toComputer).collect(Collectors.toList());
+    }
 
-    return computer;
+    /**
+     * Transform a computer model to a computer dto.
+     *
+     * @param computer
+     * @return computer dto
+     */
+    public static ComputerDto toComputerDto(final Computer computer) {
 
-  }
+        ComputerValidator.validate(computer);
+        ComputerDto computerDto = new ComputerDto.Builder(computer.getComputerName())
+                .companyId(computer.getCompany().getCompanyId())
+                .companyName(computer.getCompany().getCompanyName()).computerId(computer.getComputerId())
+                .introduced(String.valueOf(computer.getIntroduced()))
+                .discontinued(String.valueOf(computer.getDiscontinued())).build();
+        return computerDto;
 
-  /**
-   * To computer list.
-   *
-   * @param computersDto the computers dto
-   * @return the list
-   */
-  public static List<Computer> toComputerList(List<ComputerDto> computersDto) {
-    return computersDto.stream().map(MapperComputerDto::toComputer).collect(Collectors.toList());
-  }
+    }
 
-  /**
-   * To computer dto.
-   *
-   * @param computer the computer
-   * @return the computer dto
-   */
-  public static ComputerDto toComputerDto(Computer computer) {
-
-    ComputerValidator.validate(computer);
-    ComputerDto computerDto = new ComputerDto.Builder(computer.getComputerName())
-        .companyId(computer.getCompany().getCompanyId())
-        .companyName(computer.getCompany().getCompanyName()).computerId(computer.getComputerId())
-        .introduced(String.valueOf(computer.getIntroduced()))
-        .discontinued(String.valueOf(computer.getDiscontinued())).build();
-    return computerDto;
-
-  }
-
-  /**
-   * To computer dto list.
-   *
-   * @param computers the computers
-   * @return the list
-   */
-  public static List<ComputerDto> toComputerDtoList(List<Computer> computers) {
-    return computers.stream().map(MapperComputerDto::toComputerDto).collect(Collectors.toList());
-  }
+    /**
+     * Transform a list of computer model to a list of computer dto.
+     *
+     * @param computers
+     * @return list of computer dto
+     */
+    public static List<ComputerDto> toComputerDtoList(final List<Computer> computers) {
+        return computers.stream().map(MapperComputerDto::toComputerDto).collect(Collectors.toList());
+    }
 
 }
