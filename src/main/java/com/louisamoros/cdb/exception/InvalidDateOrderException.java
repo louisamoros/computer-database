@@ -10,7 +10,7 @@ public class InvalidDateOrderException extends RuntimeException {
   /**
    * Thrown an invalid date order runtime exception.
    *
-   * @param message
+   * @param message the message to display
    */
   public InvalidDateOrderException(final String message) {
     super(message);

@@ -18,16 +18,25 @@ import org.springframework.stereotype.Repository;
 import java.util.HashMap;
 import java.util.List;
 
+/**
+ * Spring repository for implementation of computer dao.
+ */
 @Repository
 public class ComputerDaoImpl implements ComputerDao {
 
-  public static Logger LOGGER = LoggerFactory.getLogger(ComputerDao.class);
+  /**
+   * Logger of the class.
+   */
+  public static final Logger LOGGER = LoggerFactory.getLogger(ComputerDao.class);
 
+  /**
+   * Autowired spring injection of jdbc template (named parameter overlay).
+   */
   @Autowired
   private NamedParameterJdbcTemplate namedParameterJdbcTemplate;
 
   @Override
-  public Computer get(int id) {
+  public final Computer get(final int id) {
 
     // @formatter:off
     QueryGenerator queryGenerator = new QueryGenerator
@@ -46,7 +55,7 @@ public class ComputerDaoImpl implements ComputerDao {
   }
 
   @Override
-  public List<Computer> get(QueryParams queryParams) {
+  public final List<Computer> get(final QueryParams queryParams) {
 
     // @formatter:off
     QueryGenerator queryGenerator = new QueryGenerator
@@ -69,7 +78,7 @@ public class ComputerDaoImpl implements ComputerDao {
   }
 
   @Override
-  public List<Computer> getAll() {
+  public final List<Computer> getAll() {
 
     // @formatter:off
     QueryGenerator queryGenerator = new QueryGenerator
@@ -79,13 +88,12 @@ public class ComputerDaoImpl implements ComputerDao {
         .leftJoinOn("company", "computer.company_id = company.id")
         .build();
     // @formatter:off
-    
     LOGGER.info(queryGenerator.getQuery().toString());
     return namedParameterJdbcTemplate.query(queryGenerator.getQuery().toString(), new HashMap<>(), new ComputerRowMapper());
   }
 
   @Override
-  public int create(Computer computer) {
+  public final int create(final Computer computer) {
 
     // @formatter:off
     QueryGenerator queryGenerator = new QueryGenerator
@@ -101,7 +109,7 @@ public class ComputerDaoImpl implements ComputerDao {
   }
 
   @Override
-  public int update(Computer computer) {
+  public final int update(final Computer computer) {
 
     // @formatter:off
     QueryGenerator qg = new QueryGenerator
@@ -122,7 +130,7 @@ public class ComputerDaoImpl implements ComputerDao {
   }
 
   @Override
-  public void delete(int computerId) {
+  public final void delete(final int computerId) {
 
     // @formatter:off
     QueryGenerator qg = new QueryGenerator
@@ -139,7 +147,7 @@ public class ComputerDaoImpl implements ComputerDao {
   }
 
   @Override
-  public int count() {
+  public final int count() {
 
     // @formatter:off
     QueryGenerator qg = new QueryGenerator
@@ -155,7 +163,7 @@ public class ComputerDaoImpl implements ComputerDao {
   }
 
   @Override
-  public void deleteByCompanyId(int companyId) {
+  public final void deleteByCompanyId(final int companyId) {
 
     // @formatter:off
     QueryGenerator queryGenerator = new QueryGenerator
@@ -164,7 +172,6 @@ public class ComputerDaoImpl implements ComputerDao {
         .where("company_id=:companyId")
         .build();
     // @formatter:off
-    
     LOGGER.info(queryGenerator.getQuery().toString());
     SqlParameterSource namedParameters = new MapSqlParameterSource("companyId", companyId);
     namedParameterJdbcTemplate.update(queryGenerator.getQuery().toString(), namedParameters);

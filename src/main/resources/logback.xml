@@ -7,7 +7,7 @@
    <pattern>CDB    %d{HH:mm:ss.SSS} | %-5level %logger{36} - %msg %n</pattern>
   </encoder>
  </appender>
- 
+
  <appender name="consoleAppenderSpring" class="ch.qos.logback.core.ConsoleAppender">
   <encoder>
    <pattern>SPRING %d{HH:mm:ss.SSS} | %-5level %logger{36} - %msg %n</pattern>
@@ -17,10 +17,9 @@
  <logger name="com.louisamoros.cdb" level="ALL">
   <appender-ref ref="consoleAppender" />
  </logger>
- 
+
  <logger name="org.springframework" level="INFO">
   <appender-ref ref="consoleAppenderSpring" />
  </logger>
- 
+
 </configuration>
- 

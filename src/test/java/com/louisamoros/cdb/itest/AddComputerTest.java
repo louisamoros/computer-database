@@ -27,7 +27,7 @@ public class AddComputerTest {
    * @throws Exception the exception
    */
   @Before
-  public void setUp() throws Exception {
+  public final void setUp() throws Exception {
     driver = new FirefoxDriver();
     baseUrl = "http://localhost:8180";
     driver.manage().timeouts().implicitlyWait(5, TimeUnit.SECONDS);
@@ -39,7 +39,7 @@ public class AddComputerTest {
    * @throws Exception the exception
    */
   @Test
-  public void test() throws Exception {
+  public final void test() throws Exception {
     driver.get(baseUrl + "/cdb/computer/list");
     driver.findElement(By.linkText("2")).click();
     driver.findElement(By.linkText("3")).click();
@@ -66,7 +66,7 @@ public class AddComputerTest {
    * @throws Exception the exception
    */
   @After
-  public void tearDown() throws Exception {
+  public final void tearDown() throws Exception {
     driver.quit();
     String verificationErrorString = verificationErrors.toString();
     if (!"".equals(verificationErrorString)) {

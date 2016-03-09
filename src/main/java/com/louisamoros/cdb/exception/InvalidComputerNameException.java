@@ -10,7 +10,7 @@ public class InvalidComputerNameException extends RuntimeException {
   /**
    * Thrown an invalid computer name runtime exception.
    *
-   * @param message
+   * @param message the message to display
    */
   public InvalidComputerNameException(final String message) {
     super(message);

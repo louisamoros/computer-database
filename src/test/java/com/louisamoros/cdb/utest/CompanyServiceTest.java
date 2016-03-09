@@ -22,44 +22,61 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Company service test.
+ */
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration("classpath:test-mvc-application-context.xml")
 public class CompanyServiceTest {
 
-  private static Logger LOGGER = LoggerFactory.getLogger(CompanyServiceTest.class);
+  /**
+   * Logger of the class.
+   */
+  private static final Logger LOGGER = LoggerFactory.getLogger(CompanyServiceTest.class);
 
+  /**
+   * Spring injection of company dao mock.
+   */
   @Mock
   private CompanyDao mockCompanyDao;
 
+  /**
+   * Spring injection of computer dao mock.
+   */
   @Mock
   private ComputerDao mockComputerDao;
 
+  /**
+   * Autowired spring injection company service after mocks.
+   */
   @InjectMocks
   @Autowired
   private CompanyService companyService;
 
   /**
-   * Set up.
+   * Initialize mocks.
    */
   @Before
-  public void setUp() {
+  public final void setUp() {
     LOGGER.info("Initialize mocks [mockCompanyDao][mockComputerDao]...");
     // scans the class annotation, instantiates mocks and inject them into the bean.
     MockitoAnnotations.initMocks(this);
   }
 
   /**
-   * Gets the all companies test.
-   *
-   * @return the all companies test
+   * Gets all companies test.
    */
   @Test
-  public void getAllCompaniesOk() {
+  public final void getAllCompaniesOk() {
     LOGGER.info("getAllCompaniesOk...");
     Mockito.when(mockCompanyDao.getAll()).thenReturn(getCompanies());
     Assert.assertTrue(companyService.getAll().size() == 3);
   }
 
+  /**
+   * Get companies method for test.
+   * @return companies the list of company
+   */
   private List<Company> getCompanies() {
     List<Company> companies = new ArrayList<>();
     Company company = new Company.Builder().name("company1").id(1).build();

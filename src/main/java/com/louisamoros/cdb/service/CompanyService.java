@@ -9,18 +9,18 @@ import java.util.List;
  */
 public interface CompanyService {
 
-    /**
-     * Get all companies.
-     *
-     * @return list of company
-     */
-    List<Company> getAll();
+  /**
+   * Get all companies.
+   *
+   * @return list of company
+   */
+  List<Company> getAll();
 
-    /**
-     * Delete company and computer related.
-     *
-     * @param companyId
-     */
-    void delete(final int companyId);
+  /**
+   * Delete company and computer related.
+   *
+   * @param companyId the company id
+   */
+  void delete(final int companyId);
 
 }

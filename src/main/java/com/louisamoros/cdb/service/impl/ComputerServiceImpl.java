@@ -60,9 +60,4 @@ public class ComputerServiceImpl implements ComputerService {
     return computerDao.count();
   }
 
-  @Override
-  public final void setComputerDao(final ComputerDao computerDao) {
-    this.computerDao = computerDao;
-  }
-
 }

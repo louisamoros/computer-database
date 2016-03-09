@@ -24,39 +24,57 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Computer service test class.
+ */
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration("classpath:test-mvc-application-context.xml")
 public class ComputerServiceTest {
 
-  private static Logger LOGGER = LoggerFactory.getLogger(ComputerServiceTest.class);
+  /**
+   * Logger of the class.
+   */
+  private static final Logger LOGGER = LoggerFactory.getLogger(ComputerServiceTest.class);
 
+  /**
+   * Spring injection of a mock for test.
+   */
   @Mock
   private ComputerDao mockComputerDao;
 
+  /**
+   * Autowired spring injection object after mock.
+   */
   @InjectMocks
   @Autowired
   private ComputerService computerService;
 
   /**
-   * Inits the.
+   * Mock spring beans.
    */
   @Before
-  public void init() {
+  public final void init() {
     LOGGER.info("Initialize mocks [mockComputerDao]...");
     // scans the class annotation, instantiates mocks and inject them into the bean.
     MockitoAnnotations.initMocks(this);
   }
 
+  /**
+   * Test get all computer ok.
+   */
   @Test
-  public void getAllComputersOk() {
+  public final void getAllComputersOk() {
     LOGGER.info("getAllComputersOk...");
     Mockito.when(mockComputerDao.getAll()).thenReturn(getComputers());
     Assert.assertTrue(computerService.getAll() instanceof List<?>);
     Assert.assertEquals(computerService.getAll().size(), 2);
   }
 
+  /**
+   * Test create computer ok.
+   */
   @Test
-  public void createComputerOk() {
+  public final void createComputerOk() {
     LOGGER.info("createComputerOk...");
     Computer computer1 = new Computer.Builder("computer1").company(null).introduced(null)
         .discontinued(null).build();
@@ -65,24 +83,33 @@ public class ComputerServiceTest {
     Assert.assertTrue(createdComputerId == 1);
   }
 
+  /**
+   * Test create computer invalid computer name.
+   */
   @Test(expected = InvalidComputerNameException.class)
-  public void createComputerInvalidNameKo() {
+  public final void createComputerInvalidNameKo() {
     LOGGER.info("createComputerInvalidNameKo...");
     Computer computer1 = new Computer.Builder(null).company(null).discontinued(null)
         .introduced(null).build();
     computerService.create(computer1);
   }
 
+  /**
+   * Test create computer fail.
+   */
   @Test(expected = InvalidDateOrderException.class)
-  public void createComputerInvalidDateOrderKo() {
+  public final void createComputerInvalidDateOrderKo() {
     LOGGER.info("createComputerInvalidDateOrderKo...");
     Computer computer1 = new Computer.Builder("computer1").company(null)
         .discontinued(LocalDate.of(2000, 9, 9)).introduced(LocalDate.now()).build();
     computerService.create(computer1);
   }
 
+  /**
+   * Test delete computer.
+   */
   @Test
-  public void deleteComputerOk() {
+  public final void deleteComputerOk() {
     LOGGER.info("deleteComputerOk...");
     ArrayList<Computer> computers = getComputers();
     computers.remove(1);
@@ -91,8 +118,11 @@ public class ComputerServiceTest {
     Assert.assertEquals(computerService.getAll().size(), 1);
   }
 
+  /**
+   * Test update computer.
+   */
   @Test
-  public void updateComputerTestOk() {
+  public final void updateComputerTestOk() {
     LOGGER.info("updateComputerOk...");
     ArrayList<Computer> computers = getComputers();
     Computer computer1 = new Computer.Builder("updatedComputer").company(null).discontinued(null)
@@ -104,6 +134,10 @@ public class ComputerServiceTest {
     Assert.assertTrue(computer1.equals(computers.get(1)));
   }
 
+  /**
+   * Return list of computer for test.
+   * @return list of computer
+   */
   private ArrayList<Computer> getComputers() {
     Computer computer1 = new Computer.Builder("computer1").company(null).discontinued(null)
         .introduced(null).build();

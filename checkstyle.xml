@@ -31,7 +31,8 @@
 
     <!-- Checks that a package-info.java file exists for each package.     -->
     <!-- See http://checkstyle.sf.net/config_javadoc.html#JavadocPackage -->
-    <module name="JavadocPackage"/>
+    <!-- Override cdb louis -->
+   <!--  <module name="JavadocPackage"/> -->
 
     <!-- Checks whether files end with a new line.                        -->
     <!-- See http://checkstyle.sf.net/config_misc.html#NewlineAtEndOfFile -->
@@ -75,7 +76,8 @@
             <property name="allowMissingPropertyJavadoc" value="true" />
         </module>
         <module name="JavadocType"/>
-        <module name="JavadocVariable"/>
+        <!-- Override cdb louis -->
+        <!-- <module name="JavadocVariable"/> -->
         <module name="JavadocStyle"/>
 
         <!-- Checks for Naming Conventions.                  -->
@@ -138,13 +140,20 @@
 
         <!-- Checks for common coding problems               -->
         <!-- See http://checkstyle.sf.net/config_coding.html -->
-        <module name="AvoidInlineConditionals"/>
+        <!-- Override cdb louis -->
+        <!-- <module name="AvoidInlineConditionals"/> -->
         <module name="EmptyStatement"/>
         <module name="EqualsHashCode"/>
-        <module name="HiddenField"/>
+        <!-- Override cdb louis -->
+        <!-- <module name="HiddenField"/> -->
+        <module name="HiddenField">
+          <property name="ignoreSetter" value="true" />
+          <property name="ignoreConstructorParameter" value="true" />
+        </module>
         <module name="IllegalInstantiation"/>
         <module name="InnerAssignment"/>
-        <module name="MagicNumber"/>
+        <!-- Override cdb louis -->
+        <!-- <module name="MagicNumber"/> -->
         <module name="MissingSwitchDefault"/>
         <module name="SimplifyBooleanExpression"/>
         <module name="SimplifyBooleanReturn"/>

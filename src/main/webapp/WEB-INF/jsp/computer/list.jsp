@@ -33,7 +33,8 @@
         <h1 id="homeTitle"><c:out value="${page.count}"></c:out> Computers found</h1>
         <div id="actions" class="form-horizontal">
             <div class="pull-left">
-                <form id="searchForm" action="api/computer" method="GET" class="form-inline">
+                <form
+                 id="searchForm" action="api/computer" method="GET" class="form-inline">
                     <input type="search" id="searchbox" name="search"
                            class="form-control" placeholder="Search name"/> <input
                         type="submit" id="searchsubmit" value="Filter by name"
