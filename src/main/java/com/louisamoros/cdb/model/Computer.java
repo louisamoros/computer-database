@@ -110,6 +110,9 @@ public final class Computer {
     return true;
   }
 
+  /**
+   * The builder class for computer model.
+   */
   public static class Builder {
 
     // require

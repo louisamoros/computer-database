@@ -108,7 +108,7 @@ public class ComputerController {
    */
   @RequestMapping(value = "/{computerId}", method = RequestMethod.POST)
   public final String updateComputer(@PathVariable("computerId") final int computerId,
-      ComputerDto computerDto) {
+      final ComputerDto computerDto) {
 
     LOGGER.info("post /api/computer/" + computerId);
     ComputerDtoValidator.validate(computerDto);

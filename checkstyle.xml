@@ -146,10 +146,6 @@
         <module name="EqualsHashCode"/>
         <!-- Override cdb louis -->
         <!-- <module name="HiddenField"/> -->
-        <module name="HiddenField">
-          <property name="ignoreSetter" value="true" />
-          <property name="ignoreConstructorParameter" value="true" />
-        </module>
         <module name="IllegalInstantiation"/>
         <module name="InnerAssignment"/>
         <!-- Override cdb louis -->

@@ -65,6 +65,11 @@ public final class Company {
     return true;
   }
 
+  /**
+   * The Builder Class for company model.
+   * @author louis
+   *
+   */
   public static class Builder {
 
     // optional

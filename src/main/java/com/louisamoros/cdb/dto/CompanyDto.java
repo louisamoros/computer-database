@@ -65,6 +65,9 @@ public final class CompanyDto {
     return "CompanyDto [id=" + id + ", name=" + name + "]";
   }
 
+  /**
+   * The builder class for company dto.
+   */
   public static class Builder {
 
     // optional
