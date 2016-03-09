@@ -1,14 +1,29 @@
 package com.louisamoros.cdb.dto;
 
+import com.louisamoros.cdb.dto.validator.Date;
+import com.louisamoros.cdb.dto.validator.DateOrder;
+
+import org.hibernate.validator.constraints.NotEmpty;
+
+import javax.validation.constraints.NotNull;
+
 /**
  * The Class ComputerDto.
  */
+@DateOrder
 public class ComputerDto {
 
-  private int computerId;
+  @NotNull
+  @NotEmpty
   private String computerName;
+
+  @Date
   private String discontinued;
+
+  @Date
   private String introduced;
+
+  private int computerId;
   private String companyName;
   private int companyId;
 
@@ -32,7 +47,7 @@ public class ComputerDto {
    * Need to find better solution...
    */
   public ComputerDto() {
-    super();
+
   }
 
   public final int getComputerId() {

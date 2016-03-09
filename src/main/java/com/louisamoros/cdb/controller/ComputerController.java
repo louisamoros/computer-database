@@ -2,7 +2,6 @@ package com.louisamoros.cdb.controller;
 
 import com.louisamoros.cdb.dto.ComputerDto;
 import com.louisamoros.cdb.dto.mapper.MapperComputerDto;
-import com.louisamoros.cdb.dto.validator.ComputerDtoValidator;
 import com.louisamoros.cdb.model.Computer;
 import com.louisamoros.cdb.service.ComputerService;
 
@@ -10,10 +9,14 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+
+import javax.validation.Valid;
 
 /**
  * Spring controller for computer model.
@@ -52,27 +55,30 @@ public class ComputerController {
    */
   @RequestMapping(value = "/{computerId}", method = RequestMethod.GET)
   public final String getComputer(@PathVariable("computerId") final int computerId) {
-
     LOGGER.info("get /api/computer/" + computerId);
     return "computer/list";
-
   }
 
   /**
    * Method to create a computer.
    *
    * @param computerDto the computer dto
+   * @param result the binding result of validation
    * @return jsp page redirection
    */
   @RequestMapping(value = "", method = RequestMethod.POST)
-  public final String createComputer(final ComputerDto computerDto) {
-
+  public final String createComputer(
+      @Valid @ModelAttribute("ComputerDto") final ComputerDto computerDto,
+      final BindingResult result) {
     LOGGER.info("post /api/computer");
-    ComputerDtoValidator.validate(computerDto);
-    Computer computer = MapperComputerDto.toComputer(computerDto);
-    computerService.create(computer);
-    return "redirect:/computer/list";
+    if (result.hasErrors()) {
 
+      return "redirect:/computer/new";
+    } else {
+      Computer computer = MapperComputerDto.toComputer(computerDto);
+      computerService.create(computer);
+      return "redirect:/computer/list";
+    }
   }
 
   /**
@@ -108,10 +114,9 @@ public class ComputerController {
    */
   @RequestMapping(value = "/{computerId}", method = RequestMethod.POST)
   public final String updateComputer(@PathVariable("computerId") final int computerId,
-      final ComputerDto computerDto) {
+      @Valid final ComputerDto computerDto) {
 
-    LOGGER.info("post /api/computer/" + computerId);
-    ComputerDtoValidator.validate(computerDto);
+    LOGGER.info("post (put) /api/computer/" + computerId);
     Computer computer = MapperComputerDto.toComputer(computerDto);
     computerService.update(computer);
     return "redirect:/computer/list";
