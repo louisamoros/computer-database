@@ -10,17 +10,17 @@ import javax.validation.constraints.NotNull;
 /**
  * The Class ComputerDto.
  */
-@DateOrder
+@DateOrder(message = "Introduced date should be before discontinued date.")
 public class ComputerDto {
 
-  @NotNull
-  @NotEmpty
+  @NotNull(message = "Computer name can't be null.")
+  @NotEmpty(message = "Computer name can't be empty.")
   private String computerName;
 
-  @Date
+  @Date(message = "Discontinued date format is wrong.")
   private String discontinued;
 
-  @Date
+  @Date(message = "Introduced date format is wrong.")
   private String introduced;
 
   private int computerId;
