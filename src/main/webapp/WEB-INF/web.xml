@@ -11,6 +11,14 @@
   <param-value>classpath:root-context.xml</param-value>
  </context-param>
 
+ <!-- Avoid white space in html/jsp pages -->
+<!--  <jsp-config>
+  <jsp-property-group>
+   <url-pattern>*.jsp</url-pattern>
+   <trim-directive-whitespaces>true</trim-directive-whitespaces>
+  </jsp-property-group>
+ </jsp-config> -->
+
  <!-- Creates the Spring Container shared by all Servlets and Filters -->
  <listener>
   <listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>

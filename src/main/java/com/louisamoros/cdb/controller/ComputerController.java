@@ -73,16 +73,16 @@ public class ComputerController {
         int count = computerService.count();
         PageDto pageDto = PageDtoCreator.create(page, perPage, "computer/list", orderBy, order,
                 search, count);
-    // @formatter:off
-    QueryParams queryParams = new QueryParams
-        .Builder()
-        .offset(pageDto.getOffset())
-        .limit(pageDto.getLimit())
-        .order(pageDto.getOrder())
-        .orderBy(pageDto.getOrderBy())
-        .search(pageDto.getSearch())
-        .build();
-    // @formatter:on
+        // @formatter:off
+        QueryParams queryParams = new QueryParams
+            .Builder()
+            .offset(pageDto.getOffset())
+            .limit(pageDto.getLimit())
+            .order(pageDto.getOrder())
+            .orderBy(pageDto.getOrderBy())
+            .search(pageDto.getSearch())
+            .build();
+        // @formatter:on
         List<Computer> computers = computerService.get(queryParams);
         List<ComputerDto> computersDto = MapperComputerDto.toComputerDtoList(computers);
         model.addAttribute("computersDto", computersDto);
@@ -163,11 +163,12 @@ public class ComputerController {
         LOGGER.info("post /computer/edit/" + computerId);
         if (result.hasErrors()) {
             model.addAttribute("errors", result.getAllErrors());
-            return "computer/edit/" + computerId;
+            return "computer/edit";
+        } else {
+            Computer computer = MapperComputerDto.toComputer(computerDto);
+            computerService.update(computer);
+            return "redirect:/computer/list";
         }
-        Computer computer = MapperComputerDto.toComputer(computerDto);
-        computerService.update(computer);
-        return "redirect:/computer/list";
 
     }
 
