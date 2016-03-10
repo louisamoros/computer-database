@@ -32,7 +32,8 @@ public final class PageDtoCreator {
      * @param count   the count
      * @return the page dto
      */
-    public static PageDto create(final Integer page, final Integer perPage, final String uri, final String orderBy, final String order, final String search, final int count) {
+    public static PageDto create(final Integer page, final Integer perPage, final String uri,
+            final String orderBy, final String order, final String search, final int count) {
 
         int pageBuild = PageDtoValidator.validatePage(page);
         int perPageBuild = PageDtoValidator.validatePerPage(perPage);
@@ -67,10 +68,10 @@ public final class PageDtoCreator {
             orderBuild = order;
         }
 
-        PageDto pageDto = new PageDto.Builder().page(pageBuild).perPage(perPageBuild).limit(limitBuild)
-                .offset(offsetBuild).count(count).startingPage(startingPage).endingPage(endingPage)
-                .totalPage(totalPage).uri(uri).orderBy(orderByBuild).order(orderBuild).search(search)
-                .build();
+        PageDto pageDto = new PageDto.Builder().page(pageBuild).perPage(perPageBuild)
+                .limit(limitBuild).offset(offsetBuild).count(count).startingPage(startingPage)
+                .endingPage(endingPage).totalPage(totalPage).uri(uri).orderBy(orderByBuild)
+                .order(orderBuild).search(search).build();
 
         return pageDto;
 

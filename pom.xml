@@ -46,8 +46,11 @@
 
   <!-- Spring -->
   <springframework-version>4.2.5.RELEASE</springframework-version>
-  
-  <!-- Validation  -->
+
+  <!-- jackson -->
+  <jackson-version>2.5.3</jackson-version>
+
+  <!-- Validation -->
   <java-validation>1.1.0.Final</java-validation>
   <hibernate-validation>5.0.1.Final</hibernate-validation>
 
@@ -79,10 +82,17 @@
    <version>${java-validation}</version>
   </dependency>
   <dependency>
-    <groupId>org.hibernate</groupId>
-    <artifactId>hibernate-validator</artifactId>
-    <version>${hibernate-validation}</version>
- </dependency>
+   <groupId>org.hibernate</groupId>
+   <artifactId>hibernate-validator</artifactId>
+   <version>${hibernate-validation}</version>
+  </dependency>
+
+  <!-- jackson for rest api -->
+  <dependency>
+   <groupId>com.fasterxml.jackson.core</groupId>
+   <artifactId>jackson-databind</artifactId>
+   <version>${jackson-version}</version>
+  </dependency>
 
   <!-- MySql connector for JDBC -->
   <dependency>

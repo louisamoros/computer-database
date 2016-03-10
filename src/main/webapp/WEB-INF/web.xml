@@ -5,14 +5,24 @@
 
  <display-name>computer database webapp</display-name>
 
+ <!-- The definition of the Root Spring Container shared by all Servlets and Filters -->
+ <context-param>
+  <param-name>contextConfigLocation</param-name>
+  <param-value>classpath:root-context.xml</param-value>
+ </context-param>
+
+ <!-- Creates the Spring Container shared by all Servlets and Filters -->
+ <listener>
+  <listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
+ </listener>
+
+ <!-- Processes application requests -->
  <servlet>
   <servlet-name>dispatcher</servlet-name>
-  <servlet-class>
-   org.springframework.web.servlet.DispatcherServlet
-  </servlet-class>
+  <servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
   <init-param>
    <param-name>contextConfigLocation</param-name>
-   <param-value>classpath:mvc-application-context.xml</param-value>
+   <param-value>classpath:dispatcher-context.xml</param-value>
   </init-param>
   <load-on-startup>1</load-on-startup>
  </servlet>
@@ -20,21 +30,6 @@
  <servlet-mapping>
   <servlet-name>dispatcher</servlet-name>
   <url-pattern>/</url-pattern>
- </servlet-mapping>
-
- <servlet-mapping>
-  <servlet-name>default</servlet-name>
-  <url-pattern>/css/*</url-pattern>
- </servlet-mapping>
-
- <servlet-mapping>
-  <servlet-name>default</servlet-name>
-  <url-pattern>/js/*</url-pattern>
- </servlet-mapping>
-
- <servlet-mapping>
-  <servlet-name>default</servlet-name>
-  <url-pattern>/fonts/*</url-pattern>
  </servlet-mapping>
 
 </web-app>
