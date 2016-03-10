@@ -6,7 +6,11 @@ package com.louisamoros.cdb.dto;
 public final class PageDto {
 
     private int page = 0;
-    private int perPage = 10;
+    private int size = 10;
+    private String search;
+    private String by;
+    private String order;
+
     private int offset = 0;
     private int limit = 10;
     private int count = 0;
@@ -14,9 +18,6 @@ public final class PageDto {
     private int startingPage;
     private int endingPage;
     private int totalPage;
-    private String search;
-    private String orderBy;
-    private String order;
 
     /**
      * PageDto class uses builder pattern.
@@ -25,7 +26,7 @@ public final class PageDto {
      */
     private PageDto(final Builder builder) {
         this.page = builder.page;
-        this.perPage = builder.perPage;
+        this.size = builder.perPage;
         this.offset = builder.offset;
         this.limit = builder.limit;
         this.count = builder.count;
@@ -34,56 +35,112 @@ public final class PageDto {
         this.endingPage = builder.endingPage;
         this.totalPage = builder.totalPage;
         this.search = builder.search;
-        this.orderBy = builder.orderBy;
+        this.by = builder.orderBy;
         this.order = builder.order;
+    }
+
+    /**
+     * The dto page constructor. (like computer dto is against the builder pattern, need to find
+     * better solution).
+     */
+    public PageDto() {
+        super();
     }
 
     public int getPage() {
         return page;
     }
 
-    public int getPerPage() {
-        return perPage;
+    public void setPage(final int page) {
+        this.page = page;
     }
 
-    public int getOffset() {
-        return offset;
+    public int getSize() {
+        return size;
     }
 
-    public int getLimit() {
-        return limit;
-    }
-
-    public int getCount() {
-        return count;
-    }
-
-    public String getUri() {
-        return uri;
-    }
-
-    public int getStartingPage() {
-        return startingPage;
-    }
-
-    public int getEndingPage() {
-        return endingPage;
-    }
-
-    public int getTotalPage() {
-        return totalPage;
+    public void setSize(final int size) {
+        this.size = size;
     }
 
     public String getSearch() {
         return search;
     }
 
-    public String getOrderBy() {
-        return orderBy;
+    public void setSearch(final String search) {
+        this.search = search;
+    }
+
+    public String getBy() {
+        return by;
+    }
+
+    public void setBy(final String by) {
+        this.by = by;
     }
 
     public String getOrder() {
         return order;
+    }
+
+    public void setOrder(final String order) {
+        this.order = order;
+    }
+
+    public int getOffset() {
+        return offset;
+    }
+
+    public void setOffset(final int offset) {
+        this.offset = offset;
+    }
+
+    public int getLimit() {
+        return limit;
+    }
+
+    public void setLimit(final int limit) {
+        this.limit = limit;
+    }
+
+    public int getCount() {
+        return count;
+    }
+
+    public void setCount(final int count) {
+        this.count = count;
+    }
+
+    public String getUri() {
+        return uri;
+    }
+
+    public void setUri(final String uri) {
+        this.uri = uri;
+    }
+
+    public int getStartingPage() {
+        return startingPage;
+    }
+
+    public void setStartingPage(final int startingPage) {
+        this.startingPage = startingPage;
+    }
+
+    public int getEndingPage() {
+        return endingPage;
+    }
+
+    public void setEndingPage(final int endingPage) {
+        this.endingPage = endingPage;
+    }
+
+    public int getTotalPage() {
+        return totalPage;
+    }
+
+    public void setTotalPage(final int totalPage) {
+        this.totalPage = totalPage;
     }
 
     @Override
@@ -95,9 +152,9 @@ public final class PageDto {
         result = prime * result + limit;
         result = prime * result + offset;
         result = prime * result + ((order == null) ? 0 : order.hashCode());
-        result = prime * result + ((orderBy == null) ? 0 : orderBy.hashCode());
+        result = prime * result + ((by == null) ? 0 : by.hashCode());
         result = prime * result + page;
-        result = prime * result + perPage;
+        result = prime * result + size;
         result = prime * result + ((search == null) ? 0 : search.hashCode());
         result = prime * result + startingPage;
         result = prime * result + totalPage;
@@ -136,17 +193,17 @@ public final class PageDto {
         } else if (!order.equals(other.order)) {
             return false;
         }
-        if (orderBy == null) {
-            if (other.orderBy != null) {
+        if (by == null) {
+            if (other.by != null) {
                 return false;
             }
-        } else if (!orderBy.equals(other.orderBy)) {
+        } else if (!by.equals(other.by)) {
             return false;
         }
         if (page != other.page) {
             return false;
         }
-        if (perPage != other.perPage) {
+        if (size != other.size) {
             return false;
         }
         if (search == null) {
@@ -174,10 +231,10 @@ public final class PageDto {
 
     @Override
     public String toString() {
-        return "PageDto [page=" + page + ", perPage=" + perPage + ", offset=" + offset + ", limit="
-                + limit + ", count=" + count + ", uri=" + uri + ", startingPage=" + startingPage
-                + ", endingPage=" + endingPage + ", totalPage=" + totalPage + ", search=" + search
-                + ", orderBy=" + orderBy + ", order=" + order + "]";
+        return "PageDto [page=" + page + ", size=" + size + ", search=" + search + ", by=" + by
+                + ", order=" + order + ", offset=" + offset + ", limit=" + limit + ", count="
+                + count + ", uri=" + uri + ", startingPage=" + startingPage + ", endingPage="
+                + endingPage + ", totalPage=" + totalPage + "]";
     }
 
     /**

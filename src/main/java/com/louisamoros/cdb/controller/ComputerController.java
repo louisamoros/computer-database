@@ -54,39 +54,33 @@ public class ComputerController {
     /**
      * Gets the page list computer.
      * @param model the model
-     * @param page the page
-     * @param perPage the per page
-     * @param orderBy the order by
-     * @param order the order
-     * @param search the search
+     * @param pageDto the dto page
      * @return jsp page list computer
      */
     @RequestMapping(value = "/list", method = RequestMethod.GET)
-    public final String getPageListComputer(final Model model,
-            @RequestParam(value = "p", required = false) final Integer page,
-            @RequestParam(value = "pp", required = false) final Integer perPage,
-            @RequestParam(value = "orderby", required = false) final String orderBy,
-            @RequestParam(value = "order", required = false) final String order,
-            @RequestParam(value = "s", required = false) final String search) {
+    public final String getPageListComputer(final Model model, final PageDto pageDto) {
 
         LOGGER.info("get /computer/list");
-        int count = computerService.count();
-        PageDto pageDto = PageDtoCreator.create(page, perPage, "computer/list", orderBy, order,
-                search, count);
+        LOGGER.info(pageDto.toString());
+        // int count = computerService.count();
+        PageDto pageDtobis = PageDtoCreator.create(0, 10, "computer/list", "computer.name", "asc",
+                null, 2);
         // @formatter:off
         QueryParams queryParams = new QueryParams
             .Builder()
-            .offset(pageDto.getOffset())
-            .limit(pageDto.getLimit())
-            .order(pageDto.getOrder())
-            .orderBy(pageDto.getOrderBy())
-            .search(pageDto.getSearch())
+            .offset(pageDtobis.getOffset())
+            .limit(pageDtobis.getLimit())
+            .order(pageDtobis.getOrder())
+            .orderBy(pageDtobis.getBy())
+            .search(pageDtobis.getSearch())
             .build();
         // @formatter:on
         List<Computer> computers = computerService.get(queryParams);
         List<ComputerDto> computersDto = MapperComputerDto.toComputerDtoList(computers);
         model.addAttribute("computersDto", computersDto);
-        model.addAttribute("page", pageDto);
+        model.addAttribute("pageDto", pageDtobis);
+        LOGGER.info(pageDtobis.toString());
+
         return "computer/list";
 
     }

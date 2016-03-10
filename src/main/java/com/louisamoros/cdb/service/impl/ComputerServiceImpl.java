@@ -17,47 +17,47 @@ import java.util.List;
 @Service
 public class ComputerServiceImpl implements ComputerService {
 
-  /**
-   * Autowired spring injection of computer dao.
-   */
-  @Autowired
-  private ComputerDao computerDao;
+    /**
+     * Autowired spring injection of computer dao.
+     */
+    @Autowired
+    private ComputerDao computerDao;
 
-  @Override
-  public final List<Computer> getAll() {
-    return computerDao.getAll();
-  }
+    @Override
+    public final List<Computer> getAll() {
+        return computerDao.getAll();
+    }
 
-  @Override
-  public final Computer get(final int computerId) {
-    return computerDao.get(computerId);
-  }
+    @Override
+    public final Computer get(final int computerId) {
+        return computerDao.get(computerId);
+    }
 
-  @Override
-  public final List<Computer> get(final QueryParams queryParams) {
-    return computerDao.get(queryParams);
-  }
+    @Override
+    public final List<Computer> get(final QueryParams queryParams) {
+        return computerDao.get(queryParams);
+    }
 
-  @Override
-  public final int create(final Computer computer) {
-    ComputerValidator.validate(computer);
-    return computerDao.create(computer);
-  }
+    @Override
+    public final int create(final Computer computer) {
+        ComputerValidator.validate(computer);
+        return computerDao.create(computer);
+    }
 
-  @Override
-  public final int update(final Computer computer) {
-    ComputerValidator.validate(computer);
-    return computerDao.update(computer);
-  }
+    @Override
+    public final int update(final Computer computer) {
+        ComputerValidator.validate(computer);
+        return computerDao.update(computer);
+    }
 
-  @Override
-  public final void delete(final int computerId) {
-    computerDao.delete(computerId);
-  }
+    @Override
+    public final void delete(final int computerId) {
+        computerDao.delete(computerId);
+    }
 
-  @Override
-  public final int count() {
-    return computerDao.count();
-  }
+    @Override
+    public final int count(final QueryParams queryParams) {
+        return computerDao.count(queryParams);
+    }
 
 }

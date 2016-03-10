@@ -68,10 +68,15 @@ public final class PageDtoCreator {
             orderBuild = order;
         }
 
+        String searchBuild = "s";
+        if (search != null && !search.isEmpty()) {
+            searchBuild = search;
+        }
+
         PageDto pageDto = new PageDto.Builder().page(pageBuild).perPage(perPageBuild)
                 .limit(limitBuild).offset(offsetBuild).count(count).startingPage(startingPage)
                 .endingPage(endingPage).totalPage(totalPage).uri(uri).orderBy(orderByBuild)
-                .order(orderBuild).search(search).build();
+                .order(orderBuild).search(searchBuild).build();
 
         return pageDto;
 

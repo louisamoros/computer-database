@@ -29,13 +29,13 @@
  <section id="main">
   <div class="container">
    <h1 id="homeTitle">
-    <c:out value="${page.count}"></c:out>
+    <c:out value="${pageDto.count}"></c:out>
     Computers found
    </h1>
    <div id="actions" class="form-horizontal">
     <div class="pull-left">
      <form id="searchForm" action="computer/list" method="GET" class="form-inline">
-      <input type="search" id="searchbox" name="s" class="form-control" placeholder="Search name"></input>
+      <input type="search" id="searchbox" name="search" value="${pageDto.search}" class="form-control" placeholder="Search name"></input>
       <input type="submit" id="searchsubmit" value="Filter by name" class="btn btn-primary"></input>
      </form>
     </div>
@@ -57,42 +57,42 @@
        </a>
       </span></th>
       <th><c:choose>
-        <c:when test="${page.order == 'asc'}">
-         <a href="<cdb:link page="${page}" ovr_orderBy="computer.name" ovr_order="desc"></cdb:link>"> Computer name <span class="glyphicon glyphicon-chevron-down"></span>
+        <c:when test="${pageDto.order == 'asc'}">
+         <a href="<cdb:link page="${pageDto}" ovr_by="computer.name" ovr_order="desc"></cdb:link>"> Computer name <span class="glyphicon glyphicon-chevron-down"></span>
          </a>
         </c:when>
         <c:otherwise>
-         <a href="<cdb:link page="${page}" ovr_orderBy="computer.name" ovr_order="asc"></cdb:link>"> Computer name <span class="glyphicon glyphicon-chevron-up"></span>
+         <a href="<cdb:link page="${pageDto}" ovr_by="computer.name" ovr_order="asc"></cdb:link>"> Computer name <span class="glyphicon glyphicon-chevron-up"></span>
          </a>
         </c:otherwise>
        </c:choose></th>
       <th><c:choose>
-        <c:when test="${page.order == 'asc'}">
-         <a href="<cdb:link page="${page}" ovr_orderBy="computer.introduced" ovr_order="desc"></cdb:link>"> Introduced date <span class="glyphicon glyphicon-chevron-down"></span>
+        <c:when test="${pageDto.order == 'asc'}">
+         <a href="<cdb:link page="${pageDto}" ovr_by="computer.introduced" ovr_order="desc"></cdb:link>"> Introduced date <span class="glyphicon glyphicon-chevron-down"></span>
          </a>
         </c:when>
         <c:otherwise>
-         <a href="<cdb:link page="${page}" ovr_orderBy="computer.introduced" ovr_order="asc"></cdb:link>"> Introduced date <span class="glyphicon glyphicon-chevron-up"></span>
+         <a href="<cdb:link page="${pageDto}" ovr_by="computer.introduced" ovr_order="asc"></cdb:link>"> Introduced date <span class="glyphicon glyphicon-chevron-up"></span>
          </a>
         </c:otherwise>
        </c:choose></th>
       <th><c:choose>
-        <c:when test="${page.order == 'asc'}">
-         <a href="<cdb:link page="${page}" ovr_orderBy="computer.discontinued" ovr_order="desc"></cdb:link>"> Discontinued date <span class="glyphicon glyphicon-chevron-down"></span>
+        <c:when test="${pageDto.order == 'asc'}">
+         <a href="<cdb:link page="${pageDto}" ovr_by="computer.discontinued" ovr_order="desc"></cdb:link>"> Discontinued date <span class="glyphicon glyphicon-chevron-down"></span>
          </a>
         </c:when>
         <c:otherwise>
-         <a href="<cdb:link page="${page}" ovr_orderBy="computer.discontinued" ovr_order="asc"></cdb:link>"> Discontinued date <span class="glyphicon glyphicon-chevron-up"></span>
+         <a href="<cdb:link page="${pageDto}" ovr_by="computer.discontinued" ovr_order="asc"></cdb:link>"> Discontinued date <span class="glyphicon glyphicon-chevron-up"></span>
          </a>
         </c:otherwise>
        </c:choose></th>
       <th><c:choose>
-        <c:when test="${page.order == 'asc'}">
-         <a href="<cdb:link page="${page}" ovr_orderBy="company.name" ovr_order="desc"></cdb:link>"> Company <span class="glyphicon glyphicon-chevron-down"></span>
+        <c:when test="${pageDto.order == 'asc'}">
+         <a href="<cdb:link page="${pageDto}" ovr_by="company.name" ovr_order="desc"></cdb:link>"> Company <span class="glyphicon glyphicon-chevron-down"></span>
          </a>
         </c:when>
         <c:otherwise>
-         <a href="<cdb:link page="${page}" ovr_orderBy="company.name" ovr_order="asc"></cdb:link>"> Company <span class="glyphicon glyphicon-chevron-up"></span>
+         <a href="<cdb:link page="${pageDto}" ovr_by="company.name" ovr_order="asc"></cdb:link>"> Company <span class="glyphicon glyphicon-chevron-up"></span>
          </a>
         </c:otherwise>
        </c:choose></th>
@@ -117,7 +117,7 @@
 
  <footer class="navbar-fixed-bottom">
   <div class="container text-center">
-   <cdb:pagination page="${page}"></cdb:pagination>
+   <cdb:pagination page="${pageDto}"></cdb:pagination>
   </div>
  </footer>
  <script src="resources/js/jquery.min.js"></script>
