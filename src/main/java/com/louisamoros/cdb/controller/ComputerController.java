@@ -1,5 +1,6 @@
 package com.louisamoros.cdb.controller;
 
+import com.louisamoros.cdb.controller.util.Params;
 import com.louisamoros.cdb.dto.CompanyDto;
 import com.louisamoros.cdb.dto.ComputerDto;
 import com.louisamoros.cdb.dto.PageDto;
@@ -23,6 +24,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.List;
+import java.util.Locale;
 
 import javax.validation.Valid;
 
@@ -61,14 +63,14 @@ public class ComputerController {
 
     /**
      * Gets the page list computer.
+     * @param locale the locale language
      * @param model the model
      * @param params the dto page
      * @return jsp page list computer
      */
     @RequestMapping(value = "/list", method = RequestMethod.GET)
-    public final String getPageListComputer(final Model model,
+    public final String getPageListComputer(final Locale locale, final Model model,
             @ModelAttribute("params") final Params params) {
-
         LOGGER.info("get /computer/list : " + params.toString());
         params.verify();
         // @formatter:off

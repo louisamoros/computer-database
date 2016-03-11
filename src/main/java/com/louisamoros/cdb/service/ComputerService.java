@@ -1,6 +1,6 @@
 package com.louisamoros.cdb.service;
 
-import com.louisamoros.cdb.controller.Params;
+import com.louisamoros.cdb.controller.util.Params;
 import com.louisamoros.cdb.model.Computer;
 
 import java.util.List;

@@ -1,6 +1,6 @@
 package com.louisamoros.cdb.dao.impl;
 
-import com.louisamoros.cdb.controller.Params;
+import com.louisamoros.cdb.controller.util.Params;
 import com.louisamoros.cdb.dao.ComputerDao;
 import com.louisamoros.cdb.dao.mapper.ComputerRowMapper;
 import com.louisamoros.cdb.dao.util.QueryGenerator;

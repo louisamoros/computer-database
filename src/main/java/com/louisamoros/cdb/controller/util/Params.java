@@ -1,4 +1,4 @@
-package com.louisamoros.cdb.controller;
+package com.louisamoros.cdb.controller.util;
 
 /**
  * The Params class.

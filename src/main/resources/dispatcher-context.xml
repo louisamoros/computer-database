@@ -36,15 +36,27 @@
   </property>
  </bean>
 
- <!-- Error messages binding -->
- <bean id="messageSource" class="org.springframework.context.support.ResourceBundleMessageSource">
-  <property name="basename">
-   <value>messages</value>
-  </property>
- </bean>
-
  <!-- Handles HTTP GET requests for /resources/** by efficiently serving up static resources in the ${webappRoot}/resources 
   directory -->
  <mvc:resources mapping="/resources/**" location="/resources/" />
+
+ <!-- Setting a cookie in the client request so that further requests can easily recognize the user locale. -->
+ <bean id="localeResolver" class="org.springframework.web.servlet.i18n.CookieLocaleResolver">
+  <property name="defaultLocale" value="en" />
+  <property name="cookieName" value="cdbLocaleCookie"></property>
+ </bean>
+
+ <!-- Intercept locale param to set the locale language -->
+ <mvc:interceptors>
+  <bean class="org.springframework.web.servlet.i18n.LocaleChangeInterceptor">
+   <property name="paramName" value="lang" />
+  </bean>
+ </mvc:interceptors>
+
+ <!-- Configuration to enable i18n. Basename property is used to provide the location of resource bundles -->
+ <bean id="messageSource" class="org.springframework.context.support.ReloadableResourceBundleMessageSource">
+  <property name="basename" value="classpath:messages" />
+  <property name="defaultEncoding" value="UTF-8" />
+ </bean>
 
 </beans>

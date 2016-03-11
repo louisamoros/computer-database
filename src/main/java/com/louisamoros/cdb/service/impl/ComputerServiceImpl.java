@@ -1,6 +1,6 @@
 package com.louisamoros.cdb.service.impl;
 
-import com.louisamoros.cdb.controller.Params;
+import com.louisamoros.cdb.controller.util.Params;
 import com.louisamoros.cdb.dao.ComputerDao;
 import com.louisamoros.cdb.model.Computer;
 import com.louisamoros.cdb.service.ComputerService;
