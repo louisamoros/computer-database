@@ -1,6 +1,6 @@
 package com.louisamoros.cdb.service;
 
-import com.louisamoros.cdb.controller.util.QueryParams;
+import com.louisamoros.cdb.controller.Params;
 import com.louisamoros.cdb.model.Computer;
 
 import java.util.List;
@@ -13,10 +13,10 @@ public interface ComputerService {
     /**
      * Count number of computers.
      *
-     * @param queryParams the query params to count depending on the search
+     * @param params the query params to count depending on the search
      * @return number of computers
      */
-    int count(QueryParams queryParams);
+    int count(Params params);
 
     /**
      * Get all the computers.
@@ -26,10 +26,10 @@ public interface ComputerService {
 
     /**
      * Get filtered computers based on query.
-     * @param qp the query params
+     * @param params the query params
      * @return list of computer
      */
-    List<Computer> get(final QueryParams qp);
+    List<Computer> get(final Params params);
 
     /**
      * Get computer based on id.

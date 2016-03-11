@@ -1,4 +1,5 @@
 <%@ tag language="java" pageEncoding="UTF-8" trimDirectiveWhitespaces="true"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ attribute name="page" type="com.louisamoros.cdb.dto.PageDto" required="true" description="Page informations"%>
 <%@ attribute name="ovr_uri" description="URI of the page to go"%>
@@ -9,62 +10,64 @@
 
 <c:choose>
  <c:when test="${not empty ovr_uri}">
-  <c:out value="${ovr_uri}"></c:out>
+  <c:set var="url" value="${ovr_uri}" />
  </c:when>
  <c:otherwise>
   <c:if test="${not empty page.uri}">
-   <c:out value="${page.uri}"></c:out>
+   <c:set var="url" value="${page.uri}" />
   </c:if>
  </c:otherwise>
 </c:choose>
-<c:out value="?"></c:out>
+<c:set var="url" value="${url}?"></c:set>
 <c:choose>
  <c:when test="${not empty ovr_page}">
-  <c:out value="page=${ovr_page}&"></c:out>
+  <c:set var="url" value="${url}page=${ovr_page}&"></c:set>
  </c:when>
  <c:otherwise>
   <c:if test="${not empty page.page}">
-   <c:out value="page=${page.page}&"></c:out>
+   <c:set var="url" value="${url}page=${page.page}&"></c:set>
   </c:if>
  </c:otherwise>
 </c:choose>
 <c:choose>
  <c:when test="${not empty ovr_size}">
-  <c:out value="size=${ovr_size}&"></c:out>
+  <c:set var="url" value="${url}size=${ovr_size}&"></c:set>
  </c:when>
  <c:otherwise>
   <c:if test="${not empty page.size}">
-   <c:out value="size=${page.size}&"></c:out>
+   <c:set var="url" value="${url}size=${page.size}&"></c:set>
   </c:if>
  </c:otherwise>
 </c:choose>
 <c:choose>
  <c:when test="${not empty ovr_order}">
-  <c:out value="order=${ovr_order}&"></c:out>
+  <c:set var="url" value="${url}order=${ovr_order}&"></c:set>
  </c:when>
  <c:otherwise>
   <c:if test="${not empty page.order}">
-   <c:out value="order=${page.order}&"></c:out>
+   <c:set var="url" value="${url}order=${page.order}&"></c:set>
   </c:if>
  </c:otherwise>
 </c:choose>
 <c:choose>
  <c:when test="${not empty ovr_by}">
-  <c:out value="orderby=${ovr_by}&"></c:out>
+    <c:set var="url" value="${url}by=${ovr_by}&"></c:set>
  </c:when>
  <c:otherwise>
   <c:if test="${not empty page.by}">
-   <c:out value="by=${page.by}&"></c:out>
+      <c:set var="url" value="${url}by=${page.by}&"></c:set>
   </c:if>
  </c:otherwise>
 </c:choose>
 <c:choose>
  <c:when test="${not empty ovr_search}">
-  <c:out value="search=${ovr_search}&"></c:out>
+    <c:set var="url" value="${url}search=${ovr_search}&"></c:set>
  </c:when>
  <c:otherwise>
   <c:if test="${not empty page.search}">
-   <c:out value="search=${page.search}&"></c:out>
+   <c:set var="url" value="${url}search=${page.search}&"></c:set>
   </c:if>
  </c:otherwise>
 </c:choose>
+<c:set var="url" value="${fn:substring(url, 0, fn:length(url) -1)}" />
+ <c:out value="${url}"></c:out>

@@ -34,12 +34,12 @@
   </c:otherwise>
  </c:choose>
 
- <c:forEach begin="${page.startingPage}" end="${page.endingPage - 1}" var="value">
+ <c:forEach begin="${page.startingPage}" end="${page.endingPage}" var="value">
   <li <c:if test="${page.page == value}"> class="active" </c:if>><a href="<cdb:link page="${page}" ovr_page="${value}" />"> ${value}</a></li>
  </c:forEach>
 
  <c:choose>
-  <c:when test="${page.page != page.totalPage}">
+  <c:when test="${page.page <= page.totalPage}">
    <li><a href="<cdb:link page="${page}" ovr_page="${page.page + 1}" />" aria-label="Next"> <i class="glyphicon glyphicon-chevron-right"></i>
    </a></li>
   </c:when>
@@ -50,8 +50,8 @@
  </c:choose>
 
  <c:choose>
-  <c:when test="${page.page != page.totalPage}">
-   <li><a href="<cdb:link page="${page}" ovr_page="${page.totalPage}" />" aria-label="Last"> <i class="glyphicon glyphicon-step-forward"></i>
+  <c:when test="${page.page <= page.totalPage}">
+   <li><a href="<cdb:link page="${page}" ovr_page="${page.totalPage + 1}" />" aria-label="Last"> <i class="glyphicon glyphicon-step-forward"></i>
    </a></li>
   </c:when>
   <c:otherwise>

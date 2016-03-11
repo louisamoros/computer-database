@@ -1,6 +1,6 @@
 package com.louisamoros.cdb.dao;
 
-import com.louisamoros.cdb.controller.util.QueryParams;
+import com.louisamoros.cdb.controller.Params;
 import com.louisamoros.cdb.model.Computer;
 
 import java.util.List;
@@ -13,10 +13,10 @@ public interface ComputerDao {
     /**
      * Count number of computers.
      *
-     * @param queryParams the query params to count depending on the search
+     * @param params the query params to count depending on the search
      * @return number of computers.
      */
-    int count(QueryParams queryParams);
+    int count(Params params);
 
     /**
      * Get computer based on its id.
@@ -29,10 +29,10 @@ public interface ComputerDao {
     /**
      * Get computers filtering by query params.
      *
-     * @param queryParams the query parameters object
+     * @param params the query parameters object
      * @return list of computers
      */
-    List<Computer> get(QueryParams queryParams);
+    List<Computer> get(Params params);
 
     /**
      * Get all computers.

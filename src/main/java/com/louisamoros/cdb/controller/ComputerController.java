@@ -1,7 +1,5 @@
 package com.louisamoros.cdb.controller;
 
-import com.louisamoros.cdb.controller.util.PageDtoCreator;
-import com.louisamoros.cdb.controller.util.QueryParams;
 import com.louisamoros.cdb.dto.CompanyDto;
 import com.louisamoros.cdb.dto.ComputerDto;
 import com.louisamoros.cdb.dto.PageDto;
@@ -18,6 +16,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -52,35 +51,43 @@ public class ComputerController {
     private CompanyService companyService;
 
     /**
+     * Instantiate the page dto.
+     * @return empty pageDto
+     */
+    @ModelAttribute("params")
+    final Params getParams() {
+        return new Params(1, 10, "asc", "computer.name", "");
+    }
+
+    /**
      * Gets the page list computer.
      * @param model the model
-     * @param pageDto the dto page
+     * @param params the dto page
      * @return jsp page list computer
      */
     @RequestMapping(value = "/list", method = RequestMethod.GET)
-    public final String getPageListComputer(final Model model, final PageDto pageDto) {
+    public final String getPageListComputer(final Model model,
+            @ModelAttribute("params") final Params params) {
 
-        LOGGER.info("get /computer/list");
-        LOGGER.info(pageDto.toString());
-        // int count = computerService.count();
-        PageDto pageDtobis = PageDtoCreator.create(0, 10, "computer/list", "computer.name", "asc",
-                null, 2);
+        LOGGER.info("get /computer/list : " + params.toString());
+        params.verify();
         // @formatter:off
-        QueryParams queryParams = new QueryParams
+        PageDto pageDto = new PageDto
             .Builder()
-            .offset(pageDtobis.getOffset())
-            .limit(pageDtobis.getLimit())
-            .order(pageDtobis.getOrder())
-            .orderBy(pageDtobis.getBy())
-            .search(pageDtobis.getSearch())
+            .page(params.getPage())
+            .size(params.getSize())
+            .order(params.getOrder())
+            .by(params.getBy())
+            .search(params.getSearch())
+            .count(computerService.count(params))
+            .uri("computer/list")
+            .paginate()
             .build();
         // @formatter:on
-        List<Computer> computers = computerService.get(queryParams);
+        List<Computer> computers = computerService.get(params);
         List<ComputerDto> computersDto = MapperComputerDto.toComputerDtoList(computers);
         model.addAttribute("computersDto", computersDto);
-        model.addAttribute("pageDto", pageDtobis);
-        LOGGER.info(pageDtobis.toString());
-
+        model.addAttribute("pageDto", pageDto);
         return "computer/list";
 
     }

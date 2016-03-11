@@ -1,6 +1,6 @@
 package com.louisamoros.cdb.service.impl;
 
-import com.louisamoros.cdb.controller.util.QueryParams;
+import com.louisamoros.cdb.controller.Params;
 import com.louisamoros.cdb.dao.ComputerDao;
 import com.louisamoros.cdb.model.Computer;
 import com.louisamoros.cdb.service.ComputerService;
@@ -34,8 +34,8 @@ public class ComputerServiceImpl implements ComputerService {
     }
 
     @Override
-    public final List<Computer> get(final QueryParams queryParams) {
-        return computerDao.get(queryParams);
+    public final List<Computer> get(final Params params) {
+        return computerDao.get(params);
     }
 
     @Override
@@ -56,8 +56,8 @@ public class ComputerServiceImpl implements ComputerService {
     }
 
     @Override
-    public final int count(final QueryParams queryParams) {
-        return computerDao.count(queryParams);
+    public final int count(final Params params) {
+        return computerDao.count(params);
     }
 
 }

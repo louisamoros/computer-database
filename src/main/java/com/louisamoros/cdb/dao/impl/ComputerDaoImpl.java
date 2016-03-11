@@ -1,6 +1,6 @@
 package com.louisamoros.cdb.dao.impl;
 
-import com.louisamoros.cdb.controller.util.QueryParams;
+import com.louisamoros.cdb.controller.Params;
 import com.louisamoros.cdb.dao.ComputerDao;
 import com.louisamoros.cdb.dao.mapper.ComputerRowMapper;
 import com.louisamoros.cdb.dao.util.QueryGenerator;
@@ -56,7 +56,7 @@ public class ComputerDaoImpl implements ComputerDao {
     }
 
     @Override
-    public final List<Computer> get(final QueryParams queryParams) {
+    public final List<Computer> get(final Params params) {
 
         // @formatter:off
         QueryGenerator queryGenerator = new QueryGenerator
@@ -65,20 +65,21 @@ public class ComputerDaoImpl implements ComputerDao {
             .from("computer")
             .leftJoinOn("company", "computer.company_id = company.id")
             .where("computer.name")
-            .like(queryParams.getSearch())
+            .like(params.getSearch())
             .or("company.name")
-            .like(queryParams.getSearch())
-            .orderBy(queryParams.getOrderBy())
-            .order(queryParams.getOrder())
-            .limit(String.valueOf(queryParams.getLimit()))
-            .offset(String.valueOf(queryParams.getOffset()))
+            .like(params.getSearch())
+            .orderBy(params.getBy())
+            .order(params.getOrder())
+            .limit(String.valueOf(params.getLimit()))
+            .offset(String.valueOf(params.getOffset()))
             .build();
         // @formatter:on
         LOGGER.info(queryGenerator.getQuery().toString());
         SqlParameterSource namedParameters = new MapSqlParameterSource();
-        return namedParameterJdbcTemplate.query(queryGenerator.getQuery().toString(),
+        List<Computer> list = namedParameterJdbcTemplate.query(queryGenerator.getQuery().toString(),
                 namedParameters, new ComputerRowMapper());
-
+        System.out.println(list.size());
+        return list;
     }
 
     @Override
@@ -155,16 +156,16 @@ public class ComputerDaoImpl implements ComputerDao {
     }
 
     @Override
-    public final int count(final QueryParams queryParams) {
+    public final int count(final Params params) {
         // @formatter:off
         QueryGenerator qg = new QueryGenerator
             .Builder()
             .selectCountFrom("computer")
-//            .leftJoinOn("company", "computer.company_id = company.id")
-//            .where("computer.name")
-//            .like("s")
-//            .or("company.name")
-//            .like("s")
+            .leftJoinOn("company", "computer.company_id = company.id")
+            .where("computer.name")
+            .like(params.getSearch())
+            .or("company.name")
+            .like(params.getSearch())
             .build();
         // @formatter:on
 
