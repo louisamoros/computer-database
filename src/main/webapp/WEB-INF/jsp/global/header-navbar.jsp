@@ -12,12 +12,12 @@
     </a>
     <ul class="dropdown-menu" role="menu">
      <li>
-      <a href="<cdb:link page="${pageDto}"></cdb:link>&lang=en">
+      <a href="${requestScope['javax.servlet.forward.request_uri']}?lang=en">
        <span class="bfh-languages" data-language="en_US" data-flags="true"></span>
       </a>
      </li>
      <li>
-      <a href="<cdb:link page="${pageDto}"></cdb:link>&lang=fr">
+      <a href="${requestScope['javax.servlet.forward.request_uri']}?lang=fr">
        <span class="bfh-languages" data-language="fr_FR" data-flags="true"></span>
       </a>
      </li>
