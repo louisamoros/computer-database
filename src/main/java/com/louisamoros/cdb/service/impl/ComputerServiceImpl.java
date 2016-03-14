@@ -39,13 +39,13 @@ public class ComputerServiceImpl implements ComputerService {
     }
 
     @Override
-    public final int create(final Computer computer) {
+    public final Computer create(final Computer computer) {
         ComputerValidator.validate(computer);
         return computerDao.create(computer);
     }
 
     @Override
-    public final int update(final Computer computer) {
+    public final Computer update(final Computer computer) {
         ComputerValidator.validate(computer);
         return computerDao.update(computer);
     }

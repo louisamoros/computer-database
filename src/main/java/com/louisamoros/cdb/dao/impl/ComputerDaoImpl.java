@@ -5,7 +5,6 @@ import com.louisamoros.cdb.dao.ComputerDao;
 import com.louisamoros.cdb.dao.mapper.ComputerRowMapper;
 import com.louisamoros.cdb.dao.util.QueryGenerator;
 import com.louisamoros.cdb.model.Computer;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -78,7 +77,6 @@ public class ComputerDaoImpl implements ComputerDao {
         SqlParameterSource namedParameters = new MapSqlParameterSource();
         List<Computer> list = namedParameterJdbcTemplate.query(queryGenerator.getQuery().toString(),
                 namedParameters, new ComputerRowMapper());
-        System.out.println(list.size());
         return list;
     }
 
@@ -100,7 +98,7 @@ public class ComputerDaoImpl implements ComputerDao {
     }
 
     @Override
-    public final int create(final Computer computer) {
+    public final Computer create(final Computer computer) {
 
         // @formatter:off
         QueryGenerator queryGenerator = new QueryGenerator
@@ -112,13 +110,13 @@ public class ComputerDaoImpl implements ComputerDao {
         LOGGER.info(queryGenerator.getQuery().toString());
         // map the computer class model based on the class name attributes.
         SqlParameterSource namedParameters = new BeanPropertySqlParameterSource(computer);
-        return namedParameterJdbcTemplate.update(queryGenerator.getQuery().toString(),
+        namedParameterJdbcTemplate.update(queryGenerator.getQuery().toString(),
                 namedParameters);
-
+        return computer;
     }
 
     @Override
-    public final int update(final Computer computer) {
+    public final Computer update(final Computer computer) {
 
         // @formatter:off
         QueryGenerator qg = new QueryGenerator
@@ -133,7 +131,7 @@ public class ComputerDaoImpl implements ComputerDao {
         // map the computer class model based on the class name attributes.
         SqlParameterSource namedParameters = new BeanPropertySqlParameterSource(computer);
         namedParameterJdbcTemplate.update(qg.getQuery().toString(), namedParameters);
-        return 2;
+        return computer;
 
     }
 

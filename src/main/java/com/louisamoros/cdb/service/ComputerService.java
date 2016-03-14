@@ -41,16 +41,16 @@ public interface ComputerService {
     /**
      * Create computer.
      * @param computer the computer
-     * @return computer created id
+     * @return computer created
      */
-    int create(final Computer computer);
+    Computer create(final Computer computer);
 
     /**
      * Update computer.
      * @param computer the computer
-     * @return computer update id
+     * @return computer updated
      */
-    int update(final Computer computer);
+    Computer update(final Computer computer);
 
     /**
      * Delete computer based on id.

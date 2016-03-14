@@ -23,9 +23,9 @@ public class ComputerDto {
   @Date(message = "Introduced date format is wrong.")
   private String introduced;
 
-  private int computerId;
+  private long computerId;
   private String companyName;
-  private int companyId;
+  private long companyId;
 
   /**
    * ComputerDto class use builder pattern.
@@ -50,7 +50,7 @@ public class ComputerDto {
 
   }
 
-  public final int getComputerId() {
+  public final long getComputerId() {
     return computerId;
   }
 
@@ -86,7 +86,7 @@ public class ComputerDto {
     return companyName;
   }
 
-  public final int getCompanyId() {
+  public final long getCompanyId() {
     return companyId;
   }
 
@@ -95,65 +95,44 @@ public class ComputerDto {
   }
 
   @Override
-  public final int hashCode() {
-    final int prime = 31;
-    int result = 1;
-    result = prime * result + companyId;
-    result = prime * result + ((companyName == null) ? 0 : companyName.hashCode());
-    result = prime * result + computerId;
-    result = prime * result + ((discontinued == null) ? 0 : discontinued.hashCode());
-    result = prime * result + ((introduced == null) ? 0 : introduced.hashCode());
-    result = prime * result + ((computerName == null) ? 0 : computerName.hashCode());
-    return result;
+  public final boolean equals(final Object o) {
+    if (this == o) {
+      return true;
+    }
+    if (o == null || getClass() != o.getClass()) {
+      return false;
+    }
+
+    ComputerDto that = (ComputerDto) o;
+
+    if (computerId != that.computerId) {
+      return false;
+    }
+    if (companyId != that.companyId) {
+      return false;
+    }
+    if (!computerName.equals(that.computerName)) {
+      return false;
+    }
+    if (discontinued != null ? !discontinued.equals(that.discontinued) : that.discontinued != null) {
+      return false;
+    }
+    if (introduced != null ? !introduced.equals(that.introduced) : that.introduced != null) {
+      return false;
+    }
+    return companyName != null ? companyName.equals(that.companyName) : that.companyName == null;
+
   }
 
   @Override
-  public final boolean equals(final Object obj) {
-    if (this == obj) {
-      return true;
-    }
-    if (obj == null) {
-      return false;
-    }
-    if (getClass() != obj.getClass()) {
-      return false;
-    }
-    ComputerDto other = (ComputerDto) obj;
-    if (companyId != other.companyId) {
-      return false;
-    }
-    if (companyName == null) {
-      if (other.companyName != null) {
-        return false;
-      }
-    } else if (!companyName.equals(other.companyName)) {
-      return false;
-    }
-    if (computerId != other.computerId) {
-      return false;
-    }
-    if (discontinued == null) {
-      if (other.discontinued != null) {
-        return false;
-      }
-    } else if (!discontinued.equals(other.discontinued)) {
-      return false;
-    }
-    if (introduced == null) {
-      if (other.introduced != null) {
-        return false;
-      }
-    } else if (!introduced.equals(other.introduced)) {
-      return false;
-    }
-    if (computerName == null) {
-      if (other.computerName != null) {
-        return false;
-      }
-    } else if (!computerName.equals(other.computerName)) {
-      return false;
-    }
-    return true;
+  public final int hashCode() {
+    int result = computerName.hashCode();
+    result = 31 * result + (discontinued != null ? discontinued.hashCode() : 0);
+    result = 31 * result + (introduced != null ? introduced.hashCode() : 0);
+    result = 31 * result + (int) (computerId ^ (computerId >>> 32));
+    result = 31 * result + (companyName != null ? companyName.hashCode() : 0);
+    result = 31 * result + (int) (companyId ^ (companyId >>> 32));
+    return result;
   }
 
   @Override
@@ -172,11 +151,11 @@ public class ComputerDto {
     private String computerName;
 
     // optional
-    private int computerId;
+    private long computerId;
     private String discontinued;
     private String introduced;
     private String companyName;
-    private int companyId;
+    private long companyId;
 
     /**
      * Builder constructor which requires computer name.
@@ -226,7 +205,7 @@ public class ComputerDto {
      * @param companyId the company id
      * @return builder
      */
-    public final Builder companyId(final int companyId) {
+    public final Builder companyId(final long companyId) {
       this.companyId = companyId;
       return this;
     }
@@ -237,7 +216,7 @@ public class ComputerDto {
      * @param computerId the computer id
      * @return builder
      */
-    public final Builder computerId(final int computerId) {
+    public final Builder computerId(final long computerId) {
       this.computerId = computerId;
       return this;
     }

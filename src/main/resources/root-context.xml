@@ -1,32 +1,31 @@
 <beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
- xmlns:context="http://www.springframework.org/schema/context" xmlns:beans="http://www.springframework.org/shcema/beans"
- xsi:schemaLocation="
+       xmlns:context="http://www.springframework.org/schema/context"
+       xsi:schemaLocation="
         http://www.springframework.org/schema/beans
         http://www.springframework.org/schema/beans/spring-beans.xsd
         http://www.springframework.org/schema/context
         http://www.springframework.org/schema/context/spring-context.xsd">
-        
- <!-- Root Context: defines shared resources visible to all other web components -->
- <!-- scanning package for annotation (only useful ones) -->
- <context:annotation-config />
- <context:component-scan base-package="com.louisamoros.cdb.service" />
- <context:component-scan base-package="com.louisamoros.cdb.dao" />
- <context:component-scan base-package="com.louisamoros.cdb.dao.connection" />
- <context:component-scan base-package="com.louisamoros.cdb.dto.validator" />
 
- <!-- setting data source with bonecp wrapper which handles pool connection -->
- <context:property-placeholder location="classpath:jdbc.properties" />
- <bean id="dataSource" class="com.jolbox.bonecp.BoneCPDataSource" destroy-method="close">
-  <property name="driverClass" value="${jdbc.driverClass}" />
-  <property name="jdbcUrl" value="${jdbc.url}" />
-  <property name="username" value="${jdbc.username}" />
-  <property name="password" value="${jdbc.password}" />
-  <property name="maxConnectionsPerPartition" value="${jdbc.maxConn}" />
- </bean>
+    <!-- Root Context: defines shared resources visible to all other web components -->
+    <!-- scanning package for annotation (only useful ones) -->
+    <context:annotation-config/>
+    <context:component-scan base-package="com.louisamoros.cdb.service"/>
+    <context:component-scan base-package="com.louisamoros.cdb.dao"/>
+    <context:component-scan base-package="com.louisamoros.cdb.dto.validator"/>
 
- <!-- setting jdbc template (named parameters overlay) and give it the bone cp data source -->
- <bean id="namedParameterJdbcTemplate" class="org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate">
-  <constructor-arg ref="dataSource" />
- </bean>
+    <!-- setting data source with bonecp wrapper which handles pool connection -->
+    <context:property-placeholder location="classpath:jdbc.properties"/>
+    <bean id="dataSource" class="com.jolbox.bonecp.BoneCPDataSource" destroy-method="close">
+        <property name="driverClass" value="${jdbc.driverClass}"/>
+        <property name="jdbcUrl" value="${jdbc.url}"/>
+        <property name="username" value="${jdbc.username}"/>
+        <property name="password" value="${jdbc.password}"/>
+        <property name="maxConnectionsPerPartition" value="${jdbc.maxConn}"/>
+    </bean>
+
+    <!-- setting jdbc template (named parameters overlay) and give it the bone cp data source -->
+    <bean id="namedParameterJdbcTemplate" class="org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate">
+        <constructor-arg ref="dataSource"/>
+    </bean>
 
 </beans>

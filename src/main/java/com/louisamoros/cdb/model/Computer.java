@@ -7,7 +7,7 @@ import java.time.LocalDate;
  */
 public final class Computer {
 
-    private int computerId;
+    private long computerId;
     private Company company;
     private String computerName;
     private LocalDate introduced;
@@ -26,7 +26,7 @@ public final class Computer {
         this.introduced = builder.introduced;
     }
 
-    public int getComputerId() {
+    public long getComputerId() {
         return computerId;
     }
 
@@ -54,61 +54,40 @@ public final class Computer {
     }
 
     @Override
-    public int hashCode() {
-        final int prime = 31;
-        int result = 1;
-        result = prime * result + ((company == null) ? 0 : company.hashCode());
-        result = prime * result + computerId;
-        result = prime * result + ((discontinued == null) ? 0 : discontinued.hashCode());
-        result = prime * result + ((introduced == null) ? 0 : introduced.hashCode());
-        result = prime * result + ((computerName == null) ? 0 : computerName.hashCode());
-        return result;
+    public boolean equals(final Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
+
+        Computer computer = (Computer) o;
+
+        if (computerId != computer.computerId) {
+            return false;
+        }
+        if (company != null ? !company.equals(computer.company) : computer.company != null) {
+            return false;
+        }
+        if (!computerName.equals(computer.computerName)) {
+            return false;
+        }
+        if (introduced != null ? !introduced.equals(computer.introduced) : computer.introduced != null) {
+            return false;
+        }
+        return discontinued != null ? discontinued.equals(computer.discontinued) : computer.discontinued == null;
+
     }
 
     @Override
-    public boolean equals(final Object obj) {
-        if (this == obj) {
-            return true;
-        }
-        if (obj == null) {
-            return false;
-        }
-        if (getClass() != obj.getClass()) {
-            return false;
-        }
-        Computer other = (Computer) obj;
-        if (company == null) {
-            if (other.company != null) {
-                return false;
-            }
-        } else if (!company.equals(other.company)) {
-            return false;
-        }
-        if (computerId != other.computerId) {
-            return false;
-        }
-        if (discontinued == null) {
-            if (other.discontinued != null) {
-                return false;
-            }
-        } else if (!discontinued.equals(other.discontinued)) {
-            return false;
-        }
-        if (introduced == null) {
-            if (other.introduced != null) {
-                return false;
-            }
-        } else if (!introduced.equals(other.introduced)) {
-            return false;
-        }
-        if (computerName == null) {
-            if (other.computerName != null) {
-                return false;
-            }
-        } else if (!computerName.equals(other.computerName)) {
-            return false;
-        }
-        return true;
+    public int hashCode() {
+        int result = (int) (computerId ^ (computerId >>> 32));
+        result = 31 * result + (company != null ? company.hashCode() : 0);
+        result = 31 * result + computerName.hashCode();
+        result = 31 * result + (introduced != null ? introduced.hashCode() : 0);
+        result = 31 * result + (discontinued != null ? discontinued.hashCode() : 0);
+        return result;
     }
 
     /**
@@ -120,7 +99,7 @@ public final class Computer {
         private String computerName;
 
         // optional
-        private int computerId;
+        private long computerId;
         private Company company;
         private LocalDate introduced;
         private LocalDate discontinued;
@@ -140,7 +119,7 @@ public final class Computer {
          * @param computerId the computer id
          * @return builder
          */
-        public final Builder id(final int computerId) {
+        public final Builder id(final long computerId) {
             this.computerId = computerId;
             return this;
         }

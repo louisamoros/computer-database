@@ -47,7 +47,7 @@ public interface ComputerDao {
      * @param computer the computer
      * @return id of created computer
      */
-    int create(Computer computer);
+    Computer create(Computer computer);
 
     /**
      * Update computer.
@@ -55,7 +55,7 @@ public interface ComputerDao {
      * @param computer the computer
      * @return id of updated computer
      */
-    int update(Computer computer);
+    Computer update(Computer computer);
 
     /**
      * Delete all computers related to the company id.

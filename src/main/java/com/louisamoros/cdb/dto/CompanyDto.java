@@ -5,7 +5,7 @@ package com.louisamoros.cdb.dto;
  */
 public final class CompanyDto {
 
-  private int id;
+  private long id;
   private String name;
 
   /**
@@ -18,7 +18,7 @@ public final class CompanyDto {
     this.name = builder.name;
   }
 
-  public int getId() {
+  public long getId() {
     return id;
   }
 
@@ -27,37 +27,28 @@ public final class CompanyDto {
   }
 
   @Override
-  public int hashCode() {
-    final int prime = 31;
-    int result = 1;
-    result = prime * result + id;
-    result = prime * result + ((name == null) ? 0 : name.hashCode());
-    return result;
+  public boolean equals(final Object o) {
+    if (this == o) {
+      return true;
+    }
+    if (o == null || getClass() != o.getClass()) {
+      return false;
+    }
+
+    CompanyDto that = (CompanyDto) o;
+
+    if (id != that.id) {
+      return false;
+    }
+    return name != null ? name.equals(that.name) : that.name == null;
+
   }
 
   @Override
-  public boolean equals(final Object obj) {
-    if (this == obj) {
-      return true;
-    }
-    if (obj == null) {
-      return false;
-    }
-    if (getClass() != obj.getClass()) {
-      return false;
-    }
-    CompanyDto other = (CompanyDto) obj;
-    if (id != other.id) {
-      return false;
-    }
-    if (name == null) {
-      if (other.name != null) {
-        return false;
-      }
-    } else if (!name.equals(other.name)) {
-      return false;
-    }
-    return true;
+  public int hashCode() {
+    int result = (int) (id ^ (id >>> 32));
+    result = 31 * result + (name != null ? name.hashCode() : 0);
+    return result;
   }
 
   @Override
@@ -71,7 +62,7 @@ public final class CompanyDto {
   public static class Builder {
 
     // optional
-    private int id;
+    private long id;
     private String name;
 
     /**
@@ -80,7 +71,7 @@ public final class CompanyDto {
      * @param id the id
      * @return builder
      */
-    public final Builder id(final int id) {
+    public final Builder id(final long id) {
       this.id = id;
       return this;
     }

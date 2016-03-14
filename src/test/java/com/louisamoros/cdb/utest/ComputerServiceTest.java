@@ -78,9 +78,8 @@ public class ComputerServiceTest {
     LOGGER.info("createComputerOk...");
     Computer computer1 = new Computer.Builder("computer1").company(null).introduced(null)
         .discontinued(null).build();
-    Mockito.when(mockComputerDao.create(computer1)).thenReturn(1);
-    int createdComputerId = computerService.create(computer1);
-    Assert.assertTrue(createdComputerId == 1);
+    Mockito.when(mockComputerDao.create(computer1)).thenReturn(computer1);
+    Assert.assertTrue(computerService.create(computer1).equals(computer1));
   }
 
   /**
@@ -128,7 +127,7 @@ public class ComputerServiceTest {
     Computer computer1 = new Computer.Builder("updatedComputer").company(null).discontinued(null)
         .introduced(null).build();
     computers.set(1, computer1);
-    Mockito.when(mockComputerDao.update(computer1)).thenReturn(computer1.getComputerId());
+    Mockito.when(mockComputerDao.update(computer1)).thenReturn(computer1);
     Mockito.when(mockComputerDao.getAll()).thenReturn(computers);
     Assert.assertEquals(computerService.getAll().size(), 2);
     Assert.assertTrue(computer1.equals(computers.get(1)));
@@ -143,7 +142,7 @@ public class ComputerServiceTest {
         .introduced(null).build();
     Computer computer2 = new Computer.Builder("computer2").company(null).discontinued(null)
         .introduced(null).build();
-    ArrayList<Computer> computers = new ArrayList<Computer>();
+    ArrayList<Computer> computers = new ArrayList<>();
     computers.add(computer1);
     computers.add(computer2);
     return computers;

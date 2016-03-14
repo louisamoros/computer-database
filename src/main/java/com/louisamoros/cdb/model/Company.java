@@ -1,11 +1,19 @@
 package com.louisamoros.cdb.model;
 
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+
 /**
  * Company model class.
  */
+@Entity
 public final class Company {
 
-    private int companyId;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private long companyId;
     private String companyName;
 
     /**
@@ -18,7 +26,7 @@ public final class Company {
         this.companyName = builder.companyName;
     }
 
-    public int getCompanyId() {
+    public long getCompanyId() {
         return companyId;
     }
 
@@ -32,37 +40,28 @@ public final class Company {
     }
 
     @Override
-    public int hashCode() {
-        final int prime = 31;
-        int result = 1;
-        result = prime * result + companyId;
-        result = prime * result + ((companyName == null) ? 0 : companyName.hashCode());
-        return result;
+    public boolean equals(final Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
+
+        Company company = (Company) o;
+
+        if (companyId != company.companyId) {
+            return false;
+        }
+        return companyName != null ? companyName.equals(company.companyName) : company.companyName == null;
+
     }
 
     @Override
-    public boolean equals(final Object obj) {
-        if (this == obj) {
-            return true;
-        }
-        if (obj == null) {
-            return false;
-        }
-        if (getClass() != obj.getClass()) {
-            return false;
-        }
-        Company other = (Company) obj;
-        if (companyId != other.companyId) {
-            return false;
-        }
-        if (companyName == null) {
-            if (other.companyName != null) {
-                return false;
-            }
-        } else if (!companyName.equals(other.companyName)) {
-            return false;
-        }
-        return true;
+    public int hashCode() {
+        int result = (int) (companyId ^ (companyId >>> 32));
+        result = 31 * result + (companyName != null ? companyName.hashCode() : 0);
+        return result;
     }
 
     /**
@@ -73,7 +72,7 @@ public final class Company {
     public static class Builder {
 
         // optional
-        private int id;
+        private long id;
         private String companyName;
 
         /**
@@ -82,7 +81,7 @@ public final class Company {
          * @param id the id
          * @return builder
          */
-        public final Builder id(final int id) {
+        public final Builder id(final long id) {
             this.id = id;
             return this;
         }
