@@ -44,17 +44,17 @@
         <form:errors path="discontinued" class="error" />
        </div>
        <div class="form-group">
-        <form:label for="companyId" path="companyId">
+        <label for="companyId">
          <spring:message code="label.computerCompanyLabel"></spring:message>
-        </form:label>
-        <form:select class="form-control" id="companyId" name="companyId" path="companyId">
+        </label>
+        <select class="form-control" id="companyId" name="companyId">
          <option value="0">--
           <spring:message code="label.select"></spring:message> --
          </option>
          <c:forEach items="${companiesDto}" var="companyDto">
           <option value="${companyDto.id}">${companyDto.name}</option>
          </c:forEach>
-        </form:select>
+        </select>
        </div>
       </fieldset>
       <div class="actions pull-right">

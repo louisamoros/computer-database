@@ -1,9 +1,11 @@
 package com.louisamoros.cdb.dao.impl;
 
 import com.louisamoros.cdb.dao.CompanyDao;
+import com.louisamoros.cdb.dao.CompanyRepository;
 import com.louisamoros.cdb.dao.mapper.CompanyRowMapper;
 import com.louisamoros.cdb.dao.util.QueryGenerator;
 import com.louisamoros.cdb.model.Company;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,7 +26,7 @@ public class CompanyDaoImpl implements CompanyDao {
     /**
      * Logger for the class.
      */
-    public static final Logger LOGGER = LoggerFactory.getLogger(CompanyDao.class);
+    public static final Logger LOGGER = LoggerFactory.getLogger(CompanyRepository.class);
 
     /**
      * Autowired spring injection of jdbc template (named parameter overlay).
@@ -43,8 +45,8 @@ public class CompanyDaoImpl implements CompanyDao {
             .build();
         // @formatter:on
         LOGGER.info(queryGenerator.getQuery().toString());
-        return namedParameterJdbcTemplate.query(queryGenerator.getQuery().toString(), new HashMap<>(),
-                new CompanyRowMapper());
+        return namedParameterJdbcTemplate.query(queryGenerator.getQuery().toString(),
+                new HashMap<>(), new CompanyRowMapper());
 
     }
 

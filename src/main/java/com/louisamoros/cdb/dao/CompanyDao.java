@@ -9,18 +9,18 @@ import java.util.List;
  */
 public interface CompanyDao {
 
-  /**
-   * Get all companies.
-   *
-   * @return list of companies
-   */
-  List<Company> getAll();
+    /**
+     * Get all companies.
+     *
+     * @return list of companies
+     */
+    List<Company> getAll();
 
-  /**
-   * Delete a company based on its id.
-   *
-   * @param companyId the company id
-   */
-  void delete(int companyId);
+    /**
+     * Delete a company based on its id.
+     *
+     * @param companyId the company id
+     */
+    void delete(int companyId);
 
 }

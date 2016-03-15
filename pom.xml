@@ -1,349 +1,361 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
- xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
- <modelVersion>4.0.0</modelVersion>
- <groupId>com.louisamoros.cdb</groupId>
- <artifactId>computerdatabase</artifactId>
- <name>computerdatabase</name>
- <version>0.6.0-SNAPSHOT</version>
- <packaging>war</packaging>
- <repositories>
-  <repository>
-   <id>version99</id><!-- highly available repository serving empty artifacts -->
-   <url>http://version99.qos.ch/</url>
-  </repository>
- </repositories>
- <properties>
-  <!-- encoding -->
-  <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <groupId>com.louisamoros.cdb</groupId>
+    <artifactId>computerdatabase</artifactId>
+    <name>computerdatabase</name>
+    <version>0.6.0-SNAPSHOT</version>
+    <packaging>war</packaging>
+    <repositories>
+        <repository>
+            <id>version99</id><!-- highly available repository serving empty artifacts -->
+            <url>http://version99.qos.ch/</url>
+        </repository>
+    </repositories>
+    <properties>
+        <!-- encoding -->
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 
-  <!-- DB -->
-  <mysql-connector-version>5.1.38</mysql-connector-version>
-  <bonecp-version>0.8.0.RELEASE</bonecp-version>
+        <!-- DB -->
+        <mysql-connector-version>5.1.38</mysql-connector-version>
+        <bonecp-version>0.8.0.RELEASE</bonecp-version>
 
-  <!-- Javadoc -->
-  <javadoc-version>2.10.3</javadoc-version>
+        <!-- Javadoc -->
+        <javadoc-version>2.10.3</javadoc-version>
 
-  <!-- Log -->
-  <slf4j-api-version>1.7.12</slf4j-api-version>
-  <logback-classic-version>1.1.3</logback-classic-version>
-  <jcl-over-slf4j-version>1.7.18</jcl-over-slf4j-version>
-  <commons-logging-version>99-empty</commons-logging-version>
+        <!-- Log -->
+        <slf4j-api-version>1.7.12</slf4j-api-version>
+        <logback-classic-version>1.1.3</logback-classic-version>
+        <jcl-over-slf4j-version>1.7.18</jcl-over-slf4j-version>
+        <commons-logging-version>99-empty</commons-logging-version>
 
-  <!-- Servlet -->
-  <javax-servlet-version>3.1.0</javax-servlet-version>
+        <!-- Servlet -->
+        <javax-servlet-version>3.1.0</javax-servlet-version>
 
-  <!-- JSP + JSTL -->
-  <javax-servlet-jsp-version>2.1</javax-servlet-jsp-version>
-  <jstl-version>1.2</jstl-version>
+        <!-- JSP + JSTL -->
+        <javax-servlet-jsp-version>2.1</javax-servlet-jsp-version>
+        <jstl-version>1.2</jstl-version>
 
-  <!-- Test -->
-  <junit-version>4.12</junit-version>
-  <mockito-version>1.10.19</mockito-version>
-  <selenium-version>2.52.0</selenium-version>
+        <!-- Test -->
+        <junit-version>4.12</junit-version>
+        <mockito-version>1.10.19</mockito-version>
+        <selenium-version>2.52.0</selenium-version>
 
-  <!-- cdb cli with apache cli -->
-  <commons-cli-version>1.3.1</commons-cli-version>
+        <!-- cdb cli with apache cli -->
+        <commons-cli-version>1.3.1</commons-cli-version>
 
-  <!-- Spring -->
-  <springframework-version>4.2.5.RELEASE</springframework-version>
+        <!-- Spring -->
+        <springframework-version>4.2.5.RELEASE</springframework-version>
 
-  <!-- jackson -->
-  <jackson-version>2.5.3</jackson-version>
+        <!-- jackson -->
+        <jackson-version>2.5.3</jackson-version>
 
-  <!-- Validation -->
-  <java-validation>1.1.0.Final</java-validation>
-  <hibernate-validation>5.0.1.Final</hibernate-validation>
+        <!-- Validation -->
+        <java-validation>1.1.0.Final</java-validation>
+        <hibernate-validation>5.0.1.Final</hibernate-validation>
 
-  <!-- Querydsl -->
-  <querydsl-version>3.7.2</querydsl-version>
-  
-  <!-- Hibernate -->
-  <hibernate-version>5.1.0.Final</hibernate-version>
+        <!-- Querydsl -->
+        <querydsl-version>3.7.2</querydsl-version>
 
- </properties>
+        <!-- Hibernate -->
+        <hibernate-version>5.1.0.Final</hibernate-version>
 
- <dependencies>
+    </properties>
 
-  <!-- Spring -->
-  <dependency>
-   <groupId>org.springframework</groupId>
-   <artifactId>spring-webmvc</artifactId>
-   <version>${springframework-version}</version>
-  </dependency>
-  <dependency>
-   <groupId>org.springframework</groupId>
-   <artifactId>spring-jdbc</artifactId>
-   <version>${springframework-version}</version>
-  </dependency>
-  <dependency>
-   <groupId>org.springframework</groupId>
-   <artifactId>spring-test</artifactId>
-   <version>${springframework-version}</version>
-  </dependency>
+    <dependencies>
 
-  <!-- Query dsl implementation of hibernate API -->
-  <dependency>
-   <groupId>com.mysema.querydsl</groupId>
-   <artifactId>querydsl-apt</artifactId>
-   <version>${querydsl-version}</version>
-   <scope>provided</scope>
-  </dependency>
-  <dependency>
-   <groupId>com.mysema.querydsl</groupId>
-   <artifactId>querydsl-jpa</artifactId>
-   <version>${querydsl-version}</version>
-  </dependency>
+        <!-- Spring -->
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-webmvc</artifactId>
+            <version>${springframework-version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-jdbc</artifactId>
+            <version>${springframework-version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-test</artifactId>
+            <version>${springframework-version}</version>
+        </dependency>
+        <dependency> <!-- dependency use for query dsl -->
+            <groupId>org.springframework.data</groupId>
+            <artifactId>spring-data-jpa</artifactId>
+            <version>1.9.4.RELEASE</version>
+        </dependency>
 
-  <!-- Hibernate ORM -->
-  <dependency>
-   <groupId>org.hibernate</groupId>
-   <artifactId>hibernate-core</artifactId>
-   <version>${hibernate-version}</version>
-  </dependency>
+        <!-- Query dsl implementation of hibernate API -->
+        <dependency>
+            <groupId>com.mysema.querydsl</groupId>
+            <artifactId>querydsl-apt</artifactId>
+            <version>${querydsl-version}</version>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>com.mysema.querydsl</groupId>
+            <artifactId>querydsl-jpa</artifactId>
+            <version>${querydsl-version}</version>
+        </dependency>
 
-  <!-- validation -->
-  <dependency>
-   <groupId>javax.validation</groupId>
-   <artifactId>validation-api</artifactId>
-   <version>${java-validation}</version>
-  </dependency>
-  <dependency>
-   <groupId>org.hibernate</groupId>
-   <artifactId>hibernate-validator</artifactId>
-   <version>${hibernate-validation}</version>
-  </dependency>
+        <!-- Hibernate ORM -->
+        <dependency>
+            <groupId>org.hibernate</groupId>
+            <artifactId>hibernate-core</artifactId>
+            <version>${hibernate-version}</version>
+        </dependency>
+        <!-- JPA Provider (Hibernate) -->
+        <dependency>
+            <groupId>org.hibernate</groupId>
+            <artifactId>hibernate-entitymanager</artifactId>
+            <version>${hibernate-version}</version>
+        </dependency>
 
-  <!-- jackson for rest api -->
-  <dependency>
-   <groupId>com.fasterxml.jackson.core</groupId>
-   <artifactId>jackson-databind</artifactId>
-   <version>${jackson-version}</version>
-  </dependency>
+        <!-- validation -->
+        <dependency>
+            <groupId>javax.validation</groupId>
+            <artifactId>validation-api</artifactId>
+            <version>${java-validation}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.hibernate</groupId>
+            <artifactId>hibernate-validator</artifactId>
+            <version>${hibernate-validation}</version>
+        </dependency>
 
-  <!-- MySql connector for JDBC -->
-  <dependency>
-   <groupId>mysql</groupId>
-   <artifactId>mysql-connector-java</artifactId>
-   <version>${mysql-connector-version}</version>
-  </dependency>
+        <!-- jackson for rest api -->
+        <dependency>
+            <groupId>com.fasterxml.jackson.core</groupId>
+            <artifactId>jackson-databind</artifactId>
+            <version>${jackson-version}</version>
+        </dependency>
 
-  <!-- Bonecep connection pool manager -->
-  <dependency>
-   <groupId>com.jolbox</groupId>
-   <artifactId>bonecp</artifactId>
-   <version>${bonecp-version}</version>
-  </dependency>
+        <!-- MySql connector for JDBC -->
+        <dependency>
+            <groupId>mysql</groupId>
+            <artifactId>mysql-connector-java</artifactId>
+            <version>${mysql-connector-version}</version>
+        </dependency>
 
-  <!-- JSTL -->
-  <dependency>
-   <groupId>jstl</groupId>
-   <artifactId>jstl</artifactId>
-   <version>${jstl-version}</version>
-  </dependency>
+        <!-- Bonecep connection pool manager -->
+        <dependency>
+            <groupId>com.jolbox</groupId>
+            <artifactId>bonecp</artifactId>
+            <version>${bonecp-version}</version>
+        </dependency>
 
-  <!-- JSP -->
-  <dependency>
-   <groupId>javax.servlet.jsp</groupId>
-   <artifactId>jsp-api</artifactId>
-   <version>${javax-servlet-jsp-version}</version>
-   <scope>provided</scope>
-  </dependency>
+        <!-- JSTL -->
+        <dependency>
+            <groupId>jstl</groupId>
+            <artifactId>jstl</artifactId>
+            <version>${jstl-version}</version>
+        </dependency>
 
-  <!-- Servlet -->
-  <dependency>
-   <groupId>javax.servlet</groupId>
-   <artifactId>javax.servlet-api</artifactId>
-   <version>${javax-servlet-version}</version>
-   <scope>provided</scope>
-  </dependency>
+        <!-- JSP -->
+        <dependency>
+            <groupId>javax.servlet.jsp</groupId>
+            <artifactId>jsp-api</artifactId>
+            <version>${javax-servlet-jsp-version}</version>
+            <scope>provided</scope>
+        </dependency>
 
-  <!-- Logback for nice logging using slf4j -->
-  <dependency>
-   <groupId>org.slf4j</groupId>
-   <artifactId>slf4j-api</artifactId>
-   <version>${slf4j-api-version}</version>
-  </dependency>
-  <dependency>
-   <groupId>ch.qos.logback</groupId>
-   <artifactId>logback-classic</artifactId>
-   <version>${logback-classic-version}</version>
-  </dependency>
-  <dependency>
-   <groupId>org.slf4j</groupId>
-   <artifactId>jcl-over-slf4j</artifactId>
-   <version>${jcl-over-slf4j-version}</version><!-- Override Log for Spring -->
-  </dependency>
-  <dependency>
-   <groupId>commons-logging</groupId><!-- Empty jar for create a bridge -->
-   <artifactId>commons-logging</artifactId>
-   <version>${commons-logging-version}</version>
-  </dependency>
+        <!-- Servlet -->
+        <dependency>
+            <groupId>javax.servlet</groupId>
+            <artifactId>javax.servlet-api</artifactId>
+            <version>${javax-servlet-version}</version>
+            <scope>provided</scope>
+        </dependency>
 
-
-  <!-- Junit for testing -->
-  <dependency>
-   <groupId>junit</groupId>
-   <artifactId>junit</artifactId>
-   <version>${junit-version}</version>
-   <scope>test</scope>
-  </dependency>
-
-  <!-- Mockito for test -->
-  <dependency>
-   <groupId>org.mockito</groupId>
-   <artifactId>mockito-all</artifactId>
-   <version>${mockito-version}</version>
-  </dependency>
-
-  <!-- Selenium for integration tests -->
-  <dependency>
-   <groupId>org.seleniumhq.selenium</groupId>
-   <artifactId>selenium-java</artifactId>
-   <version>${selenium-version}</version>
-   <scope>test</scope>
-  </dependency>
-
-  <!-- Apache cli used for the cdb cli -->
-  <dependency>
-   <groupId>commons-cli</groupId>
-   <artifactId>commons-cli</artifactId>
-   <version>${commons-cli-version}</version>
-  </dependency>
+        <!-- Logback for nice logging using slf4j -->
+        <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-api</artifactId>
+            <version>${slf4j-api-version}</version>
+        </dependency>
+        <dependency>
+            <groupId>ch.qos.logback</groupId>
+            <artifactId>logback-classic</artifactId>
+            <version>${logback-classic-version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>jcl-over-slf4j</artifactId>
+            <version>${jcl-over-slf4j-version}</version><!-- Override Log for Spring -->
+        </dependency>
+        <dependency>
+            <groupId>commons-logging</groupId><!-- Empty jar for create a bridge -->
+            <artifactId>commons-logging</artifactId>
+            <version>${commons-logging-version}</version>
+        </dependency>
 
 
- </dependencies>
+        <!-- Junit for testing -->
+        <dependency>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+            <version>${junit-version}</version>
+            <scope>test</scope>
+        </dependency>
 
- <build>
+        <!-- Mockito for test -->
+        <dependency>
+            <groupId>org.mockito</groupId>
+            <artifactId>mockito-all</artifactId>
+            <version>${mockito-version}</version>
+        </dependency>
 
-  <!-- Name of the war -->
-  <finalName>cdb</finalName>
+        <!-- Selenium for integration tests -->
+        <dependency>
+            <groupId>org.seleniumhq.selenium</groupId>
+            <artifactId>selenium-java</artifactId>
+            <version>${selenium-version}</version>
+            <scope>test</scope>
+        </dependency>
 
-  <plugins>
+        <!-- Apache cli used for the cdb cli -->
+        <dependency>
+            <groupId>commons-cli</groupId>
+            <artifactId>commons-cli</artifactId>
+            <version>${commons-cli-version}</version>
+        </dependency>
 
-   <plugin>
-    <groupId>org.apache.maven.plugins</groupId>
-    <artifactId>maven-compiler-plugin</artifactId>
-    <version>3.5.1</version>
-    <configuration>
-     <source>1.8</source>
-     <target>1.8</target>
-    </configuration>
-   </plugin>
 
-   <plugin>
-    <groupId>org.apache.maven.plugins</groupId>
-    <artifactId>maven-surefire-plugin</artifactId>
-    <version>2.12.4</version>
-    <configuration>
-     <includes>
-      <include>com/louisamoros/cdb/utest/**.java</include>
-     </includes>
-    </configuration>
-   </plugin>
+    </dependencies>
 
-   <plugin>
-    <groupId>org.apache.maven.plugins</groupId>
-    <artifactId>maven-failsafe-plugin</artifactId>
-    <version>2.19.1</version>
-    <configuration>
-     <includes>
-      <include>com/louisamoros/cdb/itest/**.java</include>
-     </includes>
-    </configuration>
-    <executions>
-     <execution>
-      <goals>
-       <goal>integration-test</goal>
-       <goal>verify</goal>
-      </goals>
-     </execution>
-    </executions>
-   </plugin>
+    <build>
 
-   <plugin>
-    <groupId>org.codehaus.cargo</groupId>
-    <artifactId>cargo-maven2-plugin</artifactId>
-    <version>1.2.0</version>
-    <configuration>
-     <wait>false</wait>
-     <container>
-      <containerId>tomcat7x</containerId>
-      <zipUrlInstaller>
-       <url>http://archive.apache.org/dist/tomcat/tomcat-8/v8.0.30/bin/apache-tomcat-8.0.30.zip</url>
-      </zipUrlInstaller>
-     </container>
-     <configuration>
-      <properties>
-       <cargo.servlet.port>8180</cargo.servlet.port>
-       <cargo.tomcat.ajp.port>8109</cargo.tomcat.ajp.port>
-      </properties>
-     </configuration>
-    </configuration>
-    <executions>
-     <!-- Cargo start goal is bound to pre-integration-test phase. Cargo will download a Tomcat 8.0.32 
-      server an configure it to run on ports 8180 and 8109. After that the application under test is deployed. -->
-     <execution>
-      <id>start-container</id>
-      <phase>pre-integration-test</phase>
-      <goals>
-       <goal>start</goal>
-      </goals>
-     </execution>
-     <!-- Cargo stop goal is bound to post-integration-test phase. During this phase, that runs once 
-      Failsafe finishes executing the integration tests, Cargo will stop the Tomcat server. -->
-     <execution>
-      <id>stop-container</id>
-      <phase>post-integration-test</phase>
-      <goals>
-       <goal>stop</goal>
-      </goals>
-     </execution>
-    </executions>
-   </plugin>
+        <!-- Name of the war -->
+        <finalName>cdb</finalName>
 
-   <!-- Checkstyle is active during building war. If error build will fail. -->
-   <plugin>
-    <groupId>org.apache.maven.plugins</groupId>
-    <artifactId>maven-checkstyle-plugin</artifactId>
-    <version>2.17</version>
-    <executions>
-     <execution>
-      <id>validate</id>
-      <phase>validate</phase>
-      <configuration>
-       <configLocation>checkstyle.xml</configLocation>
-       <encoding>UTF-8</encoding>
-       <consoleOutput>true</consoleOutput>
-       <failsOnError>true</failsOnError>
-      </configuration>
-      <goals>
-       <goal>check</goal>
-      </goals>
-     </execution>
-    </executions>
-   </plugin>
+        <plugins>
 
-   <!-- The HibernateAnnotationProcessor finds domain types annotated with the javax.persistence.Entity 
-    annotation and generates query types for them. When clean install, Query types are generated into target/generated-sources/java. 
-    Then we are ready to construct JPQL query instances and instances of the query domain model. -->
-   <plugin>
-    <groupId>com.mysema.maven</groupId>
-    <artifactId>apt-maven-plugin</artifactId>
-    <version>1.1.3</version>
-    <executions>
-     <execution>
-      <goals>
-       <goal>process</goal>
-      </goals>
-      <configuration>
-       <outputDirectory>target/generated-sources/java</outputDirectory>
-       <processor>com.mysema.query.apt.hibernate.HibernateAnnotationProcessor</processor>
-      </configuration>
-     </execution>
-    </executions>
-   </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <version>3.5.1</version>
+                <configuration>
+                    <source>1.8</source>
+                    <target>1.8</target>
+                </configuration>
+            </plugin>
 
-  </plugins>
- </build>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-surefire-plugin</artifactId>
+                <version>2.12.4</version>
+                <configuration>
+                    <includes>
+                        <include>com/louisamoros/cdb/utest/**.java</include>
+                    </includes>
+                </configuration>
+            </plugin>
+
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-failsafe-plugin</artifactId>
+                <version>2.19.1</version>
+                <configuration>
+                    <includes>
+                        <include>com/louisamoros/cdb/itest/**.java</include>
+                    </includes>
+                </configuration>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>integration-test</goal>
+                            <goal>verify</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+
+            <plugin>
+                <groupId>org.codehaus.cargo</groupId>
+                <artifactId>cargo-maven2-plugin</artifactId>
+                <version>1.2.0</version>
+                <configuration>
+                    <wait>false</wait>
+                    <container>
+                        <containerId>tomcat7x</containerId>
+                        <zipUrlInstaller>
+                            <url>http://archive.apache.org/dist/tomcat/tomcat-8/v8.0.30/bin/apache-tomcat-8.0.30.zip</url>
+                        </zipUrlInstaller>
+                    </container>
+                    <configuration>
+                        <properties>
+                            <cargo.servlet.port>8180</cargo.servlet.port>
+                            <cargo.tomcat.ajp.port>8109</cargo.tomcat.ajp.port>
+                        </properties>
+                    </configuration>
+                </configuration>
+                <executions>
+                    <!-- Cargo start goal is bound to pre-integration-test phase. Cargo will download 
+                        a Tomcat 8.0.32 server an configure it to run on ports 8180 and 8109. After that the application under 
+                        test is deployed. -->
+                    <execution>
+                        <id>start-container</id>
+                        <phase>pre-integration-test</phase>
+                        <goals>
+                            <goal>start</goal>
+                        </goals>
+                    </execution>
+                    <!-- Cargo stop goal is bound to post-integration-test phase. During this phase, 
+                        that runs once Failsafe finishes executing the integration tests, Cargo will stop the Tomcat server. -->
+                    <execution>
+                        <id>stop-container</id>
+                        <phase>post-integration-test</phase>
+                        <goals>
+                            <goal>stop</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+
+            <!-- Checkstyle is active during building war. If error build will fail. -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-checkstyle-plugin</artifactId>
+                <version>2.17</version>
+                <executions>
+                    <execution>
+                        <id>validate</id>
+                        <phase>validate</phase>
+                        <configuration>
+                            <configLocation>checkstyle.xml</configLocation>
+                            <encoding>UTF-8</encoding>
+                            <consoleOutput>true</consoleOutput>
+                            <failsOnError>true</failsOnError>
+                        </configuration>
+                        <goals>
+                            <goal>check</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+
+            <!-- The HibernateAnnotationProcessor finds domain types annotated with the javax.persistence.Entity 
+                annotation and generates query types for them. When clean install, Query types are generated into target/generated-sources/java. 
+                Then we are ready to construct JPQL query instances and instances of the query domain model. -->
+            <plugin>
+                <groupId>com.mysema.maven</groupId>
+                <artifactId>apt-maven-plugin</artifactId>
+                <version>1.1.3</version>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>process</goal>
+                        </goals>
+                        <configuration>
+                            <outputDirectory>target/generated-sources/java</outputDirectory>
+                            <processor>com.mysema.query.apt.hibernate.HibernateAnnotationProcessor</processor>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+
+        </plugins>
+    </build>
 
 </project>

@@ -1,31 +1,66 @@
 <beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-       xmlns:context="http://www.springframework.org/schema/context"
-       xsi:schemaLocation="
+    xmlns:context="http://www.springframework.org/schema/context" xmlns:tx="http://www.springframework.org/schema/tx"
+    xmlns:jpa="http://www.springframework.org/schema/data/jpa"
+    xsi:schemaLocation="
         http://www.springframework.org/schema/beans
         http://www.springframework.org/schema/beans/spring-beans.xsd
         http://www.springframework.org/schema/context
-        http://www.springframework.org/schema/context/spring-context.xsd">
+        http://www.springframework.org/schema/context/spring-context.xsd
+        http://www.springframework.org/schema/data/jpa
+        http://www.springframework.org/schema/data/jpa/spring-jpa.xsd
+        http://www.springframework.org/schema/tx
+        http://www.springframework.org/schema/tx/spring-tx.xsd">
+
+    <!-- For bootstrapping the Spring Repository -->
+    <jpa:repositories base-package="com.louisamoros.cdb.dao" />
 
     <!-- Root Context: defines shared resources visible to all other web components -->
     <!-- scanning package for annotation (only useful ones) -->
-    <context:annotation-config/>
-    <context:component-scan base-package="com.louisamoros.cdb.service"/>
-    <context:component-scan base-package="com.louisamoros.cdb.dao"/>
-    <context:component-scan base-package="com.louisamoros.cdb.dto.validator"/>
+    <context:annotation-config />
+    <context:component-scan base-package="com.louisamoros.cdb.service" />
+    <context:component-scan base-package="com.louisamoros.cdb.dao" />
+    <context:component-scan base-package="com.louisamoros.cdb.dto.validator" />
+    <context:component-scan base-package="com.louisamoros.cdb.model" />
 
     <!-- setting data source with bonecp wrapper which handles pool connection -->
-    <context:property-placeholder location="classpath:jdbc.properties"/>
+    <context:property-placeholder location="classpath:jdbc.properties" />
     <bean id="dataSource" class="com.jolbox.bonecp.BoneCPDataSource" destroy-method="close">
-        <property name="driverClass" value="${jdbc.driverClass}"/>
-        <property name="jdbcUrl" value="${jdbc.url}"/>
-        <property name="username" value="${jdbc.username}"/>
-        <property name="password" value="${jdbc.password}"/>
-        <property name="maxConnectionsPerPartition" value="${jdbc.maxConn}"/>
+        <property name="driverClass" value="${jdbc.driverClass}" />
+        <property name="jdbcUrl" value="${jdbc.url}" />
+        <property name="username" value="${jdbc.username}" />
+        <property name="password" value="${jdbc.password}" />
+        <property name="maxConnectionsPerPartition" value="${jdbc.maxConn}" />
     </bean>
 
     <!-- setting jdbc template (named parameters overlay) and give it the bone cp data source -->
     <bean id="namedParameterJdbcTemplate" class="org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate">
-        <constructor-arg ref="dataSource"/>
+        <constructor-arg ref="dataSource" />
     </bean>
+    
+    <!-- Define Hibernate JPA Vendor Adapter -->
+    <bean id="jpaVendorAdapter" class="org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter">
+        <property name="showSql" value="true" />
+        <property name="generateDdl" value="true" />
+        <property name="databasePlatform" value="org.hibernate.dialect.MySQLDialect" />
+    </bean>
+
+    <!-- Necessary to get the entity manager injected into the factory bean -->
+    <bean class="org.springframework.orm.jpa.support.PersistenceAnnotationBeanPostProcessor" />
+
+    <!-- Entity Manager Factory -->
+    <bean id="entityManagerFactory" class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean">
+      <property name="persistenceXmlLocation" value="classpath:persistence.xml" />
+      <property name="persistenceUnitName" value="cdb-pu" />
+      <property name="dataSource" ref="dataSource" />
+      <property name="jpaVendorAdapter" ref="jpaVendorAdapter" />
+    </bean>
+
+    <!-- Transaction Manager -->
+    <bean id="transactionManager" class="org.springframework.orm.jpa.JpaTransactionManager">
+        <property name="entityManagerFactory" ref="entityManagerFactory" />
+    </bean>
+
+    <!-- Enable Transactional Manner -->
+    <tx:annotation-driven transaction-manager="transactionManager" />
 
 </beans>

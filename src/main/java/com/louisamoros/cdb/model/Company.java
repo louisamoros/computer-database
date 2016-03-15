@@ -1,5 +1,6 @@
 package com.louisamoros.cdb.model;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -8,12 +9,15 @@ import javax.persistence.Id;
 /**
  * Company model class.
  */
-@Entity
+@Entity(name = "company")
 public final class Company {
 
     @Id
+    @Column(name = "id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long companyId;
+
+    @Column(name = "name")
     private String companyName;
 
     /**
@@ -24,6 +28,13 @@ public final class Company {
     private Company(final Builder builder) {
         this.companyId = builder.id;
         this.companyName = builder.companyName;
+    }
+
+    /**
+     * Default private constructor to enable hibernate using reflection.
+     */
+    private Company() {
+        super();
     }
 
     public long getCompanyId() {
@@ -53,7 +64,8 @@ public final class Company {
         if (companyId != company.companyId) {
             return false;
         }
-        return companyName != null ? companyName.equals(company.companyName) : company.companyName == null;
+        return companyName != null ? companyName.equals(company.companyName)
+                : company.companyName == null;
 
     }
 
