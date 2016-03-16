@@ -1,16 +1,40 @@
 package com.louisamoros.cdb.model;
 
+import java.io.Serializable;
 import java.time.LocalDate;
+
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 
 /**
  * Computer model class.
  */
-public final class Computer {
+@Entity(name = "computer")
+public final class Computer implements Serializable {
 
+    private static final long serialVersionUID = -1468059361405464223L;
+
+    @Id
+    @Column(name = "id")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long computerId;
+
+    @ManyToOne
+    @JoinColumn(name = "company_id")
     private Company company;
+
+    @Column(name = "name", nullable = false)
     private String computerName;
+
+    @Column(name = "introduced")
     private LocalDate introduced;
+
+    @Column(name = "discontinued")
     private LocalDate discontinued;
 
     /**
@@ -24,6 +48,13 @@ public final class Computer {
         this.company = builder.company;
         this.discontinued = builder.discontinued;
         this.introduced = builder.introduced;
+    }
+
+    /**
+     * Default private constructor to enable hibernate using reflection.
+     */
+    private Computer() {
+        super();
     }
 
     public long getComputerId() {
@@ -73,10 +104,12 @@ public final class Computer {
         if (!computerName.equals(computer.computerName)) {
             return false;
         }
-        if (introduced != null ? !introduced.equals(computer.introduced) : computer.introduced != null) {
+        if (introduced != null ? !introduced.equals(computer.introduced)
+                : computer.introduced != null) {
             return false;
         }
-        return discontinued != null ? discontinued.equals(computer.discontinued) : computer.discontinued == null;
+        return discontinued != null ? discontinued.equals(computer.discontinued)
+                : computer.discontinued == null;
 
     }
 

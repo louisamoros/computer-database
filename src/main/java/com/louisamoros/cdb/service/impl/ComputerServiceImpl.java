@@ -2,6 +2,7 @@ package com.louisamoros.cdb.service.impl;
 
 import com.louisamoros.cdb.controller.util.Params;
 import com.louisamoros.cdb.dao.ComputerDao;
+import com.louisamoros.cdb.dao.ComputerRepository;
 import com.louisamoros.cdb.model.Computer;
 import com.louisamoros.cdb.service.ComputerService;
 import com.louisamoros.cdb.service.validator.ComputerValidator;
@@ -18,6 +19,12 @@ import java.util.List;
 public class ComputerServiceImpl implements ComputerService {
 
     /**
+     * Autowired spring injection of computer repository.
+     */
+    @Autowired
+    private ComputerRepository computerRepository;
+
+    /**
      * Autowired spring injection of computer dao.
      */
     @Autowired
@@ -25,7 +32,7 @@ public class ComputerServiceImpl implements ComputerService {
 
     @Override
     public final List<Computer> getAll() {
-        return computerDao.getAll();
+        return (List<Computer>) computerRepository.findAll();
     }
 
     @Override
@@ -35,7 +42,8 @@ public class ComputerServiceImpl implements ComputerService {
 
     @Override
     public final List<Computer> get(final Params params) {
-        return computerDao.get(params);
+        return (List<Computer>) computerRepository.findAll();
+        // return computerDao.get(params);
     }
 
     @Override

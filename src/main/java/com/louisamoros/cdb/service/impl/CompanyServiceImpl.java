@@ -4,9 +4,7 @@ import com.louisamoros.cdb.dao.CompanyDao;
 import com.louisamoros.cdb.dao.CompanyRepository;
 import com.louisamoros.cdb.dao.ComputerDao;
 import com.louisamoros.cdb.model.Company;
-import com.louisamoros.cdb.model.QCompany;
 import com.louisamoros.cdb.service.CompanyService;
-import com.mysema.query.types.expr.BooleanExpression;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -38,9 +36,7 @@ public class CompanyServiceImpl implements CompanyService {
 
     @Override
     public final List<Company> getAll() {
-        QCompany company = QCompany.company;
-        BooleanExpression customerHasBirthday = company.companyName.eq("Netronics");
-        return (List<Company>) companyRepository.findAll(customerHasBirthday);
+        return (List<Company>) companyRepository.findAll();
     }
 
     @Override
