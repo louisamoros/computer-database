@@ -41,7 +41,7 @@ public class RestComputerController {
     @RequestMapping(method = RequestMethod.GET)
     public final List<ComputerDto> getComputers() {
         LOGGER.info("get /api/computer");
-        List<Computer> computers = computerService.getAll();
+        List<Computer> computers = computerService.findAll();
         List<ComputerDto> computersDto = MapperComputerDto.toComputerDtoList(computers);
         return computersDto;
     }
@@ -55,7 +55,7 @@ public class RestComputerController {
     @RequestMapping(value = "/{computerId}", method = RequestMethod.GET)
     public final ComputerDto getComputer(@PathVariable("computerId") final int computerId) {
         LOGGER.info("get /api/computer/" + computerId);
-        Computer computer = computerService.get(computerId);
+        Computer computer = computerService.findOne(computerId);
         ComputerDto computerDto = MapperComputerDto.toComputerDto(computer);
         return computerDto;
     }

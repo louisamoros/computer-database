@@ -34,11 +34,11 @@ public final class CliComputer {
     public static void manage(final CommandLine cmd, final ComputerService computerService) {
         if (cmd.hasOption("g") && "all".equals(cmd.getOptionValue("g"))) { // GET ALL
             LOGGER.info("Command: GET ALL");
-            List<Computer> computers = computerService.getAll();
+            List<Computer> computers = computerService.findAll();
             computers.forEach(computer -> System.out.println(computer));
         } else if (cmd.hasOption("g")) { // GET
             LOGGER.info("Command: GET id->" + cmd.getOptionValue("g"));
-            System.out.println(computerService.get(Integer.parseInt(cmd.getOptionValue("g"))));
+            System.out.println(computerService.findOne(Integer.parseInt(cmd.getOptionValue("g"))));
         } else if (cmd.hasOption("d")) { // DELETE
             LOGGER.info("Command: DELETE id->" + cmd.getOptionValue("d"));
             computerService.delete(Integer.parseInt(cmd.getOptionValue("d")));

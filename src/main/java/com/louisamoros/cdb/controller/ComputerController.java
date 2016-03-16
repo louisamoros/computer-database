@@ -3,7 +3,6 @@ package com.louisamoros.cdb.controller;
 import com.louisamoros.cdb.controller.util.Params;
 import com.louisamoros.cdb.dto.CompanyDto;
 import com.louisamoros.cdb.dto.ComputerDto;
-import com.louisamoros.cdb.dto.PageDto;
 import com.louisamoros.cdb.dto.mapper.MapperCompanyDto;
 import com.louisamoros.cdb.dto.mapper.MapperComputerDto;
 import com.louisamoros.cdb.model.Company;
@@ -14,6 +13,8 @@ import com.louisamoros.cdb.service.ComputerService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -58,7 +59,7 @@ public class ComputerController {
      */
     @ModelAttribute("params")
     final Params getParams() {
-        return new Params(1, 10, "asc", "computer.name", "");
+        return new Params(1, 10, Sort.Direction.ASC, "computer.name", "");
     }
 
     /**
@@ -73,23 +74,10 @@ public class ComputerController {
             @ModelAttribute("params") final Params params) {
         LOGGER.info("get /computer/list : " + params.toString());
         params.verify();
-        // @formatter:off
-        PageDto pageDto = new PageDto
-            .Builder()
-            .page(params.getPage())
-            .size(params.getSize())
-            .order(params.getOrder())
-            .by(params.getBy())
-            .search(params.getSearch())
-            .count(computerService.count(params))
-            .uri("computer/list")
-            .paginate()
-            .build();
-        // @formatter:on
-        List<Computer> computers = computerService.get(params);
-        List<ComputerDto> computersDto = MapperComputerDto.toComputerDtoList(computers);
+        Page<Computer> page = computerService.findAll(params);
+        List<ComputerDto> computersDto = MapperComputerDto.toComputerDtoList(page.getContent());
         model.addAttribute("computersDto", computersDto);
-        model.addAttribute("pageDto", pageDto);
+        model.addAttribute("page", page);
         return "computer/list";
 
     }
@@ -141,7 +129,7 @@ public class ComputerController {
     public final String getPageEditComputer(final Model model, @PathVariable final int computerId) {
 
         LOGGER.info("get page /computer/edit/" + computerId);
-        Computer computer = computerService.get(computerId);
+        Computer computer = computerService.findOne(computerId);
         ComputerDto computerDto = MapperComputerDto.toComputerDto(computer);
         List<Company> companies = companyService.getAll();
         List<CompanyDto> companiesDto = MapperCompanyDto.toCompanyDtoList(companies);

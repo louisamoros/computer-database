@@ -2,25 +2,15 @@ package com.louisamoros.cdb.dao;
 
 import com.louisamoros.cdb.model.Company;
 
-import java.util.List;
+import org.springframework.data.querydsl.QueryDslPredicateExecutor;
+import org.springframework.data.repository.CrudRepository;
+import org.springframework.stereotype.Repository;
 
 /**
  * Interface CompanyDao.
  */
-public interface CompanyDao {
-
-    /**
-     * Get all companies.
-     *
-     * @return list of companies
-     */
-    List<Company> getAll();
-
-    /**
-     * Delete a company based on its id.
-     *
-     * @param companyId the company id
-     */
-    void delete(int companyId);
+@Repository
+public interface CompanyDao
+        extends CrudRepository<Company, Long>, QueryDslPredicateExecutor<Company> {
 
 }

@@ -2,12 +2,16 @@ package com.louisamoros.cdb.service.impl;
 
 import com.louisamoros.cdb.controller.util.Params;
 import com.louisamoros.cdb.dao.ComputerDao;
-import com.louisamoros.cdb.dao.ComputerRepository;
 import com.louisamoros.cdb.model.Computer;
+import com.louisamoros.cdb.model.QComputer;
 import com.louisamoros.cdb.service.ComputerService;
 import com.louisamoros.cdb.service.validator.ComputerValidator;
+import com.mysema.query.types.Predicate;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -18,54 +22,44 @@ import java.util.List;
 @Service
 public class ComputerServiceImpl implements ComputerService {
 
-    /**
-     * Autowired spring injection of computer repository.
-     */
     @Autowired
-    private ComputerRepository computerRepository;
-
-    /**
-     * Autowired spring injection of computer dao.
-     */
-    @Autowired
-    private ComputerDao computerDao;
+    private ComputerDao computerRepository;
 
     @Override
-    public final List<Computer> getAll() {
+    public final List<Computer> findAll() {
         return (List<Computer>) computerRepository.findAll();
     }
 
     @Override
-    public final Computer get(final int computerId) {
-        return computerDao.get(computerId);
+    public final Computer findOne(final long computerId) {
+        return computerRepository.findOne(computerId);
     }
 
     @Override
-    public final List<Computer> get(final Params params) {
-        return (List<Computer>) computerRepository.findAll();
-        // return computerDao.get(params);
+    public final Page<Computer> findAll(final Params params) {
+        System.out.println(params);
+        Pageable pageRequest = new PageRequest(params.getPage(), params.getSize(),
+                params.getOrder(), "companyName");
+        Predicate searchFilter = QComputer.computer.computerName.contains(params.getSearch())
+                .or(QComputer.computer.company.companyName.contains(params.getSearch()));
+        return computerRepository.findAll(searchFilter, pageRequest);
     }
 
     @Override
     public final Computer create(final Computer computer) {
         ComputerValidator.validate(computer);
-        return computerDao.create(computer);
+        return computerRepository.save(computer);
     }
 
     @Override
     public final Computer update(final Computer computer) {
         ComputerValidator.validate(computer);
-        return computerDao.update(computer);
+        return computerRepository.save(computer);
     }
 
     @Override
-    public final void delete(final int computerId) {
-        computerDao.delete(computerId);
-    }
-
-    @Override
-    public final int count(final Params params) {
-        return computerDao.count(params);
+    public final void delete(final long computerId) {
+        computerRepository.delete(computerId);
     }
 
 }

@@ -19,13 +19,13 @@
  <section id="main">
   <div class="container">
    <h1 id="homeTitle">
-    <c:out value="${pageDto.count} "></c:out>
+    <c:out value="${page.totalElements} "></c:out>
     <spring:message code="label.computerCount" />
    </h1>
    <div id="actions" class="form-horizontal">
     <div class="pull-left">
      <form id="searchForm" action="computer/list" method="GET" class="form-inline">
-      <input type="search" id="searchbox" name="search" value="${pageDto.search}" class="form-control" placeholder="${searchPlaceholder}"></input>
+      <input type="search" id="searchbox" name="search" value="pageDto.search" class="form-control" placeholder="${searchPlaceholder}"></input>
       <input type="submit" value="${searchSubmitButton}" id="searchsubmit" class="btn btn-primary"></input>
      </form>
     </div>
@@ -53,58 +53,62 @@
         </a>
       </span></th>
       <th><c:choose>
-        <c:when test="${pageDto.order == 'asc'}">
-         <a href="<cdb:link page="${pageDto}" ovr_by="computer.name" ovr_order="desc"></cdb:link>">
+<%--         <c:when test="pageDto.order == 'asc'"> --%>
+        <c:when test="">
+<%--          <a href="<cdb:link page="${pageDto}" ovr_by="computer.name" ovr_order="desc"></cdb:link>"> --%>
           <span class="glyphicon glyphicon-chevron-down"></span>
           <spring:message code="label.computerNameColumn"></spring:message>
-         </a>
+<!--          </a> -->
         </c:when>
         <c:otherwise>
-         <a href="<cdb:link page="${pageDto}" ovr_by="computer.name" ovr_order="asc"></cdb:link>">
+<%--          <a href="<cdb:link page="${pageDto}" ovr_by="computer.name" ovr_order="asc"></cdb:link>"> --%>
           <span class="glyphicon glyphicon-chevron-up"></span>
           <spring:message code="label.computerNameColumn"></spring:message>
-         </a>
+<!--          </a> -->
         </c:otherwise>
        </c:choose></th>
       <th><c:choose>
-        <c:when test="${pageDto.order == 'asc'}">
-         <a href="<cdb:link page="${pageDto}" ovr_by="computer.introduced" ovr_order="desc"></cdb:link>">
+<%--         <c:when test="${pageDto.order == 'asc'}"> --%>
+        <c:when test="">
+<%--          <a href="<cdb:link page="${pageDto}" ovr_by="computer.introduced" ovr_order="desc"></cdb:link>"> --%>
           <span class="glyphicon glyphicon-chevron-down"></span>
           <spring:message code="label.introducedDateColumn"></spring:message>
-         </a>
+<!--          </a> -->
         </c:when>
         <c:otherwise>
-         <a href="<cdb:link page="${pageDto}" ovr_by="computer.introduced" ovr_order="asc"></cdb:link>">
+<%--          <a href="<cdb:link page="${pageDto}" ovr_by="computer.introduced" ovr_order="asc"></cdb:link>"> --%>
           <span class="glyphicon glyphicon-chevron-up"></span>
           <spring:message code="label.introducedDateColumn"></spring:message>
-         </a>
+<!--          </a> -->
         </c:otherwise>
        </c:choose></th>
       <th><c:choose>
-        <c:when test="${pageDto.order == 'asc'}">
-         <a href="<cdb:link page="${pageDto}" ovr_by="computer.discontinued" ovr_order="desc"></cdb:link>">
+<%--         <c:when test="${pageDto.order == 'asc'}"> --%>
+        <c:when test="">
+<%--          <a href="<cdb:link page="${pageDto}" ovr_by="computer.discontinued" ovr_order="desc"></cdb:link>"> --%>
           <span class="glyphicon glyphicon-chevron-down"></span>
           <spring:message code="label.discontinuedDateColumn"></spring:message>
-         </a>
+<!--          </a> -->
         </c:when>
         <c:otherwise>
-         <a href="<cdb:link page="${pageDto}" ovr_by="computer.discontinued" ovr_order="asc"></cdb:link>">
+<%--          <a href="<cdb:link page="${pageDto}" ovr_by="computer.discontinued" ovr_order="asc"></cdb:link>"> --%>
           <span class="glyphicon glyphicon-chevron-up"></span>
           <spring:message code="label.discontinuedDateColumn"></spring:message>
-         </a>
+<!--          </a> -->
         </c:otherwise>
        </c:choose></th>
       <th><c:choose>
-        <c:when test="${pageDto.order == 'asc'}">
-         <a href="<cdb:link page="${pageDto}" ovr_by="company.name" ovr_order="desc"></cdb:link>">
+<%--         <c:when test="${pageDto.order == 'asc'}"> --%>
+        <c:when test="">
+<%--          <a href="<cdb:link page="${pageDto}" ovr_by="company.name" ovr_order="desc"></cdb:link>"> --%>
           <span class="glyphicon glyphicon-chevron-down"></span>
           <spring:message code="label.companyNameColumn"></spring:message>
-         </a>
+<!--          </a> -->
         </c:when>
         <c:otherwise>
-         <a href="<cdb:link page="${pageDto}" ovr_by="company.name" ovr_order="asc"></cdb:link>">
+<%--          <a href="<cdb:link page="${pageDto}" ovr_by="company.name" ovr_order="asc"></cdb:link>"> --%>
           Company <span class="glyphicon glyphicon-chevron-up"></span>
-         </a>
+<!--          </a> -->
         </c:otherwise>
        </c:choose></th>
      </tr>
@@ -129,7 +133,7 @@
 
  <footer class="navbar-fixed-bottom">
   <div class="container text-center">
-   <cdb:pagination page="${pageDto}"></cdb:pagination>
+    <cdb:pagination page="${page}"></cdb:pagination>
   </div>
  </footer>
 

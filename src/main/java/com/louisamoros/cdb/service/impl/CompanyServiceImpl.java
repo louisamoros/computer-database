@@ -1,8 +1,6 @@
 package com.louisamoros.cdb.service.impl;
 
 import com.louisamoros.cdb.dao.CompanyDao;
-import com.louisamoros.cdb.dao.CompanyRepository;
-import com.louisamoros.cdb.dao.ComputerDao;
 import com.louisamoros.cdb.model.Company;
 import com.louisamoros.cdb.service.CompanyService;
 
@@ -20,19 +18,7 @@ import java.util.List;
 public class CompanyServiceImpl implements CompanyService {
 
     @Autowired
-    private CompanyRepository companyRepository;
-
-    /**
-     * Autowired spring injection of company dao.
-     */
-    @Autowired
-    private CompanyDao companyDao;
-
-    /**
-     * Autowired spring injection of computer dao.
-     */
-    @Autowired
-    private ComputerDao computerDao;
+    private CompanyDao companyRepository;
 
     @Override
     public final List<Company> getAll() {
@@ -42,8 +28,8 @@ public class CompanyServiceImpl implements CompanyService {
     @Override
     @Transactional
     public final void delete(final int companyId) {
-        computerDao.deleteByCompanyId(companyId);
-        companyDao.delete(companyId);
+        // computerDao.deleteByCompanyId(companyId);
+        // companyDao.delete(companyId);
     }
 
 }

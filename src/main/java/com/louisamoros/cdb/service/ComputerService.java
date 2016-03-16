@@ -3,6 +3,8 @@ package com.louisamoros.cdb.service;
 import com.louisamoros.cdb.controller.util.Params;
 import com.louisamoros.cdb.model.Computer;
 
+import org.springframework.data.domain.Page;
+
 import java.util.List;
 
 /**
@@ -11,32 +13,24 @@ import java.util.List;
 public interface ComputerService {
 
     /**
-     * Count number of computers.
-     *
-     * @param params the query params to count depending on the search
-     * @return number of computers
-     */
-    int count(Params params);
-
-    /**
      * Get all the computers.
      * @return list of computer
      */
-    List<Computer> getAll();
+    List<Computer> findAll();
 
     /**
      * Get filtered computers based on query.
      * @param params the query params
      * @return list of computer
      */
-    List<Computer> get(final Params params);
+    Page<Computer> findAll(final Params params);
 
     /**
      * Get computer based on id.
      * @param computerId the computer id
      * @return computer
      */
-    Computer get(final int computerId);
+    Computer findOne(final long computerId);
 
     /**
      * Create computer.
@@ -56,6 +50,6 @@ public interface ComputerService {
      * Delete computer based on id.
      * @param computerId the computer id
      */
-    void delete(final int computerId);
+    void delete(final long computerId);
 
 }

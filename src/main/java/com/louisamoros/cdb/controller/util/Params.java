@@ -1,5 +1,8 @@
 package com.louisamoros.cdb.controller.util;
 
+import org.springframework.data.domain.Sort;
+import org.springframework.data.domain.Sort.Direction;
+
 /**
  * The Params class.
  */
@@ -7,12 +10,9 @@ public class Params {
 
     private int page;
     private int size;
-    private String order;
+    private Direction order;
     private String by;
     private String search;
-
-    private int limit;
-    private int offset;
 
     /**
      * Constructor.
@@ -22,7 +22,7 @@ public class Params {
      * @param by the by
      * @param search the search
      */
-    public Params(final int page, final int size, final String order, final String by,
+    public Params(final int page, final int size, final Direction order, final String by,
             final String search) {
         super();
         this.page = page;
@@ -48,11 +48,11 @@ public class Params {
         this.size = size;
     }
 
-    public final String getOrder() {
+    public final Direction getOrder() {
         return order;
     }
 
-    public final void setOrder(final String order) {
+    public final void setOrder(final Direction order) {
         this.order = order;
     }
 
@@ -70,14 +70,6 @@ public class Params {
 
     public final void setSearch(final String search) {
         this.search = search;
-    }
-
-    public final int getLimit() {
-        return limit;
-    }
-
-    public final int getOffset() {
-        return offset;
     }
 
     @Override
@@ -104,11 +96,9 @@ public class Params {
                 && !"computer.discontinued".equals(by)) {
             this.by = "computer.name";
         }
-        if (!"desc".equals(order)) {
-            this.order = "asc";
+        if (!Sort.Direction.DESC.equals(order)) {
+            this.order = Sort.Direction.ASC;
         }
-        this.limit = size;
-        this.offset = (page - 1) * size;
 
     }
 
