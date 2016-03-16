@@ -15,6 +15,8 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Sort;
+import org.springframework.data.domain.jaxb.PageAdapter;
+import org.springframework.data.domain.jaxb.SpringDataJaxb;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -54,8 +56,8 @@ public class ComputerController {
     private CompanyService companyService;
 
     /**
-     * Instantiate the page dto.
-     * @return empty pageDto
+     * Instantiate the params default model attribute.
+     * @return default params object
      */
     @ModelAttribute("params")
     final Params getParams() {
@@ -66,7 +68,7 @@ public class ComputerController {
      * Gets the page list computer.
      * @param locale the locale language
      * @param model the model
-     * @param params the dto page
+     * @param params the parameters of the search
      * @return jsp page list computer
      */
     @RequestMapping(value = "/list", method = RequestMethod.GET)
@@ -75,6 +77,7 @@ public class ComputerController {
         LOGGER.info("get /computer/list : " + params.toString());
         params.verify();
         Page<Computer> page = computerService.findAll(params);
+        page.total
         List<ComputerDto> computersDto = MapperComputerDto.toComputerDtoList(page.getContent());
         model.addAttribute("computersDto", computersDto);
         model.addAttribute("page", page);

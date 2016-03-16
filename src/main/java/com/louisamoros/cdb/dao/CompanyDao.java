@@ -9,7 +9,6 @@ import org.springframework.stereotype.Repository;
 /**
  * Interface CompanyDao.
  */
-@Repository
 public interface CompanyDao
         extends CrudRepository<Company, Long>, QueryDslPredicateExecutor<Company> {
 

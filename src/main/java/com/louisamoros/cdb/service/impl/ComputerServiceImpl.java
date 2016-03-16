@@ -23,43 +23,41 @@ import java.util.List;
 public class ComputerServiceImpl implements ComputerService {
 
     @Autowired
-    private ComputerDao computerRepository;
+    private ComputerDao computerDao;
 
     @Override
     public final List<Computer> findAll() {
-        return (List<Computer>) computerRepository.findAll();
+        return (List<Computer>) computerDao.findAll();
     }
 
     @Override
     public final Computer findOne(final long computerId) {
-        return computerRepository.findOne(computerId);
+        return computerDao.findOne(computerId);
     }
 
     @Override
     public final Page<Computer> findAll(final Params params) {
-        System.out.println(params);
-        Pageable pageRequest = new PageRequest(params.getPage(), params.getSize(),
-                params.getOrder(), "companyName");
+        Pageable pageRequest = new PageRequest(params.getPage(), params.getSize());
         Predicate searchFilter = QComputer.computer.computerName.contains(params.getSearch())
                 .or(QComputer.computer.company.companyName.contains(params.getSearch()));
-        return computerRepository.findAll(searchFilter, pageRequest);
+        return computerDao.findAll(searchFilter, pageRequest);
     }
 
     @Override
     public final Computer create(final Computer computer) {
         ComputerValidator.validate(computer);
-        return computerRepository.save(computer);
+        return computerDao.save(computer);
     }
 
     @Override
     public final Computer update(final Computer computer) {
         ComputerValidator.validate(computer);
-        return computerRepository.save(computer);
+        return computerDao.save(computer);
     }
 
     @Override
     public final void delete(final long computerId) {
-        computerRepository.delete(computerId);
+        computerDao.delete(computerId);
     }
 
 }
