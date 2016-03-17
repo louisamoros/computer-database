@@ -1,18 +1,17 @@
 package com.louisamoros.cdb.dto;
 
-package com.louisamoros.cdb.controller.util;
-
 /**
  * Page params which is a wrapper of params attributes and spring page to return to the jsp.
  */
 public final class PageDto {
 
     private int totalPages;
-    private int totalElements;
+    private long totalElements;
     private int number;
     private int size;
     private String sort;
     private String search;
+    private String uri;
 
     /**
      * Private constructor using builder pattern.
@@ -24,19 +23,50 @@ public final class PageDto {
         this.number = builder.number;
         this.size = builder.size;
         this.sort = builder.sort;
+        this.search = builder.search;
+        this.uri = builder.uri;
+    }
+
+    public int getTotalPages() {
+        return totalPages;
+    }
+
+    public long getTotalElements() {
+        return totalElements;
+    }
+
+    public int getNumber() {
+        return number;
+    }
+
+    public int getSize() {
+        return size;
+    }
+
+    public String getSort() {
+        return sort;
+    }
+
+    public String getSearch() {
+        return search;
+    }
+
+    public String getUri() {
+        return uri;
     }
 
     /**
      * The builder class.
      */
-    static class Builder {
+    public static class Builder {
 
         private int totalPages;
-        private int totalElements;
+        private long totalElements;
         private int number;
         private int size;
         private String sort;
         private String search;
+        private String uri;
 
         /**
          * Building the total number of pages.
@@ -53,7 +83,7 @@ public final class PageDto {
          * @param totalElements the total elements
          * @return the builder
          */
-        public final Builder totalElements(final int totalElements) {
+        public final Builder totalElements(final long totalElements) {
             this.totalElements = totalElements;
             return this;
         }
@@ -96,6 +126,24 @@ public final class PageDto {
         public final Builder search(final String search) {
             this.search = search;
             return this;
+        }
+
+        /**
+         * Building the uri.
+         * @param uri the uri
+         * @return the builder
+         */
+        public final Builder uri(final String uri) {
+            this.uri = uri;
+            return this;
+        }
+
+        /**
+         * Building the page dto.
+         * @return the page dto object
+         */
+        public final PageDto build() {
+            return new PageDto(this);
         }
     }
 }

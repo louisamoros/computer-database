@@ -1,10 +1,13 @@
 package com.louisamoros.cdb.controller;
 
+import com.louisamoros.cdb.controller.util.MapperParams;
 import com.louisamoros.cdb.controller.util.Params;
 import com.louisamoros.cdb.dto.CompanyDto;
 import com.louisamoros.cdb.dto.ComputerDto;
+import com.louisamoros.cdb.dto.PageDto;
 import com.louisamoros.cdb.dto.mapper.MapperCompanyDto;
 import com.louisamoros.cdb.dto.mapper.MapperComputerDto;
+import com.louisamoros.cdb.dto.mapper.MapperPageDto;
 import com.louisamoros.cdb.model.Company;
 import com.louisamoros.cdb.model.Computer;
 import com.louisamoros.cdb.service.CompanyService;
@@ -14,9 +17,8 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
-import org.springframework.data.domain.jaxb.PageAdapter;
-import org.springframework.data.domain.jaxb.SpringDataJaxb;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -75,12 +77,12 @@ public class ComputerController {
     public final String getPageListComputer(final Locale locale, final Model model,
             @ModelAttribute("params") final Params params) {
         LOGGER.info("get /computer/list : " + params.toString());
-        params.verify();
-        Page<Computer> page = computerService.findAll(params);
-        page.total
+        Pageable pageRequest = MapperParams.toPageable(params);
+        Page<Computer> page = computerService.findAll(pageRequest, params.getSearch());
         List<ComputerDto> computersDto = MapperComputerDto.toComputerDtoList(page.getContent());
+        PageDto pageDto = MapperPageDto.toPageDto(page, params.getSearch(), "computer/list");
         model.addAttribute("computersDto", computersDto);
-        model.addAttribute("page", page);
+        model.addAttribute("page", pageDto);
         return "computer/list";
 
     }

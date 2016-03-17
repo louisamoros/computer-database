@@ -1,13 +1,8 @@
 package com.louisamoros.cdb.dto.mapper;
 
-import com.louisamoros.cdb.dto.ComputerDto;
 import com.louisamoros.cdb.dto.PageDto;
-import com.louisamoros.cdb.model.Company;
-import com.louisamoros.cdb.model.Computer;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Sort;
 
-import java.time.LocalDate;
+import org.springframework.data.domain.Page;
 
 /**
  * The class MapperPageDto.
@@ -26,10 +21,17 @@ public final class MapperPageDto {
      *
      * @param page the spring page
      * @param search the search
+     * @param uri the uri
      * @return computer
      */
-    public static PageDto toPageDto(final Page page, final String search) {
-        if(page.)
+    public static PageDto toPageDto(final Page<?> page, final String search, final String uri) {
+
+        // formatter:off
+        return new PageDto.Builder().search(search).totalElements(page.getTotalElements())
+                .totalPages(page.getTotalPages()).size(page.getSize()).number(page.getNumber())
+                .uri(uri).build();
+        // formatter:on
+
     }
 
 }

@@ -94,7 +94,7 @@ public class Params {
         }
         if (!"company.name".equals(by) && !"computer.introduced".equals(by)
                 && !"computer.discontinued".equals(by)) {
-            this.by = "computer.name";
+            this.by = "computerName";
         }
         if (!Sort.Direction.DESC.equals(order)) {
             this.order = Sort.Direction.ASC;

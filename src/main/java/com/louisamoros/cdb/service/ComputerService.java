@@ -1,9 +1,9 @@
 package com.louisamoros.cdb.service;
 
-import com.louisamoros.cdb.controller.util.Params;
 import com.louisamoros.cdb.model.Computer;
 
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 
 import java.util.List;
 
@@ -20,10 +20,11 @@ public interface ComputerService {
 
     /**
      * Get filtered computers based on query.
-     * @param params the query params
-     * @return list of computer
+     * @param pageRequest the page request
+     * @param search the search string filter
+     * @return page with list of computer
      */
-    Page<Computer> findAll(final Params params);
+    Page<Computer> findAll(final Pageable pageRequest, final String search);
 
     /**
      * Get computer based on id.

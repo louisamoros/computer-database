@@ -133,7 +133,13 @@
 
  <footer class="navbar-fixed-bottom">
   <div class="container text-center">
-    <cdb:pagination page="${page}"></cdb:pagination>
+<%--     <cdb:pagination page="${page}"></cdb:pagination> --%>
+    ${page.totalPages}+
+    ${page.totalElements}+
+    ${page.number}+
+    ${page.sort}+
+    ${page.search}+
+    ${page.uri}    
   </div>
  </footer>
 

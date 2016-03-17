@@ -1,6 +1,5 @@
 package com.louisamoros.cdb.service.impl;
 
-import com.louisamoros.cdb.controller.util.Params;
 import com.louisamoros.cdb.dao.ComputerDao;
 import com.louisamoros.cdb.model.Computer;
 import com.louisamoros.cdb.model.QComputer;
@@ -10,7 +9,6 @@ import com.mysema.query.types.Predicate;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
@@ -36,10 +34,9 @@ public class ComputerServiceImpl implements ComputerService {
     }
 
     @Override
-    public final Page<Computer> findAll(final Params params) {
-        Pageable pageRequest = new PageRequest(params.getPage(), params.getSize());
-        Predicate searchFilter = QComputer.computer.computerName.contains(params.getSearch())
-                .or(QComputer.computer.company.companyName.contains(params.getSearch()));
+    public final Page<Computer> findAll(final Pageable pageRequest, final String search) {
+        Predicate searchFilter = QComputer.computer.computerName.contains(search)
+                .or(QComputer.computer.company.companyName.contains(search));
         return computerDao.findAll(searchFilter, pageRequest);
     }
 
