@@ -2,16 +2,16 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib tagdir="/WEB-INF/tags" prefix="cdb"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
-<%@ attribute name="page" type="org.springframework.data.domain.Page" required="true" description="Page informations"%>
+<%@ attribute name="page" type="com.louisamoros.cdb.dto.PageDto" required="true" description="Page informations"%>
 
 <fmt:formatNumber var="startingPage" value="${(page.number - 5 / 2) > 1 ? (page.number - 5 / 2) : 1}" maxFractionDigits="0" />
 <fmt:formatNumber var="endingPage" value="${startingPage + 5}" maxFractionDigits="0" />
-<c:if test="${endingPage >= page.totalPages}">
+<c:if test="${endingPage >= page.totalPages + 1}">
   <c:set var="startingPage" value="${startingPage - (endingPage - page.totalPages) - 1}"/>
   <c:if test="${startingPage < 1}">
     <c:set var="startingPage" value="1" />
   </c:if>
-  <c:set var="endingPage" value="${page.totalPages - 1}" />
+  <c:set var="endingPage" value="${page.totalPages}" />
 </c:if>
 
 <div class="btn-group btn-group-sm pull-right" role="group">

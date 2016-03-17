@@ -9,7 +9,8 @@ public final class PageDto {
     private long totalElements;
     private int number;
     private int size;
-    private String sort;
+    private String order;
+    private String by;
     private String search;
     private String uri;
 
@@ -22,7 +23,8 @@ public final class PageDto {
         this.totalElements = builder.totalElements;
         this.number = builder.number;
         this.size = builder.size;
-        this.sort = builder.sort;
+        this.order = builder.order;
+        this.by = builder.by;
         this.search = builder.search;
         this.uri = builder.uri;
     }
@@ -43,8 +45,12 @@ public final class PageDto {
         return size;
     }
 
-    public String getSort() {
-        return sort;
+    public String getOrder() {
+        return order;
+    }
+
+    public String getBy() {
+        return by;
     }
 
     public String getSearch() {
@@ -64,7 +70,8 @@ public final class PageDto {
         private long totalElements;
         private int number;
         private int size;
-        private String sort;
+        private String order;
+        private String by;
         private String search;
         private String uri;
 
@@ -109,12 +116,22 @@ public final class PageDto {
         }
 
         /**
-         * Building the sort.
-         * @param sort the sort
+         * Building the order.
+         * @param order the order
          * @return the builder
          */
-        public final Builder sort(final String sort) {
-            this.sort = sort;
+        public final Builder order(final String order) {
+            this.order = order;
+            return this;
+        }
+
+        /**
+         * Building the by.
+         * @param by the by
+         * @return the builder
+         */
+        public final Builder by(final String by) {
+            this.by = by;
             return this;
         }
 

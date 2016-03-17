@@ -1,8 +1,5 @@
 package com.louisamoros.cdb.controller.util;
 
-import org.springframework.data.domain.Sort;
-import org.springframework.data.domain.Sort.Direction;
-
 /**
  * The Params class.
  */
@@ -10,7 +7,7 @@ public class Params {
 
     private int page;
     private int size;
-    private Direction order;
+    private String order;
     private String by;
     private String search;
 
@@ -22,7 +19,7 @@ public class Params {
      * @param by the by
      * @param search the search
      */
-    public Params(final int page, final int size, final Direction order, final String by,
+    public Params(final int page, final int size, final String order, final String by,
             final String search) {
         super();
         this.page = page;
@@ -48,11 +45,11 @@ public class Params {
         this.size = size;
     }
 
-    public final Direction getOrder() {
+    public final String getOrder() {
         return order;
     }
 
-    public final void setOrder(final Direction order) {
+    public final void setOrder(final String order) {
         this.order = order;
     }
 
@@ -92,12 +89,11 @@ public class Params {
         if (search == null) {
             this.search = "";
         }
-        if (!"company.name".equals(by) && !"computer.introduced".equals(by)
-                && !"computer.discontinued".equals(by)) {
+        if (!"companyName".equals(by) && !"introduced".equals(by) && !"discontinued".equals(by)) {
             this.by = "computerName";
         }
-        if (!Sort.Direction.DESC.equals(order)) {
-            this.order = Sort.Direction.ASC;
+        if (!"desc".equals(order)) {
+            this.order = "asc";
         }
 
     }

@@ -46,7 +46,8 @@ public final class MapperComputerDto {
         }
 
         Computer computer = new Computer.Builder(computerDto.getComputerName()).company(company)
-                .discontinued(discontinued).introduced(introduced).id(computerDto.getComputerId()).build();
+                .discontinued(discontinued).introduced(introduced).id(computerDto.getComputerId())
+                .build();
 
         return computer;
 
@@ -59,7 +60,8 @@ public final class MapperComputerDto {
      * @return list of computer
      */
     public static List<Computer> toComputerList(final List<ComputerDto> computersDto) {
-        return computersDto.stream().map(MapperComputerDto::toComputer).collect(Collectors.toList());
+        return computersDto.stream().map(MapperComputerDto::toComputer)
+                .collect(Collectors.toList());
     }
 
     /**
@@ -78,13 +80,21 @@ public final class MapperComputerDto {
             companyName = computer.getCompany().getCompanyName();
             companyId = computer.getCompany().getCompanyId();
         }
+
+        String introduced = "";
+        String discontinued = "";
+
+        if (computer.getIntroduced() != null) {
+            introduced = computer.getIntroduced().toString();
+        }
+        if (computer.getDiscontinued() != null) {
+            discontinued = computer.getDiscontinued().toString();
+        }
+
         // formatter:off
         ComputerDto computerDto = new ComputerDto.Builder(computer.getComputerName())
-                .computerId(computer.getComputerId())
-                .companyId(companyId)
-                .companyName(companyName)
-                .introduced(String.valueOf(computer.getIntroduced()))
-                .discontinued(String.valueOf(computer.getDiscontinued())).build();
+                .computerId(computer.getComputerId()).companyId(companyId).companyName(companyName)
+                .introduced(introduced).discontinued(discontinued).build();
         // formatter:on
         return computerDto;
 
@@ -97,7 +107,8 @@ public final class MapperComputerDto {
      * @return list of computer dto
      */
     public static List<ComputerDto> toComputerDtoList(final List<Computer> computers) {
-        return computers.stream().map(MapperComputerDto::toComputerDto).collect(Collectors.toList());
+        return computers.stream().map(MapperComputerDto::toComputerDto)
+                .collect(Collectors.toList());
     }
 
 }

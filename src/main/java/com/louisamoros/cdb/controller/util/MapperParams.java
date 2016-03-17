@@ -3,6 +3,7 @@ package com.louisamoros.cdb.controller.util;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
+import org.springframework.data.domain.Sort.Order;
 
 /**
  * The class MapperParams.
@@ -26,14 +27,14 @@ public final class MapperParams {
 
         params.verify();
 
-        Sort sort;
-        if (params.getOrder().equals("desc")) {
-            sort = new Sort(Sort.Direction.DESC, params.getBy());
+        Order order;
+        if ("desc".equals(params.getOrder())) {
+            order = new Order(Sort.Direction.DESC, params.getBy());
         } else {
-            sort = new Sort(Sort.Direction.ASC, params.getBy());
+            order = new Order(Sort.Direction.ASC, params.getBy());
         }
 
-        return new PageRequest(params.getPage(), params.getSize(), sort);
+        return new PageRequest(params.getPage() - 1, params.getSize(), new Sort(order));
 
     }
 
