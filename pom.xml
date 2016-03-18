@@ -305,7 +305,6 @@
                     <artifactId>cargo-maven2-plugin</artifactId>
                     <version>${maven.cargo.version}</version>
                 </plugin>
-
                 <!-- Maven query class generator. Configuration in sub-module. -->
                 <plugin>
                     <groupId>com.mysema.maven</groupId>

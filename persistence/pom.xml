@@ -40,5 +40,26 @@
 
     <build>
         <finalName>persistence</finalName>
+        <plugins>
+            <!-- The HibernateAnnotationProcessor finds domain types annotated with the javax.persistence.Entity
+            annotation and generates query types for them. When clean install, Query types are generated
+            into target/generated-sources/java. Then we are ready to construct JPQL query instances
+            and instances of the query domain model. -->
+            <plugin>
+                <groupId>com.mysema.maven</groupId>
+                <artifactId>apt-maven-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>process</goal>
+                        </goals>
+                        <configuration>
+                            <outputDirectory>louis</outputDirectory>
+                            <processor>com.mysema.query.apt.hibernate.HibernateAnnotationProcessor</processor>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+        </plugins>
     </build>
 </project>

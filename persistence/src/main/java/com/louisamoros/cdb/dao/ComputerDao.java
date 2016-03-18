@@ -8,5 +8,4 @@ import org.springframework.data.repository.CrudRepository;
  * Interface CompanyDao.
  */
 public interface ComputerDao extends CrudRepository<Computer, Long>, QueryDslPredicateExecutor<Computer> {
-
 }
