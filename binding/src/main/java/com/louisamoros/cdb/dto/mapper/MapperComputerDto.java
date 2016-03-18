@@ -1,6 +1,6 @@
-package com.louisamoros.cdb.mapper;
+package com.louisamoros.cdb.dto.mapper;
 
-import com.louisamoros.cdb.ComputerDto;
+import com.louisamoros.cdb.dto.ComputerDto;
 import com.louisamoros.cdb.model.Company;
 import com.louisamoros.cdb.model.Computer;
 import com.louisamoros.cdb.service.validator.ComputerValidator;

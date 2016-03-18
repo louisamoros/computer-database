@@ -1,4 +1,4 @@
-package com.louisamoros.cdb;
+package com.louisamoros.cdb.dto;
 
 /**
  * The Class CompanyDto.

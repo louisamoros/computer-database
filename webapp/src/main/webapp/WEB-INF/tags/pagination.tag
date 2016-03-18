@@ -2,7 +2,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib tagdir="/WEB-INF/tags" prefix="cdb"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
-<%@ attribute name="page" type="com.louisamoros.cdb.PageDto" required="true" description="Page informations"%>
+<%@ attribute name="page" type="com.louisamoros.cdb.dto.PageDto" required="true" description="Page informations"%>
 
 <fmt:formatNumber var="startingPage" value="${(page.number - 5 / 2) > 1 ? (page.number - 5 / 2) : 1}" maxFractionDigits="0" />
 <fmt:formatNumber var="endingPage" value="${startingPage + 5}" maxFractionDigits="0" />

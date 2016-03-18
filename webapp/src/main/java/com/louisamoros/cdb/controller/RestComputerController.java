@@ -1,4 +1,4 @@
-package com.louisamoros.cdb;
+package com.louisamoros.cdb.controller;
 
 import com.louisamoros.cdb.model.Computer;
 import com.louisamoros.cdb.dto.ComputerDto;

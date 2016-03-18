@@ -3,7 +3,6 @@ package com.louisamoros.cdb.model;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import java.io.Serializable;
 
@@ -17,7 +16,7 @@ public final class Company implements Serializable {
 
     @Id
     @Column(name = "id")
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue
     private long companyId;
 
     @Column(name = "name")

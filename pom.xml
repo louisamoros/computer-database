@@ -24,7 +24,7 @@
     </repositories>
 
     <properties>
-        <!-- encoding -->
+        <!-- Encoding -->
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
 
@@ -51,21 +51,27 @@
         <maven.checkstyle.version>2.17</maven.checkstyle.version>
         <maven.apt.version>1.1.3</maven.apt.version>
 
-        <!-- Core module-->
-        <!-- Hibernate -->
-        <hibernate.version>5.1.0.Final</hibernate.version>
         <!-- Validation -->
         <javax.validation>1.1.0.Final</javax.validation>
         <hibernate.validation>5.0.1.Final</hibernate.validation>
 
-        <!-- Persistence module -->
-        <!-- QueryDsl -->
-        <querydsl.version>3.7.2</querydsl.version>
-        <!-- Bone cp-->
-        <bonecp.version>0.8.0.RELEASE</bonecp.version>
-        <!-- Spring data jpa -->
-        <spring.jpa.version>1.9.4.RELEASE</spring.jpa.version>
+        <!-- Commons cli apache used by cdb cli -->
+        <commons.cli.version>1.3.1</commons.cli.version>
 
+        <!-- Servlet + JSP + JSTL -->
+        <javax.servlet.version>3.1.0</javax.servlet.version>
+        <javax.servlet.jsp.version>2.1</javax.servlet.jsp.version>
+        <jstl.version>1.2</jstl.version>
+
+        <!-- Persistence -->
+        <mysql.connector.version>5.1.38</mysql.connector.version>
+        <bonecp.version>0.8.0.RELEASE</bonecp.version>
+        <spring.jpa.version>1.9.4.RELEASE</spring.jpa.version>
+        <querydsl.version>3.7.2</querydsl.version>
+        <hibernate.version>5.1.0.Final</hibernate.version>
+
+        <!-- Jackson -->
+        <jackson.version>2.5.3</jackson.version>
     </properties>
 
     <dependencyManagement>
@@ -101,13 +107,15 @@
             </dependency>
             <dependency>
                 <groupId>org.springframework</groupId>
-                <artifactId>spring-jdbc</artifactId>
-                <version>${springframework.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>org.springframework</groupId>
                 <artifactId>spring-test</artifactId>
                 <version>${springframework.version}</version>
+            </dependency>
+            <!-- QueryDsl -->
+            <dependency>
+                <groupId>com.mysema.querydsl</groupId>
+                <artifactId>querydsl-apt</artifactId>
+                <version>${querydsl.version}</version>
+                <scope>provided</scope>
             </dependency>
             <!-- Logging -->
             <dependency>
@@ -130,7 +138,7 @@
                 <artifactId>commons-logging</artifactId>
                 <version>${commons.logging.version}</version>
             </dependency>
-            <!-- Testing (Junit/Mockito/Selenium) -->
+            <!-- Testing (Junit/Mockito) -->
             <dependency>
                 <groupId>junit</groupId>
                 <artifactId>junit</artifactId>
@@ -142,12 +150,6 @@
                 <artifactId>mockito-all</artifactId>
                 <version>${mockito.version}</version>
             </dependency>
-            <dependency>
-                <groupId>org.seleniumhq.selenium</groupId>
-                <artifactId>selenium-java</artifactId>
-                <version>${selenium.version}</version>
-                <scope>test</scope>
-            </dependency>
 
             <!-- Persistence module -->
             <dependency>
@@ -156,17 +158,6 @@
                 <version>${project.version}</version>
             </dependency>
             <!-- QueryDsl -->
-            <dependency>
-                <groupId>com.mysema.querydsl</groupId>
-                <artifactId>querydsl-core</artifactId>
-                <version>${querydsl.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>com.mysema.querydsl</groupId>
-                <artifactId>querydsl-apt</artifactId>
-                <version>${querydsl.version}</version>
-                <scope>provided</scope>
-            </dependency>
             <dependency>
                 <groupId>com.mysema.querydsl</groupId>
                 <artifactId>querydsl-jpa</artifactId>
@@ -190,6 +181,18 @@
                 <artifactId>hibernate-entitymanager</artifactId>
                 <version>${hibernate.version}</version>
             </dependency>
+            <!-- MySql connector -->
+            <dependency>
+                <groupId>mysql</groupId>
+                <artifactId>mysql-connector-java</artifactId>
+                <version>${mysql.connector.version}</version>
+            </dependency>
+            <!-- Hibernate extension used to auto convert LocalDate to Timestamp -->
+            <dependency>
+                <groupId>org.hibernate</groupId>
+                <artifactId>hibernate-java8</artifactId>
+                <version>${hibernate.version}</version>
+            </dependency>
 
             <!-- Service module -->
             <dependency>
@@ -211,12 +214,50 @@
                 <artifactId>webapp</artifactId>
                 <version>${project.version}</version>
             </dependency>
+            <!-- JSTL -->
+            <dependency>
+                <groupId>jstl</groupId>
+                <artifactId>jstl</artifactId>
+                <version>${jstl.version}</version>
+            </dependency>
+            <!-- JSP -->
+            <dependency>
+                <groupId>javax.servlet.jsp</groupId>
+                <artifactId>jsp-api</artifactId>
+                <version>${javax.servlet.jsp.version}</version>
+            </dependency>
+            <!-- Servlet -->
+            <dependency>
+                <groupId>javax.servlet</groupId>
+                <artifactId>javax.servlet-api</artifactId>
+                <version>${javax.servlet.version}</version>
+                <scope>provided</scope>
+            </dependency>
+            <!-- Jackson for rest api -->
+            <dependency>
+                <groupId>com.fasterxml.jackson.core</groupId>
+                <artifactId>jackson-databind</artifactId>
+                <version>${jackson.version}</version>
+            </dependency>
+            <!-- Testing (Selenium) -->
+            <dependency>
+                <groupId>org.seleniumhq.selenium</groupId>
+                <artifactId>selenium-java</artifactId>
+                <version>${selenium.version}</version>
+                <scope>test</scope>
+            </dependency>
 
             <!-- Console module -->
             <dependency>
                 <groupId>com.louisamoros.cdb</groupId>
                 <artifactId>console</artifactId>
                 <version>${project.version}</version>
+            </dependency>
+            <!-- Apache cli used for the cdb cli -->
+            <dependency>
+                <groupId>commons-cli</groupId>
+                <artifactId>commons-cli</artifactId>
+                <version>${commons.cli.version}</version>
             </dependency>
 
         </dependencies>

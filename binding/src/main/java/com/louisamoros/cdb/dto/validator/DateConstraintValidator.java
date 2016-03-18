@@ -1,4 +1,4 @@
-package com.louisamoros.cdb.validator;
+package com.louisamoros.cdb.dto.validator;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;

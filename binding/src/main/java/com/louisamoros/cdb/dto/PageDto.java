@@ -1,4 +1,4 @@
-package com.louisamoros.cdb;
+package com.louisamoros.cdb.dto;
 
 /**
  * Page params which is a wrapper of params attributes and spring page to return to the jsp.

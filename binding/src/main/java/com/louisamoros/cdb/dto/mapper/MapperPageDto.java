@@ -1,6 +1,6 @@
-package com.louisamoros.cdb.mapper;
+package com.louisamoros.cdb.dto.mapper;
 
-import com.louisamoros.cdb.PageDto;
+import com.louisamoros.cdb.dto.PageDto;
 
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Sort;

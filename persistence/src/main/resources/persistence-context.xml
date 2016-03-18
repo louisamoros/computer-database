@@ -4,11 +4,12 @@
        xmlns:context="http://www.springframework.org/schema/context"
        xmlns:jpa="http://www.springframework.org/schema/data/jpa"
        xmlns:tx="http://www.springframework.org/schema/tx"
-       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+       http://www.springframework.org/schema/beans/spring-beans.xsd
        http://www.springframework.org/schema/context
        http://www.springframework.org/schema/context/spring-context.xsd
        http://www.springframework.org/schema/tx
-       http://www.springframework.org/schema/context/spring-tx.xsd
+       http://www.springframework.org/schema/tx/spring-tx.xsd
        http://www.springframework.org/schema/data/jpa
        http://www.springframework.org/schema/data/jpa/spring-jpa.xsd">
 
@@ -20,8 +21,6 @@
 
     <!-- Bootstrapping spring repository -->
     <jpa:repositories base-package="com.louisamoros.cdb.model" />
-
-    <import resource="classpath:/core-context.xml"/>
 
     <!-- Scanning module package -->
     <context:annotation-config />

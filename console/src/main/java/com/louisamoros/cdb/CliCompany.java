@@ -35,7 +35,7 @@ public final class CliCompany {
 
         if (cmd.hasOption("g") && "all".equals(cmd.getOptionValue("g"))) { // GET
             LOGGER.info("Command: GET ALL");
-            List<Company> companies = companyService.getAll();
+            List<Company> companies = companyService.findAll();
             companies.forEach(company -> System.out.println(company));
         } else if (cmd.hasOption("d")) { // DELETE
             LOGGER.info("Command: DELETE id->" + cmd.getOptionValue("d"));

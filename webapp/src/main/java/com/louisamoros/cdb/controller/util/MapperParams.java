@@ -1,4 +1,4 @@
-package com.louisamoros.cdb.util;
+package com.louisamoros.cdb.controller.util;
 
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;

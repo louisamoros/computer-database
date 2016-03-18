@@ -1,7 +1,7 @@
-package com.louisamoros.cdb;
+package com.louisamoros.cdb.controller;
 
-import com.louisamoros.cdb.util.Params;
-import com.louisamoros.cdb.util.MapperParams;
+import com.louisamoros.cdb.controller.util.Params;
+import com.louisamoros.cdb.controller.util.MapperParams;
 import com.louisamoros.cdb.dto.CompanyDto;
 import com.louisamoros.cdb.dto.ComputerDto;
 import com.louisamoros.cdb.dto.PageDto;
@@ -95,7 +95,7 @@ public class ComputerController {
     public final String getPageCreateComputer(final Model model) {
 
         LOGGER.info("get page /computer/new");
-        List<Company> companies = companyService.getAll();
+        List<Company> companies = companyService.findAll();
         List<CompanyDto> companiesDto = MapperCompanyDto.toCompanyDtoList(companies);
         model.addAttribute("computerDto", new ComputerDto());
         model.addAttribute("companiesDto", companiesDto);
@@ -135,7 +135,7 @@ public class ComputerController {
         LOGGER.info("get page /computer/edit/" + computerId);
         Computer computer = computerService.findOne(computerId);
         ComputerDto computerDto = MapperComputerDto.toComputerDto(computer);
-        List<Company> companies = companyService.getAll();
+        List<Company> companies = companyService.findAll();
         List<CompanyDto> companiesDto = MapperCompanyDto.toCompanyDtoList(companies);
         model.addAttribute("companiesDto", companiesDto);
         model.addAttribute("computerDto", computerDto);

@@ -1,6 +1,6 @@
-package com.louisamoros.cdb.validator;
+package com.louisamoros.cdb.dto.validator;
 
-import com.louisamoros.cdb.ComputerDto;
+import com.louisamoros.cdb.dto.ComputerDto;
 
 import java.time.LocalDate;
 
@@ -10,10 +10,10 @@ import javax.validation.ConstraintValidatorContext;
 /**
  * DateOrderConstraintValidator class use to validate date order for annotation.
  */
-public class DateOrderConstraintValidator implements ConstraintValidator<DateOrder, ComputerDto> {
+public class DateOrderConstraintValidator implements ConstraintValidator<com.louisamoros.cdb.dto.validator.DateOrder, ComputerDto> {
 
   @Override
-  public void initialize(final DateOrder dateOrder) {
+  public void initialize(final com.louisamoros.cdb.dto.validator.DateOrder dateOrder) {
   }
 
   @Override

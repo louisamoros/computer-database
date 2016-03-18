@@ -1,7 +1,7 @@
 <%@ tag language="java" pageEncoding="UTF-8" trimDirectiveWhitespaces="true"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<%@ attribute name="page" type="com.louisamoros.cdb.PageDto" required="true" description="Page informations"%>
+<%@ attribute name="page" type="com.louisamoros.cdb.dto.PageDto" required="true" description="Page informations"%>
 <%@ attribute name="ovr_uri" description="URI of the page to go"%>
 <%@ attribute name="ovr_page" description="Page number to use"%>
 <%@ attribute name="ovr_order" description="Order to use"%>
