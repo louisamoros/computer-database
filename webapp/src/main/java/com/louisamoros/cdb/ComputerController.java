@@ -1,7 +1,7 @@
 package com.louisamoros.cdb;
 
-import com.louisamoros.cdb.util.MapperParams;
 import com.louisamoros.cdb.util.Params;
+import com.louisamoros.cdb.util.MapperParams;
 import com.louisamoros.cdb.dto.CompanyDto;
 import com.louisamoros.cdb.dto.ComputerDto;
 import com.louisamoros.cdb.dto.PageDto;

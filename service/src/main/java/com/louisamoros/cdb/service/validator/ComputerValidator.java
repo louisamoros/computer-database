@@ -1,9 +1,9 @@
-package com.louisamoros.cdb.validator;
+package com.louisamoros.cdb.service.validator;
 
-import com.louisamoros.cdb.exception.IntegrityException;
-import com.louisamoros.cdb.exception.InvalidComputerNameException;
-import com.louisamoros.cdb.exception.InvalidDateOrderException;
 import com.louisamoros.cdb.model.Computer;
+import com.louisamoros.cdb.service.exception.IntegrityException;
+import com.louisamoros.cdb.service.exception.InvalidComputerNameException;
+import com.louisamoros.cdb.service.exception.InvalidDateOrderException;
 
 import java.util.List;
 

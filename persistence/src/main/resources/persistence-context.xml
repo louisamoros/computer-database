@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:jpa="http://www.springframework.org/schema/data/jpa"
+       xmlns:tx="http://www.springframework.org/schema/tx"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+       http://www.springframework.org/schema/context
+       http://www.springframework.org/schema/context/spring-context.xsd
+       http://www.springframework.org/schema/tx
+       http://www.springframework.org/schema/context/spring-tx.xsd
+       http://www.springframework.org/schema/data/jpa
+       http://www.springframework.org/schema/data/jpa/spring-jpa.xsd">
+
+    <!-- Importing required context -->
+    <import resource="classpath:/core-context.xml"/>
+
+    <!-- Scanning module package -->
+    <context:annotation-config />
+    <context:component-scan base-package="com.louisamoros.cdb.dao" />
+
+    <!-- Bootstrapping spring repository -->
+    <jpa:repositories base-package="com.louisamoros.cdb.dao" />
+
+    <!-- Necessary to get the entity manager injected into the factory bean -->
+    <!-- More info: http://docs.spring.io/spring-data/jpa/docs/1.4.3.RELEASE/reference/html/jpa.repositories.html -->
+    <bean class="org.springframework.orm.jpa.support.PersistenceAnnotationBeanPostProcessor" />
+
+    <!-- Datasource with bone cp wrapper which handles pool connection -->
+    <context:property-placeholder location="classpath:db.properties" />
+    <bean id="dataSource" class="com.jolbox.bonecp.BoneCPDataSource" destroy-method="close">
+        <property name="driverClass" value="${db.driverClass}" />
+        <property name="jdbcUrl" value="${db.url}" />
+        <property name="username" value="${db.username}" />
+        <property name="password" value="${db.password}" />
+        <property name="maxConnectionsPerPartition" value="${db.maxConn}" />
+    </bean>
+
+    <!-- Define Hibernate JPA Vendor Adapter -->
+    <bean id="jpaVendorAdapter" class="org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter">
+        <property name="showSql" value="true" />
+        <property name="generateDdl" value="true" />
+        <property name="databasePlatform" value="org.hibernate.dialect.MySQLDialect" />
+    </bean>
+
+    <!-- Transaction manager -->
+    <bean id="transactionManager" class="org.springframework.orm.jpa.JpaTransactionManager">
+        <property name="entityManagerFactory" ref="entityManagerFactory" />
+    </bean>
+
+    <!-- Enable transaction manager -->
+    <tx:annotation-driven transaction-manager="transactionManager" />
+
+    <!-- Entity manager factory -->
+    <bean id="entityManagerFactory" class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean">
+        <property name="persistenceXmlLocation" value="classpath:persistence.xml" />
+        <property name="persistenceUnitName" value="cdb-persistence-unit" />
+        <property name="dataSource" ref="dataSource" />
+        <property name="jpaVendorAdapter" ref="jpaVendorAdapter" />
+    </bean>
+
+
+</beans>

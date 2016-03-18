@@ -1,10 +1,9 @@
-package com.louisamoros.cdb.impl;
+package com.louisamoros.cdb.service.impl;
 
 import com.louisamoros.cdb.dao.ComputerDao;
 import com.louisamoros.cdb.model.Computer;
-import com.louisamoros.cdb.model.QComputer;
-import com.louisamoros.cdb.ComputerService;
-import com.louisamoros.cdb.validator.ComputerValidator;
+import com.louisamoros.cdb.service.ComputerService;
+import com.louisamoros.cdb.service.validator.ComputerValidator;
 import com.mysema.query.types.Predicate;
 
 import org.springframework.beans.factory.annotation.Autowired;

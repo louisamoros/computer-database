@@ -1,7 +1,7 @@
-package com.louisamoros.cdb.validator;
+package com.louisamoros.cdb.service.validator;
 
-import com.louisamoros.cdb.exception.IntegrityException;
 import com.louisamoros.cdb.model.Company;
+import com.louisamoros.cdb.service.exception.IntegrityException;
 
 import java.util.List;
 

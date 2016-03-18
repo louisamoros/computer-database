@@ -1,4 +1,4 @@
-package com.louisamoros.cdb;
+package com.louisamoros.cdb.service;
 
 import com.louisamoros.cdb.model.Computer;
 
