@@ -6,6 +6,8 @@
        http://www.springframework.org/schema/context
        http://www.springframework.org/schema/context/spring-context.xsd">
 
+    <!-- Scanning module package -->
+    <context:annotation-config />
     <context:component-scan base-package="com.louisamoros.cdb.model" />
     <context:component-scan base-package="com.louisamoros.cdb.validator" />
 

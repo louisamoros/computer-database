@@ -1,9 +1,9 @@
-package com.louisamoros.cdb.impl;
+package com.louisamoros.cdb.service.impl;
 
 import com.louisamoros.cdb.dao.CompanyDao;
 import com.louisamoros.cdb.model.Company;
-import com.louisamoros.cdb.CompanyService;
 
+import com.louisamoros.cdb.service.CompanyService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -21,7 +21,7 @@ public class CompanyServiceImpl implements CompanyService {
     private CompanyDao companyRepository;
 
     @Override
-    public final List<Company> getAll() {
+    public final List<Company> findAll() {
         return (List<Company>) companyRepository.findAll();
     }
 

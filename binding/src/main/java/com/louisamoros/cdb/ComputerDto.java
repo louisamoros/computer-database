@@ -1,7 +1,7 @@
 package com.louisamoros.cdb;
 
-import com.louisamoros.cdb.validator.Date;
 import com.louisamoros.cdb.validator.DateOrder;
+import com.louisamoros.cdb.validator.Date;
 
 import org.hibernate.validator.constraints.NotEmpty;
 

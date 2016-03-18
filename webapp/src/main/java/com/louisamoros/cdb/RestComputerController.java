@@ -1,8 +1,8 @@
 package com.louisamoros.cdb;
 
+import com.louisamoros.cdb.model.Computer;
 import com.louisamoros.cdb.dto.ComputerDto;
 import com.louisamoros.cdb.dto.mapper.MapperComputerDto;
-import com.louisamoros.cdb.model.Computer;
 import com.louisamoros.cdb.service.ComputerService;
 
 import org.slf4j.Logger;

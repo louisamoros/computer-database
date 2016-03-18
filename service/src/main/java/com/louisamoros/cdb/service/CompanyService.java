@@ -1,4 +1,4 @@
-package com.louisamoros.cdb;
+package com.louisamoros.cdb.service;
 
 import com.louisamoros.cdb.model.Company;
 
@@ -14,7 +14,7 @@ public interface CompanyService {
    *
    * @return list of company
    */
-  List<Company> getAll();
+  List<Company> findAll();
 
   /**
    * Delete company and computer related.
