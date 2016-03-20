@@ -53,38 +53,12 @@ public final class Company implements Serializable {
         return "Company [companyId=" + companyId + ", companyName=" + companyName + "]";
     }
 
-    @Override
-    public boolean equals(final Object o) {
-        if (this == o) {
-            return true;
-        }
-        if (o == null || getClass() != o.getClass()) {
-            return false;
-        }
-
-        Company company = (Company) o;
-
-        if (companyId != company.companyId) {
-            return false;
-        }
-        return companyName != null ? companyName.equals(company.companyName)
-                : company.companyName == null;
-
-    }
-
-    @Override
-    public int hashCode() {
-        int result = (int) (companyId ^ (companyId >>> 32));
-        result = 31 * result + (companyName != null ? companyName.hashCode() : 0);
-        return result;
-    }
-
     /**
      * The Builder Class for company model.
      * @author louis
      *
      */
-    public static class Builder {
+    public static class Builder extends AbstractBuilder<Company> {
 
         // optional
         private long id;
@@ -117,7 +91,8 @@ public final class Company implements Serializable {
          *
          * @return company
          */
-        public final Company build() {
+        @Override
+        public final Company buildInternal() {
             return new Company(this);
         }
 

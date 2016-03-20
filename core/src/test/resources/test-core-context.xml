@@ -12,4 +12,14 @@
     <context:component-scan base-package="com.louisamoros.cdb.model" />
     <context:component-scan base-package="com.louisamoros.cdb.model.validator" />
 
+
+    <!-- validationFactory bean is created by instructing Spring to call
+    the static factory method Validation.buildDefaultValidatorFactory() -->
+    <bean id="validatorFactory" class="javax.validation.Validation"
+          factory-method="buildDefaultValidatorFactory"/>
+
+    <!--The validator bean in turn is created by letting Spring call
+    the getValidator() method on the validatorFactory bean. -->
+    <bean id="validator" factory-bean="validatorFactory"
+          factory-method="getValidator"/>
 </beans>

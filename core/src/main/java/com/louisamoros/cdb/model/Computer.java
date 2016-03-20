@@ -1,7 +1,6 @@
 package com.louisamoros.cdb.model;
 
 import com.louisamoros.cdb.model.validator.DateOrder;
-import org.hibernate.validator.constraints.NotEmpty;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -10,6 +9,8 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 import java.io.Serializable;
 import java.time.LocalDate;
 
@@ -31,7 +32,8 @@ public final class Computer implements Serializable {
     @JoinColumn(name = "company_id")
     private Company company;
 
-    @NotEmpty
+    @Size(min = 1, max = 80)
+    @NotNull
     @Column(name = "name", nullable = false)
     private String computerName;
 
@@ -88,49 +90,10 @@ public final class Computer implements Serializable {
                 + "]";
     }
 
-    @Override
-    public boolean equals(final Object o) {
-        if (this == o) {
-            return true;
-        }
-        if (o == null || getClass() != o.getClass()) {
-            return false;
-        }
-
-        Computer computer = (Computer) o;
-
-        if (computerId != computer.computerId) {
-            return false;
-        }
-        if (company != null ? !company.equals(computer.company) : computer.company != null) {
-            return false;
-        }
-        if (!computerName.equals(computer.computerName)) {
-            return false;
-        }
-        if (introduced != null ? !introduced.equals(computer.introduced)
-                : computer.introduced != null) {
-            return false;
-        }
-        return discontinued != null ? discontinued.equals(computer.discontinued)
-                : computer.discontinued == null;
-
-    }
-
-    @Override
-    public int hashCode() {
-        int result = (int) (computerId ^ (computerId >>> 32));
-        result = 31 * result + (company != null ? company.hashCode() : 0);
-        result = 31 * result + computerName.hashCode();
-        result = 31 * result + (introduced != null ? introduced.hashCode() : 0);
-        result = 31 * result + (discontinued != null ? discontinued.hashCode() : 0);
-        return result;
-    }
-
     /**
      * The builder class for computer model.
      */
-    public static class Builder {
+    public static class Builder extends AbstractBuilder<Computer> {
 
         // require
         private String computerName;
@@ -199,7 +162,8 @@ public final class Computer implements Serializable {
          *
          * @return computer
          */
-        public final Computer build() {
+        @Override
+        protected final Computer buildInternal() {
             return new Computer(this);
         }
 
