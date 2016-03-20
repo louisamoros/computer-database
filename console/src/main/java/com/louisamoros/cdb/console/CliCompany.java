@@ -1,4 +1,4 @@
-package com.louisamoros.cdb;
+package com.louisamoros.cdb.console;
 
 import com.louisamoros.cdb.model.Company;
 import com.louisamoros.cdb.service.CompanyService;

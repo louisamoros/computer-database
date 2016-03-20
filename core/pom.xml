@@ -30,23 +30,10 @@
             <groupId>com.mysema.querydsl</groupId>
             <artifactId>querydsl-apt</artifactId>
         </dependency>
-        <!-- Spring -->
-        <dependency>
-            <groupId>org.springframework</groupId>
-            <artifactId>spring-webmvc</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.springframework</groupId>
-            <artifactId>spring-test</artifactId>
-        </dependency>
-        <!-- Testing (Junit/Mockito) -->
+        <!-- Testing -->
         <dependency>
             <groupId>junit</groupId>
             <artifactId>junit</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.mockito</groupId>
-            <artifactId>mockito-all</artifactId>
         </dependency>
         <!-- Logging -->
         <dependency>
@@ -72,7 +59,7 @@
         <plugins>
             <!-- The HibernateAnnotationProcessor finds domain types annotated with the javax.persistence.Entity
             annotation and generates query types for them. When clean install, Query types are generated
-            into target/generated-sources/java. Then we are ready to construct JPQL query instances
+            into target/generated-sources. Then we are ready to construct JPQL query instances
             and instances of the query domain model. -->
             <plugin>
                 <groupId>com.mysema.maven</groupId>

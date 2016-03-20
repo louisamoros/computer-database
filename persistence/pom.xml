@@ -16,7 +16,7 @@
             <groupId>com.louisamoros.cdb</groupId>
             <artifactId>core</artifactId>
         </dependency>
-        <!-- QueryDsl -->
+        <!-- QueryDsl required to use QueryDslPredicateExecutor -->
         <dependency>
             <groupId>com.mysema.querydsl</groupId>
             <artifactId>querydsl-jpa</artifactId>
@@ -26,12 +26,12 @@
             <groupId>com.jolbox</groupId>
             <artifactId>bonecp</artifactId>
         </dependency>
-        <!-- Spring data JPA -->
+        <!-- Spring data JPA: Interface to allow execution of QueryDsl Predicate instances. -->
         <dependency>
             <groupId>org.springframework.data</groupId>
             <artifactId>spring-data-jpa</artifactId>
         </dependency>
-        <!-- Hibernate implementation -->
+        <!-- Hibernate orm implementation -->
         <dependency>
             <groupId>org.hibernate</groupId>
             <artifactId>hibernate-entitymanager</artifactId>
@@ -45,6 +45,11 @@
         <dependency>
             <groupId>org.hibernate</groupId>
             <artifactId>hibernate-java8</artifactId>
+        </dependency>
+        <!-- Testing -->
+        <dependency>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
         </dependency>
     </dependencies>
 

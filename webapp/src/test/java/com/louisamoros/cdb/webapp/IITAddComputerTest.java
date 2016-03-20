@@ -1,4 +1,4 @@
-package com.louisamoros.cdb;
+package com.louisamoros.cdb.webapp;
 
 import static org.junit.Assert.fail;
 
@@ -13,9 +13,9 @@ import org.openqa.selenium.support.ui.Select;
 import java.util.concurrent.TimeUnit;
 
 /**
- * The Class AddComputerTest.
+ * The Class IITAddComputerTest.
  */
-public class AddComputerTest {
+public class IITAddComputerTest {
 
     private WebDriver driver;
     private String baseUrl;

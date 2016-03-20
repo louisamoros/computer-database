@@ -16,7 +16,7 @@
             <groupId>com.louisamoros.cdb</groupId>
             <artifactId>persistence</artifactId>
         </dependency>
-        <!-- Testing (Junit) -->
+        <!-- Testing -->
         <dependency>
             <groupId>junit</groupId>
             <artifactId>junit</artifactId>

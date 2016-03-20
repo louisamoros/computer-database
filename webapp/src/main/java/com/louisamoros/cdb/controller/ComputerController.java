@@ -82,7 +82,7 @@ public class ComputerController {
         PageDto pageDto = MapperPageDto.toPageDto(page, params.getSearch(), "computer/list");
         model.addAttribute("computersDto", computersDto);
         model.addAttribute("page", pageDto);
-        return "WEB-INF/jsp/computer/list.jsp";
+        return "computer/list";
 
     }
 
@@ -99,7 +99,7 @@ public class ComputerController {
         List<CompanyDto> companiesDto = MapperCompanyDto.toCompanyDtoList(companies);
         model.addAttribute("computerDto", new ComputerDto());
         model.addAttribute("companiesDto", companiesDto);
-        return "WEB-INF/jsp/computer/create.jsp";
+        return "computer/create";
 
     }
 
@@ -115,7 +115,7 @@ public class ComputerController {
             final BindingResult result, final Model model) {
         LOGGER.info("post /computer/new");
         if (result.hasErrors()) {
-            return "WEB-INF/jsp/computer/create.jsp";
+            return "computer/create";
         } else {
             Computer computer = MapperComputerDto.toComputer(computerDto);
             computerService.create(computer);
@@ -139,7 +139,7 @@ public class ComputerController {
         List<CompanyDto> companiesDto = MapperCompanyDto.toCompanyDtoList(companies);
         model.addAttribute("companiesDto", companiesDto);
         model.addAttribute("computerDto", computerDto);
-        return "WEB-INF/jsp/computer/edit.jsp";
+        return "computer/edit";
 
     }
 
@@ -158,7 +158,7 @@ public class ComputerController {
         LOGGER.info("post /computer/edit/" + computerId);
         if (result.hasErrors()) {
             model.addAttribute("errors", result.getAllErrors());
-            return "WEB-INF/jsp/computer/edit.jsp";
+            return "computer/edit";
         } else {
             Computer computer = MapperComputerDto.toComputer(computerDto);
             computerService.update(computer);

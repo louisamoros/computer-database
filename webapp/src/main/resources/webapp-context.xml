@@ -19,7 +19,7 @@
 
     <!-- Configuration to enable i18n. Basename property is used to provide the location of resource bundles -->
     <bean id="messageSource" class="org.springframework.context.support.ReloadableResourceBundleMessageSource">
-        <property name="basename" value="messages"/>
+        <property name="basename" value="classpath:messages/messages"/>
         <property name="defaultEncoding" value="UTF-8"/>
     </bean>
 
@@ -47,17 +47,17 @@
     </mvc:interceptors>
 
     <!-- API: Configure to plugin JSON as request and response in method handler -->
-    <bean class="org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter">
+    <!--<bean class="org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter">
         <property name="messageConverters">
             <list>
                 <ref bean="jsonMessageConverter"/>
             </list>
         </property>
-    </bean>
+    </bean>-->
 
     <!-- API: Configure bean to convert JSON to POJO and vice versa (jackson) -->
-    <bean id="jsonMessageConverter" class="org.springframework.http.converter.json.MappingJackson2HttpMessageConverter">
-    </bean>
+    <!--<bean id="jsonMessageConverter" class="org.springframework.http.converter.json.MappingJackson2HttpMessageConverter">
+    </bean>-->
 
 </beans>
 

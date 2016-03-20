@@ -16,6 +16,10 @@
             <groupId>com.louisamoros.cdb</groupId>
             <artifactId>service</artifactId>
         </dependency>
+        <dependency>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+        </dependency>
     </dependencies>
 
     <build>

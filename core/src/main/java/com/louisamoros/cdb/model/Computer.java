@@ -1,11 +1,12 @@
 package com.louisamoros.cdb.model;
 
-import com.louisamoros.cdb.validator.DateOrder;
+import com.louisamoros.cdb.model.validator.DateOrder;
 import org.hibernate.validator.constraints.NotEmpty;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
@@ -23,7 +24,7 @@ public final class Computer implements Serializable {
 
     @Id
     @Column(name = "id")
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long computerId;
 
     @ManyToOne

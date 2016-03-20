@@ -1,4 +1,4 @@
-package com.louisamoros.cdb.validator;
+package com.louisamoros.cdb.model.validator;
 
 import com.louisamoros.cdb.model.Computer;
 
