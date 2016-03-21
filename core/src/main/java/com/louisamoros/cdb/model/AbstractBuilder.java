@@ -33,8 +33,7 @@ public abstract class AbstractBuilder<T> {
 
         Set<ConstraintViolation<T>> violations = validator.validate(object);
         if (!violations.isEmpty()) {
-            throw new ConstraintViolationException(
-                    new HashSet<ConstraintViolation<?>>(violations));
+            throw new ConstraintViolationException(new HashSet<ConstraintViolation<?>>(violations));
         }
 
         return object;

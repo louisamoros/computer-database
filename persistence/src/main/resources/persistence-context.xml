@@ -16,9 +16,6 @@
     <!-- Importing required context -->
     <import resource="classpath:core-context.xml"/>
 
-    <!-- Scanning module package -->
-    <context:component-scan base-package="com.louisamoros.cdb.dao" />
-
     <!-- Bootstrapping spring repository -->
     <jpa:repositories base-package="com.louisamoros.cdb.model" />
 
@@ -43,6 +40,11 @@
         <property name="maxConnectionsPerPartition" value="${db.maxConn}" />
     </bean>
 
+    <!-- Transaction manager -->
+    <bean id="transactionManager" class="org.springframework.orm.jpa.JpaTransactionManager">
+        <property name="entityManagerFactory" ref="entityManagerFactory" />
+    </bean>
+
     <!-- Define Hibernate JPA Vendor Adapter -->
     <bean id="jpaVendorAdapter" class="org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter">
         <property name="showSql" value="true" />
@@ -50,10 +52,6 @@
         <property name="databasePlatform" value="org.hibernate.dialect.MySQLDialect" />
     </bean>
 
-    <!-- Transaction manager -->
-    <bean id="transactionManager" class="org.springframework.orm.jpa.JpaTransactionManager">
-        <property name="entityManagerFactory" ref="entityManagerFactory" />
-    </bean>
 
     <!-- Enable transaction manager -->
     <tx:annotation-driven transaction-manager="transactionManager" />
@@ -65,6 +63,5 @@
         <property name="dataSource" ref="dataSource" />
         <property name="jpaVendorAdapter" ref="jpaVendorAdapter" />
     </bean>
-
 
 </beans>
