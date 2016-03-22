@@ -2,7 +2,6 @@ package com.louisamoros.cdb.security;
 
 import com.louisamoros.cdb.controller.ComputerController;
 import com.louisamoros.cdb.model.User;
-import com.louisamoros.cdb.model.UserProfile;
 import com.louisamoros.cdb.service.UserService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -42,7 +41,7 @@ public class CustomUserDetailsService implements UserDetailsService {
     @Transactional(readOnly = true)
     public final UserDetails loadUserByUsername(final String username) throws UsernameNotFoundException {
         User user = userService.findByUsername(username);
-        LOGGER.info("User : " + user);
+        LOGGER.info("USER: " + user);
         if (user == null) {
             LOGGER.info("User not found");
             throw new UsernameNotFoundException("Username not found");
@@ -59,12 +58,8 @@ public class CustomUserDetailsService implements UserDetailsService {
      */
     private List<GrantedAuthority> getGrantedAuthorities(final User user) {
         List<GrantedAuthority> authorities = new ArrayList<>();
-
-        for (UserProfile userProfile : user.getUserProfiles()) {
-            System.out.println("UserProfile : " + userProfile);
-            authorities.add(new SimpleGrantedAuthority("ROLE_" + userProfile.getType()));
-        }
-        System.out.print("authorities :" + authorities);
+        user.getUserProfiles().forEach(userProfile -> authorities.add(new SimpleGrantedAuthority("ROLE_" + userProfile.getType())));
+        LOGGER.info("AUTHORITIES :" + authorities);
         return authorities;
     }
 

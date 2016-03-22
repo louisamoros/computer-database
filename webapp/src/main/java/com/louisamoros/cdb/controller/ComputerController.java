@@ -1,7 +1,7 @@
 package com.louisamoros.cdb.controller;
 
-import com.louisamoros.cdb.controller.util.Params;
 import com.louisamoros.cdb.controller.util.MapperParams;
+import com.louisamoros.cdb.controller.util.Params;
 import com.louisamoros.cdb.dto.CompanyDto;
 import com.louisamoros.cdb.dto.ComputerDto;
 import com.louisamoros.cdb.dto.PageDto;
@@ -12,12 +12,13 @@ import com.louisamoros.cdb.model.Company;
 import com.louisamoros.cdb.model.Computer;
 import com.louisamoros.cdb.service.CompanyService;
 import com.louisamoros.cdb.service.ComputerService;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -27,10 +28,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import javax.validation.Valid;
 import java.util.List;
 import java.util.Locale;
-
-import javax.validation.Valid;
 
 /**
  * Spring controller for computer pages.
@@ -82,6 +82,7 @@ public class ComputerController {
         PageDto pageDto = MapperPageDto.toPageDto(page, params.getSearch(), "computer/list");
         model.addAttribute("computersDto", computersDto);
         model.addAttribute("page", pageDto);
+        model.addAttribute("user", getPrincipal());
         return "computer/list";
 
     }
@@ -99,6 +100,7 @@ public class ComputerController {
         List<CompanyDto> companiesDto = MapperCompanyDto.toCompanyDtoList(companies);
         model.addAttribute("computerDto", new ComputerDto());
         model.addAttribute("companiesDto", companiesDto);
+        model.addAttribute("user", getPrincipal());
         return "computer/create";
 
     }
@@ -139,6 +141,7 @@ public class ComputerController {
         List<CompanyDto> companiesDto = MapperCompanyDto.toCompanyDtoList(companies);
         model.addAttribute("companiesDto", companiesDto);
         model.addAttribute("computerDto", computerDto);
+        model.addAttribute("user", getPrincipal());
         return "computer/edit";
 
     }
@@ -157,6 +160,7 @@ public class ComputerController {
 
         LOGGER.info("post /computer/edit/" + computerId);
         if (result.hasErrors()) {
+            LOGGER.debug(result.getAllErrors().toString());
             model.addAttribute("errors", result.getAllErrors());
             return "computer/edit";
         } else {
@@ -188,6 +192,22 @@ public class ComputerController {
         }
         return "redirect:/computer/list";
 
+    }
+
+    /**
+     * Get the current connected user.
+     * @return the username.
+     */
+    private String getPrincipal() {
+        String userName = null;
+        Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+
+        if (principal instanceof UserDetails) {
+            userName = ((UserDetails) principal).getUsername();
+        } else {
+            userName = principal.toString();
+        }
+        return userName;
     }
 
 }
