@@ -1,31 +1,41 @@
+/*
 package com.louisamoros.cdb.webapp;
-
-import static org.junit.Assert.fail;
 
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
+import org.junit.runner.RunWith;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.support.ui.Select;
+import org.springframework.test.context.ContextConfiguration;
+import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import java.util.concurrent.TimeUnit;
 
+import static org.junit.Assert.fail;
+
+*/
 /**
- * The Class IITAddComputerTest.
- */
-public class IITAddComputerTest {
+ * The Class ITAddComputerTest.
+ *//*
+
+@RunWith(SpringJUnit4ClassRunner.class)
+@ContextConfiguration(locations = {"classpath:webapp-context.xml"})
+public class ITAddComputerTest {
 
     private WebDriver driver;
     private String baseUrl;
     private StringBuffer verificationErrors = new StringBuffer();
 
-    /**
+    */
+/**
      * Set up.
      *
      * @throws Exception the exception
-     */
+     *//*
+
     @Before
     public final void setUp() throws Exception {
         driver = new FirefoxDriver();
@@ -33,14 +43,16 @@ public class IITAddComputerTest {
         driver.manage().timeouts().implicitlyWait(5, TimeUnit.SECONDS);
     }
 
-    /**
+    */
+/**
      * Test.
      *
      * @throws Exception the exception
-     */
+     *//*
+
     @Test
     public final void test() throws Exception {
-        driver.get(baseUrl + "/cdb/computer/list");
+        driver.get(baseUrl + "/webapp/computer/list");
         driver.findElement(By.linkText("2")).click();
         driver.findElement(By.linkText("3")).click();
         driver.findElement(By.cssSelector("i.glyphicon.glyphicon-chevron-right")).click();
@@ -60,11 +72,13 @@ public class IITAddComputerTest {
         driver.findElement(By.cssSelector("input.btn.btn-primary")).click();
     }
 
-    /**
+    */
+/**
      * Tear down.
      *
      * @throws Exception the exception
-     */
+     *//*
+
     @After
     public final void tearDown() throws Exception {
         driver.quit();
@@ -75,3 +89,4 @@ public class IITAddComputerTest {
     }
 
 }
+*/
