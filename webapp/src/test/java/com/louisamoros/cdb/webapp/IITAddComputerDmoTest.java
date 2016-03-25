@@ -1,7 +1,5 @@
 package com.louisamoros.cdb.webapp;
 
-import static org.junit.Assert.fail;
-
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -12,10 +10,12 @@ import org.openqa.selenium.support.ui.Select;
 
 import java.util.concurrent.TimeUnit;
 
+import static org.junit.Assert.fail;
+
 /**
- * The Class IITAddComputerTest.
+ * The Class IITAddComputerDmoTest.
  */
-public class IITAddComputerTest {
+public class IITAddComputerDmoTest {
 
     private WebDriver driver;
     private String baseUrl;

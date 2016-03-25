@@ -20,7 +20,7 @@
      <h1>
       <spring:message code="label.addComputerTitle"></spring:message>
      </h1>
-     <form:form action="computer/new" method="POST" modelAttribute="computerDto" name="computerDto">
+     <form:form action="computerDmo/new" method="POST" modelAttribute="computerDto" name="computerDto">
       <fieldset>
        <div class="form-group">
         <form:label for="computerName" path="computerName">
@@ -60,7 +60,7 @@
       <div class="actions pull-right">
        <input type="submit" value="${addComputerButton}" class="btn btn-primary">
        or
-       <a href="computer/list"><spring:message code="label.cancelLink"></spring:message></a>
+       <a href="computerDmo/list"><spring:message code="label.cancelLink"></spring:message></a>
       </div>
      </form:form>
     </div>

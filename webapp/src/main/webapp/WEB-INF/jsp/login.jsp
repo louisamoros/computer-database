@@ -26,7 +26,7 @@
         </c:if>
         <div class="input-group form-group">
             <label class="input-group-addon" for="username">
-                <span class="glyphicon glyphicon-user"></span>
+                <span class="glyphicon glyphicon-userDmo"></span>
             </label>
             <input type="text" class="form-control" id="username" name="username" placeholder="Enter username..." required>
         </div>

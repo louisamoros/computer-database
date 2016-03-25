@@ -1,5 +1,6 @@
-package com.louisamoros.cdb.model;
+package com.louisamoros.cdb.dmo;
 
+import com.louisamoros.cdb.model.Company;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -8,9 +9,7 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import javax.annotation.Resource;
 import javax.validation.ConstraintViolation;
-import javax.validation.ConstraintViolationException;
 import javax.validation.Validator;
-import java.time.LocalDate;
 import java.util.Set;
 
 /**
@@ -18,7 +17,7 @@ import java.util.Set;
  */
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration("classpath:test-core-context.xml")
-public class UTCompanyValidator {
+public class UTCompanyDmoValidator {
 
     @Resource
     private Validator validator;

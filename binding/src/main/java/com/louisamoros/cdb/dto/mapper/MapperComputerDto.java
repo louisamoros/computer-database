@@ -78,7 +78,7 @@ public final class MapperComputerDto {
 
         if (computer.getCompany() != null) {
             companyName = computer.getCompany().getCompanyName();
-            companyId = computer.getCompany().getCompanyId();
+            companyId = computer.getCompany().getId();
         }
 
         String introduced = "";
@@ -92,8 +92,8 @@ public final class MapperComputerDto {
         }
 
         // formatter:off
-        ComputerDto computerDto = new ComputerDto.Builder(computer.getComputerName())
-                .computerId(computer.getComputerId()).companyId(companyId).companyName(companyName)
+        ComputerDto computerDto = new ComputerDto.Builder(computer.getName())
+                .computerId(computer.getId()).companyId(companyId).companyName(companyName)
                 .introduced(introduced).discontinued(discontinued).build();
         // formatter:on
         return computerDto;

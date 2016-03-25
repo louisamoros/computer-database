@@ -12,12 +12,12 @@ import java.util.Scanner;
 public final class CliLauncher {
 
   /**
-   * Computer service for the cli.
+   * ComputerDmo service for the cli.
    */
   private static ComputerService computerService;
 
   /**
-   * Company service for the cli.
+   * CompanyDmo service for the cli.
    */
   private static CompanyService companyService;
 

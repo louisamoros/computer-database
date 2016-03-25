@@ -47,7 +47,7 @@ public final class CliComputer {
         } else if (cmd.hasOption("u")) { // COUNT
             LOGGER.info("NOT IMPLEMENTED");
         } else { // WRONG METHOD
-            LOGGER.info("Company action: -g (get all), -d <id> (delete id)");
+            LOGGER.info("CompanyDmo action: -g (get all), -d <id> (delete id)");
         }
     }
 

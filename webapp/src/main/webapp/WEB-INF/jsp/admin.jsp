@@ -11,7 +11,7 @@
 <body>
 <div class="container">
     <div class="alert alert-success">
-        Dear <strong>${user}</strong>, Welcome to Admin Page.
+        Dear <strong>${userDmo}</strong>, Welcome to Admin Page.
         <a href="logout">Logout</a>
     </div>
 </div>

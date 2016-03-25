@@ -5,7 +5,7 @@ import com.louisamoros.cdb.model.Company;
 import java.util.List;
 
 /**
- * Company service interface.
+ * CompanyDmo service interface.
  */
 public interface CompanyService {
 

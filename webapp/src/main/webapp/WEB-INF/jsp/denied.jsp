@@ -14,7 +14,7 @@
 
 <div class="container">
     <div class="alert alert-success">
-        <p>Dear <strong>${user}</strong>, You are not authorized to access this page
+        <p>Dear <strong>${userDmo}</strong>, You are not authorized to access this page
             <a href="logout">Logout</a>
         </p>
     </div>

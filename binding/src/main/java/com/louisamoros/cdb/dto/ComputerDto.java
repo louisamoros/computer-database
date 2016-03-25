@@ -13,8 +13,8 @@ import javax.validation.constraints.NotNull;
 @DateOrder(message = "Introduced date should be before discontinued date.")
 public class ComputerDto {
 
-  @NotNull(message = "Computer name can't be null.")
-  @NotEmpty(message = "Computer name can't be empty.")
+  @NotNull(message = "ComputerDmo name can't be null.")
+  @NotEmpty(message = "ComputerDmo name can't be empty.")
   private String computerName;
 
   @Date(message = "Discontinued date format is wrong.")

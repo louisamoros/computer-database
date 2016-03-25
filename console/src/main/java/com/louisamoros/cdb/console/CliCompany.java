@@ -41,7 +41,7 @@ public final class CliCompany {
             LOGGER.info("Command: DELETE id->" + cmd.getOptionValue("d"));
             companyService.delete(Integer.parseInt(cmd.getOptionValue("d")));
         } else { // WRONG METHOD
-            LOGGER.info("Company action: -g all, -d <id> (delete id)");
+            LOGGER.info("CompanyDmo action: -g all, -d <id> (delete id)");
         }
 
     }

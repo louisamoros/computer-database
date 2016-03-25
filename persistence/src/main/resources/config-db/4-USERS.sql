@@ -1,5 +1,5 @@
 /*All User's are stored in APP_USER table*/
-create table user (
+create table userDmo (
    id BIGINT NOT NULL AUTO_INCREMENT,
    username VARCHAR(30) NOT NULL,
    password VARCHAR(100) NOT NULL,
@@ -23,7 +23,7 @@ CREATE TABLE user_user_profile (
     user_id BIGINT NOT NULL,
     user_profile_id BIGINT NOT NULL,
     PRIMARY KEY (user_id, user_profile_id),
-    CONSTRAINT fk_user FOREIGN KEY (user_id) REFERENCES user (id),
+    CONSTRAINT fk_user FOREIGN KEY (user_id) REFERENCES userDmo (id),
     CONSTRAINT fk_user_profile FOREIGN KEY (user_profile_id) REFERENCES user_profile (id)
 );
 
@@ -35,32 +35,32 @@ INSERT INTO user_profile(type)
 VALUES ('ADMIN');
 
 /* Populate APP_USER Table */
-INSERT INTO user(username, password, first_name, last_name, email)
+INSERT INTO userDmo(username, password, first_name, last_name, email)
 VALUES ('bill','abc123', 'Bill','Watcher','bill@xyz.com');
 
-INSERT INTO user(username, password, first_name, last_name, email)
+INSERT INTO userDmo(username, password, first_name, last_name, email)
 VALUES ('danny','abc124', 'Danny','Theys','danny@xyz.com');
 
-INSERT INTO user(username, password, first_name, last_name, email)
+INSERT INTO userDmo(username, password, first_name, last_name, email)
 VALUES ('sam','abc125', 'Sam','Smith','samy@xyz.com');
 
-INSERT INTO user(username, password, first_name, last_name, email)
+INSERT INTO userDmo(username, password, first_name, last_name, email)
 VALUES ('kenny','abc127', 'Kenny','Roger','kenny@xyz.com');
 
 /* Populate JOIN Table */
 INSERT INTO user_user_profile(user_id, user_profile_id)
-  SELECT user.id, profile.id FROM user user, user_profile profile
-  where user.username='bill' and profile.type='USER';
+  SELECT userDmo.id, profile.id FROM userDmo userDmo, user_profile profile
+  where userDmo.username='bill' and profile.type='USER';
 
 INSERT INTO user_user_profile(user_id, user_profile_id)
-  SELECT user.id, profile.id FROM user user, user_profile profile
-  where user.username='danny' and profile.type='USER';
+  SELECT userDmo.id, profile.id FROM userDmo userDmo, user_profile profile
+  where userDmo.username='danny' and profile.type='USER';
 
 INSERT INTO user_user_profile(user_id, user_profile_id)
-  SELECT user.id, profile.id FROM user user, user_profile profile
-  where user.username='sam' and profile.type='ADMIN';
+  SELECT userDmo.id, profile.id FROM userDmo userDmo, user_profile profile
+  where userDmo.username='sam' and profile.type='ADMIN';
 
 INSERT INTO user_user_profile(user_id, user_profile_id)
-  SELECT user.id, profile.id FROM user user, user_profile profile
-  where user.username='kenny' and profile.type='ADMIN';
+  SELECT userDmo.id, profile.id FROM userDmo userDmo, user_profile profile
+  where userDmo.username='kenny' and profile.type='ADMIN';
 

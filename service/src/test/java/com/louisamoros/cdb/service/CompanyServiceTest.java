@@ -3,7 +3,7 @@
 // import com.louisamoros.cdb.dao.CompanyDao;
 // import com.louisamoros.cdb.dao.CompanyRepository;
 // import com.louisamoros.cdb.dao.ComputerDao;
-// import com.louisamoros.cdb.model.Company;
+// import com.louisamoros.cdb.model.CompanyDmo;
 // import com.louisamoros.cdb.service.CompanyService;
 //
 // import org.junit.Assert;
@@ -24,7 +24,7 @@
 // import java.util.List;
 //
 /// **
-// * Company service test.
+// * CompanyDmo service test.
 // */
 // @RunWith(SpringJUnit4ClassRunner.class)
 // @ContextConfiguration("classpath:test-mvc-application-context.xml")
@@ -84,13 +84,13 @@
 // * Get companies method for test.
 // * @return companies the list of company
 // */
-// private List<Company> getCompanies() {
-// List<Company> companies = new ArrayList<>();
-// Company company = new Company.Builder().name("company1").id(1).build();
+// private List<CompanyDmo> getCompanies() {
+// List<CompanyDmo> companies = new ArrayList<>();
+// CompanyDmo company = new CompanyDmo.Builder().name("company1").id(1).build();
 // companies.add(company);
-// company = new Company.Builder().name("company2").id(2).build();
+// company = new CompanyDmo.Builder().name("company2").id(2).build();
 // companies.add(company);
-// company = new Company.Builder().name("company3").id(3).build();
+// company = new CompanyDmo.Builder().name("company3").id(3).build();
 // companies.add(company);
 // return companies;
 // }

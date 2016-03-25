@@ -1,4 +1,4 @@
-package com.louisamoros.cdb.model.validator;
+package com.louisamoros.cdb.dmo.validator;
 
 import javax.validation.Constraint;
 import javax.validation.Payload;

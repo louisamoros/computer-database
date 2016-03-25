@@ -5,18 +5,18 @@
 <spring:message code="label.lang" var="lang"/>
 <header class="navbar navbar-inverse navbar-fixed-top">
     <div class="container">
-        <a class="navbar-brand" href="computer/list"> Application - Computer Database </a>
+        <a class="navbar-brand" href="computerDmo/list"> Application - Computer Database </a>
         <ul class="nav navbar-nav navbar-right">
-            <c:if test="${user != null}">
+            <c:if test="${userDmo != null}">
                 <li class="dropdown">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
-                       aria-expanded="false">${user} <span class="caret"></span></a>
+                       aria-expanded="false">${userDmo} <span class="caret"></span></a>
                     <ul class="dropdown-menu">
                         <li><a href="logout">Logout</a></li>
                         <li role="separator" class="divider"></li>
                         <li><a href="admin">Admin</a></li>
                         <li role="separator" class="divider"></li>
-                        <li><a href="computer/list">Dashboard</a></li>
+                        <li><a href="computerDmo/list">Dashboard</a></li>
                     </ul>
                 </li>
             </c:if>

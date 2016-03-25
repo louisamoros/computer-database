@@ -14,6 +14,7 @@
         <module>binding</module>
         <module>webapp</module>
         <module>console</module>
+        <module>webservice</module>
     </modules>
 
     <repositories>
@@ -85,12 +86,6 @@
                 <artifactId>core</artifactId>
                 <version>${project.version}</version>
             </dependency>
-            <!-- Hibernate -->
-            <dependency>
-                <groupId>org.hibernate</groupId>
-                <artifactId>hibernate-core</artifactId>
-                <version>${hibernate.version}</version>
-            </dependency>
             <!-- Validation -->
             <dependency>
                 <groupId>javax.validation</groupId>
@@ -111,6 +106,11 @@
             <dependency>
                 <groupId>org.springframework</groupId>
                 <artifactId>spring-test</artifactId>
+                <version>${springframework.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.springframework</groupId>
+                <artifactId>spring-core</artifactId>
                 <version>${springframework.version}</version>
             </dependency>
             <!-- Spring Security -->
@@ -248,7 +248,7 @@
                 <version>${javax.servlet.version}</version>
                 <scope>provided</scope>
             </dependency>
-            <!-- Jackson for rest api -->
+            <!-- Jackson for rest RestComputerController -->
             <dependency>
                 <groupId>com.fasterxml.jackson.core</groupId>
                 <artifactId>jackson-databind</artifactId>

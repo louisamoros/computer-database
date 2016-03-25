@@ -1,84 +1,66 @@
 package com.louisamoros.cdb.model;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
-import javax.persistence.ManyToMany;
-import javax.validation.constraints.NotNull;
 import java.util.HashSet;
 import java.util.Set;
 
 /**
  * User class model.
  */
-@Entity(name = "user")
-public class User {
+public final class User {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
-
-    @NotNull
-    @Column(name = "username", unique = true, nullable = false)
     private String username;
-
-    @NotNull
-    @Column(name = "password", nullable = false)
     private String password;
-
-    @NotNull
-    @Column(name = "first_name", nullable = false)
     private String firstName;
-
-    @NotNull
-    @Column(name = "last_name", nullable = false)
     private String lastName;
-
-    @NotNull
-    @Column(name = "email", nullable = false)
     private String email;
-
-    @ManyToMany(fetch = FetchType.EAGER)
-    @JoinTable(name = "user_user_profile",
-            joinColumns = {@JoinColumn(name = "user_id")},
-            inverseJoinColumns = {@JoinColumn(name = "user_profile_id")})
     private Set<UserProfile> userProfiles = new HashSet<>();
 
-    public final long getId() {
+    /**
+     * User class use builder pattern.
+     *
+     * @param builder the builder
+     */
+    private User(final Builder builder) {
+        this.id = builder.id;
+        this.username = builder.username;
+        this.password = builder.password;
+        this.firstName = builder.firstName;
+        this.lastName = builder.lastName;
+        this.email = builder.email;
+        this.userProfiles = builder.userProfiles;
+    }
+
+    public long getId() {
         return id;
     }
 
-    public final String getUsername() {
+    public String getUsername() {
         return username;
     }
 
-    public final String getPassword() {
+    public String getPassword() {
         return password;
     }
 
-    public final String getFirstName() {
+    public String getFirstName() {
         return firstName;
     }
 
-    public final String getLastName() {
+    public String getLastName() {
         return lastName;
     }
 
-    public final String getEmail() {
+    public String getEmail() {
         return email;
     }
 
-    public final Set<UserProfile> getUserProfiles() {
+    public Set<UserProfile> getUserProfiles() {
         return userProfiles;
     }
 
     @Override
-    public final boolean equals(final Object o) {
+    public boolean equals(final Object o) {
         if (this == o) {
             return true;
         }
@@ -111,7 +93,7 @@ public class User {
     }
 
     @Override
-    public final int hashCode() {
+    public int hashCode() {
         int result = (int) (id ^ (id >>> 32));
         result = 31 * result + (username != null ? username.hashCode() : 0);
         result = 31 * result + (password != null ? password.hashCode() : 0);
@@ -120,5 +102,112 @@ public class User {
         result = 31 * result + (email != null ? email.hashCode() : 0);
         result = 31 * result + (userProfiles != null ? userProfiles.hashCode() : 0);
         return result;
+    }
+
+    @Override
+    public String toString() {
+        return "User [id=" + id + ", username='" + username + ", password='" + password + ", firstName='"
+                + firstName + ", lastName='" + lastName + ", email='" + email + ", userProfiles=" + userProfiles + ']';
+    }
+
+    /**
+     * The builder class for computer model.
+     */
+    public static class Builder {
+
+        private long id;
+        private String username;
+        private String password;
+        private String firstName;
+        private String lastName;
+        private String email;
+        private Set<UserProfile> userProfiles = new HashSet<>();
+
+        /**
+         * Building the id.
+         *
+         * @param id the user id
+         * @return builder
+         */
+        public final Builder id(final long id) {
+            this.id = id;
+            return this;
+        }
+
+        /**
+         * Building the username.
+         *
+         * @param username the username
+         * @return builder
+         */
+        public final Builder username(final String username) {
+            this.username = username;
+            return this;
+        }
+
+        /**
+         * Building the password.
+         *
+         * @param password the password.
+         * @return builder
+         */
+        public final Builder password(final String password) {
+            this.password = password;
+            return this;
+        }
+
+        /**
+         * Building the first name.
+         *
+         * @param firstName the first name
+         * @return builder
+         */
+        public final Builder fistName(final String firstName) {
+            this.firstName = firstName;
+            return this;
+        }
+
+        /**
+         * Building the last name.
+         *
+         * @param lastName the last name
+         * @return builder
+         */
+        public final Builder lastName(final String lastName) {
+            this.lastName = lastName;
+            return this;
+        }
+
+        /**
+         * Building the email.
+         *
+         * @param email the email
+         * @return builder
+         */
+        public final Builder email(final String email) {
+            this.email = email;
+            return this;
+        }
+
+        /**
+         * Building the user profiles.
+         *
+         * @param userProfiles the user profiles
+         * @return builder
+         */
+        public final Builder userProfiles(final Set<UserProfile> userProfiles) {
+            this.userProfiles = userProfiles;
+            return this;
+        }
+
+        /**
+         * Building the user model.
+         *
+         * @return computer
+         */
+        protected final User build() {
+            return new User(this);
+        }
+
     }
 }

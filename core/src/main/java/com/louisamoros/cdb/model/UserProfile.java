@@ -1,34 +1,25 @@
 package com.louisamoros.cdb.model;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import com.louisamoros.cdb.model.util.UserProfileType;
 
 /**
- * User profile class.
+ * User profile model class.
  */
-@Entity(name = "user_profile")
-public class UserProfile {
+public final class UserProfile {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
-
-    @Column(name = "type", length = 15, unique = true, nullable = false)
     private String type = UserProfileType.USER.getUserProfileType();
 
-    public final long getId() {
+    public long getId() {
         return id;
     }
 
-    public final String getType() {
+    public String getType() {
         return type;
     }
 
     @Override
-    public final boolean equals(final Object o) {
+    public boolean equals(final Object o) {
         if (this == o) {
             return true;
         }
@@ -46,9 +37,14 @@ public class UserProfile {
     }
 
     @Override
-    public final int hashCode() {
+    public int hashCode() {
         int result = (int) (id ^ (id >>> 32));
         result = 31 * result + (type != null ? type.hashCode() : 0);
         return result;
+    }
+
+    @Override
+    public String toString() {
+        return "UserProfile [id=" + id + ", type='" + type + ']';
     }
 }

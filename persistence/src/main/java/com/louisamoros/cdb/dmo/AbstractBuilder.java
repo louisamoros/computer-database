@@ -1,4 +1,4 @@
-package com.louisamoros.cdb.model;
+package com.louisamoros.cdb.dmo;
 
 
 import javax.validation.ConstraintViolation;

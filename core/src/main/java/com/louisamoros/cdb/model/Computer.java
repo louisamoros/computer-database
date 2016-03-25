@@ -1,46 +1,16 @@
 package com.louisamoros.cdb.model;
 
-import com.louisamoros.cdb.model.validator.DateOrder;
-
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Size;
-import java.io.Serializable;
 import java.time.LocalDate;
 
 /**
  * Computer model class.
  */
-@DateOrder
-@Entity(name = "computer")
-public final class Computer implements Serializable {
+public final class Computer {
 
-    private static final long serialVersionUID = -1468059361405464223L;
-
-    @Id
-    @Column(name = "id")
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long computerId;
-
-    @ManyToOne
-    @JoinColumn(name = "company_id")
+    private long id;
     private Company company;
-
-    @Size(min = 1, max = 80)
-    @NotNull
-    @Column(name = "name", nullable = false)
-    private String computerName;
-
-    @Column(name = "introduced")
+    private String name;
     private LocalDate introduced;
-
-    @Column(name = "discontinued")
     private LocalDate discontinued;
 
     /**
@@ -49,30 +19,23 @@ public final class Computer implements Serializable {
      * @param builder the builder
      */
     private Computer(final Builder builder) {
-        this.computerId = builder.computerId;
-        this.computerName = builder.computerName;
+        this.id = builder.id;
+        this.name = builder.name;
         this.company = builder.company;
         this.discontinued = builder.discontinued;
         this.introduced = builder.introduced;
     }
 
-    /**
-     * Default private constructor to enable hibernate using reflection.
-     */
-    private Computer() {
-        super();
-    }
-
-    public long getComputerId() {
-        return computerId;
+    public long getId() {
+        return id;
     }
 
     public Company getCompany() {
         return company;
     }
 
-    public String getComputerName() {
-        return computerName;
+    public String getName() {
+        return name;
     }
 
     public LocalDate getIntroduced() {
@@ -85,21 +48,21 @@ public final class Computer implements Serializable {
 
     @Override
     public String toString() {
-        return "Computer [computerId=" + computerId + ", company=" + company + ", computerName="
-                + computerName + ", introduced=" + introduced + ", discontinued=" + discontinued
+        return "Computer [id=" + id + ", company=" + company + ", name="
+                + name + ", introduced=" + introduced + ", discontinued=" + discontinued
                 + "]";
     }
 
     /**
      * The builder class for computer model.
      */
-    public static class Builder extends AbstractBuilder<Computer> {
+    public static class Builder {
 
         // require
-        private String computerName;
+        private String name;
 
         // optional
-        private long computerId;
+        private long id;
         private Company company;
         private LocalDate introduced;
         private LocalDate discontinued;
@@ -110,17 +73,17 @@ public final class Computer implements Serializable {
          * @param name the name
          */
         public Builder(final String name) {
-            this.computerName = name;
+            this.name = name;
         }
 
         /**
          * Building the id.
          *
-         * @param computerId the computer id
+         * @param id the computer id
          * @return builder
          */
-        public final Builder id(final long computerId) {
-            this.computerId = computerId;
+        public final Builder id(final long id) {
+            this.id = id;
             return this;
         }
 
@@ -162,8 +125,7 @@ public final class Computer implements Serializable {
          *
          * @return computer
          */
-        @Override
-        protected final Computer buildInternal() {
+        protected final Computer build() {
             return new Computer(this);
         }
 

@@ -3,7 +3,7 @@
 // import com.louisamoros.cdb.dao.ComputerDao;
 // import com.louisamoros.cdb.exception.InvalidComputerNameException;
 // import com.louisamoros.cdb.exception.InvalidDateOrderException;
-// import com.louisamoros.cdb.model.Computer;
+// import com.louisamoros.cdb.model.ComputerDmo;
 // import com.louisamoros.cdb.service.ComputerService;
 //
 // import org.junit.Assert;
@@ -25,7 +25,7 @@
 // import java.util.List;
 //
 /// **
-// * Computer service test class.
+// * ComputerDmo service test class.
 // */
 // @RunWith(SpringJUnit4ClassRunner.class)
 // @ContextConfiguration("classpath:test-mvc-application-context.xml")
@@ -76,7 +76,7 @@
 // @Test
 // public final void createComputerOk() {
 // LOGGER.info("createComputerOk...");
-// Computer computer1 = new Computer.Builder("computer1").company(null).introduced(null)
+// ComputerDmo computer1 = new ComputerDmo.Builder("computer1").company(null).introduced(null)
 // .discontinued(null).build();
 // Mockito.when(mockComputerDao.create(computer1)).thenReturn(computer1);
 // Assert.assertTrue(computerService.create(computer1).equals(computer1));
@@ -88,7 +88,7 @@
 // @Test(expected = InvalidComputerNameException.class)
 // public final void createComputerInvalidNameKo() {
 // LOGGER.info("createComputerInvalidNameKo...");
-// Computer computer1 = new Computer.Builder(null).company(null).discontinued(null)
+// ComputerDmo computer1 = new ComputerDmo.Builder(null).company(null).discontinued(null)
 // .introduced(null).build();
 // computerService.create(computer1);
 // }
@@ -99,7 +99,7 @@
 // @Test(expected = InvalidDateOrderException.class)
 // public final void createComputerInvalidDateOrderKo() {
 // LOGGER.info("createComputerInvalidDateOrderKo...");
-// Computer computer1 = new Computer.Builder("computer1").company(null)
+// ComputerDmo computer1 = new ComputerDmo.Builder("computer1").company(null)
 // .discontinued(LocalDate.of(2000, 9, 9)).introduced(LocalDate.now()).build();
 // computerService.create(computer1);
 // }
@@ -110,7 +110,7 @@
 // @Test
 // public final void deleteComputerOk() {
 // LOGGER.info("deleteComputerOk...");
-// ArrayList<Computer> computers = getComputers();
+// ArrayList<ComputerDmo> computers = getComputers();
 // computers.remove(1);
 // mockComputerDao.delete(1);
 // Mockito.when(mockComputerDao.getAll()).thenReturn(computers);
@@ -123,8 +123,8 @@
 // @Test
 // public final void updateComputerTestOk() {
 // LOGGER.info("updateComputerOk...");
-// ArrayList<Computer> computers = getComputers();
-// Computer computer1 = new Computer.Builder("updatedComputer").company(null).discontinued(null)
+// ArrayList<ComputerDmo> computers = getComputers();
+// ComputerDmo computer1 = new ComputerDmo.Builder("updatedComputer").company(null).discontinued(null)
 // .introduced(null).build();
 // computers.set(1, computer1);
 // Mockito.when(mockComputerDao.update(computer1)).thenReturn(computer1);
@@ -137,12 +137,12 @@
 // * Return list of computer for test.
 // * @return list of computer
 // */
-// private ArrayList<Computer> getComputers() {
-// Computer computer1 = new Computer.Builder("computer1").company(null).discontinued(null)
+// private ArrayList<ComputerDmo> getComputers() {
+// ComputerDmo computer1 = new ComputerDmo.Builder("computer1").company(null).discontinued(null)
 // .introduced(null).build();
-// Computer computer2 = new Computer.Builder("computer2").company(null).discontinued(null)
+// ComputerDmo computer2 = new ComputerDmo.Builder("computer2").company(null).discontinued(null)
 // .introduced(null).build();
-// ArrayList<Computer> computers = new ArrayList<>();
+// ArrayList<ComputerDmo> computers = new ArrayList<>();
 // computers.add(computer1);
 // computers.add(computer2);
 // return computers;

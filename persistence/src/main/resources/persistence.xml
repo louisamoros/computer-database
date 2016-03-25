@@ -1,10 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <persistence xmlns="http://java.sun.com/xml/ns/persistence" version="2.0">
     <persistence-unit name="cdb-persistence-unit" transaction-type="RESOURCE_LOCAL">
-        <class>com.louisamoros.cdb.model.Computer</class>
-        <class>com.louisamoros.cdb.model.Company</class>
-        <class>com.louisamoros.cdb.model.User</class>
-        <class>com.louisamoros.cdb.model.UserProfile</class>
-        <class>com.louisamoros.cdb.model.UserProfileType</class>
+        <class>com.louisamoros.cdb.dmo.ComputerDmo</class>
+        <class>com.louisamoros.cdb.dmo.CompanyDmo</class>
+        <class>com.louisamoros.cdb.dmo.UserDmo</class>
+        <class>com.louisamoros.cdb.dmo.UserProfileDmo</class>
     </persistence-unit>
 </persistence>

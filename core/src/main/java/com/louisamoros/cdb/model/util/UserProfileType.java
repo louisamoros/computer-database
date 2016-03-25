@@ -1,4 +1,4 @@
-package com.louisamoros.cdb.model;
+package com.louisamoros.cdb.model.util;
 
 /**
  * User profile type enum class.

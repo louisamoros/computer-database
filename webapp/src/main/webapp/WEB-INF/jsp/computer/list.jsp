@@ -24,13 +24,13 @@
             </h1>
             <div id="actions" class="form-horizontal">
                 <div class="pull-left">
-                    <form id="searchForm" action="computer/list" method="GET" class="form-inline">
+                    <form id="searchForm" action="computerDmo/list" method="GET" class="form-inline">
                         <input type="search" id="searchbox" name="search" value="${page.search}" class="form-control" placeholder="${searchPlaceholder}" />
                         <input type="submit" value="${searchSubmitButton}" id="searchsubmit" class="btn btn-primary" />
                     </form>
                 </div>
                 <div class="pull-right">
-                    <a class="btn btn-success" id="addComputer" href="computer/new">
+                    <a class="btn btn-success" id="addComputer" href="computerDmo/new">
                         <spring:message code="label.addComputer" />
                     </a>
                     <a class="btn btn-default" id="editComputer" onclick="$.fn.toggleEditMode();">
@@ -40,7 +40,7 @@
             </div>
         </div>
 
-        <form id="deleteForm" action="computer/delete" method="POST">
+        <form id="deleteForm" action="computerDmo/delete" method="POST">
             <input type="hidden" name="selection" value="">
         </form>
 
@@ -114,7 +114,7 @@
                     <c:forEach items="${computersDto}" var="computerDto">
                         <tr>
                             <td class="editMode"><input type="checkbox" name="cb" class="cb" value="${computerDto.computerId}"></td>
-                            <td><a href="computer/edit/${computerDto.computerId}">
+                            <td><a href="computerDmo/edit/${computerDto.computerId}">
                                     <c:out value="${computerDto.computerName}" />
                                 </a></td>
                             <td><c:out value="${computerDto.introduced}" /></td>

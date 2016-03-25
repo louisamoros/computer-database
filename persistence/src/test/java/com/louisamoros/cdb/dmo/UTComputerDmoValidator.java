@@ -1,4 +1,4 @@
-package com.louisamoros.cdb.model;
+package com.louisamoros.cdb.dmo;
 
 import org.junit.Assert;
 import org.junit.Test;
@@ -16,17 +16,18 @@ import java.util.Set;
 /**
  * Unit test class to test computer validation model.
  */
+
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration("classpath:test-core-context.xml")
-public class UTComputerValidator {
+public class UTComputerDmoValidator {
 
     @Resource
     private Validator validator;
 
     @Test
     public void validComputer() {
-        Computer computer = new Computer.Builder("computer").build();
-        Set<ConstraintViolation<Computer>> constraintViolations = validator.validate(computer);
+        ComputerDmo computer = new ComputerDmo.Builder("computer").build();
+        Set<ConstraintViolation<ComputerDmo>> constraintViolations = validator.validate(computer);
         Assert.assertEquals(0, constraintViolations.size());
         Assert.assertNotNull(computer);
     }
@@ -34,7 +35,7 @@ public class UTComputerValidator {
     @Test
     public void nameNull() {
         try {
-            new Computer.Builder(null).build();
+            new ComputerDmo.Builder(null).build();
             Assert.fail("Expected ConstraintViolationException wasn't thrown.");
         }
         catch (ConstraintViolationException e) {
@@ -46,7 +47,7 @@ public class UTComputerValidator {
     @Test
     public void wrongOrderDate() {
         try {
-            new Computer.Builder("computer")
+            new ComputerDmo.Builder("computer")
                     .introduced(LocalDate.of(1992, 9, 21))
                     .discontinued(LocalDate.of(1992, 9, 20))
                     .build();

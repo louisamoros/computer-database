@@ -34,12 +34,7 @@ public class ComputerServiceImpl implements ComputerService {
 
     @Override
     public final Page<Computer> findAll(final Pageable pageRequest, final String search) {
-        Predicate searchFilter = null;
-        if (!search.isEmpty()) {
-            searchFilter = QComputer.computer.computerName.contains(search)
-                    .or(QComputer.computer.company.companyName.contains(search));
-        }
-        return computerDao.findAll(searchFilter, pageRequest);
+        return computerDao.findAll(search, pageRequest);
     }
 
     @Override

@@ -8,12 +8,12 @@ import com.louisamoros.cdb.service.exception.InvalidDateOrderException;
 import java.util.List;
 
 /**
- * Computer model validator class.
+ * ComputerDmo model validator class.
  */
 public final class ComputerValidator {
 
   /**
-   * Computer validator constructor.
+   * ComputerDmo validator constructor.
    */
   private ComputerValidator() {
     super();
@@ -27,14 +27,14 @@ public final class ComputerValidator {
   public static void validate(final Computer computer) {
 
     if (computer == null) {
-      throw new IntegrityException("Computer cannot be null.");
+      throw new IntegrityException("ComputerDmo cannot be null.");
     }
     if (computer.getIntroduced() != null && computer.getDiscontinued() != null
         && computer.getIntroduced().isAfter(computer.getDiscontinued())) {
       throw new InvalidDateOrderException("Introduced date should be before discontinued date.");
     }
-    if (computer.getComputerName() == null || computer.getComputerName().isEmpty()) {
-      throw new InvalidComputerNameException("Computer name is required.");
+    if (computer.getName() == null || computer.getName().isEmpty()) {
+      throw new InvalidComputerNameException("ComputerDmo name is required.");
     }
 
   }

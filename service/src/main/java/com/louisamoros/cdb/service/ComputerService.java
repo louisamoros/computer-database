@@ -8,7 +8,7 @@ import org.springframework.data.domain.Pageable;
 import java.util.List;
 
 /**
- * Computer service interface.
+ * ComputerDmo service interface.
  */
 public interface ComputerService {
 

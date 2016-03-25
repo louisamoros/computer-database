@@ -43,7 +43,7 @@ public class CustomUserDetailsService implements UserDetailsService {
         User user = userService.findByUsername(username);
         LOGGER.info("USER: " + user);
         if (user == null) {
-            LOGGER.info("User not found");
+            LOGGER.info("UserDmo not found");
             throw new UsernameNotFoundException("Username not found");
         }
         return new org.springframework.security.core.userdetails.User(user.getUsername(), user.getPassword(),

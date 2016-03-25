@@ -6,12 +6,12 @@ import com.louisamoros.cdb.service.exception.IntegrityException;
 import java.util.List;
 
 /**
- * Company model validator class.
+ * CompanyDmo model validator class.
  */
 public final class CompanyValidator {
 
   /**
-   * Company validator constructor.
+   * CompanyDmo validator constructor.
    */
   private CompanyValidator() {
     super();
@@ -24,10 +24,10 @@ public final class CompanyValidator {
   public static void validate(final Company company) {
 
     if (company == null) {
-      throw new IntegrityException("Company cannot be null validation says.");
+      throw new IntegrityException("CompanyDmo cannot be null validation says.");
     }
-    if (company.getCompanyId() < 0) {
-      throw new IntegrityException("Company id cannot be negative.");
+    if (company.getId() < 0) {
+      throw new IntegrityException("CompanyDmo id cannot be negative.");
     }
 
   }

@@ -9,7 +9,7 @@
     <http auto-config="true" >
         <intercept-url pattern="/" access="permitAll" />
         <intercept-url pattern="/admin/**" access="hasRole('ADMIN')" />
-        <intercept-url pattern="/computer/**" access="hasRole('USER')" />
+        <intercept-url pattern="/computerDmo/**" access="hasRole('USER')" />
         <form-login  login-page="/login"
                      username-parameter="username"
                      password-parameter="password"
@@ -18,7 +18,7 @@
     </http>
 
     <authentication-manager >
-        <authentication-provider user-service-ref="customUserDetailsService"/>
+        <authentication-provider userDmo-service-ref="customUserDetailsService"/>
     </authentication-manager>
 
     <beans:bean id="customUserDetailsService" class="com.louisamoros.cdb.security.CustomUserDetailsService" />

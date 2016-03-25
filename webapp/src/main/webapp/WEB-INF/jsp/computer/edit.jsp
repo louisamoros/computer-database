@@ -20,7 +20,7 @@
      <div class="label label-default pull-right">id: ${computerDto.computerId}</div>
      <h1><spring:message code="label.editComputerTitle" /></h1>
 
-     <form action="computer/edit/${computerDto.computerId}" method="POST">
+     <form action="computerDmo/edit/${computerDto.computerId}" method="POST">
       <fieldset>
        <input type="text" id="computerId" name="computerId" value="${computerDto.computerId}" hidden="true" />
        <div class="form-group">
@@ -42,7 +42,7 @@
        </div>
       </fieldset>
       <div class="actions pull-right">
-       <input type="submit" value="${editComputerButton}" class="btn btn-primary"> or <a href="computer/list"><spring:message code="label.cancelLink" /></a>
+       <input type="submit" value="${editComputerButton}" class="btn btn-primary"> or <a href="computerDmo/list"><spring:message code="label.cancelLink" /></a>
       </div>
      </form>
     </div>

@@ -1,6 +1,6 @@
-package com.louisamoros.cdb.model.validator;
+package com.louisamoros.cdb.dmo.validator;
 
-import com.louisamoros.cdb.model.Computer;
+import com.louisamoros.cdb.dmo.ComputerDmo;
 
 import javax.validation.ConstraintValidator;
 import javax.validation.ConstraintValidatorContext;
@@ -9,22 +9,22 @@ import java.time.LocalDate;
 /**
  * DateOrderConstraintValidator class use to validate date order for annotation.
  */
-public class DateOrderConstraintValidator implements ConstraintValidator<DateOrder, Computer> {
+public class DateOrderConstraintValidator implements ConstraintValidator<DateOrder, ComputerDmo> {
 
   @Override
   public void initialize(final DateOrder dateOrder) {
   }
 
   @Override
-  public final boolean isValid(final Computer computer,
+  public final boolean isValid(final ComputerDmo computerDmo,
       final ConstraintValidatorContext context) {
 
-    if (computer == null) {
+    if (computerDmo == null) {
       return false;
     }
 
-    LocalDate introduced = computer.getIntroduced();
-    LocalDate discontinued = computer.getDiscontinued();
+    LocalDate introduced = computerDmo.getIntroduced();
+    LocalDate discontinued = computerDmo.getDiscontinued();
 
     if (introduced == null || discontinued == null) {
       return true;

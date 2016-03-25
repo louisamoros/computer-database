@@ -3,7 +3,7 @@ package com.louisamoros.cdb.service;
 import com.louisamoros.cdb.model.User;
 
 /**
- * User service class.
+ * UserDmo service class.
  */
 public interface UserService {
 
