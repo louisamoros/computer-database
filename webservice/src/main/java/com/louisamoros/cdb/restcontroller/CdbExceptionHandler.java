@@ -1,8 +1,8 @@
-package com.louisamoros.cdb.api;
+package com.louisamoros.cdb.restcontroller;
 
-import com.louisamoros.cdb.api.exception.InvalidRequestException;
-import com.louisamoros.cdb.api.util.ErrorResource;
-import com.louisamoros.cdb.api.util.FieldErrorResource;
+import com.louisamoros.cdb.restcontroller.exception.InvalidRequestException;
+import com.louisamoros.cdb.restcontroller.util.ErrorResource;
+import com.louisamoros.cdb.restcontroller.util.FieldErrorResource;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;

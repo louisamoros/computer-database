@@ -1,4 +1,4 @@
-package com.louisamoros.cdb.api.util;
+package com.louisamoros.cdb.restcontroller.util;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 

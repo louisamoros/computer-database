@@ -1,6 +1,6 @@
-package com.louisamoros.cdb.api;
+package com.louisamoros.cdb.restcontroller;
 
-import com.louisamoros.cdb.api.exception.InvalidRequestException;
+import com.louisamoros.cdb.restcontroller.exception.InvalidRequestException;
 import com.louisamoros.cdb.dto.ComputerDto;
 import com.louisamoros.cdb.dto.mapper.MapperComputerDto;
 import com.louisamoros.cdb.model.Computer;

@@ -1,4 +1,4 @@
-package com.louisamoros.cdb.api.exception;
+package com.louisamoros.cdb.restcontroller.exception;
 
 import org.springframework.validation.Errors;
 
