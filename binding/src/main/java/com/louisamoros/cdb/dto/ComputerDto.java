@@ -95,47 +95,6 @@ public class ComputerDto {
   }
 
   @Override
-  public final boolean equals(final Object o) {
-    if (this == o) {
-      return true;
-    }
-    if (o == null || getClass() != o.getClass()) {
-      return false;
-    }
-
-    ComputerDto that = (ComputerDto) o;
-
-    if (computerId != that.computerId) {
-      return false;
-    }
-    if (companyId != that.companyId) {
-      return false;
-    }
-    if (!computerName.equals(that.computerName)) {
-      return false;
-    }
-    if (discontinued != null ? !discontinued.equals(that.discontinued) : that.discontinued != null) {
-      return false;
-    }
-    if (introduced != null ? !introduced.equals(that.introduced) : that.introduced != null) {
-      return false;
-    }
-    return companyName != null ? companyName.equals(that.companyName) : that.companyName == null;
-
-  }
-
-  @Override
-  public final int hashCode() {
-    int result = computerName.hashCode();
-    result = 31 * result + (discontinued != null ? discontinued.hashCode() : 0);
-    result = 31 * result + (introduced != null ? introduced.hashCode() : 0);
-    result = 31 * result + (int) (computerId ^ (computerId >>> 32));
-    result = 31 * result + (companyName != null ? companyName.hashCode() : 0);
-    result = 31 * result + (int) (companyId ^ (companyId >>> 32));
-    return result;
-  }
-
-  @Override
   public final String toString() {
     return "ComputerDto [computerId=" + computerId + ", computerName=" + computerName
         + ", discontinued=" + discontinued + ", introduced=" + introduced + ", companyName="
