@@ -5,7 +5,7 @@
        xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd">
 
     <!-- Importing required context -->
-    <import resource="classpath:/persistence-context.xml"/>
+    <import resource="classpath:persistence-context.xml"/>
 
     <!-- Scanning module package -->
     <context:annotation-config />
