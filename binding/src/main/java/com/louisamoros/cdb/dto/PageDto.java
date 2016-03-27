@@ -64,7 +64,7 @@ public final class PageDto {
     /**
      * The builder class.
      */
-    public static class Builder {
+    public static class Builder extends AbstractBuilderDto<PageDto> {
 
         private int totalPages;
         private long totalElements;
@@ -159,7 +159,8 @@ public final class PageDto {
          * Building the page dto.
          * @return the page dto object
          */
-        public final PageDto build() {
+        @Override
+        protected final PageDto buildInternal() {
             return new PageDto(this);
         }
     }

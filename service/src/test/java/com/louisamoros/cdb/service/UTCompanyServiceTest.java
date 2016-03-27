@@ -59,6 +59,7 @@ public class UTCompanyServiceTest {
         LOGGER.info("getAllCompaniesOk...");
         Mockito.when(mockCompanyDao.findAll()).thenReturn(getCompanies());
         List<Company> companies = companyService.findAll();
+        LOGGER.info(companies.toString());
         Assert.assertEquals(3, companies.size());
     }
 

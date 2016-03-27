@@ -1,11 +1,8 @@
 package com.louisamoros.cdb.dto;
 
-import com.louisamoros.cdb.dto.validator.DateOrder;
 import com.louisamoros.cdb.dto.validator.Date;
-
+import com.louisamoros.cdb.dto.validator.DateOrder;
 import org.hibernate.validator.constraints.NotEmpty;
-
-import javax.validation.constraints.NotNull;
 
 /**
  * The Class ComputerDto.
@@ -13,7 +10,6 @@ import javax.validation.constraints.NotNull;
 @DateOrder(message = "Introduced date should be before discontinued date.")
 public class ComputerDto {
 
-  @NotNull(message = "Computer name can't be null.")
   @NotEmpty(message = "Computer name can't be empty.")
   private String computerName;
 
@@ -104,7 +100,7 @@ public class ComputerDto {
   /**
    * The Class Builder.
    */
-  public static class Builder {
+  public static class Builder extends AbstractBuilderDto<ComputerDto> {
 
     // require
     private String computerName;
@@ -185,7 +181,8 @@ public class ComputerDto {
      *
      * @return computer dto
      */
-    public final ComputerDto build() {
+    @Override
+    protected final ComputerDto buildInternal() {
       return new ComputerDto(this);
     }
 

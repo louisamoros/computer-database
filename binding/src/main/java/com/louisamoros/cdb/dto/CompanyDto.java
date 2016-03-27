@@ -34,7 +34,7 @@ public final class CompanyDto {
   /**
    * The builder class for company dto.
    */
-  public static class Builder {
+  public static class Builder extends AbstractBuilderDto<CompanyDto> {
 
     // optional
     private long id;
@@ -67,7 +67,8 @@ public final class CompanyDto {
      *
      * @return the company dto
      */
-    public final CompanyDto build() {
+    @Override
+    protected final CompanyDto buildInternal() {
       return new CompanyDto(this);
     }
 

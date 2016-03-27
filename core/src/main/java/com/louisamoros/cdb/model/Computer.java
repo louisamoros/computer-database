@@ -33,6 +33,7 @@ public final class Computer implements Serializable {
     private Company company;
 
     @Size(min = 1, max = 80)
+    @NotNull
     @Column(name = "name", nullable = false)
     private String computerName;
 

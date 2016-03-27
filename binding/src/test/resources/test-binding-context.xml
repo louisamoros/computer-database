@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+       http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+    <!-- validationFactory bean is created by instructing Spring to call
+    the static factory method Validation.buildDefaultValidatorFactory() -->
+    <bean id="validatorFactory" class="javax.validation.Validation"
+          factory-method="buildDefaultValidatorFactory"/>
+
+    <!--The validator bean in turn is created by letting Spring call
+    the getValidator() method on the validatorFactory bean. -->
+    <bean id="validator" factory-bean="validatorFactory"
+          factory-method="getValidator"/>
+</beans>
