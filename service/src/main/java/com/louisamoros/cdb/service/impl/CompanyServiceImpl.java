@@ -18,11 +18,11 @@ import java.util.List;
 public class CompanyServiceImpl implements CompanyService {
 
     @Autowired
-    private CompanyDao companyRepository;
+    private CompanyDao companyDao;
 
     @Override
     public final List<Company> findAll() {
-        return (List<Company>) companyRepository.findAll();
+        return (List<Company>) companyDao.findAll();
     }
 
     @Override

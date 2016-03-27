@@ -14,7 +14,7 @@
        http://www.springframework.org/schema/data/jpa/spring-jpa.xsd">
 
     <!-- Bootstrapping spring repository -->
-    <jpa:repositories base-package="com.louisamoros.cdb.model" />
+    <jpa:repositories base-package="com.louisamoros.cdb.dao" />
 
     <!-- Necessary to get the entity manager injected into the factory bean -->
     <!-- More info: http://docs.spring.io/spring-data/jpa/docs/1.4.3.RELEASE/reference/html/jpa.repositories.html -->
