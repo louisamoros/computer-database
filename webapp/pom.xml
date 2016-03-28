@@ -46,6 +46,17 @@
             <groupId>junit</groupId>
             <artifactId>junit</artifactId>
         </dependency>
+        <dependency>
+            <groupId>com.louisamoros.cdb</groupId>
+            <artifactId>persistence</artifactId>
+            <version>${project.parent.version}</version>
+            <type>test-jar</type>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>xml-apis</groupId>
+            <artifactId>xml-apis</artifactId>
+        </dependency>
         <!-- Spring -->
         <dependency>
             <groupId>org.springframework</groupId>
@@ -64,5 +75,49 @@
 
     <build>
         <finalName>webapp</finalName>
+        <plugins>
+            <plugin>
+                <groupId>org.codehaus.cargo</groupId>
+                <artifactId>cargo-maven2-plugin</artifactId>
+                <configuration>
+                    <container>
+                        <containerId>tomcat7x</containerId>
+                        <zipUrlInstaller>
+                            <url>
+                                http://archive.apache.org/dist/tomcat/tomcat-8/v8.0.30/bin/apache-tomcat-8.0.30.zip
+                            </url>
+                        </zipUrlInstaller>
+                    </container>
+                    <configuration>
+                        <properties>
+                            <cargo.servlet.port>8180</cargo.servlet.port>
+                            <cargo.tomcat.ajp.port>8109</cargo.tomcat.ajp.port>
+                        </properties>
+                    </configuration>
+                </configuration>
+                <executions>
+                    <!-- Cargo start goal is bound to pre-integration-test phase. Cargo will download
+                    a Tomcat 8.0.32 server an configure it to run on ports 8180 and 8109.
+                    After that the application under test is deployed. -->
+                    <execution>
+                        <id>start-container</id>
+                        <phase>pre-integration-test</phase>
+                        <goals>
+                            <goal>start</goal>
+                        </goals>
+                    </execution>
+                    <!-- Cargo stop goal is bound to post-integration-test phase. During this phase,
+                    that runs once fail safe finishes executing the integration tests,
+                    Cargo will stop the Tomcat server. -->
+                    <execution>
+                        <id>stop-container</id>
+                        <phase>post-integration-test</phase>
+                        <goals>
+                            <goal>stop</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+        </plugins>
     </build>
 </project>

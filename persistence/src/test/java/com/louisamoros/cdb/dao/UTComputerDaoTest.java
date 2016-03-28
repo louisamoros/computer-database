@@ -25,7 +25,7 @@ import java.util.List;
  * Testing dao class for computer.
  */
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(locations = {"classpath:persistence-context.xml"})
+@ContextConfiguration(locations = {"classpath:test-persistence-context.xml"})
 @DirtiesContext(classMode = DirtiesContext.ClassMode.AFTER_EACH_TEST_METHOD)
 public class UTComputerDaoTest {
 

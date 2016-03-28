@@ -5,16 +5,24 @@ import static org.junit.Assert.fail;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
+import org.junit.runner.RunWith;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.support.ui.Select;
+import org.springframework.test.context.ContextConfiguration;
+import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import java.util.concurrent.TimeUnit;
 
 /**
  * The Class IITAddComputerTest.
  */
+@RunWith(SpringJUnit4ClassRunner.class)
+@ContextConfiguration(locations = {
+        "classpath:test-webapp-context.xml",
+        "classpath:test-webapp-security-context.xml"
+})
 public class IITAddComputerTest {
 
     private WebDriver driver;
@@ -29,7 +37,7 @@ public class IITAddComputerTest {
     @Before
     public final void setUp() throws Exception {
         driver = new FirefoxDriver();
-        baseUrl = "http://localhost:8180";
+        baseUrl = "http://localhost:8180/";
         driver.manage().timeouts().implicitlyWait(5, TimeUnit.SECONDS);
     }
 
@@ -40,7 +48,13 @@ public class IITAddComputerTest {
      */
     @Test
     public final void test() throws Exception {
-        driver.get(baseUrl + "/cdb/computer/list");
+        driver.get(baseUrl + "webapp/login");
+        driver.findElement(By.id("username")).clear();
+        driver.findElement(By.id("username")).sendKeys("test-admin");
+        driver.findElement(By.id("password")).clear();
+        driver.findElement(By.id("password")).sendKeys("test-admin");
+//        driver.findElement(By.xpath("//button[@type='submit']")).click();
+        driver.get(baseUrl + "webapp/computer/list");
         driver.findElement(By.linkText("2")).click();
         driver.findElement(By.linkText("3")).click();
         driver.findElement(By.cssSelector("i.glyphicon.glyphicon-chevron-right")).click();

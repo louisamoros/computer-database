@@ -40,6 +40,7 @@
          </c:forEach>
         </select>
        </div>
+       <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
       </fieldset>
       <div class="actions pull-right">
        <input type="submit" value="${editComputerButton}" class="btn btn-primary"> or <a href="computer/list"><spring:message code="label.cancelLink" /></a>

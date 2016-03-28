@@ -56,6 +56,7 @@
          </c:forEach>
         </select>
        </div>
+       <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
       </fieldset>
       <div class="actions pull-right">
        <input type="submit" value="${addComputerButton}" class="btn btn-primary">

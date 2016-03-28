@@ -38,3 +38,30 @@ insert into computer (id,name,introduced,discontinued,company_id) values ( 22,'M
 insert into computer (id,name,introduced,discontinued,company_id) values ( 23,'Macintosh Plus','1986-01-16','1990-10-15',1);
 insert into computer (id,name,introduced,discontinued,company_id) values ( 24,'Macintosh IIfx',null,null,null);
 insert into computer (id,name,introduced,discontinued,company_id) values ( 25,'iMac','1998-01-01',null,1);
+
+  /* Populate USER_PROFILE Table */
+  INSERT INTO user_profile(type)
+  VALUES ('USER');
+
+  INSERT INTO user_profile(type)
+  VALUES ('ADMIN');
+
+  /* Populate APP_USER Table */
+  INSERT INTO user(username, password, first_name, last_name, email)
+  VALUES ('test','test', 'test','test','test@test.com');
+
+  INSERT INTO user(username, password, first_name, last_name, email)
+  VALUES ('test-admin','test-admin', 'test-admin','test-admin','test-admin@test.com');
+
+  /* Populate JOIN Table */
+  INSERT INTO user_user_profile(user_id, user_profile_id)
+    SELECT user.id, profile.id FROM user user, user_profile profile
+    where user.username='test' and profile.type='USER';
+
+  INSERT INTO user_user_profile(user_id, user_profile_id)
+    SELECT user.id, profile.id FROM user user, user_profile profile
+    where user.username='loul' and profile.type='USER';
+
+  INSERT INTO user_user_profile(user_id, user_profile_id)
+    SELECT user.id, profile.id FROM user user, user_profile profile
+    where user.username='loul' and profile.type='ADMIN';

@@ -3,12 +3,6 @@
 
     <display-name>computer database webapp</display-name>
 
-    <!-- Redirection page error code -->
-    <error-page>
-        <error-code>403</error-code>
-        <location>/denied</location>
-    </error-page>
-
     <!-- Enable spring dispatcher context -->
     <servlet>
         <servlet-name>dispatcher</servlet-name>
