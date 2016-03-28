@@ -1,4 +1,6 @@
- <script src="resources/js/jquery.min.js"></script>
- <script src="resources/js/bootstrap.min.js"></script>
- <script src="resources/js/computer.js"></script>
- <script src="resources/bs-formhelpers/js/bootstrap-formhelpers.js"></script>
+<!-- bower -->
+<script src="bower_components/jquery/dist/jquery.js"></script>
+<script src="/bower_components/material-design-lite/material.min.js"></script>
+
+<!-- cdb -->
+<script src="components/js/computer.js"></script>

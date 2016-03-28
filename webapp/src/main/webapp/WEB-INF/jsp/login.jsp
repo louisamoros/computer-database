@@ -24,6 +24,7 @@
                 <p>You have been logged out successfully.</p>
             </div>
         </c:if>
+
         <div class="input-group form-group">
             <label class="input-group-addon" for="username">
                 <span class="glyphicon glyphicon-user"></span>

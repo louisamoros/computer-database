@@ -1,0 +1,21 @@
+{
+  "name": "cdb-webapp",
+  "description": "cdb web application using bower.",
+  "main": "index.js",
+  "authors": [
+    "louis <amoros.louis@gmail.com>"
+  ],
+  "license": "ISC",
+  "homepage": "https://github.com/louisamoros/computerdatabase",
+  "moduleType": [],
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "material-design-lite": "^1.1.3"
+  }
+}

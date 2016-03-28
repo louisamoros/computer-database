@@ -8,8 +8,9 @@
 <c:set var="url">${pageContext.request.requestURL}</c:set>
 <base href="${fn:substring(url, 0, fn:length(url) - fn:length(pageContext.request.requestURI))}${pageContext.request.contextPath}/" />
 
-<!-- Bootstrap -->
-<link href="resources/css/bootstrap.min.css" rel="stylesheet" media="screen">
-<link href="resources/css/font-awesome.css" rel="stylesheet" media="screen">
-<link href="resources/css/main.css" rel="stylesheet" media="screen">
-<link href="resources/bs-formhelpers/css/bootstrap-formhelpers.css" rel="stylesheet" media="screen">
+<!-- bower -->
+<link rel="stylesheet" href="/bower_components/material-design-lite/material.min.css">
+<link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+
+<!-- cdb -->
+<link href="components/css/main.css" rel="stylesheet" media="screen">

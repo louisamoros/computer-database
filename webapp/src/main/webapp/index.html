@@ -1,0 +1,148 @@
+<html>
+<head>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Computer Database</title>
+
+  <!-- bower -->
+  <link rel="stylesheet" href="/bower_components/material-design-lite/material.min.css">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+
+  <!-- cdb -->
+  <link href="components/css/main.css" rel="stylesheet" media="screen">
+</head>
+<body>
+
+<!-- Always shows a header, even in smaller screens. -->
+<div class="mdl-layout mdl-js-layout mdl-layout--fixed-header">
+  <header class="mdl-layout__header">
+    <div class="mdl-layout__header-row">
+      <!-- Title -->
+      <!-- Left aligned menu below button -->
+      <span class="mdl-layout-title">Computer Database</span>
+      <!-- Add spacer, to align navigation to the right -->
+      <div class="mdl-layout-spacer"></div>
+      <!-- Search bar -->
+      <div class="mdl-textfield mdl-js-textfield mdl-textfield--expandable
+                  mdl-textfield--floating-label mdl-textfield--align-right">
+        <label class="mdl-button mdl-js-button mdl-button--icon"
+               for="fixed-header-drawer-exp">
+          <i class="material-icons">search</i>
+        </label>
+        <div class="mdl-textfield__expandable-holder">
+          <input class="mdl-textfield__input" type="text" name="sample"
+                 id="fixed-header-drawer-exp">
+        </div>
+      </div>
+      <!-- Navigation. We hide it in small screens. -->
+      <nav class="mdl-navigation mdl-layout--large-screen-only">
+        <a class="mdl-navigation__link" href="">Jean-Paul</a>
+      </nav>
+    </div>
+  </header>
+  <div class="mdl-layout__drawer">
+    <span class="mdl-layout-title">CBD</span>
+    <nav class="mdl-navigation">
+      <a class="mdl-navigation__link" href="">Francais</a>
+      <a class="mdl-navigation__link" href="">Anglais</a>
+      <a class="mdl-navigation__link" href="">Logout</a>
+      <a class="mdl-navigation__link" href="">Admin</a>
+    </nav>
+  </div>
+  <main class="mdl-layout__content">
+    <div class="page-content">
+      <table class="mdl-data-table mdl-js-data-table mdl-data-table--selectable mdl-shadow--2dp" style="width:100%; max-width:700px; margin:auto;">
+        <thead>
+          <tr>
+            <th class="mdl-data-table__cell--non-numeric">Computer</th>
+            <th>Introduced</th>
+            <th>Discontinued</th>
+            <th>Company</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td class="mdl-data-table__cell--non-numeric">Apple</td>
+            <td>25/15/2016</td>
+            <td>26/15/2015</td>
+            <td>Apple INc.</td>
+          </tr>
+          <tr>
+            <td class="mdl-data-table__cell--non-numeric">Apple</td>
+            <td>25/15/2016</td>
+            <td>26/15/2015</td>
+            <td>Apple INc.</td>
+          </tr>
+          <tr>
+            <td class="mdl-data-table__cell--non-numeric">Apple</td>
+            <td>25/15/2016</td>
+            <td>26/15/2015</td>
+            <td>Apple INc.</td>
+          </tr>
+          <tr>
+            <td class="mdl-data-table__cell--non-numeric">Apple</td>
+            <td>25/15/2016</td>
+            <td>26/15/2015</td>
+            <td>Apple INc.</td>
+          </tr>
+          <tr>
+            <td class="mdl-data-table__cell--non-numeric">Apple</td>
+            <td>25/15/2016</td>
+            <td>26/15/2015</td>
+            <td>Apple INc.</td>
+          </tr>
+        </tbody>
+      </table>
+
+
+      <form action="#">
+        <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+          <input class="mdl-textfield__input" type="text" id="sample3">
+          <label class="mdl-textfield__label" for="sample3">Text...</label>
+        </div>
+      </form>
+
+      <!-- Raised button with ripple -->
+      <button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect">
+      add
+      </button>
+      <button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect">
+      edit
+      </button>
+      <button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect">
+      cancel
+      </button>
+      <!-- Rich Tooltip -->
+      <div id="tt3" class="icon material-icons">delete</div>
+      <div class="mdl-tooltip" for="tt3">
+      Delete <strong>Apple</strong>
+      </div>
+
+      <button id="demo-show-toast" class="mdl-button mdl-js-button mdl-button--raised" type="button">Save</button>
+      <div id="demo-toast-example" class="mdl-js-snackbar mdl-snackbar">
+        <div class="mdl-snackbar__text"></div>
+        <button class="mdl-snackbar__action" type="button"></button>
+      </div>
+      <script>
+      (function() {
+        'use strict';
+        window['counter'] = 0;
+        var snackbarContainer = document.querySelector('#demo-toast-example');
+        var showToastButton = document.querySelector('#demo-show-toast');
+        showToastButton.addEventListener('click', function() {
+          'use strict';
+          var data = {message: 'Save Message # ' + ++counter};
+          snackbarContainer.MaterialSnackbar.showSnackbar(data);
+        });
+      }());
+      </script>
+
+    </div>
+  </main>
+</div>
+
+
+    <!-- bower -->
+    <script src="/bower_components/material-design-lite/material.min.js"></script>
+
+</body>
+</html>
